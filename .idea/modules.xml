@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Jobio_android_inventoryapp.iml" filepath="$PROJECT_DIR$/Jobio_android_inventoryapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libFloatingActionButton/libFloatingActionButton.iml" filepath="$PROJECT_DIR$/libFloatingActionButton/libFloatingActionButton.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libFontBinding/libFontBinding.iml" filepath="$PROJECT_DIR$/libFontBinding/libFontBinding.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libMaterialEditText/libMaterialEditText.iml" filepath="$PROJECT_DIR$/libMaterialEditText/libMaterialEditText.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libQECodeReaderView/libQECodeReaderView.iml" filepath="$PROJECT_DIR$/libQECodeReaderView/libQECodeReaderView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libRippleDecoratorView/libRippleDecoratorView.iml" filepath="$PROJECT_DIR$/libRippleDecoratorView/libRippleDecoratorView.iml" />
+    </modules>
+  </component>
+</project>
