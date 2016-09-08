@@ -1,5 +1,110 @@
 <resources>
     <string name="app_name">Jobio_android_inventoryapp</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_ac_splash">acSplash</string>
+    <string name="strHiya">Hiya</string>
+    <string name="strEmail">Email</string>
+    <string name="strPassword">Password</string>
+    <string name="strNotUserName">Not User Name?</string>
+    <string name="strEnterPassword">Enter password</string>
+    <string name="strEnterValidEmail">Enter valid email id</string>
+    <string name="strForgotPassword">Forgot Password</string>
+    <string name="strLogin">Login</string>
+    <string name="strCopyRight">Copyright © 2015 Jobio. All rights reserved.</string>
+    <string name="strJobio">Jobio</string>
+    <string name="strEnterManuallyQRCode">Enter manually company QR code</string>
+    <string name="strCancel">Cancel</string>
+    <string name="strOK">OK</string>
+    <string name="strPoweredby">Poweredby:</string>
+    <string name="strEnterQRCode">Enter QR code</string>
+    <string name="msgScanQRCode">Scan QR code to setup company.</string>
+    <string name="strCheckmailQRCode">Check email for QR code picture.</string>
+    <string name="strOR">OR</string>
+    <string name="strInternetNotAvaiable">Internet service is not available</string>
+    <string name="strUnableToParseData">Unable to parse data</string>
+    <string name="strServerNotResponding">Server not responding</string>
+    <string name="strRequestTimeout">Request time out</string>
+    <string name="strSessionExpire">Session has been expire</string>
+    <string name="strInvalidUserNameAndPassword">Invalid username or password</string>
+    <string name="strInvalidUserName">Invalid username.</string>
+    <string name="strDatacannotReceive">Unable to receive data from network</string>
+    <string name="strServerError">Server error</string>
+    <string name="strClientError">Invalid URL request</string>
+    <string name="strQRNotExist">QR Code does not exits.</string>
+    <string name="msgUnagleToLoginAsNotOfficeStaff">Unable to login, unfortunately you are not subscribed as office staff.</string>
+    <string name="title_activity_ac_login">acLogin</string>
+    <string name="msgSyncNoInternet">Internet not available, data will be sync later</string>
+    <string name="title_activity_ac_message_list">acMessageList</string>
+    <string name="strJobioMessage">Jobio Message</string>
+    <string name="title_activity_ac_home">acHome</string>
+    <string name="strResetPassword">Reset password</string>
+    <string name="strOldPassword">Old password</string>
+    <string name="strNewPassword">New password</string>
+    <string name="strConfirmPassword">Confirm password</string>
+    <string name="msgNewandConfirmPassword">New password and confirm password should same.</string>
+    <string name="msgInvalidOldPassword">Invalid old password.</string>
+    <string name="msgNewPasswordShouldDiffentThanOld">New password should be different than old password.</string>
+    <string name="strSave">Save</string>
+    <string name="strFeedback">Feedback</string>
+    <string name="msgFeedbackMsg">How happy are\n you\n with this app?</string>
+    <string-array name="arrFeedback">
+        <item>Fantastic, Love it ! :)</item>
+        <item>Working Perfect!</item>
+        <item>Hmmm It’s Okay!</item>
+        <item>It Could be better!</item>
+        <item>It’s Bugging me, Worse!</item>
+        <item>No Thanks!</item>
+    </string-array>
+    <string name="title_activity_ac_report_issue">acReportIssue</string>
+    <string name="strSend">Send</string>
+    <string name="strSubject">SUBJECT</string>
+    <string name="strIssue">ISSUE</string>
+    <string name="strSuggestion">SUGGESTION</string>
+    <string name="strReportIssue">Report an Issue</string>
+    <string name="strReportSuggestion">Report a Suggestion</string>
+    <string name="strIssueDescription">Issue Description</string>
+    <string name="strSuggestionDescription">Suggestion Description</string>
+    <string name="strLogFileReady">LOGS FILE READY</string>
+    <string name="strMastercleanMessage">Master clean shall remove all your personal and transactional data. Are you sure to clean data?</string>
+    <string name="strConfirm">Confirm</string>
+    <string name="msgNoCrewMember">NO CREW MEMBER</string>
+    <string name="msgTypeMessage">Type a messsage</string>
+    <string name="msgNoMessage">NO MESSAGE</string>
+    <string name="strHelp">Help</string>
+    <string name="strAbout">About</string>
+    <string name="strContact">Contact</string>
+    <string name="strMasterClear">Master Clear</string>
+    <string name="strToday">Today</string>
+    <string name="strTomorrow">Tomorrow</string>
+    <string name="strYesterday">Yesterday</string>
+    <string name="strStock">Stock</string>
+    <string name="strAsset">Asset</string>
+    <string name="strSync">Sync</string>
+    <string name="strMessage">Message</string>
+    <string name="strSettings">Setting</string>
+    <string name="strLogout">Logout</string>
+    <string name="title_activity_ac_stock">acStock</string>
+    <string name="title_activity_ac_asset">acAsset</string>
+    <string name="title_activity_ac_setting">acSetting</string>
+    <string name="title_activity_ac_sync">acSync</string>
+    <string name="msgLogoutConfirmation">Are you sure, you want to logout from an application?</string>
+    <string name="title_activity_ac_qrcode_scanner">acQRCodeScanner</string>
+    <string name="title_activity_ac_manual_qrcode">acManualQRCode</string>
+    <string name="strVersion">Version</string>
+    <string name="strForgotPasswordQuestion">Forgot Password?</string>
+    <string name="strEmailSent">Email has been sent!</string>
+    <string name="strNoProblemItHappens">No Problem, It happens. \n\nEnter your email address below and we\'ll send new password.</string>
+    <string name="strSendNewPassword">SEND NEW PASSWORD</string>
+    <string name="msgEnterEmailNotExist">Entered email id is not exist, try again.</string>
+    <string name="msgForgotPasswordEmailConfirmation">
+  We have sent you an email with new password to your email, please follow instruction in the email to reset password.\n\n
+  <u>A note about spam filter,</u>
+  \nIf you do not get an email from us within a few minutes please be sure to check your spam filter.\nThe email will be coming from \"no-reply@jobio.io\"
+  </string>
+    <string name="strDone">DONE</string>
+    <string name="strEnterUserName">Enter user name</string>
+    <string name="msgGPSNotAvailable">GPS is not enabled. Do you want to go to settings menu?</string>
+    <string name="strYes">Yes</string>
+    <string name="strNo">No</string>
+    <string name="msgAlreadyLogin">You are already login on</string>
+    <string name="msgStillLoginProblem">If still unable to login then contact \"support@jobio.io\"</string>
+    <string name="strNot">Not</string>
 </resources>

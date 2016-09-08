@@ -1,0 +1,169 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:rdv="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/tilt"
+        android:padding="@dimen/ViewPadding">
+
+        <LinearLayout
+            android:id="@+id/rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <!-- <TextView
+                 style="@style/styTitle"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="@string/strCompany" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/ViewPadding">
+
+                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/ViewMargin">
+
+                    <me.zhanghai.android.materialedittext.MaterialEditText
+                        android:id="@+id/edQRCode"
+                        style="@style/singlelineeditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/strEnterQRCode"
+                        app:font="@{`Ubuntu-L`}" />
+                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginRight="@dimen/ViewMargin"
+                        android:layout_weight="1"
+                        rdv:rdv_rippleAnimationDuration="600"
+                        rdv:rdv_rippleAnimationFrames="60"
+                        rdv:rdv_rippleAnimationPeakFrame="15"
+                        rdv:rdv_rippleColor="@android:color/white"
+                        rdv:rdv_rippleMaxAlpha="0.8"
+                        rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+
+                        <Button
+                            android:id="@+id/btnCancel"
+                            style="@style/btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/buttonHeight"
+                            android:background="@color/tilt"
+                            android:text="@string/strCancel"
+                            app:font="@{`Ubuntu-L`}" />
+                    </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+
+                    <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        rdv:rdv_rippleAnimationDuration="600"
+                        rdv:rdv_rippleAnimationFrames="60"
+                        rdv:rdv_rippleAnimationPeakFrame="15"
+                        rdv:rdv_rippleColor="@android:color/white"
+                        rdv:rdv_rippleMaxAlpha="0.8"
+                        rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                        <Button
+                            android:id="@+id/btnOK"
+                            style="@style/btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/buttonHeight"
+                            android:background="@color/tilt"
+                            android:text="@string/strOK"
+                            app:font="@{`Ubuntu-L`}" />
+                    </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtCopyRight"
+            style="@style/styDescSmallWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/strCopyRight"
+            app:font="@{`Ubuntu-L`}"
+
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/txtCopyRight"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/ViewMargin"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/styDescWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/strPoweredby"
+                app:font="@{`Ubuntu-L`}" />
+
+            <TextView
+                style="@style/styBigWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/strJobio"
+                app:font="@{`Ubuntu-M`}" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/rl">
+
+            <ImageView
+                android:id="@+id/imgQRCode"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_qrcode_white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/imgQRCode"
+                android:gravity="center">
+
+                <utility.DotProgressBar
+                    android:id="@+id/dot_progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dorProgressBarheight"
+                    android:visibility="gone"
+                    custom:amount="5"
+                    custom:duration="@android:integer/config_mediumAnimTime"
+                    custom:endColor="@color/white"
+                    custom:startColor="@color/white" />
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

@@ -7,6 +7,21 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/tilt"
-        android:padding="@dimen/ViewPadding"></RelativeLayout>
+        android:background="@drawable/bg_spash"
+        android:padding="@dimen/ViewPadding">
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/txtAccountName"
+            style="@style/styTitleWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textStyle="bold" />
+    </RelativeLayout>
 </layout>

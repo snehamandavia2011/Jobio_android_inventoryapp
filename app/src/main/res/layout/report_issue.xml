@@ -1,0 +1,190 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:rdv="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/tilt">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/ViewMargin"
+            android:layout_marginRight="@dimen/ViewMargin"
+            android:layout_marginTop="@dimen/ViewMargin">
+
+            <LinearLayout
+                android:id="@+id/lyBottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/ViewMargin"
+                android:layout_marginTop="@dimen/ViewMargin"
+                android:orientation="horizontal">
+
+                <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/ViewMargin"
+                    android:layout_weight="1"
+                    rdv:rdv_rippleAnimationDuration="600"
+                    rdv:rdv_rippleAnimationFrames="60"
+                    rdv:rdv_rippleAnimationPeakFrame="15"
+                    rdv:rdv_rippleColor="@color/tilt"
+                    rdv:rdv_rippleMaxAlpha="0.8"
+                    rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                    <Button
+                        android:id="@+id/btnCancel"
+                        style="@style/btnWhite"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:padding="@dimen/ViewPadding"
+                        android:text="@string/strCancel"
+                        app:font="@{`Ubuntu-L`}" />
+                </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+
+                <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    rdv:rdv_rippleAnimationDuration="600"
+                    rdv:rdv_rippleAnimationFrames="60"
+                    rdv:rdv_rippleAnimationPeakFrame="15"
+                    rdv:rdv_rippleColor="@color/tilt"
+                    rdv:rdv_rippleMaxAlpha="0.8"
+                    rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                    <Button
+                        android:id="@+id/btnSend"
+                        style="@style/btnWhite"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_white"
+                        android:padding="@dimen/ViewPadding"
+                        android:text="@string/strSend"
+                        app:font="@{`Ubuntu-L`}" />
+                </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/lyBottom">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtTitle"
+                        style="@style/stySubTitleWhite"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMargin"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:padding="@dimen/ViewPadding">
+
+                        <TextView
+                            style="@style/stySubTitleTile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/ViewMargin"
+                            android:text="@string/strSubject"
+                            app:font="@{`Ubuntu-C`}" />
+
+                        <TextView
+                            android:id="@+id/txtSubject"
+                            style="@style/stySubTitleTile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/ViewMargin"
+                            app:font="@{`Ubuntu-C`}" />
+
+                        <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                            android:id="@+id/lyInquiryDesc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/ViewMargin"
+                            android:layout_marginTop="@dimen/ViewMargin"
+                            android:padding="@dimen/ViewPaddingSmall">
+
+                            <me.zhanghai.android.materialedittext.MaterialEditText
+                                android:id="@+id/edInquiryDesc"
+                                style="@style/multilineeditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="top|left"
+                                app:font="@{`Ubuntu-L`}" />
+                        </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lyOnlyForIssue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/ViewMargin"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_marginBottom="@dimen/ViewMargin"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/tilt" />
+
+                            <utility.DotProgressBar
+                                android:id="@+id/dot_progress_bar"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dorProgressBarheight"
+                                android:layout_centerInParent="true"
+                                android:visibility="gone"
+                                custom:amount="5"
+                                custom:duration="@android:integer/config_shortAnimTime"
+                                custom:endColor="@color/tilt"
+                                custom:startColor="@color/tilt" />
+
+                            <LinearLayout
+                                android:layout_gravity="center_vertical"
+                                android:visibility="visible"
+                                android:id="@+id/lyLogReady"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:padding="@dimen/ViewPaddingSmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_attach" />
+
+                                <TextView
+                                    android:layout_gravity="center_vertical"
+                                    style="@style/stySubTitleTile"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/strLogFileReady"
+                                    app:font="@{`Ubuntu-C`}" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</layout>
