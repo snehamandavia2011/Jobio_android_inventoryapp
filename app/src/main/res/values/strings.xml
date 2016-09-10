@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Jobio_android_inventoryapp</string>
+    <string name="app_name">Jobio AIM</string>
     <string name="strHiya">Hiya</string>
     <string name="strEmail">Email</string>
     <string name="strPassword">Password</string>
@@ -107,4 +107,11 @@
     <string name="msgAlreadyLogin">You are already login on</string>
     <string name="msgStillLoginProblem">If still unable to login then contact \"support@jobio.io\"</string>
     <string name="strNot">Not</string>
+    <string name="strHome">Home</string>
+    <string name="strAt">at</string>
+    <string name="strUnread">Unread</string>
+    <string name="strService">Service</string>
+    <!--maintenance-->
+    <string name="strInspect">Inspect</string>
+    <!--check-->
 </resources>

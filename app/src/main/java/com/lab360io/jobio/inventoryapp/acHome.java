@@ -73,7 +73,11 @@ public class acHome extends AppCompatActivity {
         mContext = this;
         ac = this;
         String name = Helper.getStringPreference(mContext, ClientEmployeeMaster.Fields.FIRST_NAME, "");
-        initilizeData();
+        if (!name.equals("")) {
+            name = getString(R.string.strHiya) + ", " + name;
+        }
+        objHelper.setActionBar(ac, getString(R.string.strHome),name);
+                initilizeData();
     }
 
     private void initilizeData() {
@@ -219,7 +223,7 @@ public class acHome extends AppCompatActivity {
 
             @Override
             protected Object doInBackground(Object[] params) {
-                if (isDataVerified) {
+                if (isDataVerified && isAllFieldsEntered) {
                     Helper.setStringPreference(mContext, ClientAdminUserAppsRel.Fields.IS_PASSWORD_RESETED, "Y");
                     Helper.setStringPreference(mContext, ClientAdminUser.Fields.PASSWORD, newPassword);
                     int tokenId = Helper.getIntPreference(mContext, ConstantVal.TOKEN_ID, 0);
@@ -284,7 +288,7 @@ public class acHome extends AppCompatActivity {
         dialog.show();
     }
 
-    /*private void setDashboardData() {
+    private void setDashboardData() {
         new AsyncTask() {
             ClientAdminUserEmployee objClientAdminUserEmployee = null;
             String strWelcome, business_name;
@@ -299,7 +303,6 @@ public class acHome extends AppCompatActivity {
             @Override
             protected Object doInBackground(Object[] params) {
                 strWelcome = Helper.getStringPreference(mContext, ConstantVal.WELCOME_MESSAGE, "");
-                cust_feedback = Helper.getFloatPreference(mContext, ConstantVal.CUSTOMER_FEEDBACK_RATE, 0);
                 adminUserId = Helper.getStringPreference(mContext, ClientAdminUser.Fields.ADMINUSERID, "");
                 business_name = Helper.getStringPreference(mContext, BusinessAccountMaster.Fields.ACCOUNT_NAME, "");
                 DataBase db = new DataBase(mContext);
@@ -321,7 +324,6 @@ public class acHome extends AppCompatActivity {
                 } else {
                     txtWelcomeText.setText(strWelcome);
                 }
-                cust_rate.setRating(cust_feedback);
                 if (objClientAdminUserEmployee != null) {
                     txtUserName.setText(objClientAdminUserEmployee.getFirst_name() + " " + objClientAdminUserEmployee.getLast_name());
                     txtDesc.setText(objClientAdminUserEmployee.getUser_type_name() + " " + mContext.getString(R.string.strAt) + " " + business_name);
@@ -329,22 +331,21 @@ public class acHome extends AppCompatActivity {
                 }
                 DataBase db = new DataBase(mContext);
                 db.open();
-                int jCount = db.getCounts(DataBase.job_detail_table, "jmJobStatus=" + ConstantVal.JobStatus.ID_SCHEDULED);
-                jobCount.setText(String.valueOf(jCount));
-                jobStatus.setText(mContext.getString(R.string.strPending));
-                jobDay.setText(mContext.getString(R.string.strToday));
+                serviceCount.setText(String.valueOf(0));
+                serviceStatus.setText(mContext.getString(R.string.strService));
+                serviceDay.setText(mContext.getString(R.string.strToday));
                 int msgCount = db.getCounts(DataBase.field_message_table, "to_id='" + adminUserId + "' and is_viewed='N'");
                 messageCount.setText(String.valueOf(msgCount));
                 messageStatus.setText(mContext.getString(R.string.strUnread));
                 messageDay.setText(mContext.getString(R.string.strToday));
-                inquiryCount.setText(String.valueOf(Helper.getIntPreference(mContext, ConstantVal.TOTAL_INQUIRY_FOR_LOGIN_SESSION, 0)));
-                inquiryStatus.setText(mContext.getString(R.string.strCreated));
-                inquiryDay.setText(mContext.getString(R.string.strToday));
+                inspectCount.setText(String.valueOf(0));
+                inspectStatus.setText(mContext.getString(R.string.strInspect));
+                inspectDay.setText(mContext.getString(R.string.strToday));
                 db.close();
                 ((ScrollView) findViewById(R.id.scrollView)).setVisibility(View.VISIBLE);
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }*/
+    }
 
     private BroadcastReceiver objEmployeeDetailBroadcast = new BroadcastReceiver() {
         @Override
@@ -354,7 +355,7 @@ public class acHome extends AppCompatActivity {
                 if (!name.equals("")) {
                     name = getString(R.string.strHiya) + ", " + name;
                 }
-                //objHelper.setActionBar(ac, getString(R.string.strHome), name);
+                objHelper.setActionBar(ac, getString(R.string.strHome), name);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -380,7 +381,7 @@ public class acHome extends AppCompatActivity {
             Helper.displaySnackbar(ac, ConstantVal.ServerResponseCode.SESSION_EXPIRED);
             return false;
         } else {
-            //setDashboardData();
+            setDashboardData();
             openResetPasswordDialog();
             return true;
         }

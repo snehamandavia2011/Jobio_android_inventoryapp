@@ -143,10 +143,10 @@ public class ConstantVal {
         return new URLMapping(paramNames, URL, false);
     }
 
-    public static URLMapping changePassword(Context c) {
+    public static URLMapping changePassword(Context c) {////different in AIM
         String[] paramNames = {"token_id", "adminUserId", "user_name", "new_password", "account_id"};
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
-        String URL = getWebURLPrefix(subDomain) + "verifycredentials/changePassword";
+        String URL = getWebURLPrefix(subDomain) + "verifycredentialsAIM/changePassword";
         return new URLMapping(paramNames, URL, true);
     }
 
@@ -158,14 +158,14 @@ public class ConstantVal {
     }
 
     public static URLMapping getUserDataUrl(Context c) {
-        String[] paramName = {"user_name", "password", "qrcode", "token_id", "account_id"};
+        String[] paramName = {"user_name", "password", "qrcode", "token_id", "account_id","app_type"};
         String QRCode = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(QRCode) + "getuserdata/loaddata";
         return new URLMapping(paramName, URL, false);
     }
 
     public static URLMapping getWelcomeText(Context c) {
-        String[] paramNames = {"token_id", "account_id"};
+        String[] paramNames = {"token_id", "account_id","app_ref_type"};
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(subDomain) + "getcommondata/getWelcomeText";
         return new URLMapping(paramNames, URL, false);
@@ -184,10 +184,10 @@ public class ConstantVal {
         return new URLMapping(paramName, URL, false);
     }
 
-    public static URLMapping getLoginCredentialsUrl(Context c) {
+    public static URLMapping getLoginCredentialsUrl(Context c) {//different in AIM
         String[] paramName = {"user_name", "password", "location", "device_version", "os_name", "account_id","date","time"};
         String QRCode = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
-        String URL = getWebURLPrefix(QRCode) + "verifycredentials/verifyUserNamePassword";
+        String URL = getWebURLPrefix(QRCode) + "verifycredentialsAIM/verifyUserNamePassword";
         return new URLMapping(paramName, URL, false);
     }
 
@@ -198,10 +198,10 @@ public class ConstantVal {
         return new URLMapping(paramNames, URL, false);
     }
 
-    public static URLMapping verifyUserName(Context c) {
+    public static URLMapping verifyUserName(Context c) {////different in AIM
         String[] paramNames = {"user_name", "account_id"};
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
-        String URL = getWebURLPrefix(subDomain) + "verifycredentials/verifyUserName";
+        String URL = getWebURLPrefix(subDomain) + "verifycredentialsAIM/verifyUserName";
         return new URLMapping(paramNames, URL, false);
     }
 
