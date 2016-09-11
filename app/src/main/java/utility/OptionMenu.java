@@ -15,6 +15,12 @@ import com.lab360io.jobio.inventoryapp.acSplash;
  * Created by SNEHA MANDAVIA on 3/17/2016.
  */
 public class OptionMenu {
+
+    public void hideMenuItem(Menu menu){
+        menu.removeItem(R.id.menuHelp);
+        menu.removeItem(R.id.menuAbout);
+        menu.removeItem(R.id.menuContact);
+    }
     public MenuInflater getCommonMenu(AppCompatActivity act, Menu menu) {
         MenuInflater mi = act.getMenuInflater();
         mi.inflate(R.menu.common, menu);

@@ -358,15 +358,13 @@ public class Helper {
                 db.close();
                 Helper.clearPreference(ctx, ConstantVal.IS_SESSION_EXISTS);
                 Helper.clearPreference(ctx, ConstantVal.LAST_SERVER_TO_DEVICE_SYNC_TIME);
-                /*Helper.clearPreference(ctx, ConstantVal.LAST_ITEM_MASTER_SYNC_TIME);
+                Helper.clearPreference(ctx, ConstantVal.LAST_ITEM_MASTER_SYNC_TIME);
                 Helper.clearPreference(ctx, ConstantVal.LAST_MESSAGE_SYNC_TIME);
                 Helper.clearPreference(ctx, ConstantVal.WELCOME_MESSAGE);
-                Helper.clearPreference(ctx, ConstantVal.CUSTOMER_FEEDBACK_RATE);
-                Helper.clearPreference(ctx, ConstantVal.TOTAL_INQUIRY_FOR_LOGIN_SESSION);
                 serServerToDeviceSync.isServiceRunning = false;
                 serLocationTracker.isServiceRunning = false;
                 serDeviceToServerSync.isServiceRunning = false;
-                Logger.debug("serServerToDeviceSync.isServiceRunning:" + serServerToDeviceSync.isServiceRunning);*/
+                Logger.debug("serServerToDeviceSync.isServiceRunning:" + serServerToDeviceSync.isServiceRunning);
             } catch (Exception e) {
                 e.printStackTrace();
                 Logger.debug("Error while wipe:" + e.getMessage());
@@ -706,7 +704,7 @@ public class Helper {
                 setMenuBackground(ac, rlMenu);
                 final ImageButton btnCloseMenu = (ImageButton) rlMenu.findViewById(R.id.btnCloseMenu);
                 ImageButton btnStock = (ImageButton) rlMenu.findViewById(R.id.btnStock);
-                ImageButton btnAsset = (ImageButton) rlMenu.findViewById(R.id.btnMessage);
+                ImageButton btnAsset = (ImageButton) rlMenu.findViewById(R.id.btnAsset);
                 ImageButton btnMessage = (ImageButton) rlMenu.findViewById(R.id.btnMessage);
                 ImageButton btnSettings = (ImageButton) rlMenu.findViewById(R.id.btnSettings);
                 ImageButton btnSync = (ImageButton) rlMenu.findViewById(R.id.btnSync);

@@ -55,7 +55,7 @@ public class acMessageEmployeeList extends AppCompatActivity {
         mContext = this;
         objMessageLoader = new MessageLoader(mContext);
         objMessageLoader.startTimer();
-        //_objHelper.setActionBar(ac, getString(R.string.strMessage), getString(R.string.strMessage));
+        objHelper.setActionBar(ac, getString(R.string.strMessage), getString(R.string.strMessage));
     }
 
     @Override

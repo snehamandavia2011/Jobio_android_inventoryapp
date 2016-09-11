@@ -63,6 +63,6 @@
                 android:padding="@dimen/ViewPadding"></ListView>
         </LinearLayout>
 
-        <!--<include layout="@layout/home_menu"></include>-->
+        <include layout="@layout/home_menu"></include>
     </RelativeLayout>
 </layout>

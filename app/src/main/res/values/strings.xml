@@ -114,4 +114,17 @@
     <!--maintenance-->
     <string name="strInspect">Inspect</string>
     <!--check-->
+    <string-array name="arrAsset">
+        <item>Asset</item>
+        <item>Inspect</item>
+        <item>Service</item>
+    </string-array>
+    <string-array name="arrStock">
+        <item>Scan</item>
+        <item>Stock</item>
+        <item>Transaction</item>
+    </string-array>
+    <string name="msgNoService">No service</string>
+    <string name="msgNoInspect">No inspect</string>
+    <string name="msgNoAsset">No asset</string>
 </resources>

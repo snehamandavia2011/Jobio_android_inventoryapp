@@ -1,0 +1,38 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/tilt">
+
+        <RelativeLayout
+            android:id="@+id/lyMainContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/tilt">
+
+            <ListView
+                android:id="@+id/lvlAsset"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/transperant"
+                android:dividerHeight="3dp" />
+        </RelativeLayout>
+
+        <utility.DotProgressBar
+            android:id="@+id/dot_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dorProgressBarheight"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            custom:amount="5"
+            custom:duration="@android:integer/config_shortAnimTime"
+            custom:endColor="@color/white"
+            custom:startColor="@color/white" />
+    </RelativeLayout>
+</layout>

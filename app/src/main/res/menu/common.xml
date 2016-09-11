@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".acLogin">
     <item
+        android:id="@+id/menuMain"
         android:icon="@drawable/ic_topmenu"
         app:showAsAction="always"
         android:title="">

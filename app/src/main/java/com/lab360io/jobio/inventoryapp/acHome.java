@@ -63,6 +63,7 @@ public class acHome extends AppCompatActivity {
     boolean isFeedbackCountIncrease = false;
     LinearLayout lyInspect, lyMessage, lyService;
     public static LinearLayout lyUserDetail;
+    OptionMenu objOptionMenu = new OptionMenu();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +77,8 @@ public class acHome extends AppCompatActivity {
         if (!name.equals("")) {
             name = getString(R.string.strHiya) + ", " + name;
         }
-        objHelper.setActionBar(ac, getString(R.string.strHome),name);
-                initilizeData();
+        objHelper.setActionBar(ac, getString(R.string.strHome), name);
+        initilizeData();
     }
 
     private void initilizeData() {
@@ -385,6 +386,23 @@ public class acHome extends AppCompatActivity {
             openResetPasswordDialog();
             return true;
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (objHelper.isTopMenuVisible) {
+            objOptionMenu.hideMenuItem(menu);
+        } else {
+            objOptionMenu.getCommonMenu(this, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        objOptionMenu.handleMenuItemClick(this, item);
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -125,7 +125,7 @@ public class acMessageList extends AppCompatActivity {
                 if (ac.getIntent().getExtras() != null) {
                     friendAdminUserId = ac.getIntent().getStringExtra("friendAdminUserId");
                     name = ac.getIntent().getStringExtra("name");
-                    //objHelper.setActionBar(ac, name);
+                    objHelper.setActionBar(ac, name);
                 }
                 mContext.registerReceiver(objMessageListBroadcast, new IntentFilter(ConstantVal.BroadcastAction.CHANGED_MESSAGE_LIST));
                 mContext.registerReceiver(objMessageStatusBroadcast, new IntentFilter(ConstantVal.BroadcastAction.CHANGED_MESSAGE_STATUS));
