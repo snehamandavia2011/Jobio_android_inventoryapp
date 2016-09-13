@@ -1,6 +1,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data />
@@ -14,14 +15,42 @@
             android:id="@+id/lyMainContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/tilt">
+            android:background="@color/tilt"
+            android:padding="@dimen/ViewPadding">
 
-            <ListView
-                android:id="@+id/lvlAsset"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:divider="@color/transperant"
-                android:dividerHeight="3dp" />
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/stySubTitleWhite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/ViewMargin"
+                    android:text="@string/msgAssetIOwn"
+                    app:font="@{`Ubuntu-L`}" />
+
+
+                <ListView
+                    android:id="@+id/lvlAsset"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@color/tilt"
+                    android:dividerHeight="@dimen/listViewDividerHeight"></ListView>
+            </LinearLayout>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnSearchAsset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/ViewMargin"
+                android:src="@drawable/ic_search_grey"
+                fab:fab_colorNormal="@color/white"
+                fab:fab_colorPressed="@color/white_pressed"
+                fab:fab_plusIconColor="@color/half_black" />
         </RelativeLayout>
 
         <utility.DotProgressBar

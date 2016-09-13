@@ -702,7 +702,7 @@ public class Helper {
                 TextView txtName = (TextView) v.findViewById(R.id.txtName);
                 final RelativeLayout rlMenu = (RelativeLayout) ac.findViewById(R.id.rlMenu);
                 setMenuBackground(ac, rlMenu);
-                final ImageButton btnCloseMenu = (ImageButton) rlMenu.findViewById(R.id.btnCloseMenu);
+                //final ImageButton btnCloseMenu = (ImageButton) rlMenu.findViewById(R.id.btnCloseMenu);
                 ImageButton btnStock = (ImageButton) rlMenu.findViewById(R.id.btnStock);
                 ImageButton btnAsset = (ImageButton) rlMenu.findViewById(R.id.btnAsset);
                 ImageButton btnMessage = (ImageButton) rlMenu.findViewById(R.id.btnMessage);
@@ -728,6 +728,7 @@ public class Helper {
                 btnDropDownMenu.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Logger.debug("Click on drop down:"+rlMenu.getVisibility());
                         Animation slideDown = AnimationUtils.loadAnimation(ac.getApplicationContext(), R.anim.slide_down);
                         if (rlMenu.getVisibility() == View.GONE) {
                             rlMenu.startAnimation(slideDown);
@@ -741,7 +742,7 @@ public class Helper {
                         }
                     }
                 });
-                btnCloseMenu.setOnClickListener(new View.OnClickListener() {
+                rlMenu.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Animation slideUp = AnimationUtils.loadAnimation(ac.getApplicationContext(), R.anim.slide_up);
@@ -760,7 +761,7 @@ public class Helper {
                     public void onClick(View v) {
                         if (ac.getClass() != acHome.class)
                             ac.finish();
-                        btnCloseMenu.performClick();
+                        rlMenu.performClick();
                         Intent i = new Intent(ac.getApplicationContext(), acStock.class);
                         ac.startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
                     }
@@ -770,7 +771,7 @@ public class Helper {
                     public void onClick(View v) {
                         if (ac.getClass() != acHome.class)
                             ac.finish();
-                        btnCloseMenu.performClick();
+                        rlMenu.performClick();
                         Intent i = new Intent(ac.getApplicationContext(), acAsset.class);
                         ac.startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
                     }
@@ -780,7 +781,7 @@ public class Helper {
                     public void onClick(View v) {
                         if (ac.getClass() != acHome.class)
                             ac.finish();
-                        btnCloseMenu.performClick();
+                        rlMenu.performClick();
                         Intent i = new Intent(ac.getApplicationContext(), acMessageEmployeeList.class);
                         ac.startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
                     }
@@ -791,7 +792,7 @@ public class Helper {
                     public void onClick(View v) {
                         if (ac.getClass() != acHome.class)
                             ac.finish();
-                        btnCloseMenu.performClick();
+                        rlMenu.performClick();
                         Intent i = new Intent(ac.getApplicationContext(), acSetting.class);
                         ac.startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
                     }
@@ -802,7 +803,7 @@ public class Helper {
                     public void onClick(View v) {
                         if (ac.getClass() != acHome.class)
                             ac.finish();
-                        btnCloseMenu.performClick();
+                        rlMenu.performClick();
                         Intent i = new Intent(ac.getApplicationContext(), acSync.class);
                         ac.startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
                     }

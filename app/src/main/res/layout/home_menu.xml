@@ -6,215 +6,222 @@
 
     <data />
 
-    <RelativeLayout
 
+    <RelativeLayout
+        android:clickable="true"
         android:id="@+id/rlMenu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/fab_black_semi_transparent">
 
-        <LinearLayout
-            android:id="@+id/tbl"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/tilt"
-            android:paddingBottom="@dimen/ViewPadding"
-            android:paddingLeft="1dp"
-            android:paddingRight="1dp"
-            android:paddingTop="1dp">
+            android:layout_height="wrap_content">
 
-            <TableLayout
+            <LinearLayout
+                android:id="@+id/tbl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:padding="1dp">
+                android:background="@color/tilt"
+                android:paddingBottom="@dimen/ViewPadding"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingTop="1dp">
 
-                <TableRow
+                <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:background="@color/white"
+                    android:padding="1dp">
 
-                    <LinearLayout
-                        android:id="@+id/lyStock"
-                        android:layout_width="0dp"
+                    <TableRow
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp">
+                        android:orientation="horizontal">
 
-                        <ImageButton
-                            android:id="@+id/btnStock"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/lyStock"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@color/white"
-                            android:src="@drawable/ic_stock_tilt" />
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp">
 
-                        <TextView
-                            android:id="@+id/txtStock"
-                            android:layout_width="wrap_content"
+                            <ImageButton
+                                android:id="@+id/btnStock"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@color/white"
+                                android:src="@drawable/ic_stock_tilt" />
+
+                            <TextView
+                                android:id="@+id/txtStock"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:text="@string/strStock"
+                                android:textColor="@color/tilt"
+                                android:textSize="16sp"
+                                app:font="@{`Ubuntu-C`}" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lyAsset"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/strStock"
-                            android:textColor="@color/tilt"
-                            android:textSize="16sp"
-                            app:font="@{`Ubuntu-C`}" />
-                    </LinearLayout>
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp">
 
-                    <LinearLayout
-                        android:id="@+id/lyAsset"
-                        android:layout_width="0dp"
+                            <ImageButton
+                                android:id="@+id/btnAsset"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@color/white"
+                                android:src="@drawable/ic_asset_tilt" />
+
+                            <TextView
+                                android:id="@+id/txtAsset"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:text="@string/strAsset"
+                                android:textColor="@color/tilt"
+                                android:textSize="16sp"
+                                app:font="@{`Ubuntu-C`}" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lyMessage"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp">
+
+                            <ImageButton
+                                android:id="@+id/btnMessage"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@color/white"
+                                android:src="@drawable/ic_message_tilt" />
+
+                            <TextView
+                                android:id="@+id/txtMessage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:text="@string/strMessage"
+                                android:textColor="@color/tilt"
+                                android:textSize="16sp"
+                                app:font="@{`Ubuntu-C`}" />
+                        </LinearLayout>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp">
+                        android:orientation="horizontal">
 
-                        <ImageButton
-                            android:id="@+id/btnAsset"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@color/white"
-                            android:src="@drawable/ic_asset_tilt" />
-
-                        <TextView
-                            android:id="@+id/txtAsset"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/lySync"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/strAsset"
-                            android:textColor="@color/tilt"
-                            android:textSize="16sp"
-                            app:font="@{`Ubuntu-C`}" />
-                    </LinearLayout>
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingBottom="10dp">
 
-                    <LinearLayout
-                        android:id="@+id/lyMessage"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp">
+                            <ImageButton
+                                android:id="@+id/btnSync"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@color/white"
+                                android:src="@drawable/ic_sync_tilt" />
 
-                        <ImageButton
-                            android:id="@+id/btnMessage"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@color/white"
-                            android:src="@drawable/ic_message_tilt" />
+                            <TextView
+                                android:id="@+id/txtSync"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:text="@string/strSync"
+                                android:textColor="@color/tilt"
+                                android:textSize="16sp"
+                                app:font="@{`Ubuntu-C`}" />
+                        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/txtMessage"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/lySetting"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/strMessage"
-                            android:textColor="@color/tilt"
-                            android:textSize="16sp"
-                            app:font="@{`Ubuntu-C`}" />
-                    </LinearLayout>
-                </TableRow>
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingBottom="10dp">
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                            <ImageButton
+                                android:id="@+id/btnSettings"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@color/white"
+                                android:src="@drawable/ic_settings_tilt" />
 
-                    <LinearLayout
-                        android:id="@+id/lySync"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:paddingBottom="10dp">
+                            <TextView
+                                android:id="@+id/txtSetting"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:text="@string/strSettings"
+                                android:textColor="@color/tilt"
+                                android:textSize="16sp"
+                                app:font="@{`Ubuntu-C`}" />
+                        </LinearLayout>
 
-                        <ImageButton
-                            android:id="@+id/btnSync"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@color/white"
-                            android:src="@drawable/ic_sync_tilt" />
-
-                        <TextView
-                            android:id="@+id/txtSync"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/lyLogout"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/strSync"
-                            android:textColor="@color/tilt"
-                            android:textSize="16sp"
-                            app:font="@{`Ubuntu-C`}" />
-                    </LinearLayout>
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingBottom="10dp">
 
-                    <LinearLayout
-                        android:id="@+id/lySetting"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:paddingBottom="10dp">
+                            <ImageButton
+                                android:id="@+id/btnLogout"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@color/white"
+                                android:src="@drawable/ic_logout_tilt" />
 
-                        <ImageButton
-                            android:id="@+id/btnSettings"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@color/white"
-                            android:src="@drawable/ic_settings_tilt" />
+                            <TextView
+                                android:id="@+id/txtLogout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:text="@string/strLogout"
+                                android:textColor="@color/tilt"
+                                android:textSize="16sp"
+                                app:font="@{`Ubuntu-C`}" />
+                        </LinearLayout>
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/txtSetting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/strSettings"
-                            android:textColor="@color/tilt"
-                            android:textSize="16sp"
-                            app:font="@{`Ubuntu-C`}" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lyLogout"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:paddingBottom="10dp">
-
-                        <ImageButton
-                            android:id="@+id/btnLogout"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@color/white"
-                            android:src="@drawable/ic_logout_tilt" />
-
-                        <TextView
-                            android:id="@+id/txtLogout"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/strLogout"
-                            android:textColor="@color/tilt"
-                            android:textSize="16sp"
-                            app:font="@{`Ubuntu-C`}" />
-                    </LinearLayout>
-                </TableRow>
-            </TableLayout>
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/btnCloseMenu"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_below="@id/tbl"
-            android:layout_marginLeft="20dp"
-            android:background="@color/transperant"
-            android:src="@drawable/ic_bottommenu" />
+            <!--<ImageButton
+                android:id="@+id/btnCloseMenu"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/tbl"
+                android:layout_marginLeft="20dp"
+                android:background="@color/transperant"
+                android:src="@drawable/ic_bottommenu" />-->
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

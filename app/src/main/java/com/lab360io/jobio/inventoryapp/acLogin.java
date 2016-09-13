@@ -34,6 +34,7 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
+import asyncmanager.asyncAsset;
 import asyncmanager.asyncDashboardData;
 import asyncmanager.asyncEmployeeList;
 import asyncmanager.asyncLoadCommonData;
@@ -238,6 +239,7 @@ public class acLogin extends AppCompatActivity {
                                         objLoginUser.saveDatatoPreference(mContext);
                                         try {
                                             new asyncUserData(mContext).join();
+                                            new asyncAsset(mContext).join();
                                             new asyncDashboardData(mContext).join();
                                             new asyncLocationTrackingInterval(mContext).join();
                                             new asyncEmployeeList(mContext).join();
@@ -321,7 +323,7 @@ public class acLogin extends AppCompatActivity {
                         Date dt = new Date();
                         String date = Helper.convertDateToString(dt, ConstantVal.DATE_FORMAT);
                         String time = Helper.convertDateToString(dt, ConstantVal.TIME_FORMAT);
-                        String[] data = {account_id, email, date, time};
+                        String[] data = {account_id, email, date, time, ConstantVal.APP_REF_TYPE};
                         String result = objHttpEngine.getDataFromWebAPI(mContext, umForgotPassword.getUrl(), data, umForgotPassword.getParamNames(), umForgotPassword.isNeedToSync()).getResponseString();
                         if (result != null && result.length() > 0) {
                             try {

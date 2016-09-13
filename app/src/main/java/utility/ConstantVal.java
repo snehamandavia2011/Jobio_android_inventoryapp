@@ -8,6 +8,7 @@ import com.lab360io.jobio.inventoryapp.R;
  * Created by SAI on 9/1/2016.
  */
 public class ConstantVal {
+    public static final String APP_REF_TYPE = "S";
     public static final String IS_QRCODE_CONFIGURE = "isQrConfigure";
     public static final String QRCODE_VALUE = "qrCodeValue";
     public static final String TOKEN = "token";
@@ -158,14 +159,14 @@ public class ConstantVal {
     }
 
     public static URLMapping getUserDataUrl(Context c) {
-        String[] paramName = {"user_name", "password", "qrcode", "token_id", "account_id","app_type"};
+        String[] paramName = {"user_name", "password", "qrcode", "token_id", "account_id", "app_type"};
         String QRCode = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(QRCode) + "getuserdata/loaddata";
         return new URLMapping(paramName, URL, false);
     }
 
     public static URLMapping getWelcomeText(Context c) {
-        String[] paramNames = {"token_id", "account_id","app_ref_type"};
+        String[] paramNames = {"token_id", "account_id", "app_ref_type"};
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(subDomain) + "getcommondata/getWelcomeText";
         return new URLMapping(paramNames, URL, false);
@@ -177,6 +178,7 @@ public class ConstantVal {
         String URL = getWebURLPrefix(QRCode) + "userlocation/saveUserLocation";
         return new URLMapping(paramName, URL, true);
     }
+
     public static URLMapping getLocationTrackingIntervalURL(Context c) {
         String[] paramName = {"token_id", "account_id"};
         String QRCode = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
@@ -185,7 +187,7 @@ public class ConstantVal {
     }
 
     public static URLMapping getLoginCredentialsUrl(Context c) {//different in AIM
-        String[] paramName = {"user_name", "password", "location", "device_version", "os_name", "account_id","date","time"};
+        String[] paramName = {"user_name", "password", "location", "device_version", "os_name", "account_id", "date", "time"};
         String QRCode = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(QRCode) + "verifycredentialsAIM/verifyUserNamePassword";
         return new URLMapping(paramName, URL, false);
@@ -206,9 +208,17 @@ public class ConstantVal {
     }
 
     public static URLMapping forgotPassword(Context c) {
-        String[] paramNames = {"account_id", "to_email", "date", "time"};
+        String[] paramNames = {"account_id", "to_email", "date", "time", "app_ref_type"};
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(subDomain) + "email/forgotPassword";
         return new URLMapping(paramNames, URL, true);
+    }
+
+
+    public static URLMapping fetchOwnAsset(Context c) {
+        String[] paramNames = {"account_id", "emp_id", "token_id"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "assetAIM/fetchOwnAsset";
+        return new URLMapping(paramNames, URL, false);
     }
 }

@@ -36,7 +36,7 @@ public class frAssetsService extends Fragment {
         contextFragment = this;
         frActivity = getActivity();
         FontCache.getInstance(mContext).addFont("Ubuntu", "Ubuntu-C.ttf");
-        View view = DataBindingUtil.inflate(inflater, R.layout.frasset_asset, null, true).getRoot();
+        View view = DataBindingUtil.inflate(inflater, R.layout.frasset_service, null, true).getRoot();
         lyMainContent = (RelativeLayout) view.findViewById(R.id.lyMainContent);
         lyNoContent = (RelativeLayout) view.findViewById(R.id.lyNoContent);
         lvlService = (ListView) view.findViewById(R.id.lvlService);

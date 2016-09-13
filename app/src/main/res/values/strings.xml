@@ -127,4 +127,7 @@
     <string name="msgNoService">No service</string>
     <string name="msgNoInspect">No inspect</string>
     <string name="msgNoAsset">No asset</string>
+    <string name="msgAssetIOwn">Asset(s) I own</string>
+    <string name="msgInspectToCarryOut">Inspect(s) to carry out</string>
+    <string name="msgServiceToCarryOut">Service(s) to carry out</string>
 </resources>

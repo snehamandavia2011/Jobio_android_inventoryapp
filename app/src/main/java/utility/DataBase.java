@@ -20,6 +20,9 @@ public class DataBase {
             db.execSQL(TABLE_0_CREATE);
             db.execSQL(TABLE_1_CREATE);
             db.execSQL(TABLE_2_CREATE);
+            db.execSQL(TABLE_3_CREATE);
+            db.execSQL(TABLE_4_CREATE);
+            db.execSQL(TABLE_5_CREATE);
         }
 
         @Override
@@ -27,6 +30,9 @@ public class DataBase {
             db.execSQL("DROP TABLE IF EXISTS " + device_to_db_sync_table);
             db.execSQL("DROP TABLE IF EXISTS " + field_message_table);
             db.execSQL("DROP TABLE IF EXISTS " + adminuser_employee_table);
+            db.execSQL("DROP TABLE IF EXISTS " + asset_table);
+            db.execSQL("DROP TABLE IF EXISTS " + asset_owner_table);
+            db.execSQL("DROP TABLE IF EXISTS " + inspect_view_table);
             onCreate(db);
         }
     }
@@ -43,12 +49,25 @@ public class DataBase {
     public static final int field_message_int = 1;
     public static final String adminuser_employee_table = "adminuserEmployeeTable";
     public static final int adminuser_employee_int = 2;
+    public static final String asset_table = "asset";
+    public static final int asset_int = 3;
+    public static final String asset_owner_table = "assetOwner";
+    public static final int asset_owner_int = 4;
+    public static final String inspect_view_table = "inspectView";
+    public static final int inspect_view_int = 5;
 
 
     String[][] tables = new String[][]{{"_ID", "URL", "data", "isSync", "last_result_code"},
             {"_ID", "id", "message", "from_id", "to_id", "is_viewed", "datetime", "timestamp"},
-            {"_ID", "auId", "empId", "first_name", "last_name", "employee_status", "contact_no", "user_type_name", "isOnLine"}};
-
+            {"_ID", "auId", "empId", "first_name", "last_name", "employee_status", "contact_no", "user_type_name", "isOnLine"},
+            {"_ID", "actmCategory_name",
+                    "amAsset_name", "amDescription", "amModel_name", "amManufacturer_name", "amSerial_no", "amBarcode_no",
+                    "amDate_acquired", "amDate_soon", "amPurchase_cost", "amPurchase_from", "amCurrent_value", "amDate_expired"
+                    , "amAsset_location", "amService_period", "amIs_schedule_service_on", "amService_aasigned_employee",
+                    "amInspection_period", "amIs_schedule_inspection_on", "amInspection_aasigned_employee", "amNext_service_date",
+                    "amNext_inspection_date", "amAsset_status", "amCustom_field_1", "amCustom_field_2", "amCustom_field_3", "amCustom_field_4", "amCustom_field_5"},
+            {"_ID", "aoAsset_id", "aoEmployee_id", "aoStart_date", "aoEnd_date"},
+            {"assetId", "isViewed"}};
     private static final String TABLE_0_CREATE = "create table "
             + device_to_db_sync_table
             + "(_ID integer primary key autoincrement,URL text not null,data text not null,isSync text not null,last_result_code text not null);";
@@ -65,6 +84,27 @@ public class DataBase {
             "first_name text not null,last_name text not null,employee_status text not null," +
             "contact_no text not null,photo text null,user_type_name text not null,isOnLine text not null);";
 
+    private static final String TABLE_3_CREATE = "create table "
+            + adminuser_employee_table
+            + "(_ID integer primary key autoincrement,aoAsset_id text not null,actmCategory_name text not null," +
+            "amAsset_name text not null,amDescription text null,amModel_name text not null,amManufacturer_name text not null," +
+            "amSerial_no text not null,amBarcode_no text null,amDate_acquired text not null,amDate_soon text not null," +
+            "amPurchase_cost text not null,amPurchase_from text null,amCurrent_value text not null,amDate_expired text not null," +
+            "amAsset_location text not null,amService_period text null,amIs_schedule_service_on text not null," +
+            "amService_aasigned_employee text not null,amInspection_period text not null,amIs_schedule_inspection_on text null," +
+            "amInspection_aasigned_employee text not null,amNext_service_date text not null,amNext_inspection_date text not null," +
+            "amAsset_status text not null,amCustom_field_1 text not null,amCustom_field_2 text not null,amCustom_field_3 text not null," +
+            "amCustom_field_4 text not null,amCustom_field_5 text not null);";
+
+    private static final String TABLE_4_CREATE = "create table "
+            + asset_owner_table
+            + "(_ID integer primary key autoincrement,aoAsset_id text not null,aoEmployee_id text not null," +
+            "aoStart_date text not null,aoEnd_date text not null);";
+
+    private static final String TABLE_5_CREATE = "create table "
+            + inspect_view_table
+            + "(_ID integer primary key autoincrement,assetId text not null,isViewed text not null);";
+
 
     public DataBase(Context ctx) {
         HCtx = ctx;
@@ -78,6 +118,11 @@ public class DataBase {
 
     public void cleanAll() {
         sqLiteDb.delete(device_to_db_sync_table, null, null);
+        sqLiteDb.delete(field_message_table, null, null);
+        sqLiteDb.delete(adminuser_employee_table, null, null);
+        sqLiteDb.delete(asset_table, null, null);
+        sqLiteDb.delete(asset_owner_table, null, null);
+        sqLiteDb.delete(inspect_view_table, null, null);
     }
 
     public void cleanTable(int tableNo) {
@@ -90,6 +135,15 @@ public class DataBase {
                 break;
             case adminuser_employee_int:
                 sqLiteDb.delete(adminuser_employee_table, null, null);
+                break;
+            case asset_int:
+                sqLiteDb.delete(asset_table, null, null);
+                break;
+            case asset_owner_int:
+                sqLiteDb.delete(asset_owner_table, null, null);
+                break;
+            case inspect_view_int:
+                sqLiteDb.delete(inspect_view_table, null, null);
                 break;
             default:
                 break;
