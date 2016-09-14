@@ -130,4 +130,21 @@
     <string name="msgAssetIOwn">Asset(s) I own</string>
     <string name="msgInspectToCarryOut">Inspect(s) to carry out</string>
     <string name="msgServiceToCarryOut">Service(s) to carry out</string>
+    <string name="msgDescNotAvail">Description is not available</string>
+    <string name="title_activity_ac_asset_detail">acAssetDetail</string>
+    <string name="strAssetDetail">Asset Detail</string>
+    <string name="strAssetDesc">Asset Description</string>
+    <string name="strModel">Model</string>
+    <string name="strManufacturer">Manufacturer</string>
+    <string name="strSerialNumber">Serial Number</string>
+    <string name="strBarcode">Barcode</string>
+    <string name="strAssetLocation">Asset Location</string>
+    <string name="strCost">Cost</string>
+    <string name="strCurrentValue">Current Value</string>
+    <string name="strPurchaseFrom">Purchase From</string>
+    <string name="strDateExpire">Expire Date</string>
+    <string name="strStatus">Status</string>
+    <string name="strStartDate">Start Date</string>
+    <string name="strEndDate">End Date</string>
+    <string name="msgAssetOwner">Asset Owner(s)</string>
 </resources>

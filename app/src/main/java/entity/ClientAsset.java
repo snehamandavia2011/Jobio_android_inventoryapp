@@ -1,6 +1,11 @@
 package entity;
 
+import android.content.Context;
+import android.database.Cursor;
+
 import java.util.ArrayList;
+
+import utility.DataBase;
 
 /**
  * Created by SAI on 9/13/2016.
@@ -289,4 +294,39 @@ public class ClientAsset {
         this.arrOwner = arrOwner;
     }
 
+    public static ArrayList<ClientAsset> getDataFromDatabase(Context mContext, String assetId) {
+        ArrayList<ClientAsset> arrClientAsset = null;
+        DataBase db = new DataBase(mContext);
+        db.open();
+        Cursor cur = null;
+        if (assetId == null)
+            cur = db.fetchAll(DataBase.asset_table, DataBase.asset_int);
+        else
+            cur = db.fetchAll(DataBase.asset_table, DataBase.asset_int, "aoAsset_id='" + assetId + "'");
+        if (cur != null && cur.getCount() > 0) {
+            arrClientAsset = new ArrayList<ClientAsset>();
+            cur.moveToFirst();
+            do {
+                Cursor curOwner = db.fetch(DataBase.asset_owner_table, DataBase.asset_owner_int, "aoAsset_id='" + cur.getString(1) + "'");
+                ArrayList<ClientAssetOwner> arrOwner = null;
+                if (curOwner != null && curOwner.getCount() > 0) {
+                    arrOwner = new ArrayList<ClientAssetOwner>();
+                    curOwner.moveToFirst();
+                    do {
+                        arrOwner.add(new ClientAssetOwner(curOwner.getString(2), curOwner.getString(3), curOwner.getString(4)));
+                    } while (curOwner.moveToNext());
+                }
+                curOwner.close();
+                arrClientAsset.add(new ClientAsset(cur.getString(1), cur.getString(2), cur.getString(3), cur.getString(4),
+                        cur.getString(5), cur.getString(6), cur.getString(7), cur.getString(8), cur.getString(9),
+                        cur.getString(10), cur.getString(11), cur.getString(12), cur.getString(13), cur.getString(14),
+                        cur.getString(15), cur.getString(16), cur.getString(17), cur.getString(18), cur.getString(19),
+                        cur.getString(20), cur.getString(21), cur.getString(22), cur.getString(23), cur.getString(24),
+                        cur.getString(25), cur.getString(26), cur.getString(27), cur.getString(28), cur.getString(29), arrOwner));
+            } while (cur.moveToNext());
+        }
+        cur.close();
+        db.close();
+        return arrClientAsset;
+    }
 }

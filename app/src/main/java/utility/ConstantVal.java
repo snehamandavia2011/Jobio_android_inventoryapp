@@ -30,6 +30,7 @@ public class ConstantVal {
         public static final String CHANGED_MESSAGE_STATUS = "jobio.io.MESSAGE_STATUS";
         public static final String CHANGED_MESSAGE_LIST = "jobio.io.MESSAGE_LIST";
         public static final String SESSION_EXPIRE = "jobio.io.SESSION_EXPIRE";
+        public static final String ASSET_LIST = "jobio.io.CHANGED_ASSET_LIST";
     }
 
     public static class SettingFlags {

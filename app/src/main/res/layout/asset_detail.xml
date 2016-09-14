@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <ScrollView
+            android:id="@+id/scrlMailContent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/tilt"
+                android:orientation="vertical"
+                android:padding="@dimen/ViewPadding">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/ViewMargin"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="@dimen/ViewPadding">
+
+                    <TextView
+                        android:id="@+id/txtAssetNameCategory"
+                        style="@style/stySubTitleTile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:textStyle="bold"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        style="@style/stySubTitleTile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:text="@string/strAssetDesc"
+                        android:textStyle="bold"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:id="@+id/txtDesc"
+                        style="@style/styDescDarkGrey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        app:font="@{`Ubuntu-L`}" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:background="@color/tilt" />
+
+                    <TextView
+                        style="@style/stySubTitleTile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:text="@string/strModel"
+                        android:textStyle="bold"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:id="@+id/txtModel"
+                        style="@style/styDescDarkGrey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        app:font="@{`Ubuntu-L`}" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:background="@color/tilt" />
+
+
+                    <TextView
+                        style="@style/stySubTitleTile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:text="@string/strManufacturer"
+                        android:textStyle="bold"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:id="@+id/txtManufacturer"
+                        style="@style/styDescDarkGrey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        app:font="@{`Ubuntu-L`}" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:background="@color/tilt" />
+
+
+                    <TextView
+                        style="@style/stySubTitleTile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:text="@string/strSerialNumber"
+                        android:textStyle="bold"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:id="@+id/txtSerialNumber"
+                        style="@style/styDescDarkGrey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        app:font="@{`Ubuntu-L`}" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:background="@color/tilt" />
+
+                    <TextView
+                        style="@style/stySubTitleTile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/strBarcode"
+                        android:textStyle="bold"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <RelativeLayout
+                        android:id="@+id/lyBarcode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:background="@color/white"
+                        android:gravity="right" />
+
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:background="@color/tilt" />
+
+                    <TextView
+                        style="@style/stySubTitleTile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:text="@string/strAssetLocation"
+                        android:textStyle="bold"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:id="@+id/txtAssetLocation"
+                        style="@style/styDescDarkGrey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        app:font="@{`Ubuntu-L`}" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:background="@color/tilt" />
+
+                    <TextView
+                        style="@style/stySubTitleTile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:text="@string/strCost"
+                        android:textStyle="bold"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:id="@+id/txtCost"
+                        style="@style/styDescDarkGrey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        app:font="@{`Ubuntu-L`}" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:background="@color/tilt" />
+
+                    <TextView
+                        style="@style/stySubTitleTile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:text="@string/strCurrentValue"
+                        android:textStyle="bold"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:id="@+id/txtCurrentValue"
+                        style="@style/styDescDarkGrey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        app:font="@{`Ubuntu-L`}" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:background="@color/tilt" />
+
+                    <TextView
+                        style="@style/stySubTitleTile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:text="@string/strPurchaseFrom"
+                        android:textStyle="bold"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:id="@+id/txtPurchaseFrom"
+                        style="@style/styDescDarkGrey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        app:font="@{`Ubuntu-L`}" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:background="@color/tilt" />
+
+                    <TextView
+                        style="@style/stySubTitleTile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:text="@string/strDateExpire"
+                        android:textStyle="bold"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:id="@+id/txtExpireDate"
+                        style="@style/styDescDarkGrey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        app:font="@{`Ubuntu-L`}" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:background="@color/tilt" />
+
+                    <TextView
+                        style="@style/stySubTitleTile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:text="@string/strStatus"
+                        android:textStyle="bold"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:id="@+id/txtStatus"
+                        style="@style/styDescDarkGrey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        app:font="@{`Ubuntu-L`}" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:background="@color/tilt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="@dimen/ViewPaddingSmall">
+
+                    <TextView
+                        style="@style/stySubTitleTile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginSmall"
+                        android:text="@string/msgAssetOwner"
+                        android:textStyle="bold"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <LinearLayout
+                        android:id="@+id/lyassetOwner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/tilt"
+                        android:orientation="vertical"></LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <utility.DotProgressBar
+            android:id="@+id/dot_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dorProgressBarheight"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            custom:amount="5"
+            custom:duration="@android:integer/config_shortAnimTime"
+            custom:endColor="@color/white"
+            custom:startColor="@color/white" />
+    </RelativeLayout>
+</layout>

@@ -1,6 +1,7 @@
 package asyncmanager;
 
 import android.content.Context;
+import android.content.Intent;
 
 import org.json.JSONException;
 
@@ -60,14 +61,16 @@ public class asyncAsset extends Thread {
                     obj.getAmInspection_period(), obj.getAmIs_schedule_inspection_on(), obj.getAmInspection_aasigned_employee(), obj.getAmNext_service_date(),
                     obj.getAmNext_inspection_date(), obj.getAmAsset_status(), obj.getAmCustom_field_1(), obj.getAmCustom_field_2(),
                     obj.getAmCustom_field_3(), obj.getAmCustom_field_4(), obj.getAmCustom_field_5()};
-            db.insert(DataBase.asset_table, DataBase.asset_owner_int, data);
+            db.insert(DataBase.asset_table, DataBase.asset_int, data);
             for (ClientAssetOwner objOwner : obj.getArrOwner()) {
                 String[] dataOwner = {obj.getAoAsset_id(), objOwner.getAoEmployee_id(), objOwner.getAoStart_date(), objOwner.getAoEnd_date()};
-                db.insert(DataBase.asset_owner_table, DataBase.asset_owner_int, data);
+                db.insert(DataBase.asset_owner_table, DataBase.asset_owner_int, dataOwner);
             }
         }
         db.close();
-
+        Intent intent = new Intent();
+        intent.setAction(ConstantVal.BroadcastAction.ASSET_LIST);
+        ctx.sendBroadcast(intent);
     }
 
     private ArrayList<ClientAsset> getDataFromServer() {

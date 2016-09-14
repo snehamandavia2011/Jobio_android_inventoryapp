@@ -969,4 +969,14 @@ public class Helper {
             serDeviceToServerSync.isServiceRunning = true;
         }
     }
+
+
+    public static void setBarcodeToView(Context mContext, String strBarcode,RelativeLayout ly) {
+        zXingBarcodeGenerator obj = new zXingBarcodeGenerator(mContext, strBarcode);
+        View bar = obj.getBarcode();
+        RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(100, 100);
+        param.addRule(RelativeLayout.CENTER_IN_PARENT);
+        bar.setLayoutParams(param);
+        ly.addView(bar);
+    }
 }

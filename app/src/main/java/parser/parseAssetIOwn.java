@@ -42,7 +42,7 @@ public class parseAssetIOwn {
             String inspection_aasigned_employee = (obj.getString("inspection_aasigned_employee").equals("null") ? "" : obj.getString("inspection_aasigned_employee"));
             String next_service_date = (obj.getString("next_service_date").equals("null") ? "" : obj.getString("next_service_date"));
             String next_inspection_date = (obj.getString("next_inspection_date").equals("null") ? "" : obj.getString("next_inspection_date"));
-            String asset_status = (obj.getString("asset_status").equals("null") ? "" : obj.getString("asset_status"));
+            String asset_status = (obj.getString("status_name").equals("null") ? "" : obj.getString("status_name"));
             String custom_field_1 = (obj.getString("custom_field_1").equals("null") ? "" : obj.getString("custom_field_1"));
             String custom_field_2 = (obj.getString("custom_field_2").equals("null") ? "" : obj.getString("custom_field_2"));
             String custom_field_3 = (obj.getString("custom_field_3").equals("null") ? "" : obj.getString("custom_field_3"));

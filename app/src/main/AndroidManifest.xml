@@ -91,6 +91,10 @@
             </intent-filter>
         </receiver>
 
+        <activity
+            android:name=".acAssetDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
