@@ -7,10 +7,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_margin="@dimen/ViewPaddingBig"
+            android:paddingTop="@dimen/ViewPaddingBig"
+            android:paddingBottom="@dimen/ViewPaddingBig"
+            android:paddingLeft="@dimen/ViewPadding"
+            android:paddingRight="@dimen/ViewPadding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -19,14 +22,14 @@
 
             <ImageView
                 android:id="@+id/img"
-                android:layout_width="20dp"
-                android:layout_height="20dp" />
+                android:layout_width="25dp"
+                android:layout_height="25dp" />
 
             <TextView
                 android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/ViewMargin"
+                android:layout_marginLeft="@dimen/ViewMargin"
                 android:textColor="@drawable/ic_tab_font"
                 android:textSize="14dp"
                 app:font="@{`Ubuntu-M`}" />

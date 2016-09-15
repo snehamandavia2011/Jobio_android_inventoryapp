@@ -116,14 +116,14 @@ public class acAssetDetail extends AppCompatActivity {
 
     private View addItemToLayout(ClientAssetOwner obj) {
         LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        View v = mInflater.inflate(R.layout.asset_owner_item, null);
+        View v = DataBindingUtil.inflate(mInflater, R.layout.asset_owner_item, null, true).getRoot();
         TextView txtEmployeeName = (TextView) v.findViewById(R.id.txtEmployeeName);
         TextView txtStartDate = (TextView) v.findViewById(R.id.txtStartDate);
         TextView txtEndDate = (TextView) v.findViewById(R.id.txtEndDate);
         DataBase db = new DataBase(mContext);
         db.open();
         Cursor curEmp = db.fetch(DataBase.adminuser_employee_table, DataBase.adminuser_employee_int, "empId='" + obj.getAoEmployee_id() + "'");
-        Logger.debug(obj.getAoEmployee_id()+" "+curEmp.getCount());
+        Logger.debug(obj.getAoEmployee_id() + " " + curEmp.getCount());
         if (curEmp != null && curEmp.getCount() > 0) {
             curEmp.moveToFirst();
             txtEmployeeName.setText(curEmp.getString(3) + " " + curEmp.getString(4) + "[" + curEmp.getString(7) + "]");

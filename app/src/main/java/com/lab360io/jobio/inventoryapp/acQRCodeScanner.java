@@ -89,6 +89,7 @@ public class acQRCodeScanner extends AppCompatActivity implements QRCodeReaderVi
 
     @Override
     public void onQRCodeRead(String text, PointF[] points) {
+        mydecoderview.getCameraManager().stopPreview();
         String strQRCode = text;
         objHelper.verifyingQRcode(ac, handler, strQRCode, new View[]{});
     }

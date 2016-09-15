@@ -94,7 +94,11 @@
         <activity
             android:name=".acAssetDetail"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".acSearchAssetByQR"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme1"></activity>
     </application>
 
 </manifest>

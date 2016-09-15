@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.lab360io.jobio.inventoryapp.R;
+import com.lab360io.jobio.inventoryapp.acSearchAssetByQR;
 import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;
@@ -72,7 +73,9 @@ public class frAssetsAsset extends Fragment {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                dot_progress_bar.setVisibility(View.VISIBLE);
+                if (dot_progress_bar != null) {
+                    dot_progress_bar.setVisibility(View.VISIBLE);
+                }
                 lvlAsset.setOnScrollListener(new AbsListView.OnScrollListener() {
                     @Override
                     public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -88,6 +91,14 @@ public class frAssetsAsset extends Fragment {
 
                     }
                 });
+
+                btnSearchAsset.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(mContext, acSearchAssetByQR.class);
+                        startActivity(i);
+                    }
+                });
             }
 
             @Override
@@ -99,8 +110,12 @@ public class frAssetsAsset extends Fragment {
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
-                dot_progress_bar.setVisibility(View.GONE);
-                ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
+                if (dot_progress_bar != null) {
+                    try {
+                        dot_progress_bar.setVisibility(View.GONE);
+                        ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
+                    }catch (Exception e){}
+                }
                 if (arrClientAsset != null) {
                     lyMainContent.setVisibility(View.VISIBLE);
                     lvlAsset.setAdapter(new AssetAdapter(mContext, arrClientAsset));

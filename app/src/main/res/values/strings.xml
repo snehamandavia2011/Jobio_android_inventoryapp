@@ -147,4 +147,7 @@
     <string name="strStartDate">Start Date</string>
     <string name="strEndDate">End Date</string>
     <string name="msgAssetOwner">Asset Owner(s)</string>
+    <string name="title_activity_ac_search_asset_by_qr">acSearchAssetByQR</string>
+    <string name="msgScanQRCodeToSearchAsset">Scan QR code to search asset.</string>
+    <string name="msgSearchAssetbyClick">Search asset by click on asset name</string>
 </resources>
