@@ -24,7 +24,7 @@ public class acSearchAssetByQR extends AppCompatActivity implements QRCodeReader
     TextView txtSearchAssetByClick;
     com.dlazaro66.qrcodereaderview.QRCodeReaderView mydecoderview;
     AppCompatActivity ac;
-
+    Helper objHelper = new Helper();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,5 +95,17 @@ public class acSearchAssetByQR extends AppCompatActivity implements QRCodeReader
             finish();
         }
         return false;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        objHelper.registerSessionTimeoutBroadcast(ac);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        objHelper.unRegisterSesionTimeOutBroadcast(ac);
     }
 }

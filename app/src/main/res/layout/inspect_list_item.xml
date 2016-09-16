@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tilt"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/ViewMargin"
+        android:layout_marginRight="@dimen/ViewMargin"
+        android:background="@drawable/white_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/ViewPaddingSmall">
+
+        <TextView
+            android:id="@+id/txtStatus"
+            style="@style/styDescSmallTile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/ViewMargin"
+            android:gravity="center" />
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/tilt"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtStatus"
+                style="@style/styDescSmallWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>-->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/ViewMargin"
+        android:layout_marginRight="@dimen/ViewMargin"
+        android:layout_marginTop="@dimen/ViewMargin"
+        android:background="@drawable/white_bg"
+        android:orientation="vertical"
+        android:padding="@dimen/ViewPadding">
+        <TextView
+            android:id="@+id/txtInspectName"
+            style="@style/styTitleTilt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtAssetName"
+            style="@style/styDescTile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txtAssignedDate"
+            style="@style/styDescTile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnDone"
+            style="@style/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="center" />
+
+    </LinearLayout>
+</LinearLayout>

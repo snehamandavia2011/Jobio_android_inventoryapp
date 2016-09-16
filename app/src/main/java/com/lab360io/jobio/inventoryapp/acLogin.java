@@ -239,7 +239,7 @@ public class acLogin extends AppCompatActivity {
                                         objLoginUser.saveDatatoPreference(mContext);
                                         try {
                                             new asyncUserData(mContext).join();
-                                            new asyncAsset(mContext).join();
+                                            new asyncAsset(mContext).getAllData().join();
                                             new asyncDashboardData(mContext).join();
                                             new asyncLocationTrackingInterval(mContext).join();
                                             new asyncEmployeeList(mContext).join();

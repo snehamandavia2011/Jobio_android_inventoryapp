@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import utility.DataBase;
 
@@ -13,15 +14,22 @@ import utility.DataBase;
 public class ClientAsset {
     String aoAsset_id, actmCategory_name,
             amAsset_name, amDescription, amModel_name, amManufacturer_name, amSerial_no, amBarcode_no,
-            amDate_acquired, amDate_soon, amPurchase_cost, amPurchase_from, amCurrent_value, amDate_expired, amAsset_location, amService_period, amIs_schedule_service_on, amService_aasigned_employee,
-            amInspection_period, amIs_schedule_inspection_on, amInspection_aasigned_employee, amNext_service_date,
-            amNext_inspection_date, amAsset_status, amCustom_field_1, amCustom_field_2, amCustom_field_3, amCustom_field_4, amCustom_field_5;
+            amPurchase_cost, amPurchase_from, amCurrent_value, amAsset_location, amService_period, amIs_schedule_service_on, amService_aasigned_employee,
+            amInspection_period, amIs_schedule_inspection_on, amInspection_aasigned_employee,
+            amAsset_status, amCustom_field_1, amCustom_field_2, amCustom_field_3, amCustom_field_4, amCustom_field_5;
+    Date amDate_acquired, amDate_soon, amDate_expired, amNext_service_date, amNext_inspection_date;
     ArrayList<ClientAssetOwner> arrOwner;
 
     public ClientAsset() {
     }
-
-    public ClientAsset(String aoAsset_id, String actmCategory_name, String amAsset_name, String amDescription, String amModel_name, String amManufacturer_name, String amSerial_no, String amBarcode_no, String amDate_acquired, String amDate_soon, String amPurchase_cost, String amPurchase_from, String amCurrent_value, String amDate_expired, String amAsset_location, String amService_period, String amIs_schedule_service_on, String amService_aasigned_employee, String amInspection_period, String amIs_schedule_inspection_on, String amInspection_aasigned_employee, String amNext_service_date, String amNext_inspection_date, String amAsset_status, String amCustom_field_1, String amCustom_field_2, String amCustom_field_3, String amCustom_field_4, String amCustom_field_5, ArrayList<ClientAssetOwner> arrOwner) {
+    public ClientAsset(String aoAsset_id, String actmCategory_name, String amAsset_name, String amDescription,
+                       String amModel_name, String amManufacturer_name, String amSerial_no, String amBarcode_no,
+                       Date amDate_acquired, Date amDate_soon, String amPurchase_cost, String amPurchase_from, String amCurrent_value,
+                       Date amDate_expired, String amAsset_location, String amService_period, String amIs_schedule_service_on,
+                       String amService_aasigned_employee, String amInspection_period, String amIs_schedule_inspection_on,
+                       String amInspection_aasigned_employee, Date amNext_service_date, Date amNext_inspection_date,
+                       String amAsset_status, String amCustom_field_1, String amCustom_field_2, String amCustom_field_3,
+                       String amCustom_field_4, String amCustom_field_5, ArrayList<ClientAssetOwner> arrOwner) {
         this.aoAsset_id = aoAsset_id;
         this.actmCategory_name = actmCategory_name;
         this.amAsset_name = amAsset_name;
@@ -30,12 +38,9 @@ public class ClientAsset {
         this.amManufacturer_name = amManufacturer_name;
         this.amSerial_no = amSerial_no;
         this.amBarcode_no = amBarcode_no;
-        this.amDate_acquired = amDate_acquired;
-        this.amDate_soon = amDate_soon;
         this.amPurchase_cost = amPurchase_cost;
         this.amPurchase_from = amPurchase_from;
         this.amCurrent_value = amCurrent_value;
-        this.amDate_expired = amDate_expired;
         this.amAsset_location = amAsset_location;
         this.amService_period = amService_period;
         this.amIs_schedule_service_on = amIs_schedule_service_on;
@@ -43,14 +48,17 @@ public class ClientAsset {
         this.amInspection_period = amInspection_period;
         this.amIs_schedule_inspection_on = amIs_schedule_inspection_on;
         this.amInspection_aasigned_employee = amInspection_aasigned_employee;
-        this.amNext_service_date = amNext_service_date;
-        this.amNext_inspection_date = amNext_inspection_date;
         this.amAsset_status = amAsset_status;
         this.amCustom_field_1 = amCustom_field_1;
         this.amCustom_field_2 = amCustom_field_2;
         this.amCustom_field_3 = amCustom_field_3;
         this.amCustom_field_4 = amCustom_field_4;
         this.amCustom_field_5 = amCustom_field_5;
+        this.amDate_acquired = amDate_acquired;
+        this.amDate_soon = amDate_soon;
+        this.amDate_expired = amDate_expired;
+        this.amNext_service_date = amNext_service_date;
+        this.amNext_inspection_date = amNext_inspection_date;
         this.arrOwner = arrOwner;
     }
 
@@ -118,22 +126,6 @@ public class ClientAsset {
         this.amBarcode_no = amBarcode_no;
     }
 
-    public String getAmDate_acquired() {
-        return amDate_acquired;
-    }
-
-    public void setAmDate_acquired(String amDate_acquired) {
-        this.amDate_acquired = amDate_acquired;
-    }
-
-    public String getAmDate_soon() {
-        return amDate_soon;
-    }
-
-    public void setAmDate_soon(String amDate_soon) {
-        this.amDate_soon = amDate_soon;
-    }
-
     public String getAmPurchase_cost() {
         return amPurchase_cost;
     }
@@ -156,14 +148,6 @@ public class ClientAsset {
 
     public void setAmCurrent_value(String amCurrent_value) {
         this.amCurrent_value = amCurrent_value;
-    }
-
-    public String getAmDate_expired() {
-        return amDate_expired;
-    }
-
-    public void setAmDate_expired(String amDate_expired) {
-        this.amDate_expired = amDate_expired;
     }
 
     public String getAmAsset_location() {
@@ -222,22 +206,6 @@ public class ClientAsset {
         this.amInspection_aasigned_employee = amInspection_aasigned_employee;
     }
 
-    public String getAmNext_service_date() {
-        return amNext_service_date;
-    }
-
-    public void setAmNext_service_date(String amNext_service_date) {
-        this.amNext_service_date = amNext_service_date;
-    }
-
-    public String getAmNext_inspection_date() {
-        return amNext_inspection_date;
-    }
-
-    public void setAmNext_inspection_date(String amNext_inspection_date) {
-        this.amNext_inspection_date = amNext_inspection_date;
-    }
-
     public String getAmAsset_status() {
         return amAsset_status;
     }
@@ -286,6 +254,46 @@ public class ClientAsset {
         this.amCustom_field_5 = amCustom_field_5;
     }
 
+    public Date getAmDate_acquired() {
+        return amDate_acquired;
+    }
+
+    public void setAmDate_acquired(Date amDate_acquired) {
+        this.amDate_acquired = amDate_acquired;
+    }
+
+    public Date getAmDate_soon() {
+        return amDate_soon;
+    }
+
+    public void setAmDate_soon(Date amDate_soon) {
+        this.amDate_soon = amDate_soon;
+    }
+
+    public Date getAmDate_expired() {
+        return amDate_expired;
+    }
+
+    public void setAmDate_expired(Date amDate_expired) {
+        this.amDate_expired = amDate_expired;
+    }
+
+    public Date getAmNext_service_date() {
+        return amNext_service_date;
+    }
+
+    public void setAmNext_service_date(Date amNext_service_date) {
+        this.amNext_service_date = amNext_service_date;
+    }
+
+    public Date getAmNext_inspection_date() {
+        return amNext_inspection_date;
+    }
+
+    public void setAmNext_inspection_date(Date amNext_inspection_date) {
+        this.amNext_inspection_date = amNext_inspection_date;
+    }
+
     public ArrayList<ClientAssetOwner> getArrOwner() {
         return arrOwner;
     }
@@ -317,11 +325,13 @@ public class ClientAsset {
                     } while (curOwner.moveToNext());
                 }
                 curOwner.close();
+
                 arrClientAsset.add(new ClientAsset(cur.getString(1), cur.getString(2), cur.getString(3), cur.getString(4),
-                        cur.getString(5), cur.getString(6), cur.getString(7), cur.getString(8), cur.getString(9),
-                        cur.getString(10), cur.getString(11), cur.getString(12), cur.getString(13), cur.getString(14),
+                        cur.getString(5), cur.getString(6), cur.getString(7), cur.getString(8), new Date(cur.getLong(9)),
+                        new Date(cur.getLong(10)), cur.getString(11), cur.getString(12), cur.getString(13), new Date(cur.getLong(14)),
                         cur.getString(15), cur.getString(16), cur.getString(17), cur.getString(18), cur.getString(19),
-                        cur.getString(20), cur.getString(21), cur.getString(22), cur.getString(23), cur.getString(24),
+                        cur.getString(20), cur.getString(21), new Date(cur.getLong(22)), new Date(cur.getLong(23)), cur.getString(24),
+
                         cur.getString(25), cur.getString(26), cur.getString(27), cur.getString(28), cur.getString(29), arrOwner));
             } while (cur.moveToNext());
         }

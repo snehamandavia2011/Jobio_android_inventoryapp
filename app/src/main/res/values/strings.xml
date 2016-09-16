@@ -150,4 +150,7 @@
     <string name="title_activity_ac_search_asset_by_qr">acSearchAssetByQR</string>
     <string name="msgScanQRCodeToSearchAsset">Scan QR code to search asset.</string>
     <string name="msgSearchAssetbyClick">Search asset by click on asset name</string>
+    <string name="strNew">New</string>
+    <string name="strPending">Pending</string>
+    <string name="msgNotAttendedYet">Not attended yet.</string>
 </resources>

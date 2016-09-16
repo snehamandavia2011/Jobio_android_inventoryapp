@@ -29,6 +29,7 @@ import com.xwray.fontbinding.FontCache;
 import java.util.ArrayList;
 
 import adapter.AssetAdapter;
+import asyncmanager.asyncAsset;
 import entity.ClientAsset;
 import entity.ClientAssetOwner;
 import utility.ConstantVal;
@@ -68,6 +69,21 @@ public class frAssetsAsset extends Fragment {
     }
 
     private void setData() {
+        setDataFromLocalDatabase();
+        fetchDataFromServer();
+    }
+
+    private void fetchDataFromServer() {
+        new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] params) {
+                new asyncAsset(mContext).getAsset();
+                return null;
+            }
+        }.execute(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private void setDataFromLocalDatabase() {
         new AsyncTask() {
 
             @Override
@@ -114,7 +130,8 @@ public class frAssetsAsset extends Fragment {
                     try {
                         dot_progress_bar.setVisibility(View.GONE);
                         ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
-                    }catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                 }
                 if (arrClientAsset != null) {
                     lyMainContent.setVisibility(View.VISIBLE);
@@ -136,7 +153,7 @@ public class frAssetsAsset extends Fragment {
     private BroadcastReceiver objAssetListBroadcast = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            setData();
+            setDataFromLocalDatabase();
         }
     };
 }

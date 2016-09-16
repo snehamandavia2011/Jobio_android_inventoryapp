@@ -31,6 +31,7 @@ public class ConstantVal {
         public static final String CHANGED_MESSAGE_LIST = "jobio.io.MESSAGE_LIST";
         public static final String SESSION_EXPIRE = "jobio.io.SESSION_EXPIRE";
         public static final String ASSET_LIST = "jobio.io.CHANGED_ASSET_LIST";
+        public static final String INSPECT_LIST = "jobio.io.CHANGED_INSPECT_LIST";
     }
 
     public static class SettingFlags {
@@ -44,6 +45,24 @@ public class ConstantVal {
         public static final int WAITING = 0;
         public static final int SENT = 1;
         public static final int VIEW = 2;
+    }
+
+    public static class InspectionServiceStatus {
+        public static final int NEW = 0;
+        public static final int PENDING = 1;
+        public static final int DONE = 2;
+
+        public static String getStatusName(Context ctx, int status) {
+            switch (status) {
+                case NEW:
+                    return ctx.getString(R.string.strNew);
+                case PENDING:
+                    return ctx.getString(R.string.strPending);
+                case DONE:
+                    return ctx.getString(R.string.strDone);
+            }
+            return "";
+        }
     }
 
     public static class ServerResponseCode {
@@ -220,6 +239,13 @@ public class ConstantVal {
         String[] paramNames = {"account_id", "emp_id", "token_id"};
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(subDomain) + "assetAIM/fetchOwnAsset";
+        return new URLMapping(paramNames, URL, false);
+    }
+
+    public static URLMapping fetchAssignedInspection(Context c) {
+        String[] paramNames = {"account_id", "emp_id", "token_id"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "assetAIM/fetchAssignedInspection";
         return new URLMapping(paramNames, URL, false);
     }
 }

@@ -101,7 +101,7 @@ public class acAssetDetail extends AppCompatActivity {
                 txtCost.setText(objClientAsset.getAmPurchase_cost());
                 txtCurrentValue.setText(objClientAsset.getAmCurrent_value());
                 txtPurchaseFrom.setText(objClientAsset.getAmPurchase_from());
-                txtExpireDate.setText(Helper.convertDateToString(Helper.convertStringToDate(objClientAsset.getAmDate_expired(), ConstantVal.DATE_FORMAT), ConstantVal.DATE_FORMAT));
+                txtExpireDate.setText(Helper.convertDateToString(objClientAsset.getAmDate_expired(), ConstantVal.DATE_FORMAT));
                 txtStatus.setText(objClientAsset.getAmAsset_status());
                 Helper.setBarcodeToView(mContext, objClientAsset.getAmBarcode_no(), lyBarcode);
                 for (ClientAssetOwner obj : objClientAsset.getArrOwner()) {
@@ -133,6 +133,18 @@ public class acAssetDetail extends AppCompatActivity {
         curEmp.close();
         db.close();
         return v;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        objHelper.registerSessionTimeoutBroadcast(ac);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        objHelper.unRegisterSesionTimeOutBroadcast(ac);
     }
 
     @Override

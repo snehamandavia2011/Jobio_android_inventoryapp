@@ -58,7 +58,7 @@ public class serServerToDeviceSync extends Service {
             }
             try {
                 new asyncUserData(mContext).join();
-                new asyncAsset(mContext).join();
+                new asyncAsset(mContext).getAllData().join();
                 new asyncLocationTrackingInterval(mContext);
                 new asyncEmployeeList(mContext);
                 if (!acMessageList.IS_MESSAGE_LOADING_RUN) {

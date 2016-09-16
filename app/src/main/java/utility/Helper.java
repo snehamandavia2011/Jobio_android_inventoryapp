@@ -263,6 +263,9 @@ public class Helper {
         } else {
             Snackbar snackbar = Snackbar
                     .make(ac.findViewById(android.R.id.content), ConstantVal.ServerResponseCode.getMessage(ctx, result), Snackbar.LENGTH_LONG);
+            TextView txt = ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text));
+            txt.setMaxLines(3);
+            txt.setTypeface(Helper.getUbuntuL(ctx));
             snackbar.show();
         }
     }
@@ -728,7 +731,7 @@ public class Helper {
                 btnDropDownMenu.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Logger.debug("Click on drop down:"+rlMenu.getVisibility());
+                        Logger.debug("Click on drop down:" + rlMenu.getVisibility());
                         Animation slideDown = AnimationUtils.loadAnimation(ac.getApplicationContext(), R.anim.slide_down);
                         if (rlMenu.getVisibility() == View.GONE) {
                             rlMenu.startAnimation(slideDown);
@@ -971,7 +974,7 @@ public class Helper {
     }
 
 
-    public static void setBarcodeToView(Context mContext, String strBarcode,RelativeLayout ly) {
+    public static void setBarcodeToView(Context mContext, String strBarcode, RelativeLayout ly) {
         zXingBarcodeGenerator obj = new zXingBarcodeGenerator(mContext, strBarcode);
         View bar = obj.getBarcode();
         RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(100, 100);
