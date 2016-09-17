@@ -7,15 +7,18 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.lab360io.jobio.inventoryapp.R;
+import com.lab360io.jobio.inventoryapp.acAssetDetail;
 import com.lab360io.jobio.inventoryapp.acHome;
 
 import java.util.Date;
 
 import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUserEmployee;
+import entity.ClientAsset;
 import parser.parseCommonData;
 import utility.CircleImageView;
 import utility.ConstantVal;
@@ -39,6 +42,53 @@ public class asyncLoadCommonData {
 
     public asyncLoadCommonData(Context ctx) {
         this.ctx = ctx;
+    }
+
+
+    public void loadAssetPhotoById(final CircleImageView img, final ClientAsset objClientAsset, final View.OnClickListener imgClick, final int noPic) {
+        new AsyncTask() {
+            String photo = "";
+            String strServerResponse = "";
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                setPreExecutionPhotoToImageView(ctx, objClientAsset.getPhoto(), img, imgClick, noPic);
+            }
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                if (objClientAsset.getPhoto() == null || objClientAsset.getPhoto().length() <= 0) {
+                    String id = objClientAsset.getAoAsset_id();
+                    final HttpEngine objHttpEngine = new HttpEngine();
+                    final int tokenId = Helper.getIntPreference(ctx, ConstantVal.TOKEN_ID, 0);
+                    String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+                    final URLMapping um = ConstantVal.loadPhoto(ctx);
+                    ServerResponse sr = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(), new String[]{String.valueOf(tokenId), String.valueOf(id), String.valueOf(4), account_id}, um.getParamNames(), um.isNeedToSync());
+                    strServerResponse = sr.getResponseCode();
+                    parseCommonData objparseCommonData = new parseCommonData();
+                    photo = objparseCommonData.parsePhoto(sr.getResponseString());
+                    //update item_master table
+                    if (strServerResponse.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                        DataBase db = new DataBase(ctx);
+                        db.open();
+                        ContentValues cv = new ContentValues();
+                        cv.put("photo", photo);
+                        db.update(DataBase.asset_table, DataBase.asset_int, "aoAsset_id='" + id + "'", cv);
+                        db.close();
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                if (objClientAsset.getPhoto() == null || objClientAsset.getPhoto().length() <= 0) {
+                    objClientAsset.setIsImageLoaded(setPostExecutionPhotoToImageView(photo, img, strServerResponse, imgClick, noPic));
+                }
+            }
+        }.execute();
     }
 
 
@@ -100,6 +150,11 @@ public class asyncLoadCommonData {
                 params.setMargins(0, pixel / 2, 0, 0);
                 acHome.lyUserDetail.setLayoutParams(params);
                 acHome.lyUserDetail.setPadding(0, pixel / 2, 0, 0);
+            } else if (ctx.getClass() == acAssetDetail.class) {
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                params.setMargins(0, pixel / 2, 0, (int) ctx.getResources().getDimension(R.dimen.ViewMargin));
+                acAssetDetail.lyAssetDetail.setLayoutParams(params);
+                acAssetDetail.lyAssetDetail.setPadding((int) ctx.getResources().getDimension(R.dimen.ViewPadding), pixel / 2, (int) ctx.getResources().getDimension(R.dimen.ViewPadding), (int) ctx.getResources().getDimension(R.dimen.ViewPadding));
             }
             if (strBase64 != null && strBase64.length() > 0) {
                 strBase64 = strBase64.substring(strBase64.indexOf(",") + 1);
@@ -108,7 +163,7 @@ public class asyncLoadCommonData {
                     img.setImageBitmap(bmpNoPic);
                     img.setBackgroundResource(0);
                 } else {
-                    if (ctx.getClass() == acHome.class) {
+                    if (ctx.getClass() == acHome.class || ctx.getClass() == acAssetDetail.class) {
                         img.setImageBitmap(Helper.getResizedBitmap(bmp, pixel, pixel));
                     } else {
                         img.setImageBitmap(bmp);
@@ -147,14 +202,20 @@ public class asyncLoadCommonData {
                 params.setMargins(0, pixel / 2, 0, 0);
                 acHome.lyUserDetail.setLayoutParams(params);
                 acHome.lyUserDetail.setPadding(0, pixel / 2, 0, 0);
+            } else if (ctx.getClass() == acAssetDetail.class) {
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                params.setMargins(0, pixel / 2, 0, (int) ctx.getResources().getDimension(R.dimen.ViewMargin));
+                acAssetDetail.lyAssetDetail.setLayoutParams(params);
+                acAssetDetail.lyAssetDetail.setPadding((int) ctx.getResources().getDimension(R.dimen.ViewPadding), pixel / 2, (int) ctx.getResources().getDimension(R.dimen.ViewPadding), (int) ctx.getResources().getDimension(R.dimen.ViewPadding));
             }
+
             if (strBase64.equals("") || bmp == null) {
                 if (serverResponse.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
                     img.setBackgroundResource(0);
                     img.setImageBitmap(bmpNoPic);
                 }
             } else {
-                if (ctx.getClass() == acHome.class) {
+                if (ctx.getClass() == acHome.class || ctx.getClass() == acAssetDetail.class) {
                     img.setImageBitmap(Helper.getResizedBitmap(bmp, pixel, pixel));
                 } else {
                     img.setImageBitmap(bmp);

@@ -16,9 +16,10 @@ public class ClientAsset {
             amAsset_name, amDescription, amModel_name, amManufacturer_name, amSerial_no, amBarcode_no,
             amPurchase_cost, amPurchase_from, amCurrent_value, amAsset_location, amService_period, amIs_schedule_service_on, amService_aasigned_employee,
             amInspection_period, amIs_schedule_inspection_on, amInspection_aasigned_employee,
-            amAsset_status, amCustom_field_1, amCustom_field_2, amCustom_field_3, amCustom_field_4, amCustom_field_5;
+            amAsset_status, amCustom_field_1, amCustom_field_2, amCustom_field_3, amCustom_field_4, amCustom_field_5, photo;
     Date amDate_acquired, amDate_soon, amDate_expired, amNext_service_date, amNext_inspection_date;
     ArrayList<ClientAssetOwner> arrOwner;
+    private boolean isImageLoaded = false;
 
     public ClientAsset() {
     }
@@ -30,7 +31,7 @@ public class ClientAsset {
                        String amService_aasigned_employee, String amInspection_period, String amIs_schedule_inspection_on,
                        String amInspection_aasigned_employee, Date amNext_service_date, Date amNext_inspection_date,
                        String amAsset_status, String amCustom_field_1, String amCustom_field_2, String amCustom_field_3,
-                       String amCustom_field_4, String amCustom_field_5, ArrayList<ClientAssetOwner> arrOwner) {
+                       String amCustom_field_4, String amCustom_field_5, ArrayList<ClientAssetOwner> arrOwner, String photo) {
         this.aoAsset_id = aoAsset_id;
         this.actmCategory_name = actmCategory_name;
         this.amAsset_name = amAsset_name;
@@ -61,6 +62,7 @@ public class ClientAsset {
         this.amNext_service_date = amNext_service_date;
         this.amNext_inspection_date = amNext_inspection_date;
         this.arrOwner = arrOwner;
+        this.photo = photo;
     }
 
     public String getAoAsset_id() {
@@ -303,6 +305,22 @@ public class ClientAsset {
         this.arrOwner = arrOwner;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public boolean isImageLoaded() {
+        return isImageLoaded;
+    }
+
+    public void setIsImageLoaded(boolean isImageLoaded) {
+        this.isImageLoaded = isImageLoaded;
+    }
+
     public static ArrayList<ClientAsset> getDataFromDatabase(Context mContext, String assetId) {
         ArrayList<ClientAsset> arrClientAsset = null;
         DataBase db = new DataBase(mContext);
@@ -332,8 +350,7 @@ public class ClientAsset {
                         new Date(cur.getLong(10)), cur.getString(11), cur.getString(12), cur.getString(13), new Date(cur.getLong(14)),
                         cur.getString(15), cur.getString(16), cur.getString(17), cur.getString(18), cur.getString(19),
                         cur.getString(20), cur.getString(21), new Date(cur.getLong(22)), new Date(cur.getLong(23)), cur.getString(24),
-
-                        cur.getString(25), cur.getString(26), cur.getString(27), cur.getString(28), cur.getString(29), arrOwner));
+                        cur.getString(25), cur.getString(26), cur.getString(27), cur.getString(28), cur.getString(29), arrOwner, cur.getString(30)));
             } while (cur.moveToNext());
         }
         cur.close();

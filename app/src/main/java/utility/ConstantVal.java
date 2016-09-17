@@ -158,7 +158,7 @@ public class ConstantVal {
     }
 
     public static URLMapping loadPhoto(Context c) {
-        String[] paramNames = {"token_id", "id", "table_index", "account_id"};//0:item,1:Compliance,2:inspection,3:employee_master
+        String[] paramNames = {"token_id", "id", "table_index", "account_id"};//3:employee_master,4:asset photo
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(subDomain) + "getcommondata/loadPhoto";
         return new URLMapping(paramNames, URL, false);

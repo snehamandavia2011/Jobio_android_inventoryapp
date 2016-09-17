@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.lab360io.jobio.inventoryapp.R;
 import com.xwray.fontbinding.FontCache;
 
+import asyncmanager.asyncLoadCommonData;
 import entity.ClientAsset;
 import entity.ClientAssetOwner;
 import entity.ClientFieldMessage;
@@ -42,7 +43,8 @@ public class acAssetDetail extends AppCompatActivity {
     Helper objHelper = new Helper();
     TextView txtAssetNameCategory, txtDesc, txtModel, txtManufacturer, txtSerialNumber, txtAssetLocation, txtCost, txtCurrentValue, txtPurchaseFrom, txtExpireDate, txtStatus;
     RelativeLayout lyBarcode;
-    LinearLayout lyassetOwner, lyAssetDetail;
+    LinearLayout lyassetOwner;
+    public  static LinearLayout lyAssetDetail;
     String assetId;
     ClientAsset objClientAsset;
 
@@ -84,12 +86,6 @@ public class acAssetDetail extends AppCompatActivity {
                 asset_image = (CircleImageView) findViewById(R.id.asset_image);
                 Helper.setViewLayoutParmas(asset_image, 30, mContext);
 
-                int pixel = Helper.getPixelByPercentageOfScreenHeight(30, mContext);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                params.setMargins(0, pixel / 2, 0, 0);
-                lyAssetDetail.setLayoutParams(params);
-                lyAssetDetail.setPadding(0, pixel / 2, 0, 0);
-
                 if (ac.getIntent().getExtras() != null) {
                     assetId = ac.getIntent().getStringExtra("AssetId");
                 }
@@ -98,6 +94,9 @@ public class acAssetDetail extends AppCompatActivity {
             @Override
             protected Object doInBackground(Object[] params) {
                 objClientAsset = ClientAsset.getDataFromDatabase(mContext, assetId).get(0);
+                if (objClientAsset != null) {
+                    new asyncLoadCommonData(mContext).loadAssetPhotoById(asset_image, objClientAsset, null, R.drawable.ic_nopic);
+                }
                 return null;
             }
 
