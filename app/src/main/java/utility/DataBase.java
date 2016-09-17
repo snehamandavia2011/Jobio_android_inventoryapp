@@ -104,7 +104,7 @@ public class DataBase {
             "amService_aasigned_employee text not null,amInspection_period text not null,amIs_schedule_inspection_on text null," +
             "amInspection_aasigned_employee text not null,amNext_service_date text not null,amNext_inspection_date text not null," +
             "amAsset_status text not null,amCustom_field_1 text not null,amCustom_field_2 text not null,amCustom_field_3 text not null," +
-            "amCustom_field_4 text not null,amCustom_field_5 text not null);";
+            "amCustom_field_4 text not null,amCustom_field_5 text not null,photo text null);";
 
     private static final String TABLE_4_CREATE = "create table "
             + asset_owner_table

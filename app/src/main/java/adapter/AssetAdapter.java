@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lab360io.jobio.inventoryapp.R;
@@ -23,22 +24,21 @@ import utility.Helper;
  * Created by SAI on 9/14/2016.
  */
 public class AssetAdapter extends BaseAdapter {
-    Typeface ubuntuC, ubuntuL;
+    Typeface ubuntuL,ubuntuM;
     Context ctx;
     ArrayList<ClientAsset> arrClientAsset;
 
     private class ViewHolder {
         TextView txtAssetName, txtAssetDesc;
-        LinearLayout lyAsset;
+        RelativeLayout lyAsset;
     }
 
 
     public AssetAdapter(Context ctx, ArrayList<ClientAsset> arrClientAsset) {
         this.ctx = ctx;
         this.arrClientAsset = arrClientAsset;
-        ubuntuC = Helper.getUbuntuC(ctx);
         ubuntuL = Helper.getUbuntuL(ctx);
-
+        ubuntuM = Helper.getUbuntuM(ctx);
     }
 
     @Override
@@ -64,11 +64,11 @@ public class AssetAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.asset_item, null);
             holder = new ViewHolder();
-            holder.lyAsset = (LinearLayout) convertView.findViewById(R.id.lyAsset);
+            holder.lyAsset = (RelativeLayout) convertView.findViewById(R.id.lyAsset);
             holder.txtAssetDesc = (TextView) convertView.findViewById(R.id.txtAssetDesc);
             holder.txtAssetName = (TextView) convertView.findViewById(R.id.txtAssetNameType);
             holder.txtAssetDesc.setTypeface(ubuntuL);
-            holder.txtAssetName.setTypeface(ubuntuC);
+            holder.txtAssetName.setTypeface(ubuntuM);
             holder.txtAssetDesc.setSelected(true);
             holder.txtAssetName.setSelected(true);
             convertView.setTag(holder);

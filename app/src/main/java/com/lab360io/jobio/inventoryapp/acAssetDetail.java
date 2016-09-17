@@ -26,6 +26,7 @@ import com.xwray.fontbinding.FontCache;
 import entity.ClientAsset;
 import entity.ClientAssetOwner;
 import entity.ClientFieldMessage;
+import utility.CircleImageView;
 import utility.ConstantVal;
 import utility.DataBase;
 import utility.DotProgressBar;
@@ -34,13 +35,14 @@ import utility.Logger;
 
 public class acAssetDetail extends AppCompatActivity {
     DotProgressBar dot_progress_bar;
+    CircleImageView asset_image;
     ScrollView scrlMailContent;
     AppCompatActivity ac;
     Context mContext;
     Helper objHelper = new Helper();
     TextView txtAssetNameCategory, txtDesc, txtModel, txtManufacturer, txtSerialNumber, txtAssetLocation, txtCost, txtCurrentValue, txtPurchaseFrom, txtExpireDate, txtStatus;
     RelativeLayout lyBarcode;
-    LinearLayout lyassetOwner;
+    LinearLayout lyassetOwner, lyAssetDetail;
     String assetId;
     ClientAsset objClientAsset;
 
@@ -78,6 +80,16 @@ public class acAssetDetail extends AppCompatActivity {
                 txtStatus = (TextView) findViewById(R.id.txtStatus);
                 lyBarcode = (RelativeLayout) findViewById(R.id.lyBarcode);
                 lyassetOwner = (LinearLayout) findViewById(R.id.lyassetOwner);
+                lyAssetDetail = (LinearLayout) findViewById(R.id.lyAssetDetail);
+                asset_image = (CircleImageView) findViewById(R.id.asset_image);
+                Helper.setViewLayoutParmas(asset_image, 30, mContext);
+
+                int pixel = Helper.getPixelByPercentageOfScreenHeight(30, mContext);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                params.setMargins(0, pixel / 2, 0, 0);
+                lyAssetDetail.setLayoutParams(params);
+                lyAssetDetail.setPadding(0, pixel / 2, 0, 0);
+
                 if (ac.getIntent().getExtras() != null) {
                     assetId = ac.getIntent().getStringExtra("AssetId");
                 }

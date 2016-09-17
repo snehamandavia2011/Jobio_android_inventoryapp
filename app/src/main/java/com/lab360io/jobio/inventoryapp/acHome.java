@@ -328,7 +328,7 @@ public class acHome extends AppCompatActivity {
                 if (objClientAdminUserEmployee != null) {
                     txtUserName.setText(objClientAdminUserEmployee.getFirst_name() + " " + objClientAdminUserEmployee.getLast_name());
                     txtDesc.setText(objClientAdminUserEmployee.getUser_type_name() + " " + mContext.getString(R.string.strAt) + " " + business_name);
-                    new asyncLoadCommonData(mContext).loadAdminUserEmployeePhotoById(profile_image, objClientAdminUserEmployee, null, R.drawable.ic_field_engineer);
+                    new asyncLoadCommonData(mContext).loadAdminUserEmployeePhotoById(profile_image, objClientAdminUserEmployee, null, R.drawable.ic_field_engineer_grey);
                 }
                 DataBase db = new DataBase(mContext);
                 db.open();

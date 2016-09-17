@@ -2,6 +2,7 @@
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:rdv="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/tilt"
@@ -50,6 +51,7 @@
         android:background="@drawable/white_bg"
         android:orientation="vertical"
         android:padding="@dimen/ViewPadding">
+
         <TextView
             android:id="@+id/txtInspectName"
             style="@style/styTitleTilt"
@@ -69,13 +71,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/btnDone"
-            style="@style/btn"
+        <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+            android:background="@color/tilt"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/buttonHeight"
             android:layout_gravity="right"
-            android:gravity="center" />
+            rdv:rdv_rippleAnimationDuration="600"
+            rdv:rdv_rippleAnimationFrames="60"
+            rdv:rdv_rippleAnimationPeakFrame="15"
+            rdv:rdv_rippleColor="@color/tilt"
+            rdv:rdv_rippleMaxAlpha="0.8"
+            rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+            <Button
+                android:id="@+id/btnDone"
+                style="@style/btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transperant"
+                android:text="@string/strDone" />
+        </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+
 
     </LinearLayout>
 </LinearLayout>

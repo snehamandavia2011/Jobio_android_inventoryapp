@@ -153,4 +153,5 @@
     <string name="strNew">New</string>
     <string name="strPending">Pending</string>
     <string name="msgNotAttendedYet">Not attended yet.</string>
+    <string name="title_activity_ac_inspect_transaction">acInspectTransaction</string>
 </resources>

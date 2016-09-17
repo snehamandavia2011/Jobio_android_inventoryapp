@@ -12,6 +12,7 @@ import entity.ClientAsset;
 import entity.ClientAssetOwner;
 import utility.ConstantVal;
 import utility.Helper;
+import utility.Logger;
 
 /**
  * Created by SAI on 9/13/2016.

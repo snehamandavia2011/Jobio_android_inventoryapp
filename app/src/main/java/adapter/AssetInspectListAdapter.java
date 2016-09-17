@@ -179,7 +179,7 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
         if (objClientAssetInspect.getViewStatus() == ConstantVal.InspectionServiceStatus.NEW) {
             holderChild.txtStatus.setTextAppearance(mContext, R.style.styDescSmallRed);
         } else {
-            holderChild.txtStatus.setTextAppearance(mContext, R.style.styDescSmallWhite);
+            holderChild.txtStatus.setTextAppearance(mContext, R.style.styDescSmallTile);
         }
         holderChild.txtStatus.setText(ConstantVal.InspectionServiceStatus.getStatusName(mContext, objClientAssetInspect.getViewStatus()));
         holderChild.txtStatus.setSelected(true);
@@ -191,6 +191,7 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
         }
         holderChild.txtInspectName.setSelected(true);
         holderChild.txtAssetName.setText(objClientAssetInspect.getAmAsset_name());
+        holderChild.txtAssignedDate.setText(Helper.convertDateToString(objClientAssetInspect.getAmNext_inspection_date(),"yyyy MMM dd"));
         holderChild.btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

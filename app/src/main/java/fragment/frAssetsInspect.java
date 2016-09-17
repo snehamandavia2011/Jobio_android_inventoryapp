@@ -1,6 +1,7 @@
 package fragment;
 
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -37,6 +38,7 @@ import asyncmanager.asyncAsset;
 import entity.ClientAsset;
 import entity.ClientAssetInspect;
 import utility.ConstantVal;
+import utility.DataBase;
 import utility.DotProgressBar;
 import utility.Helper;
 
@@ -139,10 +141,20 @@ public class frAssetsInspect extends Fragment {
                 lvlInspect.invalidate();
                 objAdapter = new AssetInspectListAdapter(mContext, contextFragment, listDataHeader, listDataChild);
                 lvlInspect.setAdapter(objAdapter);
+                expandGroup();
             }
         });
     }
 
+    private void expandGroup() {
+        if (lvlInspect.getAdapter() != null) {
+            int count = objAdapter.getGroupCount();
+            for (int i = 0; i < count; i++) {
+                lvlInspect.expandGroup(i);
+            }
+            lvlInspect.setSelectedGroup(intFirstTodayorFutureDatePositionofGroup);
+        }
+    }
 
     private void prepareListDataAsPerExpandableListView() {
 
@@ -217,5 +229,16 @@ public class frAssetsInspect extends Fragment {
         }
     };
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        //onstop set jobid is true.
+        DataBase db = new DataBase(mContext);
+        db.open();
+        ContentValues cv = new ContentValues();
+        cv.put("viewStatus", ConstantVal.InspectionServiceStatus.PENDING);
+        db.update(DataBase.inspect_view_table, "viewStatus=?", new String[]{String.valueOf(ConstantVal.InspectionServiceStatus.NEW)}, cv);
+        db.close();
+    }
 }
 

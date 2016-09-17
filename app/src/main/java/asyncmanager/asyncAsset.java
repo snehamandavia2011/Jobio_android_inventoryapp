@@ -59,10 +59,10 @@ public class asyncAsset {
                 for (ClientAsset obj : arrServerdata) {
                     String data[] = {obj.getAoAsset_id(), obj.getActmCategory_name(),
                             obj.getAmAsset_name(), obj.getAmDescription(), obj.getAmModel_name(), obj.getAmManufacturer_name(), obj.getAmSerial_no(), obj.getAmBarcode_no(),
-                            String.valueOf(obj.getAmDate_acquired()), String.valueOf(obj.getAmDate_soon()), obj.getAmPurchase_cost(), obj.getAmPurchase_from(), obj.getAmCurrent_value(), String.valueOf(obj.getAmDate_expired()),
+                            String.valueOf(obj.getAmDate_acquired().getTime()), String.valueOf(obj.getAmDate_soon().getTime()), obj.getAmPurchase_cost(), obj.getAmPurchase_from(), obj.getAmCurrent_value(), String.valueOf(obj.getAmDate_expired().getTime()),
                             obj.getAmAsset_location(), obj.getAmService_period(), obj.getAmIs_schedule_service_on(), obj.getAmService_aasigned_employee(),
-                            obj.getAmInspection_period(), obj.getAmIs_schedule_inspection_on(), obj.getAmInspection_aasigned_employee(), String.valueOf(obj.getAmNext_service_date()),
-                            String.valueOf(obj.getAmNext_inspection_date()), obj.getAmAsset_status(), obj.getAmCustom_field_1(), obj.getAmCustom_field_2(),
+                            obj.getAmInspection_period(), obj.getAmIs_schedule_inspection_on(), obj.getAmInspection_aasigned_employee(), String.valueOf(obj.getAmNext_service_date().getTime()),
+                            String.valueOf(obj.getAmNext_inspection_date().getTime()), obj.getAmAsset_status(), obj.getAmCustom_field_1(), obj.getAmCustom_field_2(),
                             obj.getAmCustom_field_3(), obj.getAmCustom_field_4(), obj.getAmCustom_field_5()};
                     db.insert(DataBase.inspect_table, DataBase.inspect_int, data);
 
@@ -96,10 +96,10 @@ public class asyncAsset {
                 for (ClientAsset obj : arrServerdata) {
                     String data[] = {obj.getAoAsset_id(), obj.getActmCategory_name(),
                             obj.getAmAsset_name(), obj.getAmDescription(), obj.getAmModel_name(), obj.getAmManufacturer_name(), obj.getAmSerial_no(), obj.getAmBarcode_no(),
-                            String.valueOf(obj.getAmDate_acquired()), String.valueOf(obj.getAmDate_soon()), obj.getAmPurchase_cost(), obj.getAmPurchase_from(), obj.getAmCurrent_value(), String.valueOf(obj.getAmDate_expired()),
+                            String.valueOf(obj.getAmDate_acquired().getTime()), String.valueOf(obj.getAmDate_soon().getTime()), obj.getAmPurchase_cost(), obj.getAmPurchase_from(), obj.getAmCurrent_value(), String.valueOf(obj.getAmDate_expired().getTime()),
                             obj.getAmAsset_location(), obj.getAmService_period(), obj.getAmIs_schedule_service_on(), obj.getAmService_aasigned_employee(),
-                            obj.getAmInspection_period(), obj.getAmIs_schedule_inspection_on(), obj.getAmInspection_aasigned_employee(), String.valueOf(obj.getAmNext_service_date()),
-                            String.valueOf(obj.getAmNext_inspection_date()), obj.getAmAsset_status(), obj.getAmCustom_field_1(), obj.getAmCustom_field_2(),
+                            obj.getAmInspection_period(), obj.getAmIs_schedule_inspection_on(), obj.getAmInspection_aasigned_employee(), String.valueOf(obj.getAmNext_service_date().getTime()),
+                            String.valueOf(obj.getAmNext_inspection_date().getTime()), obj.getAmAsset_status(), obj.getAmCustom_field_1(), obj.getAmCustom_field_2(),
                             obj.getAmCustom_field_3(), obj.getAmCustom_field_4(), obj.getAmCustom_field_5()};
                     db.insert(DataBase.asset_table, DataBase.asset_int, data);
                     for (ClientAssetOwner objOwner : obj.getArrOwner()) {

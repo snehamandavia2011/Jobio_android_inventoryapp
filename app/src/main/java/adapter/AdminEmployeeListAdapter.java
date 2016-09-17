@@ -119,7 +119,7 @@ public class AdminEmployeeListAdapter extends BaseAdapter {
             holder.status.setImageResource(R.color.green);
         }
         if (!objClientAdminUserEmployee.isImageLoaded()) {
-            new asyncLoadCommonData(mContext).loadAdminUserEmployeePhotoById(holder.profile_image, objClientAdminUserEmployee, imgClick, R.drawable.ic_field_engineer);
+            new asyncLoadCommonData(mContext).loadAdminUserEmployeePhotoById(holder.profile_image, objClientAdminUserEmployee, imgClick, R.drawable.ic_field_engineer_grey);
         }
         return convertView;
     }

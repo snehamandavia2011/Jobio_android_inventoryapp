@@ -22,6 +22,7 @@ public class ClientAsset {
 
     public ClientAsset() {
     }
+
     public ClientAsset(String aoAsset_id, String actmCategory_name, String amAsset_name, String amDescription,
                        String amModel_name, String amManufacturer_name, String amSerial_no, String amBarcode_no,
                        Date amDate_acquired, Date amDate_soon, String amPurchase_cost, String amPurchase_from, String amCurrent_value,
@@ -308,9 +309,9 @@ public class ClientAsset {
         db.open();
         Cursor cur = null;
         if (assetId == null)
-            cur = db.fetchAll(DataBase.asset_table, DataBase.asset_int);
+            cur = db.fetch(DataBase.asset_table, null);
         else
-            cur = db.fetchAll(DataBase.asset_table, DataBase.asset_int, "aoAsset_id='" + assetId + "'");
+            cur = db.fetch(DataBase.asset_table, "aoAsset_id='" + assetId + "'");
         if (cur != null && cur.getCount() > 0) {
             arrClientAsset = new ArrayList<ClientAsset>();
             cur.moveToFirst();
