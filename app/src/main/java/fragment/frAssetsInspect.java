@@ -41,6 +41,7 @@ import utility.ConstantVal;
 import utility.DataBase;
 import utility.DotProgressBar;
 import utility.Helper;
+import utility.Logger;
 
 
 /**
@@ -107,7 +108,8 @@ public class frAssetsInspect extends Fragment {
             @Override
             protected Object doInBackground(Object[] params) {
                 arrClientAssetInspectInspect = ClientAssetInspect.getDataFromDatabase(mContext);
-                prepareListDataAsPerExpandableListView();
+                if (arrClientAssetInspectInspect != null && arrClientAssetInspectInspect.size() > 0)
+                    prepareListDataAsPerExpandableListView();
                 return null;
             }
 
@@ -121,10 +123,12 @@ public class frAssetsInspect extends Fragment {
                     } catch (Exception e) {
                     }
                 }
-                if (arrClientAssetInspectInspect != null) {
+                if (arrClientAssetInspectInspect != null && arrClientAssetInspectInspect.size() > 0) {
                     lyMainContent.setVisibility(View.VISIBLE);
-                } else {
                     lyNoContent.setVisibility(View.GONE);
+                } else {
+                    lyMainContent.setVisibility(View.GONE);
+                    lyNoContent.setVisibility(View.VISIBLE);
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

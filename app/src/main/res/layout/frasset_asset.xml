@@ -53,6 +53,38 @@
                 fab:fab_plusIconColor="@color/half_black" />
         </RelativeLayout>
 
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/lyNoContent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@color/tilt"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:src="@drawable/ic_asset_white_big"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/ViewMargin" />
+
+                <TextView
+                    android:gravity="center"
+                    android:text="@string/msgNoAsset"
+                    style="@style/styBigWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/ViewMargin"
+                    app:font="@{`Ubuntu-M`}" />
+            </LinearLayout>
+        </RelativeLayout>
+
         <utility.DotProgressBar
             android:id="@+id/dot_progress_bar"
             android:layout_width="match_parent"

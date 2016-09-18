@@ -17,6 +17,7 @@ import utility.ConstantVal;
 import utility.DataBase;
 import utility.Helper;
 import utility.HttpEngine;
+import utility.Logger;
 import utility.ServerResponse;
 import utility.URLMapping;
 
@@ -126,9 +127,10 @@ public class asyncAsset {
                 new String[]{account_id, employee_id, String.valueOf(tokenId)}, um.getParamNames(), um.isNeedToSync());
         String result = objServerRespose.getResponseString();
         responseCode = objServerRespose.getResponseCode();
-        if (result != null && !result.equals("")) {
+        if (result != null && !result.equals("") && responseCode == ConstantVal.ServerResponseCode.SUCCESS) {
             try {
                 arrServerdata = parseAssetIOwn.getList(result);
+                Logger.debug("size:"+arrServerdata.size());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -147,7 +149,7 @@ public class asyncAsset {
                 new String[]{account_id, employee_id, String.valueOf(tokenId)}, um.getParamNames(), um.isNeedToSync());
         String result = objServerRespose.getResponseString();
         responseCode = objServerRespose.getResponseCode();
-        if (result != null && !result.equals("")) {
+        if (result != null && !result.equals("") && responseCode == ConstantVal.ServerResponseCode.SUCCESS) {
             try {
                 arrServerdata = parseAssetIOwn.getList(result);
             } catch (JSONException e) {

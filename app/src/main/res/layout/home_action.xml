@@ -15,6 +15,7 @@
             android:id="@+id/btnDropDownMenu"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:layout_marginRight="@dimen/ViewMargin"
             android:background="@drawable/ic_bottommenu"
             android:paddingLeft="0dp" />
 

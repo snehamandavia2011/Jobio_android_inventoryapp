@@ -43,7 +43,7 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
     private HashMap<String, List<ClientAssetInspect>> listDataChild;
     Helper objHelper = new Helper();
     Fragment contextFragment;
-    Typeface ubuntuL, ubuntuC;
+    Typeface ubuntuL, ubuntuC, ubuntuM;
 
     public AssetInspectListAdapter(Context context, Fragment contextFragment, List<ListHeader> listDataHeader,
                                    HashMap<String, List<ClientAssetInspect>> listChildData) {
@@ -53,6 +53,7 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
         this.listDataChild = listChildData;
         ubuntuL = Helper.getUbuntuL(mContext);
         ubuntuC = Helper.getUbuntuC(mContext);
+        ubuntuM = Helper.getUbuntuM(mContext);
     }
 
     @Override
@@ -149,7 +150,7 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
     }
 
     private class ViewHolderChild {
-        TextView txtStatus, txtInspectName, txtAssetName, txtAssignedDate;
+        TextView txtStatus, txtAssetName, txtStatusSer;
         Button btnDone;
     }
 
@@ -163,14 +164,12 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.inspect_list_item, null);
             holderChild.txtStatus = (TextView) convertView.findViewById(R.id.txtStatus);
-            holderChild.txtInspectName = (TextView) convertView.findViewById(R.id.txtInspectName);
             holderChild.txtAssetName = (TextView) convertView.findViewById(R.id.txtAssetName);
-            holderChild.txtAssignedDate = (TextView) convertView.findViewById(R.id.txtAssignedDate);
+            holderChild.txtStatusSer = (TextView) convertView.findViewById(R.id.txtStatusSer);
             holderChild.btnDone = (Button) convertView.findViewById(R.id.btnDone);
             holderChild.btnDone.setTypeface(ubuntuL);
-            holderChild.txtAssignedDate.setTypeface(ubuntuL);
-            holderChild.txtAssetName.setTypeface(ubuntuL);
-            holderChild.txtInspectName.setTypeface(ubuntuC);
+            holderChild.txtAssetName.setTypeface(ubuntuM);
+            holderChild.txtStatusSer.setTypeface(ubuntuC);
             holderChild.txtStatus.setTypeface(ubuntuL);
             convertView.setTag(holderChild);
         } else {
@@ -183,15 +182,8 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
         }
         holderChild.txtStatus.setText(ConstantVal.InspectionServiceStatus.getStatusName(mContext, objClientAssetInspect.getViewStatus()));
         holderChild.txtStatus.setSelected(true);
-
-        if (objClientAssetInspect.getViewStatus() == ConstantVal.InspectionServiceStatus.NEW || objClientAssetInspect.getViewStatus() == ConstantVal.InspectionServiceStatus.PENDING) {
-            holderChild.txtInspectName.setText(mContext.getString(R.string.msgNotAttendedYet));
-        } else {
-            //
-        }
-        holderChild.txtInspectName.setSelected(true);
+        holderChild.txtStatusSer.setText(objClientAssetInspect.getAmAsset_status());
         holderChild.txtAssetName.setText(objClientAssetInspect.getAmAsset_name());
-        holderChild.txtAssignedDate.setText(Helper.convertDateToString(objClientAssetInspect.getAmNext_inspection_date(),"yyyy MMM dd"));
         holderChild.btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

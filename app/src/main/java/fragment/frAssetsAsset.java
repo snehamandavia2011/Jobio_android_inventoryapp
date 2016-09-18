@@ -35,6 +35,7 @@ import entity.ClientAssetOwner;
 import utility.ConstantVal;
 import utility.DataBase;
 import utility.DotProgressBar;
+import utility.Logger;
 
 
 /**
@@ -57,9 +58,9 @@ public class frAssetsAsset extends Fragment {
         contextFragment = this;
         frActivity = getActivity();
         FontCache.getInstance(mContext).addFont("Ubuntu", "Ubuntu-C.ttf");
-        lyNoContent = (RelativeLayout) getActivity().findViewById(R.id.lyNoContent);
         View view = DataBindingUtil.inflate(inflater, R.layout.frasset_asset, null, true).getRoot();
         lyMainContent = (RelativeLayout) view.findViewById(R.id.lyMainContent);
+        lyNoContent = (RelativeLayout) view.findViewById(R.id.lyNoContent);
         lvlAsset = (ListView) view.findViewById(R.id.lvlAsset);
         btnSearchAsset = (FloatingActionButton) view.findViewById(R.id.btnSearchAsset);
         dot_progress_bar = (DotProgressBar) view.findViewById(R.id.dot_progress_bar);
@@ -133,11 +134,13 @@ public class frAssetsAsset extends Fragment {
                     } catch (Exception e) {
                     }
                 }
-                if (arrClientAsset != null) {
+                if (arrClientAsset != null && arrClientAsset.size() >= 0) {
                     lyMainContent.setVisibility(View.VISIBLE);
+                    lyNoContent.setVisibility(View.GONE);
                     lvlAsset.setAdapter(new AssetAdapter(mContext, arrClientAsset));
                 } else {
-                    lyNoContent.setVisibility(View.GONE);
+                    lyMainContent.setVisibility(View.GONE);
+                    lyNoContent.setVisibility(View.VISIBLE);
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
