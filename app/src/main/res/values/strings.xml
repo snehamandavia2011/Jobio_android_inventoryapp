@@ -154,4 +154,16 @@
     <string name="strPending">Pending</string>
     <string name="msgNotAttendedYet">Not attended yet.</string>
     <string name="title_activity_ac_inspect_transaction">acInspectTransaction</string>
+    <string name="msgEnterInspectionName">Enter inspection name</string>
+    <string name="strInspectionName">Inspection Name</string>
+    <string name="strAssetName">Asset Name</string>
+    <string name="strAssignedTo">Assigned To</string>
+    <string name="strInspectionDate">Inspection Date</string>
+    <string name="strInspectionTime">Inspection Time</string>
+    <string name="strInspectionNote">Inspection Note</string>
+    <string name="strTakePicture">Take Picture</string>
+    <string name="msgSelectInpectStatus">Select inspect status</string>
+    <string name="strNotAttendedYet">NOT ATTENDED YET</string>
+    <string name="strPostpone">POSTPONE</string>
+    <string name="strNoNeedWorkingFine">NO NEED WORKING FINE</string>
 </resources>

@@ -240,9 +240,17 @@ public class frAssetsInspect extends Fragment {
         DataBase db = new DataBase(mContext);
         db.open();
         ContentValues cv = new ContentValues();
-        cv.put("viewStatus", ConstantVal.InspectionServiceStatus.PENDING);
-        db.update(DataBase.inspect_view_table, "viewStatus=?", new String[]{String.valueOf(ConstantVal.InspectionServiceStatus.NEW)}, cv);
+        cv.put("localViewStatus", ConstantVal.InspectionServiceStatus.PENDING);
+        db.update(DataBase.inspect_view_table, "localViewStatus=?", new String[]{String.valueOf(ConstantVal.InspectionServiceStatus.NEW)}, cv);
         db.close();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ConstantVal.INSPECTION_TRANSACTION_REQUEST_CODE && resultCode == ConstantVal.INSPECTION_TRANSACTION_RESPONSE_CODE) {
+            setDataFromLocalDatabase();
+        }
     }
 }
 

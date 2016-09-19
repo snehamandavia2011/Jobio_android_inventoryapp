@@ -4,6 +4,10 @@ import android.content.Context;
 
 import com.lab360io.jobio.inventoryapp.R;
 
+import java.util.ArrayList;
+
+import entity.ClientAssetInspectServiceStatus;
+
 /**
  * Created by SAI on 9/1/2016.
  */
@@ -22,9 +26,11 @@ public class ConstantVal {
     public static final String TIME_FORMAT = "HH:mm:ss";
     public static final String WELCOME_MESSAGE = "welcome_message";
 
-
+    public static final int REQUEST_TO_START_CAMERA_ACTIVITY = 100;
     public static final int EXIT_REQUEST_CODE = 1;
     public static final int EXIT_RESPONSE_CODE = 2;
+    public static final int INSPECTION_TRANSACTION_REQUEST_CODE = 3;
+    public static final int INSPECTION_TRANSACTION_RESPONSE_CODE = 4;
 
     public static class BroadcastAction {
         public static final String CHANGED_MESSAGE_STATUS = "jobio.io.MESSAGE_STATUS";
@@ -45,6 +51,36 @@ public class ConstantVal {
         public static final int WAITING = 0;
         public static final int SENT = 1;
         public static final int VIEW = 2;
+    }
+
+    public static class assetServiceInspectionStatus {
+        public static final int NOT_ATTENDED_YET = 1;
+        public static final int DONE = 2;
+        public static final int POSTPONE = 3;
+        public static final int NO_NEED_WORKING_FINE = 4;
+
+        public static String getStatusName(Context ctx, int status) {
+            switch (status) {
+                case NOT_ATTENDED_YET:
+                    return ctx.getString(R.string.strNotAttendedYet);
+                case DONE:
+                    return ctx.getString(R.string.strDone);
+                case POSTPONE:
+                    return ctx.getString(R.string.strPostpone);
+                case NO_NEED_WORKING_FINE:
+                    return ctx.getString(R.string.strNoNeedWorkingFine);
+            }
+            return "";
+        }
+
+        public static ArrayList<ClientAssetInspectServiceStatus> getStatusArr(Context ctx) {
+            ArrayList<ClientAssetInspectServiceStatus> arr = new ArrayList<>();
+            arr.add(new ClientAssetInspectServiceStatus(1, ctx.getString(R.string.strNotAttendedYet)));
+            arr.add(new ClientAssetInspectServiceStatus(2, ctx.getString(R.string.strDone)));
+            arr.add(new ClientAssetInspectServiceStatus(3, ctx.getString(R.string.strPostpone)));
+            arr.add(new ClientAssetInspectServiceStatus(4, ctx.getString(R.string.strNoNeedWorkingFine)));
+            return arr;
+        }
     }
 
     public static class InspectionServiceStatus {
@@ -246,6 +282,13 @@ public class ConstantVal {
         String[] paramNames = {"account_id", "emp_id", "token_id"};
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(subDomain) + "assetAIM/fetchAssignedInspection";
+        return new URLMapping(paramNames, URL, false);
+    }
+
+    public static URLMapping getAssetServiceInspectionStatus(Context c) {
+        String[] paramNames = {"token_id", "account_id"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "getcommondata/getAssetServiceInspectionStatus";
         return new URLMapping(paramNames, URL, false);
     }
 }

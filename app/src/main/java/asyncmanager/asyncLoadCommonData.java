@@ -14,11 +14,13 @@ import com.lab360io.jobio.inventoryapp.R;
 import com.lab360io.jobio.inventoryapp.acAssetDetail;
 import com.lab360io.jobio.inventoryapp.acHome;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUserEmployee;
 import entity.ClientAsset;
+import entity.ClientAssetInspectServiceStatus;
 import parser.parseCommonData;
 import utility.CircleImageView;
 import utility.ConstantVal;
@@ -35,13 +37,19 @@ public class asyncLoadCommonData {
     Context ctx;
     Date dtCurrentTime;
 
-    public asyncLoadCommonData(Context ctx, Date dtCurrentTime) {
-        this.ctx = ctx;
-        this.dtCurrentTime = dtCurrentTime;
-    }
 
     public asyncLoadCommonData(Context ctx) {
         this.ctx = ctx;
+    }
+
+    public Thread startSync() {
+        Thread t = new Thread(){
+            public void run(){
+
+            }
+        };
+        t.start();
+        return t;
     }
 
 

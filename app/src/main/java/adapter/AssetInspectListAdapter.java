@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lab360io.jobio.inventoryapp.R;
+import com.lab360io.jobio.inventoryapp.acInspectTransaction;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -182,12 +184,14 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
         }
         holderChild.txtStatus.setText(ConstantVal.InspectionServiceStatus.getStatusName(mContext, objClientAssetInspect.getViewStatus()));
         holderChild.txtStatus.setSelected(true);
-        holderChild.txtStatusSer.setText(objClientAssetInspect.getAmAsset_status());
+        holderChild.txtStatusSer.setText(ConstantVal.assetServiceInspectionStatus.getStatusName(mContext, objClientAssetInspect.getSerStatus()));
         holderChild.txtAssetName.setText(objClientAssetInspect.getAmAsset_name());
         holderChild.btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(mContext, acInspectTransaction.class);
+                i.putExtra("assetId", objClientAssetInspect.getAoAsset_id());
+                ((AppCompatActivity) mContext).startActivityForResult(i, ConstantVal.INSPECTION_TRANSACTION_REQUEST_CODE);
             }
         });
         return convertView;

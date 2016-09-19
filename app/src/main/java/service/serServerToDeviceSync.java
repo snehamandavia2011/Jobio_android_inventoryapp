@@ -59,6 +59,7 @@ public class serServerToDeviceSync extends Service {
             try {
                 new asyncUserData(mContext).join();
                 new asyncAsset(mContext).getAllData().join();
+                new asyncLoadCommonData(mContext).startSync().join();
                 new asyncLocationTrackingInterval(mContext);
                 new asyncEmployeeList(mContext);
                 if (!acMessageList.IS_MESSAGE_LOADING_RUN) {
@@ -67,7 +68,6 @@ public class serServerToDeviceSync extends Service {
                 } else {
                     Logger.debug("Message is not going to sync via service");
                 }
-                new asyncLoadCommonData(mContext, dtCurrentTime);
                 Logger.debug("asyncUserData.responseCode:" + asyncUserData.responseCode+" asyncAsset:"+asyncAsset.responseCode);
                 if ((asyncUserData.responseCode.equals(ConstantVal.ServerResponseCode.SUCCESS) ||//008
                         asyncUserData.responseCode.equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED) ||//005

@@ -72,7 +72,8 @@ public class asyncAsset {
                     Cursor curIsVied = db.fetch(DataBase.inspect_view_table, DataBase.inspect_view_int, where);
                     if (curIsVied != null && curIsVied.getCount() == 0) {
                         String status = String.valueOf(ConstantVal.InspectionServiceStatus.NEW);
-                        db.insert(DataBase.inspect_view_table, DataBase.inspect_view_int, new String[]{obj.getAoAsset_id(), status});
+                        String serStatus = String.valueOf(ConstantVal.assetServiceInspectionStatus.NOT_ATTENDED_YET);
+                        db.insert(DataBase.inspect_view_table, DataBase.inspect_view_int, new String[]{obj.getAoAsset_id(), status, serStatus});
                     }
                     curIsVied.close();
                 }
@@ -130,7 +131,7 @@ public class asyncAsset {
         if (result != null && !result.equals("") && responseCode == ConstantVal.ServerResponseCode.SUCCESS) {
             try {
                 arrServerdata = parseAssetIOwn.getList(result);
-                Logger.debug("size:"+arrServerdata.size());
+                Logger.debug("size:" + arrServerdata.size());
             } catch (JSONException e) {
                 e.printStackTrace();
             }

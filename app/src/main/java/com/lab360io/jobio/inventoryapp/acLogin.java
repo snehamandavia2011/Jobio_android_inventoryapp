@@ -243,8 +243,8 @@ public class acLogin extends AppCompatActivity {
                                             new asyncDashboardData(mContext).join();
                                             new asyncLocationTrackingInterval(mContext).join();
                                             new asyncEmployeeList(mContext).join();
+                                            new asyncLoadCommonData(mContext).startSync().join();
                                             new asyncMessageList(mContext);
-                                            new asyncLoadCommonData(mContext, new Date());
                                             Helper.setLongPreference(mContext, ConstantVal.LAST_SERVER_TO_DEVICE_SYNC_TIME, new Date().getTime());
                                         } catch (Exception e) {
                                             e.printStackTrace();

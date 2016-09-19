@@ -77,7 +77,7 @@ public class DataBase {
                     , "amAsset_location", "amService_period", "amIs_schedule_service_on", "amService_aasigned_employee",
                     "amInspection_period", "amIs_schedule_inspection_on", "amInspection_aasigned_employee", "amNext_service_date",
                     "amNext_inspection_date", "amAsset_status", "amCustom_field_1", "amCustom_field_2", "amCustom_field_3", "amCustom_field_4", "amCustom_field_5"},
-            {"_ID","assetId", "viewStatus"}};
+            {"_ID", "assetId", "localViewStatus", "serStatus"}};
     private static final String TABLE_0_CREATE = "create table "
             + device_to_db_sync_table
             + "(_ID integer primary key autoincrement,URL text not null,data text not null,isSync text not null,last_result_code text not null);";
@@ -125,7 +125,8 @@ public class DataBase {
 
     private static final String TABLE_6_CREATE = "create table "
             + inspect_view_table
-            + "(_ID integer primary key autoincrement,assetId text not null,viewStatus text not null);";
+            + "(_ID integer primary key autoincrement,assetId text not null,localViewStatus text not null,serStatus text not null);";
+
 
     public DataBase(Context ctx) {
         HCtx = ctx;
@@ -483,4 +484,5 @@ public class DataBase {
     }
 
 }
+
 

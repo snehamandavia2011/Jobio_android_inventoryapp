@@ -18,7 +18,7 @@ public class ClientAssetInspect {
             amInspection_period, amIs_schedule_inspection_on, amInspection_aasigned_employee,
             amAsset_status, amCustom_field_1, amCustom_field_2, amCustom_field_3, amCustom_field_4, amCustom_field_5;
     Date amDate_acquired, amDate_soon, amDate_expired, amNext_service_date, amNext_inspection_date;
-    int viewStatus;
+    int viewStatus,serStatus;
 
     public ClientAssetInspect() {
     }
@@ -30,7 +30,7 @@ public class ClientAssetInspect {
                               String amService_aasigned_employee, String amInspection_period, String amIs_schedule_inspection_on,
                               String amInspection_aasigned_employee, Date amNext_service_date, Date amNext_inspection_date,
                               String amAsset_status, String amCustom_field_1, String amCustom_field_2, String amCustom_field_3,
-                              String amCustom_field_4, String amCustom_field_5, int viewStatus) {
+                              String amCustom_field_4, String amCustom_field_5, int viewStatus,int serStatus) {
         this.aoAsset_id = aoAsset_id;
         this.actmCategory_name = actmCategory_name;
         this.amAsset_name = amAsset_name;
@@ -61,6 +61,7 @@ public class ClientAssetInspect {
         this.amNext_service_date = amNext_service_date;
         this.amNext_inspection_date = amNext_inspection_date;
         this.viewStatus = viewStatus;
+        this.serStatus=serStatus;
     }
 
     public String getAoAsset_id() {
@@ -303,6 +304,14 @@ public class ClientAssetInspect {
         this.viewStatus = viewStatus;
     }
 
+    public int getSerStatus() {
+        return serStatus;
+    }
+
+    public void setSerStatus(int serStatus) {
+        this.serStatus = serStatus;
+    }
+
     public static ArrayList<ClientAssetInspect> getDataFromDatabase(Context mContext) {
         ArrayList<ClientAssetInspect> arrClientAsset = null;
         DataBase db = new DataBase(mContext);
@@ -312,11 +321,12 @@ public class ClientAssetInspect {
             arrClientAsset = new ArrayList<ClientAssetInspect>();
             cur.moveToFirst();
             do {
-                int viewStatus = -1;
+                int viewStatus = -1, serStatus = 1;
                 Cursor inspectView = db.fetch(DataBase.inspect_view_table, DataBase.inspect_view_int, "assetId='" + cur.getString(1) + "'");
                 if (inspectView != null && inspectView.getCount() > 0) {
                     inspectView.moveToFirst();
-                    viewStatus=inspectView.getInt(2);
+                    viewStatus = inspectView.getInt(2);
+                    serStatus = inspectView.getInt(3);
                 }
                 inspectView.close();
 
@@ -325,7 +335,7 @@ public class ClientAssetInspect {
                         new Date(cur.getLong(10)), cur.getString(11), cur.getString(12), cur.getString(13), new Date(cur.getLong(14)),
                         cur.getString(15), cur.getString(16), cur.getString(17), cur.getString(18), cur.getString(19),
                         cur.getString(20), cur.getString(21), new Date(cur.getLong(22)), new Date(cur.getLong(23)), cur.getString(24),
-                        cur.getString(25), cur.getString(26), cur.getString(27), cur.getString(28), cur.getString(29), viewStatus));
+                        cur.getString(25), cur.getString(26), cur.getString(27), cur.getString(28), cur.getString(29), viewStatus,serStatus));
             } while (cur.moveToNext());
         }
         cur.close();

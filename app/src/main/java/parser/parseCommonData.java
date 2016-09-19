@@ -1,6 +1,12 @@
 package parser;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import entity.ClientAssetInspectServiceStatus;
 
 
 /**
@@ -16,5 +22,17 @@ public class parseCommonData {
             e.printStackTrace();
         }
         return photo;
+    }
+
+    public ArrayList<ClientAssetInspectServiceStatus> parseJobInspectionStatusMaster(String JSONString) throws JSONException {
+        ArrayList<ClientAssetInspectServiceStatus> arr = new ArrayList<ClientAssetInspectServiceStatus>();
+        JSONArray arrJson = new JSONArray(JSONString);
+        for (int i = 0; i < arrJson.length(); i++) {
+            JSONObject o = arrJson.getJSONObject(i);
+            ClientAssetInspectServiceStatus objClientJobInspectionStatusMaster = new ClientAssetInspectServiceStatus();
+            objClientJobInspectionStatusMaster.parseData(o);
+            arr.add(objClientJobInspectionStatusMaster);
+        }
+        return arr;
     }
 }
