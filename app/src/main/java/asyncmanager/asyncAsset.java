@@ -10,9 +10,11 @@ import java.util.ArrayList;
 
 import entity.BusinessAccountdbDetail;
 import entity.ClientAsset;
+import entity.ClientAssetInspect;
 import entity.ClientAssetOwner;
 import entity.ClientEmployeeMaster;
 import parser.parseAssetIOwn;
+import parser.parseInspect;
 import utility.ConstantVal;
 import utility.DataBase;
 import utility.Helper;
@@ -51,14 +53,16 @@ public class asyncAsset {
     public void getInspect() {
         new Thread() {
             public void run() {
-                ArrayList<ClientAsset> arrServerdata = getInspetFromServer();
+                ArrayList<ClientAssetInspect> arrServerdata = getInspetFromServer();
                 if (arrServerdata == null)
                     return;
                 DataBase db = new DataBase(ctx);
                 db.open();
                 db.cleanTable(DataBase.inspect_int);
-                for (ClientAsset obj : arrServerdata) {
-                    String data[] = {obj.getAoAsset_id(), obj.getActmCategory_name(),
+                for (ClientAssetInspect obj : arrServerdata) {
+                    String data[] = {obj.getAitId(), obj.getAitName(), obj.getAitAssetId(), obj.getAitAsset_name(), obj.getAitAssetBarcode(), obj.getAitAssignedTo(),
+                            String.valueOf(obj.getAitAssignedDate().getTime()), obj.getAitIsPresent(), String.valueOf(obj.getAitDateTime().getTime()),
+                            obj.getAitNote(), obj.getAitStatusId(), obj.getActmCategory_name(),
                             obj.getAmAsset_name(), obj.getAmDescription(), obj.getAmModel_name(), obj.getAmManufacturer_name(), obj.getAmSerial_no(), obj.getAmBarcode_no(),
                             String.valueOf(obj.getAmDate_acquired().getTime()), String.valueOf(obj.getAmDate_soon().getTime()), obj.getAmPurchase_cost(), obj.getAmPurchase_from(), obj.getAmCurrent_value(), String.valueOf(obj.getAmDate_expired().getTime()),
                             obj.getAmAsset_location(), obj.getAmService_period(), obj.getAmIs_schedule_service_on(), obj.getAmService_aasigned_employee(),
@@ -68,12 +72,11 @@ public class asyncAsset {
                     db.insert(DataBase.inspect_table, DataBase.inspect_int, data);
 
                     //if jobid is not available then save to table with false
-                    String where = "assetId='" + obj.getAoAsset_id() + "'";
+                    String where = "aitId=" + obj.getAitId() + "";
                     Cursor curIsVied = db.fetch(DataBase.inspect_view_table, DataBase.inspect_view_int, where);
                     if (curIsVied != null && curIsVied.getCount() == 0) {
                         String status = String.valueOf(ConstantVal.InspectionServiceStatus.NEW);
-                        String serStatus = String.valueOf(ConstantVal.assetServiceInspectionStatus.NOT_ATTENDED_YET);
-                        db.insert(DataBase.inspect_view_table, DataBase.inspect_view_int, new String[]{obj.getAoAsset_id(), status, serStatus});
+                        db.insert(DataBase.inspect_view_table, DataBase.inspect_view_int, new String[]{obj.getAitId(), status});
                     }
                     curIsVied.close();
                 }
@@ -139,9 +142,9 @@ public class asyncAsset {
         return arrServerdata;
     }
 
-    private ArrayList<ClientAsset> getInspetFromServer() {
+    private ArrayList<ClientAssetInspect> getInspetFromServer() {
         HttpEngine objHttpEngine = new HttpEngine();
-        ArrayList<ClientAsset> arrServerdata = null;
+        ArrayList<ClientAssetInspect> arrServerdata = null;
         final int tokenId = Helper.getIntPreference(ctx, ConstantVal.TOKEN_ID, 0);
         String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
         String employee_id = Helper.getStringPreference(ctx, ClientEmployeeMaster.Fields.EMPLOYEE_ID, "");
@@ -152,7 +155,7 @@ public class asyncAsset {
         responseCode = objServerRespose.getResponseCode();
         if (result != null && !result.equals("") && responseCode == ConstantVal.ServerResponseCode.SUCCESS) {
             try {
-                arrServerdata = parseAssetIOwn.getList(result);
+                arrServerdata = parseInspect.getList(result);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

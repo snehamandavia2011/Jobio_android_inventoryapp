@@ -184,13 +184,18 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
         }
         holderChild.txtStatus.setText(ConstantVal.InspectionServiceStatus.getStatusName(mContext, objClientAssetInspect.getViewStatus()));
         holderChild.txtStatus.setSelected(true);
-        holderChild.txtStatusSer.setText(ConstantVal.assetServiceInspectionStatus.getStatusName(mContext, objClientAssetInspect.getSerStatus()));
+        try {
+            Logger.debug("getAitStatusId: "+objClientAssetInspect.getAitStatusId());
+            holderChild.txtStatusSer.setText(ConstantVal.assetServiceInspectionStatus.getStatusName(mContext, Integer.parseInt(objClientAssetInspect.getAitStatusId())));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         holderChild.txtAssetName.setText(objClientAssetInspect.getAmAsset_name());
         holderChild.btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mContext, acInspectTransaction.class);
-                i.putExtra("assetId", objClientAssetInspect.getAoAsset_id());
+                i.putExtra("aitId", objClientAssetInspect.getAitId());
                 ((AppCompatActivity) mContext).startActivityForResult(i, ConstantVal.INSPECTION_TRANSACTION_REQUEST_CODE);
             }
         });

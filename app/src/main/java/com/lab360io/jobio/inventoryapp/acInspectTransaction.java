@@ -12,10 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,7 +27,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.lab360io.jobio.inventoryapp.R;
 import com.xwray.fontbinding.FontCache;
 
 import java.text.DateFormat;
@@ -40,8 +36,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import entity.ClientAsset;
+import entity.ClientAssetInspect;
 import entity.ClientAssetInspectServiceStatus;
-import entity.InspectTransaction;
 import io.fabric.sdk.android.services.concurrency.AsyncTask;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import utility.ConstantVal;
@@ -51,7 +47,7 @@ import utility.Logger;
 
 public class acInspectTransaction extends AppCompatActivity {
     ArrayList<ClientAssetInspectServiceStatus> arrClientAssetInspectServiceStatus = new ArrayList<>();
-    InspectTransaction objInspectTransaction = new InspectTransaction();
+    ClientAssetInspect objClientAssetInspect = new ClientAssetInspect();
     boolean isDataEntedProperly = true;
     DateFormat dateFormat = new SimpleDateFormat("dd MMM yyy");
     DateFormat timeFormate = new SimpleDateFormat("hh:mm");
@@ -82,7 +78,7 @@ public class acInspectTransaction extends AppCompatActivity {
 
     private void setData() {
         new AsyncTask() {
-            String asset_id = "", assignedT0EmpName = "";
+            String aitId = "", assignedT0EmpName = "";
 
             @Override
             protected void onPreExecute() {
@@ -104,23 +100,23 @@ public class acInspectTransaction extends AppCompatActivity {
                 edInspectionTime.setOnClickListener(handleClick);
                 btnTakePic.setOnClickListener(handleClick);
                 if (ac.getIntent().getExtras() != null) {
-                    asset_id = ac.getIntent().getStringExtra("assetId");
+                    aitId = ac.getIntent().getStringExtra("aitId");
                 }
             }
 
             @Override
             protected Object doInBackground(Object[] objects) {
                 arrClientAssetInspectServiceStatus = ConstantVal.assetServiceInspectionStatus.getStatusArr(mContext);
-                ClientAsset objClientAsset = ClientAsset.getDataFromDatabase(mContext, asset_id).get(0);
-                objInspectTransaction.setAssetId(asset_id);
-                objInspectTransaction.setAssetName(objClientAsset.getAmAsset_name());
-                objInspectTransaction.setAssetBarcode(objClientAsset.getAmBarcode_no());
-                objInspectTransaction.setAssignedTo(objClientAsset.getAmInspection_aasigned_employee());
-                objInspectTransaction.setAssignedDate(objClientAsset.getAmNext_inspection_date());
-                objInspectTransaction.setIsPresent("Yes");
+                objClientAssetInspect = ClientAssetInspect.getDataFromDatabase(mContext, aitId).get(0);
+                objClientAssetInspect.setAitAssetId(objClientAssetInspect.getAitId());
+                objClientAssetInspect.setAitAsset_name(objClientAssetInspect.getAmAsset_name());
+                objClientAssetInspect.setAitAssetBarcode(objClientAssetInspect.getAmBarcode_no());
+                objClientAssetInspect.setAitAssignedTo(objClientAssetInspect.getAmInspection_aasigned_employee());
+                objClientAssetInspect.setAitAssignedDate(objClientAssetInspect.getAmNext_inspection_date());
+                objClientAssetInspect.setAitIsPresent("Yes");
                 DataBase db = new DataBase(mContext);
                 db.open();
-                Cursor curName = db.fetch(DataBase.adminuser_employee_table, DataBase.adminuser_employee_int, "empId='" + objClientAsset.getAmInspection_aasigned_employee() + "'");
+                Cursor curName = db.fetch(DataBase.adminuser_employee_table, DataBase.adminuser_employee_int, "empId='" + objClientAssetInspect.getAmInspection_aasigned_employee() + "'");
                 if (curName != null && curName.getCount() > 0) {
                     curName.moveToFirst();
                     assignedT0EmpName = curName.getString(3) + " " + curName.getString(4);
@@ -135,7 +131,7 @@ public class acInspectTransaction extends AppCompatActivity {
                 super.onPostExecute(o);
                 ArrayAdapter<ClientAssetInspectServiceStatus> adpSpinner = new ArrayAdapter<ClientAssetInspectServiceStatus>(mContext, R.layout.spinner_item, arrClientAssetInspectServiceStatus);
                 spnStatus.setAdapter(adpSpinner);
-                txtAssetName.setText(objInspectTransaction.getAssetName());
+                txtAssetName.setText(objClientAssetInspect.getAitAsset_name());
                 txtAssignedTo.setText(assignedT0EmpName);
                 edInspectionDate.setText(dateFormat.format(calInspectionDate.getTime()));
                 edInspectionTime.setText(timeFormate.format(calInspectionDate.getTime()));
@@ -156,8 +152,7 @@ public class acInspectTransaction extends AppCompatActivity {
                             calInspectionDate.set(Calendar.MONTH, monthOfYear);
                             calInspectionDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                             edInspectionDate.setText(dateFormat.format(calInspectionDate.getTime()));
-                            objInspectTransaction.setDate_time(calInspectionDate.getTime());
-                            Logger.debug(objInspectTransaction.getDate_time().toString());
+                            objClientAssetInspect.setAitDateTime(calInspectionDate.getTime());
                         }
                     }, calInspectionDate.get(Calendar.YEAR), calInspectionDate.get(Calendar.MONTH), calInspectionDate.get(Calendar.DAY_OF_MONTH));
                     dp.show();
@@ -171,8 +166,7 @@ public class acInspectTransaction extends AppCompatActivity {
                             calInspectionDate.set(Calendar.HOUR, hourOfDay);
                             calInspectionDate.set(Calendar.MINUTE, minute);
                             edInspectionTime.setText(timeFormate.format(calInspectionDate.getTime()));
-                            objInspectTransaction.setDate_time(calInspectionDate.getTime());
-                            Logger.debug(objInspectTransaction.getDate_time().toString());
+                            objClientAssetInspect.setAitDateTime(calInspectionDate.getTime());
                         }
                     }, calInspectionDate.get(Calendar.HOUR), calInspectionDate.get(Calendar.MINUTE), true);
                     tp.show();
@@ -241,17 +235,15 @@ public class acInspectTransaction extends AppCompatActivity {
 
             @Override
             protected Object doInBackground(Object[] objects) {
-                objInspectTransaction.setInspectionName(edInspectionName.getText().toString());
-                objInspectTransaction.setNote(edInspectionNote.getText().toString());
-                objInspectTransaction.setStatusId(String.valueOf(arrClientAssetInspectServiceStatus.get(spnStatus.getSelectedItemPosition()).getId()));
-                objInspectTransaction.setDate_time(Helper.convertStringToDate(edInspectionDate.getText().toString(), ConstantVal.DATE_FORMAT+" "+ConstantVal.TIME_FORMAT));
-                objInspectTransaction.display();
+                objClientAssetInspect.setAitName(edInspectionName.getText().toString());
+                objClientAssetInspect.setAitNote(edInspectionNote.getText().toString());
+                objClientAssetInspect.setAitStatusId(String.valueOf(arrClientAssetInspectServiceStatus.get(spnStatus.getSelectedItemPosition()).getId()));
+                objClientAssetInspect.setAitDateTime(calInspectionDate.getTime());
                 DataBase db = new DataBase(mContext);
                 db.open();
                 ContentValues cv = new ContentValues();
                 cv.put("localViewStatus", ConstantVal.InspectionServiceStatus.DONE);
-                cv.put("serStatus", objInspectTransaction.getStatusId());
-                db.update(DataBase.inspect_view_table, "localViewStatus=?", new String[]{String.valueOf(ConstantVal.InspectionServiceStatus.NEW) + " or " + String.valueOf(ConstantVal.InspectionServiceStatus.PENDING)}, cv);
+                db.update(DataBase.inspect_view_table, DataBase.inspect_view_int, "aitId=" + objClientAssetInspect.getAitId(), cv);
                 db.close();
                 return null;
             }
@@ -271,7 +263,7 @@ public class acInspectTransaction extends AppCompatActivity {
                     super.onPreExecute();
                     bmp = (Bitmap) data.getExtras().get("data");
                     String strBAse64Image = Helper.getEncoded64ImageStringFromBitmap(bmp);
-                    objInspectTransaction.setPhoto(strBAse64Image);
+                    objClientAssetInspect.setPhoto(strBAse64Image);
                     imgPicture.setImageResource(0);
                     imgPicture.setBackgroundDrawable(new BitmapDrawable(mContext.getResources(), bmp));
                 }

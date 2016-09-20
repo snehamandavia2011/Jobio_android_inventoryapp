@@ -7,31 +7,87 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import utility.DataBase;
+import utility.Logger;
 
 /**
  * Created by SAI on 9/13/2016.
  */
 public class ClientAssetInspect {
-    String aoAsset_id, actmCategory_name,
+    String aitId, aitName, aitAssetId, aitAsset_name, aitAssetBarcode, aitAssignedTo, aitIsPresent,
+            aitNote, aitStatusId, photo, actmCategory_name,
             amAsset_name, amDescription, amModel_name, amManufacturer_name, amSerial_no, amBarcode_no,
             amPurchase_cost, amPurchase_from, amCurrent_value, amAsset_location, amService_period, amIs_schedule_service_on, amService_aasigned_employee,
             amInspection_period, amIs_schedule_inspection_on, amInspection_aasigned_employee,
             amAsset_status, amCustom_field_1, amCustom_field_2, amCustom_field_3, amCustom_field_4, amCustom_field_5;
-    Date amDate_acquired, amDate_soon, amDate_expired, amNext_service_date, amNext_inspection_date;
-    int viewStatus,serStatus;
+    Date aitAssignedDate, aitDateTime, amDate_acquired, amDate_soon, amDate_expired, amNext_service_date, amNext_inspection_date;
+    int viewStatus;
+
+    public void display() {
+        Logger.debug(aitName);
+        Logger.debug(aitAssetId);
+        Logger.debug(aitAsset_name);
+        Logger.debug(aitAssetBarcode);
+        Logger.debug(aitAssignedTo);
+        Logger.debug(aitIsPresent);
+        Logger.debug(aitNote);
+        Logger.debug(aitStatusId);
+        Logger.debug(actmCategory_name);
+        Logger.debug(amAsset_name);
+        Logger.debug(amDescription);
+        Logger.debug(amModel_name);
+        Logger.debug(amManufacturer_name);
+        Logger.debug(amSerial_no);
+        Logger.debug(amBarcode_no);
+        Logger.debug(amPurchase_cost);
+        Logger.debug(amPurchase_from);
+        Logger.debug(amCurrent_value);
+        Logger.debug(amAsset_location);
+        Logger.debug(amService_period);
+        Logger.debug(amIs_schedule_service_on);
+        Logger.debug(amService_aasigned_employee);
+        Logger.debug(amInspection_period);
+        Logger.debug(amIs_schedule_inspection_on);
+        Logger.debug(amInspection_aasigned_employee);
+        Logger.debug(amAsset_status);
+        Logger.debug(amCustom_field_1);
+        Logger.debug(amCustom_field_2);
+        Logger.debug(amCustom_field_3);
+        Logger.debug(amCustom_field_4);
+        Logger.debug(amCustom_field_5);
+        Logger.debug(aitAssignedDate.toString());
+        Logger.debug(aitDateTime.toString());
+        Logger.debug(amDate_acquired.toString());
+        Logger.debug(amDate_soon.toString());
+        Logger.debug(amDate_expired.toString());
+        Logger.debug(amNext_service_date.toString());
+        Logger.debug(amNext_inspection_date.toString());
+        Logger.debug(String.valueOf(viewStatus));
+    }
 
     public ClientAssetInspect() {
     }
 
-    public ClientAssetInspect(String aoAsset_id, String actmCategory_name, String amAsset_name, String amDescription,
-                              String amModel_name, String amManufacturer_name, String amSerial_no, String amBarcode_no,
-                              Date amDate_acquired, Date amDate_soon, String amPurchase_cost, String amPurchase_from, String amCurrent_value,
+    public ClientAssetInspect(String aitId, String aitName, String aitAssetId, String aitAsset_name, String aitAssetBarcode, String aitAssignedTo,
+                              Date aitAssignedDate, String aitIsPresent, Date aitDateTime, String aitNote, String photo, String aitStatusId,
+                              String actmCategory_name, String amAsset_name, String amDescription, String amModel_name,
+                              String amManufacturer_name, String amSerial_no, String amBarcode_no, Date amDate_acquired,
+                              Date amDate_soon, String amPurchase_cost, String amPurchase_from, String amCurrent_value,
                               Date amDate_expired, String amAsset_location, String amService_period, String amIs_schedule_service_on,
                               String amService_aasigned_employee, String amInspection_period, String amIs_schedule_inspection_on,
-                              String amInspection_aasigned_employee, Date amNext_service_date, Date amNext_inspection_date,
-                              String amAsset_status, String amCustom_field_1, String amCustom_field_2, String amCustom_field_3,
-                              String amCustom_field_4, String amCustom_field_5, int viewStatus,int serStatus) {
-        this.aoAsset_id = aoAsset_id;
+                              String amInspection_aasigned_employee, Date amNext_service_date, Date amNext_inspection_date, String amAsset_status, String amCustom_field_1,
+                              String amCustom_field_2, String amCustom_field_3, String amCustom_field_4, String amCustom_field_5, int viewStatus) {
+        this.aitId = aitId;
+        this.aitName = aitName;
+        this.aitAssetId = aitAssetId;
+        this.aitAsset_name = aitAsset_name;
+        this.aitAssetBarcode = aitAssetBarcode;
+        this.aitAssignedTo = aitAssignedTo;
+        this.aitAssignedDate = aitAssignedDate;
+        this.aitIsPresent = aitIsPresent;
+        this.aitDateTime = aitDateTime;
+        this.aitNote = aitNote;
+        this.aitStatusId = aitStatusId;
+        this.photo = photo;
         this.actmCategory_name = actmCategory_name;
         this.amAsset_name = amAsset_name;
         this.amDescription = amDescription;
@@ -61,15 +117,79 @@ public class ClientAssetInspect {
         this.amNext_service_date = amNext_service_date;
         this.amNext_inspection_date = amNext_inspection_date;
         this.viewStatus = viewStatus;
-        this.serStatus=serStatus;
     }
 
-    public String getAoAsset_id() {
-        return aoAsset_id;
+    public String getAitName() {
+        return aitName;
     }
 
-    public void setAoAsset_id(String aoAsset_id) {
-        this.aoAsset_id = aoAsset_id;
+    public void setAitName(String aitName) {
+        this.aitName = aitName;
+    }
+
+    public String getAitAssetId() {
+        return aitAssetId;
+    }
+
+    public void setAitAssetId(String aitAssetId) {
+        this.aitAssetId = aitAssetId;
+    }
+
+    public String getAitAsset_name() {
+        return aitAsset_name;
+    }
+
+    public void setAitAsset_name(String aitAsset_name) {
+        this.aitAsset_name = aitAsset_name;
+    }
+
+    public String getAitAssetBarcode() {
+        return aitAssetBarcode;
+    }
+
+    public void setAitAssetBarcode(String aitAssetBarcode) {
+        this.aitAssetBarcode = aitAssetBarcode;
+    }
+
+    public String getAitAssignedTo() {
+        return aitAssignedTo;
+    }
+
+    public void setAitAssignedTo(String aitAssignedTo) {
+        this.aitAssignedTo = aitAssignedTo;
+    }
+
+
+    public String getAitIsPresent() {
+        return aitIsPresent;
+    }
+
+    public void setAitIsPresent(String aitIsPresent) {
+        this.aitIsPresent = aitIsPresent;
+    }
+
+    public String getAitNote() {
+        return aitNote;
+    }
+
+    public void setAitNote(String aitNote) {
+        this.aitNote = aitNote;
+    }
+
+    public String getAitStatusId() {
+        return aitStatusId;
+    }
+
+    public void setAitStatusId(String aitStatusId) {
+        this.aitStatusId = aitStatusId;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getActmCategory_name() {
@@ -304,38 +424,59 @@ public class ClientAssetInspect {
         this.viewStatus = viewStatus;
     }
 
-    public int getSerStatus() {
-        return serStatus;
+    public Date getAitAssignedDate() {
+        return aitAssignedDate;
     }
 
-    public void setSerStatus(int serStatus) {
-        this.serStatus = serStatus;
+    public void setAitAssignedDate(Date aitAssignedDate) {
+        this.aitAssignedDate = aitAssignedDate;
     }
 
-    public static ArrayList<ClientAssetInspect> getDataFromDatabase(Context mContext) {
+    public Date getAitDateTime() {
+        return aitDateTime;
+    }
+
+    public void setAitDateTime(Date aitDateTime) {
+        this.aitDateTime = aitDateTime;
+    }
+
+    public String getAitId() {
+        return aitId;
+    }
+
+    public void setAitId(String aitId) {
+        this.aitId = aitId;
+    }
+
+    public static ArrayList<ClientAssetInspect> getDataFromDatabase(Context mContext, String aitID) {
         ArrayList<ClientAssetInspect> arrClientAsset = null;
         DataBase db = new DataBase(mContext);
         db.open();
-        Cursor cur = db.fetchAll(DataBase.inspect_table, DataBase.inspect_int);
+        Cursor cur;
+        if (aitID == null)
+            cur = db.fetch(DataBase.inspect_table, null);
+        else
+            cur = db.fetch(DataBase.inspect_table, "aitId=" + aitID);
         if (cur != null && cur.getCount() > 0) {
             arrClientAsset = new ArrayList<ClientAssetInspect>();
             cur.moveToFirst();
             do {
-                int viewStatus = -1, serStatus = 1;
-                Cursor inspectView = db.fetch(DataBase.inspect_view_table, DataBase.inspect_view_int, "assetId='" + cur.getString(1) + "'");
+                int viewStatus = -1;
+                Cursor inspectView = db.fetch(DataBase.inspect_view_table, DataBase.inspect_view_int, "aitId='" + cur.getString(1) + "'");
                 if (inspectView != null && inspectView.getCount() > 0) {
                     inspectView.moveToFirst();
                     viewStatus = inspectView.getInt(2);
-                    serStatus = inspectView.getInt(3);
                 }
                 inspectView.close();
-
-                arrClientAsset.add(new ClientAssetInspect(cur.getString(1), cur.getString(2), cur.getString(3), cur.getString(4),
-                        cur.getString(5), cur.getString(6), cur.getString(7), cur.getString(8), new Date(cur.getLong(9)),
-                        new Date(cur.getLong(10)), cur.getString(11), cur.getString(12), cur.getString(13), new Date(cur.getLong(14)),
-                        cur.getString(15), cur.getString(16), cur.getString(17), cur.getString(18), cur.getString(19),
-                        cur.getString(20), cur.getString(21), new Date(cur.getLong(22)), new Date(cur.getLong(23)), cur.getString(24),
-                        cur.getString(25), cur.getString(26), cur.getString(27), cur.getString(28), cur.getString(29), viewStatus,serStatus));
+                arrClientAsset.add(new ClientAssetInspect(cur.getString(1), cur.getString(2), cur.getString(3), cur.getString(4), cur.getString(5), cur.getString(6),
+                        new Date(cur.getLong(7)), cur.getString(8), new Date(cur.getLong(9)), cur.getString(10), cur.getString(11),
+                        cur.getString(12), cur.getString(13), cur.getString(14), cur.getString(15), cur.getString(16),
+                        cur.getString(17), cur.getString(18), cur.getString(19), new Date(cur.getLong(20)),
+                        new Date(cur.getLong(21)), cur.getString(22), cur.getString(23), cur.getString(24),
+                        new Date(cur.getLong(25)), cur.getString(26), cur.getString(27), cur.getString(28),
+                        cur.getString(29), cur.getString(30), cur.getString(31),
+                        cur.getString(32), new Date(cur.getLong(33)), new Date(cur.getLong(34)), cur.getString(35), cur.getString(36),
+                        cur.getString(37), cur.getString(38), cur.getString(39), cur.getString(40), viewStatus));
             } while (cur.moveToNext());
         }
         cur.close();

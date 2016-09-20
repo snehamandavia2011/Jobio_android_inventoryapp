@@ -107,7 +107,7 @@ public class frAssetsInspect extends Fragment {
 
             @Override
             protected Object doInBackground(Object[] params) {
-                arrClientAssetInspectInspect = ClientAssetInspect.getDataFromDatabase(mContext);
+                arrClientAssetInspectInspect = ClientAssetInspect.getDataFromDatabase(mContext, null);
                 if (arrClientAssetInspectInspect != null && arrClientAssetInspectInspect.size() > 0)
                     prepareListDataAsPerExpandableListView();
                 return null;

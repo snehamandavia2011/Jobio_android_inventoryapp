@@ -421,6 +421,7 @@ public class Helper {
             try {
                 return df.parse(strDate);
             } catch (ParseException e) {
+                e.printStackTrace();
                 return new Date(0);
             }
         } else {

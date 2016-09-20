@@ -71,13 +71,14 @@ public class DataBase {
                     "amInspection_period", "amIs_schedule_inspection_on", "amInspection_aasigned_employee", "amNext_service_date",
                     "amNext_inspection_date", "amAsset_status", "amCustom_field_1", "amCustom_field_2", "amCustom_field_3", "amCustom_field_4", "amCustom_field_5"},
             {"_ID", "aoAsset_id", "aoEmployee_id", "aoStart_date", "aoEnd_date"},
-            {"_ID", "aoAsset_id", "actmCategory_name",
+            {"_ID", "aitId", "aitName", "aitAssetId", "aitAsset_name", "aitAssetBarcode", "aitAssignedTo", "aitAssignedDate", "aitIsPresent", "aitDateTime",
+                    "aitNote", "aitStatusId", "actmCategory_name",
                     "amAsset_name", "amDescription", "amModel_name", "amManufacturer_name", "amSerial_no", "amBarcode_no",
                     "amDate_acquired", "amDate_soon", "amPurchase_cost", "amPurchase_from", "amCurrent_value", "amDate_expired"
                     , "amAsset_location", "amService_period", "amIs_schedule_service_on", "amService_aasigned_employee",
                     "amInspection_period", "amIs_schedule_inspection_on", "amInspection_aasigned_employee", "amNext_service_date",
                     "amNext_inspection_date", "amAsset_status", "amCustom_field_1", "amCustom_field_2", "amCustom_field_3", "amCustom_field_4", "amCustom_field_5"},
-            {"_ID", "assetId", "localViewStatus", "serStatus"}};
+            {"_ID", "aitId", "localViewStatus"}};
     private static final String TABLE_0_CREATE = "create table "
             + device_to_db_sync_table
             + "(_ID integer primary key autoincrement,URL text not null,data text not null,isSync text not null,last_result_code text not null);";
@@ -110,10 +111,11 @@ public class DataBase {
             + asset_owner_table
             + "(_ID integer primary key autoincrement,aoAsset_id text not null,aoEmployee_id text not null," +
             "aoStart_date text not null,aoEnd_date text not null);";
-
     private static final String TABLE_5_CREATE = "create table "
             + inspect_table
-            + "(_ID integer primary key autoincrement,aoAsset_id text not null,actmCategory_name text not null," +
+            + "(_ID integer primary key autoincrement,aitId text not null,aitName text not null,aitAssetId text not null,aitAsset_name text not null," +
+            "aitAssetBarcode text not null,aitAssignedTo text not null,aitAssignedDate text not null,aitIsPresent text not null," +
+            "aitDateTime text not null,aitNote text not null,aitPhoto text null,aitStatusId text not null, actmCategory_name text not null," +
             "amAsset_name text not null,amDescription text null,amModel_name text not null,amManufacturer_name text not null," +
             "amSerial_no text not null,amBarcode_no text null,amDate_acquired text not null,amDate_soon text not null," +
             "amPurchase_cost text not null,amPurchase_from text null,amCurrent_value text not null,amDate_expired text not null," +
@@ -125,7 +127,7 @@ public class DataBase {
 
     private static final String TABLE_6_CREATE = "create table "
             + inspect_view_table
-            + "(_ID integer primary key autoincrement,assetId text not null,localViewStatus text not null,serStatus text not null);";
+            + "(_ID integer primary key autoincrement,aitId text not null,localViewStatus text not null);";
 
 
     public DataBase(Context ctx) {
