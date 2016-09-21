@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import entity.BusinessAccountdbDetail;
 import entity.ClientAsset;
 import entity.ClientAssetInspect;
 import entity.ClientAssetInspectServiceStatus;
@@ -43,7 +44,9 @@ import me.zhanghai.android.materialedittext.MaterialEditText;
 import utility.ConstantVal;
 import utility.DataBase;
 import utility.Helper;
+import utility.HttpEngine;
 import utility.Logger;
+import utility.URLMapping;
 
 public class acInspectTransaction extends AppCompatActivity {
     ArrayList<ClientAssetInspectServiceStatus> arrClientAssetInspectServiceStatus = new ArrayList<>();
@@ -244,7 +247,25 @@ public class acInspectTransaction extends AppCompatActivity {
                 ContentValues cv = new ContentValues();
                 cv.put("localViewStatus", ConstantVal.InspectionServiceStatus.DONE);
                 db.update(DataBase.inspect_view_table, DataBase.inspect_view_int, "aitId=" + objClientAssetInspect.getAitId(), cv);
+                String strIsPresent = "Y";
+                ContentValues cvInspect = new ContentValues();
+                cvInspect.put("aitName", objClientAssetInspect.getAitName());
+                cvInspect.put("aitDateTime", objClientAssetInspect.getAitDateTime().getTime());
+                cvInspect.put("aitNote", objClientAssetInspect.getAitNote());
+                cvInspect.put("aitPhoto", objClientAssetInspect.getPhoto());
+                cvInspect.put("aitStatusId", objClientAssetInspect.getAitStatusId());
+                cvInspect.put("aitIsPresent", strIsPresent);
+                db.update(DataBase.inspect_table, DataBase.inspect_int, "aitId=" + objClientAssetInspect.getAitId(), cvInspect);
                 db.close();
+
+                String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+                final int tokenId = Helper.getIntPreference(mContext, ConstantVal.TOKEN_ID, 0);
+                String[] data = {String.valueOf(tokenId), account_id, objClientAssetInspect.getAitId(), objClientAssetInspect.getAitName(),
+                        Helper.convertDateToString(calInspectionDate.getTime(), ConstantVal.DATE_FORMAT + " " + ConstantVal.TIME_FORMAT),
+                        objClientAssetInspect.getAitNote(), objClientAssetInspect.getPhoto(), strIsPresent, objClientAssetInspect.getAitStatusId()};
+                URLMapping um = ConstantVal.updateInspectTransaction(mContext);
+                HttpEngine objHttpEngine = new HttpEngine();
+                objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), data, um.getParamNames(), um.isNeedToSync());
                 return null;
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

@@ -291,4 +291,11 @@ public class ConstantVal {
         String URL = getWebURLPrefix(subDomain) + "getcommondata/getAssetServiceInspectionStatus";
         return new URLMapping(paramNames, URL, false);
     }
+
+    public static URLMapping updateInspectTransaction(Context c) {
+        String[] paramNames = {"token_id", "account_id", "iTransactionID", "name", "date_time", "note", "photo", "is_present","status_id"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "assetAIM/updateInspectTransaction";
+        return new URLMapping(paramNames, URL, true);
+    }
 }
