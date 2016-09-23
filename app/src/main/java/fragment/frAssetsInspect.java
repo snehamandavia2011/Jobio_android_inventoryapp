@@ -248,7 +248,7 @@ public class frAssetsInspect extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ConstantVal.INSPECTION_TRANSACTION_REQUEST_CODE && resultCode == ConstantVal.INSPECTION_TRANSACTION_RESPONSE_CODE) {
+        if (requestCode == ConstantVal.INSPECTION_TRANSACTION_REQUEST_CODE) {
             setDataFromLocalDatabase();
         }
     }

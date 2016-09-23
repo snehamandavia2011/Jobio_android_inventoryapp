@@ -266,7 +266,14 @@ public class acInspectTransaction extends AppCompatActivity {
                 URLMapping um = ConstantVal.updateInspectTransaction(mContext);
                 HttpEngine objHttpEngine = new HttpEngine();
                 objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), data, um.getParamNames(), um.isNeedToSync());
+                setResult(ConstantVal.INSPECTION_TRANSACTION_RESPONSE_CODE);
+                finish();
                 return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

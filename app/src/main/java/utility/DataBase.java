@@ -24,6 +24,8 @@ public class DataBase {
             db.execSQL(TABLE_4_CREATE);
             db.execSQL(TABLE_5_CREATE);
             db.execSQL(TABLE_6_CREATE);
+            db.execSQL(TABLE_7_CREATE);
+            db.execSQL(TABLE_8_CREATE);
         }
 
         @Override
@@ -56,9 +58,13 @@ public class DataBase {
     public static final String asset_owner_table = "assetOwner";
     public static final int asset_owner_int = 4;
     public static final String inspect_table = "inspect";
-    public static final int inspect_int = 5;//field of asset and inspect are same. Table contain the data for inspection need to carry out.
+    public static final int inspect_int = 5;
     public static final String inspect_view_table = "inspectView";
     public static final int inspect_view_int = 6;
+    public static final String service_table = "service";
+    public static final int service_int = 7;
+    public static final String service_view_table = "serviceView";
+    public static final int service_view_int = 8;
 
 
     String[][] tables = new String[][]{{"_ID", "URL", "data", "isSync", "last_result_code"},
@@ -78,7 +84,16 @@ public class DataBase {
                     , "amAsset_location", "amService_period", "amIs_schedule_service_on", "amService_aasigned_employee",
                     "amInspection_period", "amIs_schedule_inspection_on", "amInspection_aasigned_employee", "amNext_service_date",
                     "amNext_inspection_date", "amAsset_status", "amCustom_field_1", "amCustom_field_2", "amCustom_field_3", "amCustom_field_4", "amCustom_field_5"},
-            {"_ID", "aitId", "localViewStatus"}};
+            {"_ID", "aitId", "localViewStatus"},
+            {"_ID", "astId", "astName", "astAssetId", "astAsset_name", "astAssetBarcode", "astServiceFirmName", "astAssignedTo",
+                    "astAssignedDate", "astPerformedBy", "astDateTime", "astCost",
+                    "astNote", "astStatusId", "actmCategory_name",
+                    "amAsset_name", "amDescription", "amModel_name", "amManufacturer_name", "amSerial_no", "amBarcode_no",
+                    "amDate_acquired", "amDate_soon", "amPurchase_cost", "amPurchase_from", "amCurrent_value", "amDate_expired"
+                    , "amAsset_location", "amService_period", "amIs_schedule_service_on", "amService_aasigned_employee",
+                    "amInspection_period", "amIs_schedule_inspection_on", "amInspection_aasigned_employee", "amNext_service_date",
+                    "amNext_inspection_date", "amAsset_status", "amCustom_field_1", "amCustom_field_2", "amCustom_field_3", "amCustom_field_4", "amCustom_field_5"},
+            {"_ID", "astId", "localViewStatus"}};
     private static final String TABLE_0_CREATE = "create table "
             + device_to_db_sync_table
             + "(_ID integer primary key autoincrement,URL text not null,data text not null,isSync text not null,last_result_code text not null);";
@@ -130,6 +145,25 @@ public class DataBase {
             + "(_ID integer primary key autoincrement,aitId text not null,localViewStatus text not null);";
 
 
+    private static final String TABLE_7_CREATE = "create table "
+            + service_table
+            + "(_ID integer primary key autoincrement,astId text not null,astName text not null,astAssetId text not null,astAsset_name text not null," +
+            "astAssetBarcode text not null,astServiceFirmName text not null,astAssignedTo text not null,astAssignedDate text not null,astPerformedBy text not null," +
+            "astDateTime text not null,astCost text not null,astNote text not null,astPhoto text null,astInvoicePicture text null,astStatusId text not null, actmCategory_name text not null," +
+            "amAsset_name text not null,amDescription text null,amModel_name text not null,amManufacturer_name text not null," +
+            "amSerial_no text not null,amBarcode_no text null,amDate_acquired text not null,amDate_soon text not null," +
+            "amPurchase_cost text not null,amPurchase_from text null,amCurrent_value text not null,amDate_expired text not null," +
+            "amAsset_location text not null,amService_period text null,amIs_schedule_service_on text not null," +
+            "amService_aasigned_employee text not null,amInspection_period text not null,amIs_schedule_inspection_on text null," +
+            "amInspection_aasigned_employee text not null,amNext_service_date text not null,amNext_inspection_date text not null," +
+            "amAsset_status text not null,amCustom_field_1 text not null,amCustom_field_2 text not null,amCustom_field_3 text not null," +
+            "amCustom_field_4 text not null,amCustom_field_5 text not null);";
+
+    private static final String TABLE_8_CREATE = "create table "
+            + service_view_table
+            + "(_ID integer primary key autoincrement,astId text not null,localViewStatus text not null);";
+
+
     public DataBase(Context ctx) {
         HCtx = ctx;
     }
@@ -148,6 +182,8 @@ public class DataBase {
         sqLiteDb.delete(asset_owner_table, null, null);
         sqLiteDb.delete(inspect_table, null, null);
         sqLiteDb.delete(inspect_view_table, null, null);
+        sqLiteDb.delete(service_table, null, null);
+        sqLiteDb.delete(service_view_table, null, null);
     }
 
     public void cleanTable(int tableNo) {
@@ -172,6 +208,12 @@ public class DataBase {
                 break;
             case inspect_view_int:
                 sqLiteDb.delete(inspect_view_table, null, null);
+                break;
+            case service_int:
+                sqLiteDb.delete(service_table, null, null);
+                break;
+            case service_view_int:
+                sqLiteDb.delete(service_view_table, null, null);
                 break;
             default:
                 break;

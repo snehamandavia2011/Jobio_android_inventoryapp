@@ -12,9 +12,11 @@ import entity.BusinessAccountdbDetail;
 import entity.ClientAsset;
 import entity.ClientAssetInspect;
 import entity.ClientAssetOwner;
+import entity.ClientAssetService;
 import entity.ClientEmployeeMaster;
 import parser.parseAssetIOwn;
 import parser.parseInspect;
+import parser.parseService;
 import utility.ConstantVal;
 import utility.DataBase;
 import utility.Helper;
@@ -47,7 +49,42 @@ public class asyncAsset {
     }
 
     public void getService() {
+        new Thread() {
+            public void run() {
+                ArrayList<ClientAssetService> arrServerdata = getServiceFromServer();
+                if (arrServerdata == null)
+                    return;
+                DataBase db = new DataBase(ctx);
+                db.open();
+                db.cleanTable(DataBase.service_int);
+                for (ClientAssetService obj : arrServerdata) {
+                    String data[] = {obj.getAstId(), obj.getAstName(), obj.getAstAssetId(), obj.getAstAsset_name(),
+                            obj.getAstAssetBarcode(), obj.getAstServiceFirmName(), obj.getAstAssignedTo(), String.valueOf(obj.getAstAssignedDate().getTime()), obj.getAstPerformedBy(),
+                            String.valueOf(obj.getAstDateTime().getTime()), obj.getAstCost(), obj.getAstNote(), obj.getAstStatusId(), obj.getActmCategory_name(),
+                            obj.getAmAsset_name(), obj.getAmDescription(), obj.getAmModel_name(), obj.getAmManufacturer_name(), obj.getAmSerial_no(), obj.getAmBarcode_no(),
+                            String.valueOf(obj.getAmDate_acquired().getTime()), String.valueOf(obj.getAmDate_soon().getTime()), obj.getAmPurchase_cost(), obj.getAmPurchase_from(),
+                            obj.getAmCurrent_value(), String.valueOf(obj.getAmDate_expired().getTime()),
+                            obj.getAmAsset_location(), obj.getAmService_period(), obj.getAmIs_schedule_service_on(), obj.getAmService_aasigned_employee(),
+                            obj.getAmInspection_period(), obj.getAmIs_schedule_inspection_on(), obj.getAmInspection_aasigned_employee(), String.valueOf(obj.getAmNext_service_date().getTime()),
+                            String.valueOf(obj.getAmNext_inspection_date().getTime()), obj.getAmAsset_status(), obj.getAmCustom_field_1(), obj.getAmCustom_field_2(),
+                            obj.getAmCustom_field_3(), obj.getAmCustom_field_4(), obj.getAmCustom_field_5()};
+                    db.insert(DataBase.service_table, DataBase.service_int, data);
 
+                    //if jobid is not available then save to table with false
+                    String where = "astId=" + obj.getAstId() + "";
+                    Cursor curIsVied = db.fetch(DataBase.service_view_table, DataBase.service_view_int, where);
+                    if (curIsVied != null && curIsVied.getCount() == 0) {
+                        String status = String.valueOf(ConstantVal.InspectionServiceStatus.NEW);
+                        db.insert(DataBase.service_view_table, DataBase.service_view_int, new String[]{obj.getAstId(), status});
+                    }
+                    curIsVied.close();
+                }
+                db.close();
+                Intent intent = new Intent();
+                intent.setAction(ConstantVal.BroadcastAction.SERVICE_LIST);
+                ctx.sendBroadcast(intent);
+            }
+        }.start();
     }
 
     public void getInspect() {
@@ -156,6 +193,27 @@ public class asyncAsset {
         if (result != null && !result.equals("") && responseCode == ConstantVal.ServerResponseCode.SUCCESS) {
             try {
                 arrServerdata = parseInspect.getList(result);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return arrServerdata;
+    }
+
+    private ArrayList<ClientAssetService> getServiceFromServer() {
+        HttpEngine objHttpEngine = new HttpEngine();
+        ArrayList<ClientAssetService> arrServerdata = null;
+        final int tokenId = Helper.getIntPreference(ctx, ConstantVal.TOKEN_ID, 0);
+        String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+        String employee_id = Helper.getStringPreference(ctx, ClientEmployeeMaster.Fields.EMPLOYEE_ID, "");
+        URLMapping um = ConstantVal.fetchAssignedService(ctx);
+        ServerResponse objServerRespose = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(),
+                new String[]{account_id, employee_id, String.valueOf(tokenId)}, um.getParamNames(), um.isNeedToSync());
+        String result = objServerRespose.getResponseString();
+        responseCode = objServerRespose.getResponseCode();
+        if (result != null && !result.equals("") && responseCode == ConstantVal.ServerResponseCode.SUCCESS) {
+            try {
+                arrServerdata = parseService.getList(result);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

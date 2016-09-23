@@ -1,54 +1,43 @@
 package adapter;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lab360io.jobio.inventoryapp.R;
 import com.lab360io.jobio.inventoryapp.acInspectTransaction;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import entity.ClientAssetInspect;
+import entity.ClientAssetService;
 import fragment.ListHeader;
+import utility.ConstantVal;
 import utility.Helper;
 import utility.Logger;
-import utility.ConstantVal;
 
 /**
  * Created by SAI on 2/18/2016.
  */
 
-public class AssetInspectListAdapter extends BaseExpandableListAdapter {
+public class AssetServiceListAdapter extends BaseExpandableListAdapter {
     private Context mContext;
     private List<ListHeader> listDataHeader;
-    private HashMap<String, List<ClientAssetInspect>> listDataChild;
+    private HashMap<String, List<ClientAssetService>> listDataChild;
     Helper objHelper = new Helper();
     Fragment contextFragment;
     Typeface ubuntuL, ubuntuC, ubuntuM;
 
-    public AssetInspectListAdapter(Context context, Fragment contextFragment, List<ListHeader> listDataHeader,
-                                   HashMap<String, List<ClientAssetInspect>> listChildData) {
+    public AssetServiceListAdapter(Context context, Fragment contextFragment, List<ListHeader> listDataHeader,
+                                   HashMap<String, List<ClientAssetService>> listChildData) {
         this.mContext = context;
         this.contextFragment = contextFragment;
         this.listDataHeader = listDataHeader;
@@ -158,7 +147,7 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        final ClientAssetInspect objClientAssetInspect = (ClientAssetInspect) getChild(groupPosition, childPosition);
+        final ClientAssetService objClientAssetService = (ClientAssetService) getChild(groupPosition, childPosition);
         ViewHolderChild holderChild;
         if (convertView == null) {
             holderChild = new ViewHolderChild();
@@ -177,25 +166,25 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
         } else {
             holderChild = (ViewHolderChild) convertView.getTag();
         }
-        if (objClientAssetInspect.getViewStatus() == ConstantVal.InspectionServiceStatus.NEW) {
+        if (objClientAssetService.getViewStatus() == ConstantVal.InspectionServiceStatus.NEW) {
             holderChild.txtStatus.setTextAppearance(mContext, R.style.styDescSmallRed);
         } else {
             holderChild.txtStatus.setTextAppearance(mContext, R.style.styDescSmallTile);
         }
-        holderChild.txtStatus.setText(ConstantVal.InspectionServiceStatus.getStatusName(mContext, objClientAssetInspect.getViewStatus()));
+        holderChild.txtStatus.setText(ConstantVal.InspectionServiceStatus.getStatusName(mContext, objClientAssetService.getViewStatus()));
         holderChild.txtStatus.setSelected(true);
         try {
-            Logger.debug("getAitStatusId: "+objClientAssetInspect.getAitStatusId());
-            holderChild.txtStatusSer.setText(ConstantVal.assetServiceInspectionStatus.getStatusName(mContext, Integer.parseInt(objClientAssetInspect.getAitStatusId())));
+            Logger.debug("getAitStatusId: " + objClientAssetService.getAstStatusId());
+            holderChild.txtStatusSer.setText(ConstantVal.assetServiceInspectionStatus.getStatusName(mContext, Integer.parseInt(objClientAssetService.getAstStatusId())));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        holderChild.txtAssetName.setText(objClientAssetInspect.getAmAsset_name());
+        holderChild.txtAssetName.setText(objClientAssetService.getAmAsset_name());
         holderChild.btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mContext, acInspectTransaction.class);
-                i.putExtra("aitId", objClientAssetInspect.getAitId());
+                i.putExtra("astId", objClientAssetService.getAstId());
                 contextFragment.startActivityForResult(i, ConstantVal.INSPECTION_TRANSACTION_REQUEST_CODE);
             }
         });
