@@ -123,4 +123,9 @@ public class ClientAdminUserEmployee {
     public void setUnreadMessageCount(int unreadMessageCount) {
         this.unreadMessageCount = unreadMessageCount;
     }
+
+    @Override
+    public String toString() {
+        return first_name+" "+last_name;
+    }
 }

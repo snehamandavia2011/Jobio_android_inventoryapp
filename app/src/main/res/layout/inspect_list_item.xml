@@ -65,6 +65,7 @@
         </LinearLayout>
 
         <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+            android:id="@+id/rplDone"
             style="@style/btn"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/buttonHeight"

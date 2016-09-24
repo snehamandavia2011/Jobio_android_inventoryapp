@@ -155,6 +155,7 @@
     <string name="msgNotAttendedYet">Not attended yet.</string>
     <string name="title_activity_ac_inspect_transaction">acInspectTransaction</string>
     <string name="msgEnterInspectionName">Enter inspection name</string>
+    <string name="msgEnterCost">Enter cost</string>
     <string name="strInspectionName">Inspection Name</string>
     <string name="strAssetName">Asset Name</string>
     <string name="strAssignedTo">Assigned To</string>
@@ -166,4 +167,14 @@
     <string name="strNotAttendedYet">NOT ATTENDED YET</string>
     <string name="strPostpone">POSTPONE</string>
     <string name="strNoNeedWorkingFine">NO NEED WORKING FINE</string>
+    <string name="title_activity_ac_service_transaction">acServiceTransaction</string>
+    <string name="strServiceName">Service Name</string>
+    <string name="strPerformBy">Perform By</string>
+    <string name="strServiceFirmName">Service Firm name</string>
+    <string name="strServiceDate">Service Date</string>
+    <string name="strServiceTime">Service Time</string>
+    <string name="strServiceNote">Service Note</string>
+    <string name="strUploadInvoice">Upload Invoice</string>
+    <string name="strUploadPhoto">Upload Photo</string>
+    <string name="strSelectEmployee">Select Employee</string>
 </resources>

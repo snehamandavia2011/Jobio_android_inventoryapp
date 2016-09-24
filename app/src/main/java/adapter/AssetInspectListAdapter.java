@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.lab360io.jobio.inventoryapp.R;
 import com.lab360io.jobio.inventoryapp.acInspectTransaction;
+import com.thomsonreuters.rippledecoratorview.RippleDecoratorView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -154,6 +155,7 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
     private class ViewHolderChild {
         TextView txtStatus, txtAssetName, txtStatusSer;
         Button btnDone;
+        RippleDecoratorView rplDone;
     }
 
     @Override
@@ -168,6 +170,7 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
             holderChild.txtStatus = (TextView) convertView.findViewById(R.id.txtStatus);
             holderChild.txtAssetName = (TextView) convertView.findViewById(R.id.txtAssetName);
             holderChild.txtStatusSer = (TextView) convertView.findViewById(R.id.txtStatusSer);
+            holderChild.rplDone = (RippleDecoratorView) convertView.findViewById(R.id.rplDone);
             holderChild.btnDone = (Button) convertView.findViewById(R.id.btnDone);
             holderChild.btnDone.setTypeface(ubuntuL);
             holderChild.txtAssetName.setTypeface(ubuntuM);
@@ -185,8 +188,11 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
         holderChild.txtStatus.setText(ConstantVal.InspectionServiceStatus.getStatusName(mContext, objClientAssetInspect.getViewStatus()));
         holderChild.txtStatus.setSelected(true);
         try {
-            Logger.debug("getAitStatusId: "+objClientAssetInspect.getAitStatusId());
+            Logger.debug("getAitStatusId: " + objClientAssetInspect.getAitStatusId());
             holderChild.txtStatusSer.setText(ConstantVal.assetServiceInspectionStatus.getStatusName(mContext, Integer.parseInt(objClientAssetInspect.getAitStatusId())));
+            if (Integer.parseInt(objClientAssetInspect.getAitStatusId()) != (ConstantVal.assetServiceInspectionStatus.NOT_ATTENDED_YET)) {
+                holderChild.rplDone.setVisibility(View.GONE);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

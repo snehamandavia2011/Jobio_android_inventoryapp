@@ -27,6 +27,7 @@ public class ConstantVal {
     public static final String WELCOME_MESSAGE = "welcome_message";
 
     public static final int REQUEST_TO_START_CAMERA_ACTIVITY = 100;
+    public static final int REQUEST_TO_START_CAMERA_ACTIVITY1 = 101;
     public static final int EXIT_REQUEST_CODE = 1;
     public static final int EXIT_RESPONSE_CODE = 2;
     public static final int INSPECTION_TRANSACTION_REQUEST_CODE = 3;
@@ -303,9 +304,16 @@ public class ConstantVal {
     }
 
     public static URLMapping updateInspectTransaction(Context c) {
-        String[] paramNames = {"token_id", "account_id", "iTransactionID", "name", "date_time", "note", "photo", "is_present","status_id"};
+        String[] paramNames = {"token_id", "account_id", "iTransactionID", "name", "date_time", "note", "photo", "is_present", "status_id"};
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(subDomain) + "assetAIM/updateInspectTransaction";
+        return new URLMapping(paramNames, URL, true);
+    }
+
+    public static URLMapping updateServiceTransaction(Context c) {
+        String[] paramNames = {"token_id", "account_id", "sTransactionID", "name", "perform_by", "service_firm_name", "cost", "date_time", "note", "photo", "invoice", "status_id"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "assetAIM/updateServiceTransaction";
         return new URLMapping(paramNames, URL, true);
     }
 }

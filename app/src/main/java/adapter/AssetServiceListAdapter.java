@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.lab360io.jobio.inventoryapp.R;
 import com.lab360io.jobio.inventoryapp.acInspectTransaction;
+import com.lab360io.jobio.inventoryapp.acServiceTransaction;
+import com.thomsonreuters.rippledecoratorview.RippleDecoratorView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -143,6 +145,7 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
     private class ViewHolderChild {
         TextView txtStatus, txtAssetName, txtStatusSer;
         Button btnDone;
+        RippleDecoratorView rplDone;
     }
 
     @Override
@@ -157,6 +160,7 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
             holderChild.txtStatus = (TextView) convertView.findViewById(R.id.txtStatus);
             holderChild.txtAssetName = (TextView) convertView.findViewById(R.id.txtAssetName);
             holderChild.txtStatusSer = (TextView) convertView.findViewById(R.id.txtStatusSer);
+            holderChild.rplDone = (RippleDecoratorView) convertView.findViewById(R.id.rplDone);
             holderChild.btnDone = (Button) convertView.findViewById(R.id.btnDone);
             holderChild.btnDone.setTypeface(ubuntuL);
             holderChild.txtAssetName.setTypeface(ubuntuM);
@@ -176,6 +180,9 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
         try {
             Logger.debug("getAitStatusId: " + objClientAssetService.getAstStatusId());
             holderChild.txtStatusSer.setText(ConstantVal.assetServiceInspectionStatus.getStatusName(mContext, Integer.parseInt(objClientAssetService.getAstStatusId())));
+            if (Integer.parseInt(objClientAssetService.getAstStatusId()) != (ConstantVal.assetServiceInspectionStatus.NOT_ATTENDED_YET)) {
+                holderChild.rplDone.setVisibility(View.GONE);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -183,9 +190,9 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
         holderChild.btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(mContext, acInspectTransaction.class);
+                Intent i = new Intent(mContext, acServiceTransaction.class);
                 i.putExtra("astId", objClientAssetService.getAstId());
-                contextFragment.startActivityForResult(i, ConstantVal.INSPECTION_TRANSACTION_REQUEST_CODE);
+                contextFragment.startActivityForResult(i, ConstantVal.SERVICE_TRANSACTION_REQUEST_CODE);
             }
         });
         return convertView;
