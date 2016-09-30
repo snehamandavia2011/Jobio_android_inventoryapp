@@ -77,7 +77,7 @@ public class acHome extends AppCompatActivity {
         if (!name.equals("")) {
             name = getString(R.string.strHiya) + ", " + name;
         }
-        objHelper.setActionBar(ac, getString(R.string.strHome), name);
+        objHelper.setActionBar(ac, getString(R.string.strHome), getString(R.string.strHome));
         initilizeData();
     }
 

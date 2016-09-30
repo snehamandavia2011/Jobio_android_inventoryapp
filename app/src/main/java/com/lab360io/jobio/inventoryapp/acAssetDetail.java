@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
+import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -41,8 +42,7 @@ public class acAssetDetail extends AppCompatActivity {
     AppCompatActivity ac;
     Context mContext;
     Helper objHelper = new Helper();
-    TextView txtAssetNameCategory, txtDesc, txtModel, txtManufacturer, txtSerialNumber, txtAssetLocation, txtCost, txtCurrentValue, txtPurchaseFrom, txtExpireDate, txtStatus;
-    RelativeLayout lyBarcode;
+    TextView txtAssetNameCategory, txtDesc, txtModel, txtManufacturer, txtSerialNumber, txtAssetLocation, txtCost, txtCurrentValue, txtPurchaseFrom, txtExpireDate, txtStatus,txtBarcode;
     LinearLayout lyassetOwner;
     public  static LinearLayout lyAssetDetail;
     String assetId;
@@ -80,7 +80,8 @@ public class acAssetDetail extends AppCompatActivity {
                 txtPurchaseFrom = (TextView) findViewById(R.id.txtPurchaseFrom);
                 txtExpireDate = (TextView) findViewById(R.id.txtExpireDate);
                 txtStatus = (TextView) findViewById(R.id.txtStatus);
-                lyBarcode = (RelativeLayout) findViewById(R.id.lyBarcode);
+                txtBarcode = (TextView) findViewById(R.id.txtBarcode);
+                txtBarcode.setPaintFlags(txtBarcode.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 lyassetOwner = (LinearLayout) findViewById(R.id.lyassetOwner);
                 lyAssetDetail = (LinearLayout) findViewById(R.id.lyAssetDetail);
                 asset_image = (CircleImageView) findViewById(R.id.asset_image);
@@ -89,6 +90,7 @@ public class acAssetDetail extends AppCompatActivity {
                 if (ac.getIntent().getExtras() != null) {
                     assetId = ac.getIntent().getStringExtra("AssetId");
                 }
+                txtBarcode.setOnClickListener(openBarcode);
             }
 
             @Override
@@ -114,16 +116,24 @@ public class acAssetDetail extends AppCompatActivity {
                 txtPurchaseFrom.setText(objClientAsset.getAmPurchase_from());
                 txtExpireDate.setText(Helper.convertDateToString(objClientAsset.getAmDate_expired(), ConstantVal.DATE_FORMAT));
                 txtStatus.setText(objClientAsset.getAmAsset_status());
-                Helper.setBarcodeToView(mContext, objClientAsset.getAmBarcode_no(), lyBarcode);
                 for (ClientAssetOwner obj : objClientAsset.getArrOwner()) {
                     View v = addItemToLayout(obj);
                     lyassetOwner.addView(v);
                 }
+                txtBarcode.setText(objClientAsset.getAmBarcode_no());
                 dot_progress_bar.setVisibility(View.GONE);
                 scrlMailContent.setVisibility(View.VISIBLE);
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
+
+    View.OnClickListener openBarcode=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Helper.openBarcodeDialog(mContext, objClientAsset.getAmBarcode_no());
+
+        }
+    };
 
     private View addItemToLayout(ClientAssetOwner obj) {
         LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);

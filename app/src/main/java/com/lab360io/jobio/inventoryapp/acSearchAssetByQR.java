@@ -21,7 +21,6 @@ import utility.ConstantVal;
 import utility.Helper;
 
 public class acSearchAssetByQR extends AppCompatActivity implements QRCodeReaderView.OnQRCodeReadListener {
-    TextView txtSearchAssetByClick;
     com.dlazaro66.qrcodereaderview.QRCodeReaderView mydecoderview;
     AppCompatActivity ac;
     Helper objHelper = new Helper();
@@ -35,17 +34,6 @@ public class acSearchAssetByQR extends AppCompatActivity implements QRCodeReader
 
         mydecoderview = (QRCodeReaderView) findViewById(R.id.qrdecoderview);
         mydecoderview.setOnQRCodeReadListener(this);
-
-        txtSearchAssetByClick = (TextView) findViewById(R.id.txtSearchAssetByClick);
-        txtSearchAssetByClick.setSelected(true);
-        txtSearchAssetByClick.setPaintFlags(txtSearchAssetByClick.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-
-        txtSearchAssetByClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
     }
 

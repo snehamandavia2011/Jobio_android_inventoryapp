@@ -987,4 +987,29 @@ public class Helper {
     public static int getDPFromPixel(Context mContext, int pixel) {
         return (int)(pixel / mContext.getResources().getDisplayMetrics().density);
     }
+
+    public static void openBarcodeDialog(Context mContext, String strBarcode) {
+        zXingBarcodeGenerator obj = new zXingBarcodeGenerator(mContext, strBarcode);
+        View bar = obj.getBarcode();
+        RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(300, 300);
+        param.addRule(RelativeLayout.CENTER_IN_PARENT);
+        bar.setLayoutParams(param);
+        LayoutInflater infalInflater = (LayoutInflater) mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final Dialog dialog = new Dialog(mContext);
+        View view1 = DataBindingUtil.inflate(infalInflater, R.layout.dlg_barcode, null, true).getRoot();
+        RelativeLayout ly = (RelativeLayout) view1.findViewById(R.id.lyBarcode);
+        ly.addView(bar);
+        ImageButton btnClose = (ImageButton) view1.findViewById(R.id.btnClose);
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
+        dialog.setContentView(view1);
+        dialog.show();
+    }
+
 }

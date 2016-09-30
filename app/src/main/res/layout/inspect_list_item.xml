@@ -12,7 +12,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="@dimen/ViewMargin"
         android:layout_marginRight="@dimen/ViewMargin"
         android:layout_weight="1"
         android:background="@drawable/white_bg"
@@ -29,39 +28,43 @@
             android:gravity="center" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/ViewMargin"
-        android:layout_marginRight="@dimen/ViewMargin"
         android:layout_marginTop="@dimen/ViewMargin"
         android:layout_weight="4"
         android:background="@drawable/white_bg"
         android:orientation="vertical"
         android:padding="@dimen/ViewPadding">
 
-
-        <TextView
-            android:id="@+id/txtAssetName"
-            style="@style/styTitleTilt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold" />
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/ViewMargin"
-            android:background="@color/tilt">
+            android:orientation="vertical">
+
             <TextView
-                android:layout_margin="1dp"
-                android:paddingLeft="@dimen/ViewPaddingSmall"
-                android:paddingRight="@dimen/ViewPaddingSmall"
-                android:id="@+id/txtStatusSer"
-                style="@style/styDescTile"
+                android:id="@+id/txtAssetName"
+                style="@style/styTitleTilt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/white" />
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ViewMargin"
+                android:background="@color/tilt">
+
+                <TextView
+                    android:id="@+id/txtStatusSer"
+                    style="@style/styDescTile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:background="@color/white"
+                    android:paddingLeft="@dimen/ViewPaddingSmall"
+                    android:paddingRight="@dimen/ViewPaddingSmall" />
+            </LinearLayout>
         </LinearLayout>
 
         <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
@@ -69,8 +72,9 @@
             style="@style/btn"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/buttonHeight"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:layout_gravity="right"
-            android:layout_marginTop="@dimen/ViewMargin"
             rdv:rdv_rippleAnimationDuration="600"
             rdv:rdv_rippleAnimationFrames="60"
             rdv:rdv_rippleAnimationPeakFrame="15"
@@ -97,5 +101,5 @@
         </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

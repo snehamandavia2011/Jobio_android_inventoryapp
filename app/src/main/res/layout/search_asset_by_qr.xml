@@ -46,47 +46,11 @@
                     custom:startColor="@color/white" />
 
                 <TextView
-                    style="@style/styDescSmallWhite"
+                    style="@style/stySubTitleWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
                     android:text="@string/msgScanQRCodeToSearchAsset"
                     app:font="@{`Ubuntu-L`}" />
-
-                <TextView
-                    style="@style/styDescSmallWhite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="@dimen/ViewMargin"
-                    android:text="@string/strOR"
-                    app:font="@{`Ubuntu-L`}" />
-
-                <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/ViewMargin"
-                    rdv:rdv_rippleAnimationDuration="600"
-                    rdv:rdv_rippleAnimationFrames="60"
-                    rdv:rdv_rippleAnimationPeakFrame="15"
-                    rdv:rdv_rippleColor="@color/white"
-                    rdv:rdv_rippleMaxAlpha="0.8"
-                    rdv:rdv_rippleRadius="@dimen/rippleRadius">
-
-                    <TextView
-                        android:id="@+id/txtSearchAssetByClick"
-                        style="@style/styDescWhite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/transperant"
-                        android:clickable="true"
-                        android:gravity="top"
-                        android:text="@string/msgSearchAssetbyClick"
-                        android:textColor="@color/white"
-                        app:font="@{`Ubuntu-L`}" />
-                </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
             </LinearLayout>
         </RelativeLayout>
 

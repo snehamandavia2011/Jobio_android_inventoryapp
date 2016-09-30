@@ -105,7 +105,11 @@ public class AdminEmployeeListAdapter extends BaseAdapter {
         });
         holder.txtEmployeeName.setText(objClientAdminUserEmployee.getFirst_name() + " " + objClientAdminUserEmployee.getLast_name());
         holder.txtUserType.setText(objClientAdminUserEmployee.getUser_type_name());
-        holder.txtPhone.setText("(" + objClientAdminUserEmployee.getContact_no() + ")");
+        if (objClientAdminUserEmployee.getContact_no().equals("")) {
+            holder.txtPhone.setText("(" + mContext.getString(R.string.strNA) + ")");
+        } else {
+            holder.txtPhone.setText("(" + objClientAdminUserEmployee.getContact_no() + ")");
+        }
         //Logger.debug(objClientAdminUserEmployee.getFirst_name()+" "+objClientAdminUserEmployee.getUnreadMessageCount());
         if (objClientAdminUserEmployee.getUnreadMessageCount() > 0) {
             holder.txtUnreadMessageCount.setVisibility(View.VISIBLE);

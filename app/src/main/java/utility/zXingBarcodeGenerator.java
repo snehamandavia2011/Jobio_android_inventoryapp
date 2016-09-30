@@ -35,13 +35,13 @@ public class zXingBarcodeGenerator {
     public View getBarcode() {
         // barcode image
         LinearLayout container = new LinearLayout(ctx);
-        container.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        container.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
         container.setOrientation(LinearLayout.VERTICAL);
 
         Bitmap bitmap = null;
         ImageView iv = new ImageView(ctx);
         try {
-            int pixel = Helper.getPixelByPercentageOfScreenWidth(40, ctx);
+            int pixel = Helper.getPixelByPercentageOfScreenWidth(70, ctx);
             bitmap = encodeAsBitmap(barcode_data, BarcodeFormat.CODE_128, pixel, pixel / 2);
             iv.setImageBitmap(bitmap);
 

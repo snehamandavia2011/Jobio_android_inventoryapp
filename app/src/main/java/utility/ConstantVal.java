@@ -146,7 +146,7 @@ public class ConstantVal {
                 } else if (intCode == Integer.parseInt(BLANK_RESPONSE)) {
                     return ctx.getString(R.string.strDatacannotReceive);
                 } else if (intCode == Integer.parseInt(NOT_OFFICE_STAFF)) {
-                    return ctx.getString(R.string.msgUnagleToLoginAsNotOfficeStaff);
+                    return ctx.getString(R.string.msgInvalidCreditialsAsNotStaffMember);
                 }
                 return strCode;
             } catch (NumberFormatException e) {

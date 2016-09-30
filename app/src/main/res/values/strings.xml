@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Jobio AIM</string>
     <string name="strHiya">Hiya</string>
+    <string name="strNA">NA</string>
     <string name="strEmail">Email</string>
     <string name="strPassword">Password</string>
     <string name="strNotUserName">Not User Name?</string>
@@ -29,7 +30,7 @@
     <string name="strServerError">Server error</string>
     <string name="strClientError">Invalid URL request</string>
     <string name="strQRNotExist">QR Code does not exits.</string>
-    <string name="msgUnagleToLoginAsNotOfficeStaff">Unable to login, unfortunately you are not subscribed as office staff.</string>
+    <string name="msgInvalidCreditialsAsNotStaffMember">Invalid credentials, unfortunately you are not subscribed as staff member</string>
     <string name="title_activity_ac_login">acLogin</string>
     <string name="msgSyncNoInternet">Internet not available, data will be sync later</string>
     <string name="title_activity_ac_message_list">acMessageList</string>
@@ -124,12 +125,12 @@
         <item>Stock</item>
         <item>Transaction</item>
     </string-array>
-    <string name="msgNoService">No service</string>
-    <string name="msgNoInspect">No inspect</string>
+    <string name="msgNoService">No pending service</string>
+    <string name="msgNoInspect">No pending inspection</string>
     <string name="msgNoAsset">No asset</string>
     <string name="msgAssetIOwn">Asset(s) I own</string>
     <string name="msgInspectToCarryOut">Inspect(s) to carry out</string>
-    <string name="msgServiceIOwn">Service(s) I own</string>
+    <string name="msgServiceToCarryOut">Service(s) to carry out</string>
     <string name="msgDescNotAvail">Description is not available</string>
     <string name="title_activity_ac_asset_detail">acAssetDetail</string>
     <string name="strAssetDetail">Asset Detail</string>
