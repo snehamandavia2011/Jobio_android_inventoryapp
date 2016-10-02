@@ -101,6 +101,33 @@ public class acHome extends AppCompatActivity {
         lyInspect = (LinearLayout) findViewById(R.id.lyInspect);
         lyMessage = (LinearLayout) findViewById(R.id.lyMessage);
         lyUserDetail = (LinearLayout) findViewById(R.id.lyUserDetail);
+
+        lyService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //((ImageButton) ((RelativeLayout) findViewById(R.id.rlMenu)).findViewById(R.id.btnJob)).performClick();
+                Intent i = new Intent(ac.getApplicationContext(), acAsset.class);
+                i.putExtra("tab",acAsset.SERVICE);
+                ac.startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
+            }
+        });
+        lyInspect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //((ImageButton) ((RelativeLayout) findViewById(R.id.rlMenu)).findViewById(R.id.btnInquiry)).performClick();
+                Intent i = new Intent(ac.getApplicationContext(), acAsset.class);
+                i.putExtra("tab",acAsset.INSPECT);
+                ac.startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
+            }
+        });
+        lyMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //((ImageButton) ((RelativeLayout) findViewById(R.id.rlMenu)).findViewById(R.id.btnMessage)).performClick();
+                Intent i = new Intent(ac.getApplicationContext(), acMessageEmployeeList.class);
+                ac.startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
+            }
+        });
     }
 
     @Override
@@ -227,7 +254,7 @@ public class acHome extends AppCompatActivity {
                 if (isDataVerified && isAllFieldsEntered) {
                     Helper.setStringPreference(mContext, ClientAdminUserAppsRel.Fields.IS_PASSWORD_RESETED, "Y");
                     Helper.setStringPreference(mContext, ClientAdminUser.Fields.PASSWORD, newPassword);
-                    int tokenId = Helper.getIntPreference(mContext, ConstantVal.TOKEN_ID, 0);
+                    final String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
                     String adminUserId = Helper.getStringPreference(mContext, ClientAdminUser.Fields.ADMINUSERID, "");
                     String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
                     URLMapping um = ConstantVal.changePassword(mContext);

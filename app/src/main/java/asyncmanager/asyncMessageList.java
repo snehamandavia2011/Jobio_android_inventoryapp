@@ -66,7 +66,7 @@ public class asyncMessageList {
                     } while (cur.moveToNext());
                     if (ids.length() > 0) {
                         ids = ids.substring(0, ids.length() - 1);
-                        int tokenId = Helper.getIntPreference(ctx, ConstantVal.TOKEN_ID, 0);
+                        String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
                         String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
                         HttpEngine objHttpEngine = new HttpEngine();
                         URLMapping um = ConstantVal.getMessageStatus(ctx);
@@ -136,7 +136,7 @@ public class asyncMessageList {
             @Override
             protected Object doInBackground(Object[] params) {
                 String responseCode = "";
-                int tokenId = Helper.getIntPreference(ctx, ConstantVal.TOKEN_ID, 0);
+                final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
                 String userId = Helper.getStringPreference(ctx, ClientAdminUser.Fields.ADMINUSERID, "");
                 String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
                 String isDataLoadFirstTime = "";

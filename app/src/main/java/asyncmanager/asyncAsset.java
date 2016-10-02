@@ -160,7 +160,7 @@ public class asyncAsset {
     private ArrayList<ClientAsset> getAssetDataFromServer() {
         HttpEngine objHttpEngine = new HttpEngine();
         ArrayList<ClientAsset> arrServerdata = null;
-        final int tokenId = Helper.getIntPreference(ctx, ConstantVal.TOKEN_ID, 0);
+        final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
         String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
         String employee_id = Helper.getStringPreference(ctx, ClientEmployeeMaster.Fields.EMPLOYEE_ID, "");
         URLMapping um = ConstantVal.fetchOwnAsset(ctx);
@@ -182,7 +182,7 @@ public class asyncAsset {
     private ArrayList<ClientAssetInspect> getInspetFromServer() {
         HttpEngine objHttpEngine = new HttpEngine();
         ArrayList<ClientAssetInspect> arrServerdata = null;
-        final int tokenId = Helper.getIntPreference(ctx, ConstantVal.TOKEN_ID, 0);
+        final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
         String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
         String employee_id = Helper.getStringPreference(ctx, ClientEmployeeMaster.Fields.EMPLOYEE_ID, "");
         URLMapping um = ConstantVal.fetchAssignedInspection(ctx);
@@ -203,7 +203,7 @@ public class asyncAsset {
     private ArrayList<ClientAssetService> getServiceFromServer() {
         HttpEngine objHttpEngine = new HttpEngine();
         ArrayList<ClientAssetService> arrServerdata = null;
-        final int tokenId = Helper.getIntPreference(ctx, ConstantVal.TOKEN_ID, 0);
+        final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
         String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
         String employee_id = Helper.getStringPreference(ctx, ClientEmployeeMaster.Fields.EMPLOYEE_ID, "");
         URLMapping um = ConstantVal.fetchAssignedService(ctx);

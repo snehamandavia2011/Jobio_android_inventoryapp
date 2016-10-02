@@ -156,7 +156,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/ViewMarginSmall"
                                 android:clickable="true"
-                                android:text="@string/strBarcode"
+                                android:layout_gravity="right"
+                                android:text="@string/strShowBarcode"
                                 app:font="@{`Ubuntu-C`}" />
 
                             <ImageView

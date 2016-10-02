@@ -42,9 +42,9 @@ public class acAssetDetail extends AppCompatActivity {
     AppCompatActivity ac;
     Context mContext;
     Helper objHelper = new Helper();
-    TextView txtAssetNameCategory, txtDesc, txtModel, txtManufacturer, txtSerialNumber, txtAssetLocation, txtCost, txtCurrentValue, txtPurchaseFrom, txtExpireDate, txtStatus,txtBarcode;
+    TextView txtAssetNameCategory, txtDesc, txtModel, txtManufacturer, txtSerialNumber, txtAssetLocation, txtCost, txtCurrentValue, txtPurchaseFrom, txtExpireDate, txtStatus, txtBarcode;
     LinearLayout lyassetOwner;
-    public  static LinearLayout lyAssetDetail;
+    public static LinearLayout lyAssetDetail;
     String assetId;
     ClientAsset objClientAsset;
 
@@ -120,14 +120,14 @@ public class acAssetDetail extends AppCompatActivity {
                     View v = addItemToLayout(obj);
                     lyassetOwner.addView(v);
                 }
-                txtBarcode.setText(objClientAsset.getAmBarcode_no());
+                //txtBarcode.setText(objClientAsset.getAmBarcode_no());
                 dot_progress_bar.setVisibility(View.GONE);
                 scrlMailContent.setVisibility(View.VISIBLE);
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    View.OnClickListener openBarcode=new View.OnClickListener() {
+    View.OnClickListener openBarcode = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Helper.openBarcodeDialog(mContext, objClientAsset.getAmBarcode_no());
@@ -148,8 +148,8 @@ public class acAssetDetail extends AppCompatActivity {
         if (curEmp != null && curEmp.getCount() > 0) {
             curEmp.moveToFirst();
             txtEmployeeName.setText(curEmp.getString(3) + " " + curEmp.getString(4) + "[" + curEmp.getString(7) + "]");
-            txtStartDate.setText(Helper.convertDateToString(Helper.convertStringToDate(obj.getAoStart_date(), ConstantVal.DATE_FORMAT), ConstantVal.DATE_FORMAT));
-            txtEndDate.setText(Helper.convertDateToString(Helper.convertStringToDate(obj.getAoEnd_date(), ConstantVal.DATE_FORMAT), ConstantVal.DATE_FORMAT));
+            txtStartDate.setText(": " + Helper.convertDateToString(Helper.convertStringToDate(obj.getAoStart_date(), ConstantVal.DATE_FORMAT), ConstantVal.DATE_FORMAT));
+            txtEndDate.setText(": " + Helper.convertDateToString(Helper.convertStringToDate(obj.getAoEnd_date(), ConstantVal.DATE_FORMAT), ConstantVal.DATE_FORMAT));
         }
         curEmp.close();
         db.close();

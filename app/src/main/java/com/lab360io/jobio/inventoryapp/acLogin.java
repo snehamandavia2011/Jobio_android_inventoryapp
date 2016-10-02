@@ -225,16 +225,7 @@ public class acLogin extends AppCompatActivity {
                                     objLoginUser.setUserName(strUserName);
                                     objLoginUser.setPassword(strPassword);
                                     //objLoginUser.setQRCode(QRCode);
-                                    if (objLoginUser != null && (objLoginUser.getTokenId() == 0 && !Helper.isFieldBlank(objLoginUser.getDeviceName()))) {
-                                        Helper.displaySnackbar(ac, getString(R.string.msgAlreadyLogin) + " " + objLoginUser.getDeviceName() + "[" + objLoginUser.getOsName() + "] " + getString(R.string.msgStillLoginProblem));
-                                        handler.post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                btnLogin.setEnabled(true);
-                                                btnLogin.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
-                                            }
-                                        });
-                                    } else if (objLoginUser != null && objLoginUser.getTokenId() > 0) {
+                                    if (objLoginUser != null && !objLoginUser.getToken().equals("")) {
                                         //save verified data to shared preferences
                                         objLoginUser.saveDatatoPreference(mContext);
                                         try {

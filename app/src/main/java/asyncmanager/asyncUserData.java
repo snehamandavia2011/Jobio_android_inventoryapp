@@ -34,7 +34,7 @@ public class asyncUserData extends Thread {
     public void getData() {
         UserData objUserData = new UserData();
         HttpEngine objHttpEngine = new HttpEngine();
-        final int tokenId = Helper.getIntPreference(ctx, ConstantVal.TOKEN_ID, 0);
+        final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
         String userName = Helper.getStringPreference(ctx, ClientAdminUser.Fields.USER_NAME, "");
         String password = Helper.getStringPreference(ctx, ClientAdminUser.Fields.PASSWORD, "");
         String qrcode = Helper.getStringPreference(ctx, ConstantVal.QRCODE_VALUE, "");

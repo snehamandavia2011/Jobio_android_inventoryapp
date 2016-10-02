@@ -47,7 +47,7 @@ public class asyncLocationTrackingInterval extends Thread {
 
     private ClientLocationTrackingInterval getDataFromServer() {
         HttpEngine objHttpEngine = new HttpEngine();
-        final int tokenId = Helper.getIntPreference(ctx, ConstantVal.TOKEN_ID, 0);
+        final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
         String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
         URLMapping um = ConstantVal.getLocationTrackingIntervalURL(ctx);
         ServerResponse objServerResponse = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(), new String[]{String.valueOf(tokenId), account_id}, um.getParamNames(), um.isNeedToSync());

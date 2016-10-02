@@ -92,10 +92,10 @@ public class acSplash extends Activity {
                         }
                     });
                 } else {
-                    final int tokenId = Helper.getIntPreference(mContext, ConstantVal.TOKEN_ID, 0);
+                    final String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
                     boolean isSessionExists = Helper.getBooleanPreference(mContext, ConstantVal.IS_SESSION_EXISTS, false);
                     Logger.debug("tokenId:" + tokenId + " isSessionExists:" + isSessionExists);
-                    if (tokenId == 0 && !isSessionExists) {//User never logged in
+                    if (tokenId.equals("") && !isSessionExists) {//User never logged in
                         try {
                             Thread.sleep(3000);
                         } catch (InterruptedException e) {
@@ -104,7 +104,7 @@ public class acSplash extends Activity {
                         Intent i = new Intent(mContext, acLogin.class);
                         startActivity(i);
                         finish();
-                    } else if (tokenId != 0) {//User logged in atleast one time.
+                    } else if (!tokenId.equals("")) {//User logged in atleast one time.
                         try {
                             Thread.sleep(3000);
                         } catch (InterruptedException e) {

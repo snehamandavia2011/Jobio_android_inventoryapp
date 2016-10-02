@@ -63,7 +63,7 @@ public class serLocationTracker extends Service {
                 if (objMyLocation != null) {
                     String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
                     URLMapping um = ConstantVal.getSaveUserLocationURL(mContext);
-                    final int tokenId = Helper.getIntPreference(mContext, ConstantVal.TOKEN_ID, 0);
+                    final String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
                     HttpEngine objHttpEngine = new HttpEngine();
                     Date dt = new Date();
                     String date = Helper.convertDateToString(dt, ConstantVal.DATE_FORMAT);

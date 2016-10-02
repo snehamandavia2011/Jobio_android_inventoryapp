@@ -16,7 +16,6 @@ public class ConstantVal {
     public static final String IS_QRCODE_CONFIGURE = "isQrConfigure";
     public static final String QRCODE_VALUE = "qrCodeValue";
     public static final String TOKEN = "token";
-    public static final String TOKEN_ID = "tokenId";
     public static final String IS_SESSION_EXISTS = "is_session_exists";
     public static final String LAST_ITEM_MASTER_SYNC_TIME = "last_item_master_sync_time";
     public static final String LAST_SERVER_TO_DEVICE_SYNC_TIME = "last_server_to_device_sync_time";

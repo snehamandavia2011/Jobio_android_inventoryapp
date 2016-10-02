@@ -69,7 +69,7 @@ public class asyncLoadCommonData {
                 if (objClientAsset.getPhoto() == null || objClientAsset.getPhoto().length() <= 0) {
                     String id = objClientAsset.getAoAsset_id();
                     final HttpEngine objHttpEngine = new HttpEngine();
-                    final int tokenId = Helper.getIntPreference(ctx, ConstantVal.TOKEN_ID, 0);
+                    final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
                     String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
                     final URLMapping um = ConstantVal.loadPhoto(ctx);
                     ServerResponse sr = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(), new String[]{String.valueOf(tokenId), String.valueOf(id), String.valueOf(4), account_id}, um.getParamNames(), um.isNeedToSync());
@@ -116,7 +116,7 @@ public class asyncLoadCommonData {
                 if (objClientAdminUserEmployee.getPhoto() == null || objClientAdminUserEmployee.getPhoto().length() <= 0) {
                     String id = objClientAdminUserEmployee.getEmpId();
                     final HttpEngine objHttpEngine = new HttpEngine();
-                    final int tokenId = Helper.getIntPreference(ctx, ConstantVal.TOKEN_ID, 0);
+                    final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
                     String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
                     final URLMapping um = ConstantVal.loadPhoto(ctx);
                     ServerResponse sr = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(), new String[]{String.valueOf(tokenId), String.valueOf(id), String.valueOf(3), account_id}, um.getParamNames(), um.isNeedToSync());

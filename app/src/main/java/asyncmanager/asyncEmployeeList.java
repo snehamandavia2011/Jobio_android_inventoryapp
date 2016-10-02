@@ -50,7 +50,7 @@ public class asyncEmployeeList extends Thread {
     private ArrayList<ClientAdminUserEmployee> getDataFromServer() {
         HttpEngine objHttpEngine = new HttpEngine();
         ArrayList<ClientAdminUserEmployee> arrServerdata = null;
-        final int tokenId = Helper.getIntPreference(ctx, ConstantVal.TOKEN_ID, 0);
+        final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
         String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
         URLMapping um = ConstantVal.getClientAdminUserEmployeeList(ctx);
         ServerResponse objServerRespose = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(),

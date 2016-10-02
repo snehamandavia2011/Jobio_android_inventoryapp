@@ -342,7 +342,6 @@ public class Helper {
             ClientAdminUser.clearCache(ctx);
             ClientAdminUserAppsRel.clearCache(ctx);
             ClientEmployeeMaster.clearCache(ctx);
-            Helper.clearPreference(ctx, ConstantVal.TOKEN_ID);
             Helper.clearPreference(ctx, ConstantVal.TOKEN);
             Helper.clearPreference(ctx, ConstantVal.IS_QRCODE_CONFIGURE);
             Helper.clearPreference(ctx, ConstantVal.QRCODE_VALUE);
@@ -393,7 +392,6 @@ public class Helper {
             ClientAdminUser.clearCache(c);
             ClientAdminUserAppsRel.clearCache(c);
             ClientEmployeeMaster.clearCache(c);
-            Helper.clearPreference(c, ConstantVal.TOKEN_ID);
             Helper.clearPreference(c, ConstantVal.TOKEN);
             Helper.clearPreference(c, ConstantVal.IS_SESSION_EXISTS);
         } catch (Exception e) {
@@ -829,7 +827,7 @@ public class Helper {
 
                                     @Override
                                     protected Object doInBackground(Object[] params) {
-                                        final int tokenId = Helper.getIntPreference(ac, ConstantVal.TOKEN_ID, 0);
+                                        final String tokenId = Helper.getStringPreference(ac, ConstantVal.TOKEN, "");
                                         final String accountID = Helper.getStringPreference(ac, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
                                         URLMapping objURLMapping = ConstantVal.logoutUser(ac);
                                         HttpEngine objHttpEngine = new HttpEngine();

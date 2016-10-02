@@ -289,7 +289,7 @@ public class acServiceTransaction extends AppCompatActivity {
                 db.close();
 
                 String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
-                final int tokenId = Helper.getIntPreference(mContext, ConstantVal.TOKEN_ID, 0);
+                final String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
                 String[] data = {String.valueOf(tokenId), account_id, objClientAssetService.getAstId(), objClientAssetService.getAstName(),
                         objClientAssetService.getAstPerformedBy(), objClientAssetService.getAstServiceFirmName(), objClientAssetService.getAstCost(),
                         Helper.convertDateToString(calServiceDate.getTime(), ConstantVal.DATE_FORMAT + " " + ConstantVal.TIME_FORMAT),

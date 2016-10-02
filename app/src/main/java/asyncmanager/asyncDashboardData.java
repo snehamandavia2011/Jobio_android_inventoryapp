@@ -37,7 +37,7 @@ public class asyncDashboardData extends Thread {
             @Override
             protected Object doInBackground(Object[] params) {
                 HttpEngine objHttpEngine = new HttpEngine();
-                final int tokenId = Helper.getIntPreference(ctx, ConstantVal.TOKEN_ID, 0);
+                final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
                 String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
                 URLMapping um = ConstantVal.getWelcomeText(ctx);
                 ServerResponse objServerResponse = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(), new String[]{String.valueOf(tokenId), account_id,ConstantVal.APP_REF_TYPE}, um.getParamNames(), um.isNeedToSync());

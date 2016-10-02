@@ -178,4 +178,5 @@
     <string name="strUploadInvoice">Upload Invoice</string>
     <string name="strUploadPhoto">Upload Photo</string>
     <string name="strSelectEmployee">Select Employee</string>
+    <string name="strShowBarcode">Show Barcode</string>
 </resources>

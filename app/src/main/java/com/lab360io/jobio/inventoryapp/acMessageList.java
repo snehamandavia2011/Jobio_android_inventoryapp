@@ -167,7 +167,7 @@ public class acMessageList extends AppCompatActivity {
                 db.update(DataBase.field_message_table, DataBase.field_message_int, where, cv);
                 db.close();
 
-                int tokenId = Helper.getIntPreference(mContext, ConstantVal.TOKEN_ID, 0);
+                String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
                 String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
                 HttpEngine objHttpEngine = new HttpEngine();
                 URLMapping um = ConstantVal.updateMessageStatus(mContext);
@@ -237,7 +237,7 @@ public class acMessageList extends AppCompatActivity {
                 @Override
                 protected Object doInBackground(Object[] params) {
                     //save data on server
-                    int tokenId = Helper.getIntPreference(mContext, ConstantVal.TOKEN_ID, 0);
+                    String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
                     String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
                     HttpEngine objHttpEngine = new HttpEngine();
                     URLMapping um = ConstantVal.saveMessage(mContext);

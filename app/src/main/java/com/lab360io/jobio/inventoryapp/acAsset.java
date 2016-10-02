@@ -44,6 +44,10 @@ import utility.Logger;
 import utility.MessageLoader;
 
 public class acAsset extends ActionBarActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
+    public static final String ASSET = "Tab1";
+    public static final String SERVICE = "Tab2";
+    public static final String INSPECT = "Tab3";
+    String current_tab = ASSET;
     ActionBarActivity ac;
     Context mContext;
     Helper objHelper = new Helper();
@@ -93,6 +97,14 @@ public class acAsset extends ActionBarActivity implements TabHost.OnTabChangeLis
         mContext = this;
         mViewPager = (ViewPager) super.findViewById(R.id.viewpager);
         objHelper.setActionBar(ac, getString(R.string.strAsset), getString(R.string.strAsset));
+        if (this.getIntent().getExtras() != null) {
+            try {
+                current_tab = this.getIntent().getStringExtra("tab");
+            } catch (Exception e) {
+                e.printStackTrace();
+                current_tab = ASSET;
+            }
+        }
         this.initialiseTabHost(savedInstanceState);
         if (savedInstanceState != null) {
             mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab")); //set the tab as per the saved state
@@ -139,13 +151,14 @@ public class acAsset extends ActionBarActivity implements TabHost.OnTabChangeLis
         ((TextView) (sAsset.findViewById(R.id.text))).setText(getString(R.string.strService).toUpperCase());
         ((ImageView) (sAsset.findViewById(R.id.img))).setImageResource(R.drawable.ic_service);
 
-        acAsset.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec("Tab1").setIndicator(vAsset), (tabInfo = new TabInfo("Tab1", frAssetsAsset.class, args)));
+        acAsset.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec(ASSET).setIndicator(vAsset), (tabInfo = new TabInfo(ASSET, frAssetsAsset.class, args)));
         this.mapTabInfo.put(tabInfo.tag, tabInfo);
-        acAsset.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec("Tab2").setIndicator(iAsset), (tabInfo = new TabInfo("Tab2", frAssetsInspect.class, args)));
+        acAsset.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec(INSPECT).setIndicator(iAsset), (tabInfo = new TabInfo(INSPECT, frAssetsInspect.class, args)));
         this.mapTabInfo.put(tabInfo.tag, tabInfo);
-        acAsset.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec("Tab3").setIndicator(sAsset), (tabInfo = new TabInfo("Tab3", frAssetsService.class, args)));
+        acAsset.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec(SERVICE).setIndicator(sAsset), (tabInfo = new TabInfo(SERVICE, frAssetsService.class, args)));
         this.mapTabInfo.put(tabInfo.tag, tabInfo);
-        this.onTabChanged("Tab1");
+        mTabHost.setCurrentTabByTag(current_tab);
+        this.onTabChanged(current_tab);
         mTabHost.setOnTabChangedListener(this);
     }
 
@@ -162,7 +175,6 @@ public class acAsset extends ActionBarActivity implements TabHost.OnTabChangeLis
 
     @Override
     public void onPageSelected(int position) {
-        Logger.debug("onPageSelected:" + position);
         this.mTabHost.setCurrentTab(position);
     }
 

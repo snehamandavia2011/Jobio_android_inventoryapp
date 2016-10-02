@@ -259,7 +259,7 @@ public class acInspectTransaction extends AppCompatActivity {
                 db.close();
 
                 String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
-                final int tokenId = Helper.getIntPreference(mContext, ConstantVal.TOKEN_ID, 0);
+                final String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
                 String[] data = {String.valueOf(tokenId), account_id, objClientAssetInspect.getAitId(), objClientAssetInspect.getAitName(),
                         Helper.convertDateToString(calInspectionDate.getTime(), ConstantVal.DATE_FORMAT + " " + ConstantVal.TIME_FORMAT),
                         objClientAssetInspect.getAitNote(), objClientAssetInspect.getPhoto(), strIsPresent, objClientAssetInspect.getAitStatusId()};
