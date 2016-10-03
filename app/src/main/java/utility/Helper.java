@@ -342,6 +342,7 @@ public class Helper {
             ClientAdminUser.clearCache(ctx);
             ClientAdminUserAppsRel.clearCache(ctx);
             ClientEmployeeMaster.clearCache(ctx);
+            ConstantVal.SettingFlags.clearCache(ctx);
             Helper.clearPreference(ctx, ConstantVal.TOKEN);
             Helper.clearPreference(ctx, ConstantVal.IS_QRCODE_CONFIGURE);
             Helper.clearPreference(ctx, ConstantVal.QRCODE_VALUE);
@@ -357,7 +358,9 @@ public class Helper {
             try {
                 DataBase db = new DataBase(ctx);
                 db.open();
+                db.cleanLogoutTable();
                 db.close();
+                Helper.clearPreference(ctx, ConstantVal.TOKEN);
                 Helper.clearPreference(ctx, ConstantVal.IS_SESSION_EXISTS);
                 Helper.clearPreference(ctx, ConstantVal.LAST_SERVER_TO_DEVICE_SYNC_TIME);
                 Helper.clearPreference(ctx, ConstantVal.LAST_ITEM_MASTER_SYNC_TIME);
@@ -392,8 +395,11 @@ public class Helper {
             ClientAdminUser.clearCache(c);
             ClientAdminUserAppsRel.clearCache(c);
             ClientEmployeeMaster.clearCache(c);
-            Helper.clearPreference(c, ConstantVal.TOKEN);
-            Helper.clearPreference(c, ConstantVal.IS_SESSION_EXISTS);
+            ConstantVal.SettingFlags.clearCache(c);
+            DataBase db = new DataBase(c);
+            db.open();
+            db.cleanNotUserTable();
+            db.close();
         } catch (Exception e) {
             Logger.debug("Error while wipe:" + e.getMessage());
         }
@@ -976,14 +982,14 @@ public class Helper {
     public static void setBarcodeToView(Context mContext, String strBarcode, RelativeLayout ly) {
         zXingBarcodeGenerator obj = new zXingBarcodeGenerator(mContext, strBarcode);
         View bar = obj.getBarcode();
-        RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(getDPFromPixel(mContext,180), getDPFromPixel(mContext,90));
+        RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(getDPFromPixel(mContext, 180), getDPFromPixel(mContext, 90));
         param.addRule(RelativeLayout.ALIGN_PARENT_RIGHT | RelativeLayout.CENTER_VERTICAL);
         bar.setLayoutParams(param);
         ly.addView(bar);
     }
 
     public static int getDPFromPixel(Context mContext, int pixel) {
-        return (int)(pixel / mContext.getResources().getDisplayMetrics().density);
+        return (int) (pixel / mContext.getResources().getDisplayMetrics().density);
     }
 
     public static void openBarcodeDialog(Context mContext, String strBarcode) {

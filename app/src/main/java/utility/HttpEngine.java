@@ -20,6 +20,7 @@ import java.net.URLEncoder;
 import java.net.UnknownHostException;
 
 import asyncmanager.asyncMessageList;
+import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUser;
 
 /**
@@ -98,9 +99,9 @@ public class HttpEngine {
                         objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.INVALID_QR_CODE, ConstantVal.ServerResponseCode.INVALID_QR_CODE);
                     } else if (strResponse.equals(ConstantVal.ServerResponseCode.INVALID_LOGIN)) {
                         objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.INVALID_LOGIN, ConstantVal.ServerResponseCode.INVALID_LOGIN);
-                    }else if (strResponse.equals(ConstantVal.ServerResponseCode.NOT_OFFICE_STAFF)) {
+                    } else if (strResponse.equals(ConstantVal.ServerResponseCode.NOT_OFFICE_STAFF)) {
                         objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.NOT_OFFICE_STAFF, ConstantVal.ServerResponseCode.NOT_OFFICE_STAFF);
-                    }else if (strResponse.equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED)) {
+                    } else if (strResponse.equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED)) {
                         objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.SESSION_EXPIRED, ConstantVal.ServerResponseCode.SESSION_EXPIRED);
                         Helper.logOutUser(mContext, true);
                     } else if (strResponse.equals(ConstantVal.ServerResponseCode.SESSION_EXISTS)) {
@@ -140,9 +141,11 @@ public class HttpEngine {
     }
 
     public long saveDataToSyncTable(Context ctx, String URL, String data, String isSync, String last_result_code) {
+        String adminUserId = Helper.getStringPreference(ctx, ClientAdminUser.Fields.ADMINUSERID, "");
+        String accountId = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
         DataBase db = new DataBase(ctx);
         db.open();
-        long result = db.insert(DataBase.device_to_db_sync_table, DataBase.device_to_db_sync_int, new String[]{URL, data, "0", ""});
+        long result = db.insert(DataBase.device_to_db_sync_table, DataBase.device_to_db_sync_int, new String[]{URL, data, "0", "", adminUserId, accountId});
         db.close();
         return result;
     }
@@ -154,7 +157,7 @@ public class HttpEngine {
         if (resultCode.equals(ConstantVal.ServerResponseCode.NO_INTERNET))
             Helper.displaySnackbar((AppCompatActivity) ctx, ctx.getString(R.string.msgSyncNoInternet));
 
-        if (resultCode.equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED) || resultCode.equals(ConstantVal.ServerResponseCode.INVALID_LOGIN) || resultCode.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+        if (resultCode.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
             cv.put("isSync", 1);
         }
 

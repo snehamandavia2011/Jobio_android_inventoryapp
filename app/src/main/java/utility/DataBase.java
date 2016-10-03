@@ -67,7 +67,7 @@ public class DataBase {
     public static final int service_view_int = 8;
 
 
-    String[][] tables = new String[][]{{"_ID", "URL", "data", "isSync", "last_result_code"},
+    String[][] tables = new String[][]{{"_ID", "URL", "data", "isSync", "last_result_code", "admin_user_id", "account_id"},
             {"_ID", "id", "message", "from_id", "to_id", "is_viewed", "datetime", "timestamp"},
             {"_ID", "auId", "empId", "first_name", "last_name", "employee_status", "contact_no", "user_type_name", "isOnLine"},
             {"_ID", "aoAsset_id", "actmCategory_name",
@@ -96,7 +96,7 @@ public class DataBase {
             {"_ID", "astId", "localViewStatus"}};
     private static final String TABLE_0_CREATE = "create table "
             + device_to_db_sync_table
-            + "(_ID integer primary key autoincrement,URL text not null,data text not null,isSync text not null,last_result_code text not null);";
+            + "(_ID integer primary key autoincrement,URL text not null,data text not null,isSync text not null,last_result_code text not null,admin_user_id text not null, account_id text not null);";
 
     private static final String TABLE_1_CREATE = "create table "
             + field_message_table
@@ -184,6 +184,22 @@ public class DataBase {
         sqLiteDb.delete(inspect_view_table, null, null);
         sqLiteDb.delete(service_table, null, null);
         sqLiteDb.delete(service_view_table, null, null);
+    }
+
+    public void cleanNotUserTable() {
+        sqLiteDb.delete(inspect_view_table, null, null);
+        sqLiteDb.delete(service_view_table, null, null);
+    }
+
+    public void cleanLogoutTable() {
+        sqLiteDb.delete(device_to_db_sync_table, "isSync=?", new String[]{"1"});
+        sqLiteDb.delete(device_to_db_sync_table, null, null);
+        sqLiteDb.delete(field_message_table, null, null);
+        sqLiteDb.delete(adminuser_employee_table, null, null);
+        sqLiteDb.delete(asset_table, null, null);
+        sqLiteDb.delete(asset_owner_table, null, null);
+        sqLiteDb.delete(inspect_table, null, null);
+        sqLiteDb.delete(service_table, null, null);
     }
 
     public void cleanTable(int tableNo) {

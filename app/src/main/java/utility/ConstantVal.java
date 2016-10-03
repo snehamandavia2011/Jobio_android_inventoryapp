@@ -44,8 +44,10 @@ public class ConstantVal {
     }
 
     public static class SettingFlags {
-        public static final String JOB_INCOMING_TONE = "job_incoming_tone";
-        public static final String JOB_INCOMING_NOTIFICATION = "job_incoming_notification";
+        public static void clearCache(Context ctx){
+            Helper.clearPreference(ctx,MESSAGE_CONVERSATION_TONE);
+            Helper.clearPreference(ctx,MESSAGE_CONVERSATION_NOTIFICATION);
+        }
         public static final String MESSAGE_CONVERSATION_TONE = "messaage_conversation_tone";
         public static final String MESSAGE_CONVERSATION_NOTIFICATION = "job_incoming_tone";
     }
