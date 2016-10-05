@@ -21,7 +21,7 @@
                 android:id="@+id/btnPositive"
                 style="@style/stySubTitleWhite"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_height="@dimen/buttonHeight"
                 android:background="@color/transperant"
                 app:font="@{`Ubuntu-C`}" />
 
@@ -29,7 +29,7 @@
                 android:id="@+id/btnNegative"
                 style="@style/stySubTitleWhite"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_height="@dimen/buttonHeight"
                 android:background="@color/transperant"
                 app:font="@{`Ubuntu-C`}" />
         </LinearLayout>

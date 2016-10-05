@@ -71,7 +71,7 @@
             android:id="@+id/rplDone"
             style="@style/btn"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/buttonHeight"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_gravity="right"
@@ -86,7 +86,7 @@
                 android:id="@+id/btnDone"
                 style="@style/stySubTitleWhite"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/buttonHeight"
                 android:background="@color/transperant"
                 android:text="@string/strDone" />
 
