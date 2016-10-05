@@ -157,9 +157,9 @@ public class ConstantVal {
     }
 
     private static String getWebURLPrefix(String QRCode) {
-        //return "http://" + QRCode + ".jobio.io/mWebApi/v1/";
+        return "http://" + QRCode + ".jobio.io/mWebApi/v1/";
         //return "http://10.0.2.2:80/Electrasync_API_new/index.php/";//for emulator
-        return "http://10.0.3.2/jobio_mobile_webapi/index.php/";//for genymotion
+        //return "http://10.0.3.2/jobio_mobile_webapi/index.php/";//for genymotion
     }
 
 

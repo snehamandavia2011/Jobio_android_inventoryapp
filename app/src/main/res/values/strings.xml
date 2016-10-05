@@ -127,6 +127,7 @@
     </string-array>
     <string name="msgNoService">No pending service</string>
     <string name="msgNoInspect">No pending inspection</string>
+    <string name="msgNoItem">No Item</string>
     <string name="msgNoAsset">No asset</string>
     <string name="msgAssetIOwn">Asset(s) I own</string>
     <string name="msgInspectToCarryOut">Inspect(s) to carry out</string>
@@ -179,4 +180,6 @@
     <string name="strUploadPhoto">Upload Photo</string>
     <string name="strSelectEmployee">Select Employee</string>
     <string name="strShowBarcode">Show Barcode</string>
+    <string name="strItem">Item</string>
+    <string name="strTransaction">Transaction</string>
 </resources>

@@ -193,7 +193,6 @@ public class DataBase {
 
     public void cleanLogoutTable() {
         sqLiteDb.delete(device_to_db_sync_table, "isSync=?", new String[]{"1"});
-        sqLiteDb.delete(device_to_db_sync_table, null, null);
         sqLiteDb.delete(field_message_table, null, null);
         sqLiteDb.delete(adminuser_employee_table, null, null);
         sqLiteDb.delete(asset_table, null, null);
