@@ -46,7 +46,7 @@
                     custom:startColor="@color/white" />
 
                 <TextView
-                    style="@style/stySubTitleWhite"
+                    style="@style/styDescSmallWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/msgScanQRCodeToSearchAsset"

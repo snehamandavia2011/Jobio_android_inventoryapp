@@ -60,6 +60,7 @@ public class acSearchAssetByQR extends AppCompatActivity implements QRCodeReader
         Intent i = new Intent(ac.getApplicationContext(), acAssetDetail.class);
         i.putExtra("AssetId", strQRCode);
         startActivity(i);
+        finish();
     }
 
     @Override

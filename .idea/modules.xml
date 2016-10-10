@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/libMaterialEditText/libMaterialEditText.iml" filepath="$PROJECT_DIR$/libMaterialEditText/libMaterialEditText.iml" />
       <module fileurl="file://$PROJECT_DIR$/libQECodeReaderView/libQECodeReaderView.iml" filepath="$PROJECT_DIR$/libQECodeReaderView/libQECodeReaderView.iml" />
       <module fileurl="file://$PROJECT_DIR$/libRippleDecoratorView/libRippleDecoratorView.iml" filepath="$PROJECT_DIR$/libRippleDecoratorView/libRippleDecoratorView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libzBarScanner/libzBarScanner.iml" filepath="$PROJECT_DIR$/libzBarScanner/libzBarScanner.iml" />
     </modules>
   </component>
 </project>

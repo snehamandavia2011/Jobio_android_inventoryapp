@@ -1,0 +1,102 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:rdv="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/frBarcode"
+            class="fragment.frBarcodeScanner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <RelativeLayout
+            android:id="@+id/ly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/tilt"
+            android:padding="@dimen/ViewPadding">
+
+            <ImageView
+                android:id="@+id/imgQRCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_search_barcode_white" />
+
+            <LinearLayout
+                android:id="@+id/ly1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ViewPadding"
+                android:layout_toRightOf="@id/imgQRCode"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <TextView
+                    style="@style/styDescSmallWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/msgScanBarCodeToSearchItem"
+                    app:font="@{`Ubuntu-L`}" />
+
+                <TextView
+                    style="@style/styDescSmallWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/ViewMargin"
+                    android:text="@string/strOR"
+                    app:font="@{`Ubuntu-L`}" />
+
+                <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ViewMargin"
+                    rdv:rdv_rippleAnimationDuration="600"
+                    rdv:rdv_rippleAnimationFrames="60"
+                    rdv:rdv_rippleAnimationPeakFrame="15"
+                    rdv:rdv_rippleColor="@color/white"
+                    rdv:rdv_rippleMaxAlpha="0.8"
+                    rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                    <TextView
+                        android:id="@+id/txtEnterManuallyBarCode"
+                        style="@style/styDescWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transperant"
+                        android:clickable="true"
+                        android:gravity="top"
+                        android:text="@string/strEnterManuallyBarCode"
+                        android:textColor="@color/white"
+                        app:font="@{`Ubuntu-L`}" />
+                </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+            </LinearLayout>
+
+            <utility.DotProgressBar
+                android:id="@+id/dot_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dorProgressBarheight"
+                android:layout_gravity="center|bottom"
+                android:layout_toRightOf="@id/ly1"
+                android:visibility="visible"
+                custom:amount="5"
+                custom:duration="@android:integer/config_mediumAnimTime"
+                custom:endColor="@color/white"
+                custom:startColor="@color/white" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

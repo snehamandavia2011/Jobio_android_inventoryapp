@@ -12,6 +12,7 @@
     <string name="strCopyRight">Copyright © 2015 Jobio. All rights reserved.</string>
     <string name="strJobio">Jobio</string>
     <string name="strEnterManuallyQRCode">Enter manually company QR code</string>
+    <string name="strEnterManuallyBarCode">Enter manually item bar code</string>
     <string name="strCancel">Cancel</string>
     <string name="strOK">OK</string>
     <string name="strPoweredby">Poweredby:</string>
@@ -151,6 +152,7 @@
     <string name="msgAssetOwner">Asset Owner(s)</string>
     <string name="title_activity_ac_search_asset_by_qr">acSearchAssetByQR</string>
     <string name="msgScanQRCodeToSearchAsset">Scan QR code to search asset.</string>
+    <string name="msgScanBarCodeToSearchItem">Scan Barcode code to search item.</string>
     <string name="msgSearchAssetbyClick">Search asset by click on asset name</string>
     <string name="strNew">New</string>
     <string name="strPending">Pending</string>
@@ -182,4 +184,5 @@
     <string name="strShowBarcode">Show Barcode</string>
     <string name="strItem">Item</string>
     <string name="strTransaction">Transaction</string>
+    <string name="title_activity_ac_search_item_by_barcode">acSearchItemByBarcode</string>
 </resources>

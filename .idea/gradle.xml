@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/libMaterialEditText" />
             <option value="$PROJECT_DIR$/libQECodeReaderView" />
             <option value="$PROJECT_DIR$/libRippleDecoratorView" />
+            <option value="$PROJECT_DIR$/libzBarScanner" />
           </set>
         </option>
       </GradleProjectSettings>
