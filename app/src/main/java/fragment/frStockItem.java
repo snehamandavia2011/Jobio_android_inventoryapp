@@ -2,7 +2,6 @@ package fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,7 +16,7 @@ import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acSearchItemByBarcode;
+import com.lab360io.jobio.inventoryapp.acSearchItemByBarcodeScanner;
 import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;
@@ -71,9 +70,17 @@ public class frStockItem extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSearchItem:
-                Intent i = new Intent(getActivity(), acSearchItemByBarcode.class);
+                Intent i = new Intent(getActivity(), acSearchItemByBarcodeScanner.class);
                 startActivityForResult(i, ConstantVal.SEARCH_ITEM_BY_BARCODE_REQUEST_CODE);
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ConstantVal.SEARCH_ITEM_BY_BARCODE_REQUEST_CODE && resultCode == ConstantVal.SEARCH_ITEM_BY_BARCODE__RESPONSE_CODE) {
+
         }
     }
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,12 +22,16 @@ import android.widget.Toast;
 
 import com.dm.zbar.android.scanner.CameraPreview;
 import com.dm.zbar.android.scanner.ZBarConstants;
+import com.lab360io.jobio.inventoryapp.R;
 
 import net.sourceforge.zbar.Config;
 import net.sourceforge.zbar.Image;
 import net.sourceforge.zbar.ImageScanner;
 import net.sourceforge.zbar.Symbol;
 import net.sourceforge.zbar.SymbolSet;
+
+import utility.DotProgressBar;
+import utility.Helper;
 
 public class frBarcodeScanner extends Fragment implements Camera.PreviewCallback, ZBarConstants {
     private static final String TAG = "ZBarScannerActivity";
@@ -35,6 +40,8 @@ public class frBarcodeScanner extends Fragment implements Camera.PreviewCallback
     private ImageScanner mScanner;
     private Handler mAutoFocusHandler;
     private boolean mPreviewing = true;
+    DotProgressBar dot_progress_bar;
+    Helper objHelper = new Helper();
 
     static {
         System.loadLibrary("iconv");
@@ -57,8 +64,8 @@ public class frBarcodeScanner extends Fragment implements Camera.PreviewCallback
         // Create a RelativeLayout container that will hold a SurfaceView,
         // and set it as the content of our activity.
         mPreview = new CameraPreview(getActivity(), this, autoFocusCB);
+        dot_progress_bar = (DotProgressBar) getActivity().findViewById(R.id.dot_progress_bar);
         return mPreview;
-
     }
 
     public void setupScanner() {
@@ -147,12 +154,13 @@ public class frBarcodeScanner extends Fragment implements Camera.PreviewCallback
             for (Symbol sym : syms) {
                 String symData = sym.getData();
                 if (!TextUtils.isEmpty(symData)) {
-                    Toast.makeText(getActivity(), symData, Toast.LENGTH_LONG).show();
+                    objHelper.getItemDetailByBarcode((AppCompatActivity) getActivity(), new Handler(), symData, new View[]{});
                     /*Intent dataIntent = new Intent();
                     dataIntent.putExtra(SCAN_RESULT, symData);
                     dataIntent.putExtra(SCAN_RESULT_TYPE, sym.getType());
                     getActivity().setResult(Activity.RESULT_OK, dataIntent);
                     getActivity().finish();*/
+
                     break;
                 }
             }

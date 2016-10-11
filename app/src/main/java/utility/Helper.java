@@ -82,8 +82,10 @@ import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUser;
 import entity.ClientAdminUserAppsRel;
 import entity.ClientEmployeeMaster;
+import entity.ClientItemMaster;
 import entity.ClientStockSelection;
 import io.fabric.sdk.android.Fabric;
+import parser.parseItemMaster;
 import service.serDeviceToServerSync;
 import service.serLocationTracker;
 import service.serServerToDeviceSync;
@@ -184,6 +186,76 @@ public class Helper {
 
     public DotProgressBar dtDialog;
 
+    public void getItemDetailByBarcode(final AppCompatActivity ac, final Handler mHandler, final String strCode, final View[] view) {
+        final Context ctx = ac;
+        final HttpEngine objHttpEngine = new HttpEngine();
+        dtDialog = (DotProgressBar) ac.findViewById(R.id.dot_progress_bar);
+        dtDialog.setVisibility(View.VISIBLE);
+        new Thread() {
+            public void run() {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (View v : view) {
+                            v.setEnabled(false);
+                            v.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.darkgrey)));
+                        }
+                    }
+                });
+                String strToken = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
+                String accountId = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+                URLMapping um = ConstantVal.getItemDetailByBarcode(ctx);
+                ServerResponse objServerResponse = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(),
+                        new String[]{strToken, accountId, strCode}, um.getParamNames(), um.isNeedToSync());
+                final String result = Html.fromHtml(objServerResponse.getResponseString()).toString();
+                if (result != null && !result.equals("")) {
+                    try {
+                        ClientItemMaster objClientItemMaster = parseItemMaster.parse(result);
+                        if (objClientItemMaster != null) {
+                            //save data to local database
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ac.setResult(ConstantVal.SEARCH_ITEM_BY_BARCODE__RESPONSE_CODE);
+                                    ac.finish();
+                                }
+                            });
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                dtDialog.setVisibility(View.GONE);
+                                if (result.equals(ConstantVal.ServerResponseCode.BLANK_RESPONSE)) {
+                                    displaySnackbar(ac, ac.getString(R.string.msgItemDetailNotAvailAtServer)).setCallback(new Snackbar.Callback() {
+                                        @Override
+                                        public void onDismissed(Snackbar snackbar, int event) {
+                                            ac.finish();
+                                        }
+                                    });
+                                    ;
+                                } else {
+                                    displaySnackbar(ac, result).setCallback(new Snackbar.Callback() {
+                                        @Override
+                                        public void onDismissed(Snackbar snackbar, int event) {
+                                            ac.finish();
+                                        }
+                                    });
+                                    ;
+                                }
+                                for (View v : view) {
+                                    v.setEnabled(true);
+                                    v.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        }.start();
+    }
+
     public void verifyingQRcode(final AppCompatActivity ac, final Handler mHandler, final String strCode, final View[] view) {
         final Context ctx = ac;
         final HttpEngine objHttpEngine = new HttpEngine();
@@ -243,7 +315,7 @@ public class Helper {
         }.start();
     }
 
-    public static void displaySnackbar(final AppCompatActivity ac, final String result) {
+    public static Snackbar displaySnackbar(final AppCompatActivity ac, final String result) {
         final Context ctx = ac;
         if (result.equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED)) {
             Snackbar snackbar = Snackbar
@@ -260,6 +332,7 @@ public class Helper {
                 }
             });
             snackbar.show();
+            return snackbar;
         } else {
             Snackbar snackbar = Snackbar
                     .make(ac.findViewById(android.R.id.content), ConstantVal.ServerResponseCode.getMessage(ctx, result), Snackbar.LENGTH_LONG);
@@ -267,6 +340,7 @@ public class Helper {
             txt.setMaxLines(3);
             txt.setTypeface(Helper.getUbuntuL(ctx));
             snackbar.show();
+            return snackbar;
         }
     }
 

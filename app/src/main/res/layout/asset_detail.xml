@@ -8,13 +8,14 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:background="@color/tilt">
 
         <ScrollView
-            android:id="@+id/scrlMailContent"
+            android:id="@+id/scrlMainContent"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="fill_parent"

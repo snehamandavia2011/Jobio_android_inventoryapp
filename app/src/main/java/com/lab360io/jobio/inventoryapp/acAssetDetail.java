@@ -68,7 +68,7 @@ public class acAssetDetail extends AppCompatActivity {
                 objHelper.setActionBar(ac, mContext.getString(R.string.strAssetDetail));
                 dot_progress_bar = (DotProgressBar) findViewById(R.id.dot_progress_bar);
                 dot_progress_bar.setVisibility(View.VISIBLE);
-                scrlMailContent = (ScrollView) findViewById(R.id.scrlMailContent);
+                scrlMailContent = (ScrollView) findViewById(R.id.scrlMainContent);
                 txtAssetNameCategory = (TextView) findViewById(R.id.txtAssetNameCategory);
                 txtDesc = (TextView) findViewById(R.id.txtDesc);
                 txtModel = (TextView) findViewById(R.id.txtModel);

@@ -136,6 +136,7 @@
     <string name="msgDescNotAvail">Description is not available</string>
     <string name="title_activity_ac_asset_detail">acAssetDetail</string>
     <string name="strAssetDetail">Asset Detail</string>
+    <string name="strSearchItem">Search Item</string>
     <string name="strAssetDesc">Asset Description</string>
     <string name="strModel">Model</string>
     <string name="strManufacturer">Manufacturer</string>
@@ -160,6 +161,8 @@
     <string name="title_activity_ac_inspect_transaction">acInspectTransaction</string>
     <string name="msgEnterInspectionName">Enter inspection name</string>
     <string name="msgEnterCost">Enter cost</string>
+    <string name="msgItemDetailNotAvailAtServer">Unfortunately item detail with respect to entered barcode is not available on server. </string>
+    <string name="msgAssetDetailNotAvail">Unfortunately asset detail with respect to entered QR code is not available. </string>
     <string name="strInspectionName">Inspection Name</string>
     <string name="strAssetName">Asset Name</string>
     <string name="strAssignedTo">Assigned To</string>
@@ -185,4 +188,7 @@
     <string name="strItem">Item</string>
     <string name="strTransaction">Transaction</string>
     <string name="title_activity_ac_search_item_by_barcode">acSearchItemByBarcode</string>
+    <string name="title_activity_ac_search_item_by_manual_barcode_entry">
+        acSearchItemByManualBarcodeEntry
+    </string>
 </resources>
