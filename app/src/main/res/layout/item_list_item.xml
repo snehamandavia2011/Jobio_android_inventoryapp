@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:rdv="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/ly">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ViewMargin"
+        android:background="@drawable/white_bg"
+        android:orientation="vertical"
+        android:padding="@dimen/ViewPadding">
+
+        <TextView
+            android:id="@+id/txtItemName"
+            style="@style/styTitleTilt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dfd"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtItemDesc"
+            style="@style/styDescTile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dfd" />
+
+        <TextView
+            android:id="@+id/txtLastUpdated"
+            style="@style/styDescDarkGrey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="dfd" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnNextArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ic_arrow_right" />
+</RelativeLayout>

@@ -112,7 +112,11 @@
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme1" />
         <activity
-            android:name=".acSearchItemByManualBarcodeEntry"
+            android:name=".acSearchItemByBarcodeManual"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".acItemDetail"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"></activity>
     </application>

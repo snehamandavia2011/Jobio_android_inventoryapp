@@ -1,13 +1,13 @@
 package fragment;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -34,6 +34,7 @@ import utility.DotProgressBar;
 import utility.Helper;
 
 public class frBarcodeScanner extends Fragment implements Camera.PreviewCallback, ZBarConstants {
+    Fragment fr;
     private static final String TAG = "ZBarScannerActivity";
     private CameraPreview mPreview;
     private Camera mCamera;
@@ -50,6 +51,7 @@ public class frBarcodeScanner extends Fragment implements Camera.PreviewCallback
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        fr = this;
         if (!isCameraAvailable()) {
             // Cancel request if there is no rear-facing camera.
             cancelRequest();
@@ -154,7 +156,7 @@ public class frBarcodeScanner extends Fragment implements Camera.PreviewCallback
             for (Symbol sym : syms) {
                 String symData = sym.getData();
                 if (!TextUtils.isEmpty(symData)) {
-                    objHelper.getItemDetailByBarcode((AppCompatActivity) getActivity(), new Handler(), symData, new View[]{});
+                    objHelper.getItemDetailByBarcode((AppCompatActivity) getActivity(), new Handler(), symData, new View[]{}, fr);
                     /*Intent dataIntent = new Intent();
                     dataIntent.putExtra(SCAN_RESULT, symData);
                     dataIntent.putExtra(SCAN_RESULT_TYPE, sym.getType());

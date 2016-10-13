@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingTop="@dimen/listViewDividerHeight">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/tilt"
+            android:orientation="vertical"
+            android:padding="@dimen/ViewPaddingSmall">
+
+            <TextView
+                android:id="@+id/txtSupplierName"
+                style="@style/stySubTitleWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                android:textStyle="bold"
+                app:font="@{`Ubuntu-C`}" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/ViewMargin"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/styDescWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/strCost"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:id="@+id/txtCost"
+                        style="@style/styDescWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:font="@{`Ubuntu-L`}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/styDescWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/strPrice"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:id="@+id/txtPrice"
+                        style="@style/styDescWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:font="@{`Ubuntu-L`}" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/ViewMargin"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/styDescWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/strAvailQty"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:id="@+id/txtAvailQty"
+                        style="@style/styDescWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:font="@{`Ubuntu-L`}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/styDescWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/strBarcode"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:clickable="true"
+                        android:id="@+id/txtBarcode"
+                        style="@style/styDescWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:font="@{`Ubuntu-L`}" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

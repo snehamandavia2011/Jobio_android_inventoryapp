@@ -18,6 +18,7 @@ import com.xwray.fontbinding.FontCache;
 import utility.ConstantVal;
 import utility.DotProgressBar;
 import utility.Helper;
+import utility.HttpEngine;
 
 public class acSearchItemByBarcodeScanner extends AppCompatActivity {
     TextView txtEnterManuallyBarCode;
@@ -36,8 +37,9 @@ public class acSearchItemByBarcodeScanner extends AppCompatActivity {
         txtEnterManuallyBarCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), acSearchItemByManualBarcodeEntry.class);
-                startActivity(i);
+                Intent i = new Intent(getApplicationContext(), acSearchItemByBarcodeManual.class);
+                startActivityForResult(i, ConstantVal.SEARCH_ITEM_BY_BARCODE_REQUEST_CODE);
+                finish();
             }
         });
     }

@@ -16,6 +16,7 @@
     <string name="strCancel">Cancel</string>
     <string name="strOK">OK</string>
     <string name="strPoweredby">Poweredby:</string>
+    <string name="strEnterBarCode">Enter Bar code</string>
     <string name="strEnterQRCode">Enter QR code</string>
     <string name="msgScanQRCode">Scan QR code to setup company.</string>
     <string name="strCheckmailQRCode">Check email for QR code picture.</string>
@@ -144,6 +145,7 @@
     <string name="strBarcode">Barcode</string>
     <string name="strAssetLocation">Asset Location</string>
     <string name="strCost">Cost</string>
+    <string name="strPrice">Price</string>
     <string name="strCurrentValue">Current Value</string>
     <string name="strPurchaseFrom">Purchase From</string>
     <string name="strDateExpire">Expire Date</string>
@@ -191,4 +193,19 @@
     <string name="title_activity_ac_search_item_by_manual_barcode_entry">
         acSearchItemByManualBarcodeEntry
     </string>
+    <string name="title_activity_ac_search_item_by_barcode_manual">acSearchItemByBarcodeManual
+    </string>
+    <string name="strLastUpdated">Last updated</string>
+    <string name="title_activity_ac_item_detail">acItemDetail</string>
+    <string name="strItemDescription">Item Description</string>
+    <string name="strCategory">Category</string>
+    <string name="strPacketTypeName">Packet type name</string>
+    <string name="strLocation">Location</string>
+    <string name="strMonthlyDemand">Monthly demand</string>
+    <string name="strMinQtyForRestock">Minimum qty. for restock</string>
+    <string name="strShortCode">Short code</string>
+    <string name="strUnitOfMeasure">Unit of measure</string>
+    <string name="strPackage">Package</string>
+    <string name="strAvailQty">Available Quantity</string>
+    <string name="strLastUpdate">Last update</string>
 </resources>

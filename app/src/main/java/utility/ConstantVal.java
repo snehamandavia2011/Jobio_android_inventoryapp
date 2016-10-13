@@ -43,6 +43,7 @@ public class ConstantVal {
         public static final String ASSET_LIST = "jobio.io.CHANGED_ASSET_LIST";
         public static final String INSPECT_LIST = "jobio.io.CHANGED_INSPECT_LIST";
         public static final String SERVICE_LIST = "jobio.io.CHANGED_SERVICE_LIST";
+        public static final String ITEM_DETAIL = "jobio.io.CHANGED_ITEM_DETAIL";
     }
 
     public static class SettingFlags {
@@ -324,8 +325,12 @@ public class ConstantVal {
         String[] paramNames = {"token_id", "account_id", "barcode"};
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(subDomain) + "stockAIM/getItemDetailByBarcode";
-        return new URLMapping(paramNames, URL, true);
+        return new URLMapping(paramNames, URL, false);
     }
-
-
+    public static URLMapping getSupplierListByItemId(Context c) {
+        String[] paramNames = {"token_id", "account_id", "item_uuid"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "stockAIM/getSupplierListByItemId";
+        return new URLMapping(paramNames, URL, false);
+    }
 }

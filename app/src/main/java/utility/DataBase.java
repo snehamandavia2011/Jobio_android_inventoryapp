@@ -26,6 +26,8 @@ public class DataBase {
             db.execSQL(TABLE_6_CREATE);
             db.execSQL(TABLE_7_CREATE);
             db.execSQL(TABLE_8_CREATE);
+            db.execSQL(TABLE_9_CREATE);
+            db.execSQL(TABLE_10_CREATE);
         }
 
         @Override
@@ -37,6 +39,8 @@ public class DataBase {
             db.execSQL("DROP TABLE IF EXISTS " + asset_owner_table);
             db.execSQL("DROP TABLE IF EXISTS " + inspect_table);
             db.execSQL("DROP TABLE IF EXISTS " + inspect_view_table);
+            db.execSQL("DROP TABLE IF EXISTS " + item_master_table);
+            db.execSQL("DROP TABLE IF EXISTS " + item_transaction_table);
             onCreate(db);
         }
     }
@@ -65,6 +69,10 @@ public class DataBase {
     public static final int service_int = 7;
     public static final String service_view_table = "serviceView";
     public static final int service_view_int = 8;
+    public static final String item_master_table = "itemMaster";
+    public static final int item_master_int = 9;
+    public static final String item_transaction_table = "itemTransaction";
+    public static final int item_transaction_int = 10;
 
 
     String[][] tables = new String[][]{{"_ID", "URL", "data", "isSync", "last_result_code", "admin_user_id", "account_id"},
@@ -93,7 +101,12 @@ public class DataBase {
                     , "amAsset_location", "amService_period", "amIs_schedule_service_on", "amService_aasigned_employee",
                     "amInspection_period", "amIs_schedule_inspection_on", "amInspection_aasigned_employee", "amNext_service_date",
                     "amNext_inspection_date", "amAsset_status", "amCustom_field_1", "amCustom_field_2", "amCustom_field_3", "amCustom_field_4", "amCustom_field_5"},
-            {"_ID", "astId", "localViewStatus"}};
+            {"_ID", "astId", "localViewStatus"},
+            {"_ID", "uuid", "item_name", "short_code", "specification", "category_name", "uom_name",
+                    "package_type_name", "location_name", "item_status", "manufacturer", "model", "photo", "monthly_demand",
+                    "min_qty_for_restock", "display_status", "custom_field_1", "custom_field_2", "custom_field_3",
+                    "custom_field_4", "custom_field_5", "last_update_date_time"},
+            {"_ID", "imUUID", "itUUID", "available_qty", "cost", "price", "barcode", "spplierName"}};
     private static final String TABLE_0_CREATE = "create table "
             + device_to_db_sync_table
             + "(_ID integer primary key autoincrement,URL text not null,data text not null,isSync text not null,last_result_code text not null,admin_user_id text not null, account_id text not null);";
@@ -163,6 +176,18 @@ public class DataBase {
             + service_view_table
             + "(_ID integer primary key autoincrement,astId text not null,localViewStatus text not null);";
 
+    private static final String TABLE_9_CREATE = "create table "
+            + item_master_table
+            + "(_ID integer primary key autoincrement,uuid text not null,item_name text not null,short_code text not null," +
+            "specification text not null,category_name text not null,uom_name text not null,package_type_name text not null," +
+            "location_name text not null,item_status text not null,manufacturer text not null,model text not null,photo text not null," +
+            "monthly_demand text not null,min_qty_for_restock text not null,display_status text not null,custom_field_1 text not null," +
+            "custom_field_2 text not null,custom_field_3 text not null,custom_field_4 text not null,custom_field_5 text not null," +
+            "last_update_date_time text not null);";
+    private static final String TABLE_10_CREATE = "create table "
+            + item_transaction_table
+            + "(_ID integer primary key autoincrement,imUUID text not null,itUUID text not null,available_qty text not null," +
+            "cost text not null,price text not null,barcode text not null,spplierName text not null );";
 
     public DataBase(Context ctx) {
         HCtx = ctx;
@@ -184,6 +209,8 @@ public class DataBase {
         sqLiteDb.delete(inspect_view_table, null, null);
         sqLiteDb.delete(service_table, null, null);
         sqLiteDb.delete(service_view_table, null, null);
+        sqLiteDb.delete(item_master_table, null, null);
+        sqLiteDb.delete(item_transaction_table, null, null);
     }
 
     public void cleanNotUserTable() {
@@ -229,7 +256,13 @@ public class DataBase {
                 break;
             case service_view_int:
                 sqLiteDb.delete(service_view_table, null, null);
+            case item_master_int:
+                sqLiteDb.delete(item_master_table, null, null);
                 break;
+            case item_transaction_int:
+                sqLiteDb.delete(item_transaction_table, null, null);
+                break;
+
             default:
                 break;
         }

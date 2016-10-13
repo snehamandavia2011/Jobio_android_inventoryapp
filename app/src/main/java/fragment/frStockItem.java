@@ -21,21 +21,24 @@ import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;
 
+import adapter.ItemAdapter;
 import entity.ClientAsset;
+import entity.ClientItemMaster;
 import utility.ConstantVal;
+import utility.DataBase;
 import utility.DotProgressBar;
 
 /**
  * Created by SAI on 10/5/2016.
  */
 public class frStockItem extends Fragment implements View.OnClickListener {
+    ArrayList<ClientItemMaster> arrClientItemMaster;
     Fragment contextFragment;
     FragmentActivity frActivity;
     Context mContext;
-    ListView lvlAsset;
+    ListView lvlItem;
     DotProgressBar dot_progress_bar;
     RelativeLayout lyNoContent, lyMainContent;
-    ArrayList<ClientAsset> arrClientItem = null;
     FloatingActionButton btnSearchItem;
 
     @Nullable
@@ -48,23 +51,38 @@ public class frStockItem extends Fragment implements View.OnClickListener {
         View view = DataBindingUtil.inflate(inflater, R.layout.frstock_item, null, true).getRoot();
         lyMainContent = (RelativeLayout) view.findViewById(R.id.lyMainContent);
         lyNoContent = (RelativeLayout) view.findViewById(R.id.lyNoContent);
-        lvlAsset = (ListView) view.findViewById(R.id.lvlAsset);
+        lvlItem = (ListView) view.findViewById(R.id.lvlItem);
         btnSearchItem = (FloatingActionButton) view.findViewById(R.id.btnSearchItem);
         btnSearchItem.setOnClickListener(this);
         dot_progress_bar = (DotProgressBar) view.findViewById(R.id.dot_progress_bar);
-        setData();
         return view;
     }
 
-    private void setData() {
+
+    @Override
+    public void onResume() {
+        super.onResume();
         new AsyncTask() {
             @Override
-            protected Object doInBackground(Object[] params) {
+            protected void onPreExecute() {
+                super.onPreExecute();
+                arrClientItemMaster = ClientItemMaster.getDataFromDatabase(mContext, null);
+            }
 
+            @Override
+            protected Object doInBackground(Object[] params) {
                 return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                ItemAdapter adp = new ItemAdapter(mContext, arrClientItemMaster);
+                lvlItem.setAdapter(adp);
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
+
 
     @Override
     public void onClick(View v) {
@@ -73,14 +91,6 @@ public class frStockItem extends Fragment implements View.OnClickListener {
                 Intent i = new Intent(getActivity(), acSearchItemByBarcodeScanner.class);
                 startActivityForResult(i, ConstantVal.SEARCH_ITEM_BY_BARCODE_REQUEST_CODE);
                 break;
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ConstantVal.SEARCH_ITEM_BY_BARCODE_REQUEST_CODE && resultCode == ConstantVal.SEARCH_ITEM_BY_BARCODE__RESPONSE_CODE) {
-
         }
     }
 }

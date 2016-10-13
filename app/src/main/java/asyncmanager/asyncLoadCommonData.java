@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import com.lab360io.jobio.inventoryapp.R;
 import com.lab360io.jobio.inventoryapp.acAssetDetail;
 import com.lab360io.jobio.inventoryapp.acHome;
+import com.lab360io.jobio.inventoryapp.acItemDetail;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,8 +44,8 @@ public class asyncLoadCommonData {
     }
 
     public Thread startSync() {
-        Thread t = new Thread(){
-            public void run(){
+        Thread t = new Thread() {
+            public void run() {
 
             }
         };
@@ -163,6 +164,11 @@ public class asyncLoadCommonData {
                 params.setMargins(0, pixel / 2, 0, (int) ctx.getResources().getDimension(R.dimen.ViewMargin));
                 acAssetDetail.lyAssetDetail.setLayoutParams(params);
                 acAssetDetail.lyAssetDetail.setPadding((int) ctx.getResources().getDimension(R.dimen.ViewPadding), pixel / 2, (int) ctx.getResources().getDimension(R.dimen.ViewPadding), (int) ctx.getResources().getDimension(R.dimen.ViewPadding));
+            } else if (ctx.getClass() == acItemDetail.class) {
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                params.setMargins(0, pixel / 2, 0, (int) ctx.getResources().getDimension(R.dimen.ViewMargin));
+                acItemDetail.lyItemDetail.setLayoutParams(params);
+                acItemDetail.lyItemDetail.setPadding((int) ctx.getResources().getDimension(R.dimen.ViewPadding), pixel / 2, (int) ctx.getResources().getDimension(R.dimen.ViewPadding), (int) ctx.getResources().getDimension(R.dimen.ViewPadding));
             }
             if (strBase64 != null && strBase64.length() > 0) {
                 strBase64 = strBase64.substring(strBase64.indexOf(",") + 1);
@@ -171,7 +177,7 @@ public class asyncLoadCommonData {
                     img.setImageBitmap(bmpNoPic);
                     img.setBackgroundResource(0);
                 } else {
-                    if (ctx.getClass() == acHome.class || ctx.getClass() == acAssetDetail.class) {
+                    if (ctx.getClass() == acHome.class || ctx.getClass() == acAssetDetail.class || ctx.getClass() == acItemDetail.class) {
                         img.setImageBitmap(Helper.getResizedBitmap(bmp, pixel, pixel));
                     } else {
                         img.setImageBitmap(bmp);
@@ -215,6 +221,11 @@ public class asyncLoadCommonData {
                 params.setMargins(0, pixel / 2, 0, (int) ctx.getResources().getDimension(R.dimen.ViewMargin));
                 acAssetDetail.lyAssetDetail.setLayoutParams(params);
                 acAssetDetail.lyAssetDetail.setPadding((int) ctx.getResources().getDimension(R.dimen.ViewPadding), pixel / 2, (int) ctx.getResources().getDimension(R.dimen.ViewPadding), (int) ctx.getResources().getDimension(R.dimen.ViewPadding));
+            } else if (ctx.getClass() == acItemDetail.class) {
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                params.setMargins(0, pixel / 2, 0, (int) ctx.getResources().getDimension(R.dimen.ViewMargin));
+                acItemDetail.lyItemDetail.setLayoutParams(params);
+                acItemDetail.lyItemDetail.setPadding((int) ctx.getResources().getDimension(R.dimen.ViewPadding), pixel / 2, (int) ctx.getResources().getDimension(R.dimen.ViewPadding), (int) ctx.getResources().getDimension(R.dimen.ViewPadding));
             }
 
             if (strBase64.equals("") || bmp == null) {
@@ -223,7 +234,7 @@ public class asyncLoadCommonData {
                     img.setImageBitmap(bmpNoPic);
                 }
             } else {
-                if (ctx.getClass() == acHome.class || ctx.getClass() == acAssetDetail.class) {
+                if (ctx.getClass() == acHome.class || ctx.getClass() == acAssetDetail.class || ctx.getClass() == acItemDetail.class) {
                     img.setImageBitmap(Helper.getResizedBitmap(bmp, pixel, pixel));
                 } else {
                     img.setImageBitmap(bmp);

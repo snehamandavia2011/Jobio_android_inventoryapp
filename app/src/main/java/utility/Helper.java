@@ -3,12 +3,16 @@ package utility;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -58,6 +62,7 @@ import com.crashlytics.android.core.CrashlyticsCore;
 import com.lab360io.jobio.inventoryapp.R;
 import com.lab360io.jobio.inventoryapp.acAsset;
 import com.lab360io.jobio.inventoryapp.acHome;
+import com.lab360io.jobio.inventoryapp.acItemDetail;
 import com.lab360io.jobio.inventoryapp.acLogin;
 import com.lab360io.jobio.inventoryapp.acMessageEmployeeList;
 import com.lab360io.jobio.inventoryapp.acSetting;
@@ -186,22 +191,38 @@ public class Helper {
 
     public DotProgressBar dtDialog;
 
-    public void getItemDetailByBarcode(final AppCompatActivity ac, final Handler mHandler, final String strCode, final View[] view) {
+    public void getItemDetailByBarcode(final AppCompatActivity ac, final Handler mHandler, final String strCode, final View[] view, final Fragment fr) {
         final Context ctx = ac;
         final HttpEngine objHttpEngine = new HttpEngine();
         dtDialog = (DotProgressBar) ac.findViewById(R.id.dot_progress_bar);
         dtDialog.setVisibility(View.VISIBLE);
-        new Thread() {
-            public void run() {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (View v : view) {
-                            v.setEnabled(false);
-                            v.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.darkgrey)));
-                        }
-                    }
-                });
+        new AsyncTask() {
+            boolean needToSendBroadcast = false;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                for (View v : view) {
+                    v.setEnabled(false);
+                    v.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.darkgrey)));
+                }
+                DataBase db = new DataBase(ac.getApplicationContext());
+                db.open();
+                Cursor cur = db.fetch(DataBase.item_transaction_table, DataBase.item_transaction_int, "barcode='" + strCode + "'");
+                if (cur != null && cur.getCount() > 0) {
+                    needToSendBroadcast = true;
+                    Intent i = new Intent(ac.getApplicationContext(), acItemDetail.class);
+                    i.putExtra("needToSyncFromServer", false);
+                    i.putExtra("itemUUId", cur.getString(1));
+                    ac.startActivity(i);
+                    ac.finish();
+                }
+                cur.close();
+                db.close();
+            }
+
+            @Override
+            protected Object doInBackground(Object[] params) {
                 String strToken = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
                 String accountId = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
                 URLMapping um = ConstantVal.getItemDetailByBarcode(ctx);
@@ -212,14 +233,19 @@ public class Helper {
                     try {
                         ClientItemMaster objClientItemMaster = parseItemMaster.parse(result);
                         if (objClientItemMaster != null) {
-                            //save data to local database
-                            mHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ac.setResult(ConstantVal.SEARCH_ITEM_BY_BARCODE__RESPONSE_CODE);
-                                    ac.finish();
-                                }
-                            });
+                            objClientItemMaster.saveUpdateItemData(ctx);
+                            if (needToSendBroadcast) {
+                                Intent intent = new Intent();
+                                intent.putExtra("itemUUId", objClientItemMaster.getUuid());
+                                intent.setAction(ConstantVal.BroadcastAction.ITEM_DETAIL);
+                                ac.sendBroadcast(intent);
+                            } else {
+                                Intent i = new Intent(ac.getApplicationContext(), acItemDetail.class);
+                                i.putExtra("needToSyncFromServer", false);
+                                i.putExtra("itemUUId", objClientItemMaster.getUuid());
+                                ac.startActivity(i);
+                            }
+                            //send broadcast to detail activity
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -228,21 +254,17 @@ public class Helper {
                             public void run() {
                                 dtDialog.setVisibility(View.GONE);
                                 if (result.equals(ConstantVal.ServerResponseCode.BLANK_RESPONSE)) {
-                                    displaySnackbar(ac, ac.getString(R.string.msgItemDetailNotAvailAtServer)).setCallback(new Snackbar.Callback() {
-                                        @Override
-                                        public void onDismissed(Snackbar snackbar, int event) {
-                                            ac.finish();
-                                        }
-                                    });
-                                    ;
+                                    displaySnackbar(ac, ac.getString(R.string.msgItemDetailNotAvailAtServer));
+                                    if (fr != null && !ac.isDestroyed()) {
+                                        FragmentTransaction ft = fr.getActivity().getFragmentManager().beginTransaction();
+                                        ft.detach(fr).attach(fr).commit();
+                                    }
                                 } else {
-                                    displaySnackbar(ac, result).setCallback(new Snackbar.Callback() {
-                                        @Override
-                                        public void onDismissed(Snackbar snackbar, int event) {
-                                            ac.finish();
-                                        }
-                                    });
-                                    ;
+                                    displaySnackbar(ac, result);
+                                    if (fr != null && !ac.isDestroyed()) {
+                                        FragmentTransaction ft = fr.getActivity().getFragmentManager().beginTransaction();
+                                        ft.detach(fr).attach(fr).commit();
+                                    }
                                 }
                                 for (View v : view) {
                                     v.setEnabled(true);
@@ -252,6 +274,24 @@ public class Helper {
                         });
                     }
                 }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new Thread() {
+            public void run() {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+
+
             }
         }.start();
     }
@@ -523,6 +563,22 @@ public class Helper {
             long now = System.currentTimeMillis();
             SimpleDateFormat dateFormat = new SimpleDateFormat(ConstantVal.DATE_FORMAT + " " + ConstantVal.TIME_FORMAT);
             Date convertedDate = dateFormat.parse(strDateTime);
+
+            CharSequence relativeTime = DateUtils.getRelativeTimeSpanString(
+                    convertedDate.getTime(),
+                    now,
+                    0L, DateUtils.FORMAT_ABBREV_ALL);
+            return relativeTime.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static String convertDateToAbbrevString(Long lngDateTime) {
+        try {
+            long now = System.currentTimeMillis();
+            Date convertedDate = new Date(lngDateTime);
 
             CharSequence relativeTime = DateUtils.getRelativeTimeSpanString(
                     convertedDate.getTime(),
