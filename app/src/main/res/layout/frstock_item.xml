@@ -40,24 +40,13 @@
                     android:dividerHeight="@dimen/listViewDividerHeight"></ListView>
             </LinearLayout>
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnSearchItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_margin="@dimen/ViewMargin"
-                android:src="@drawable/ic_search_barcode_tilt"
-                fab:fab_colorNormal="@color/white"
-                fab:fab_colorPressed="@color/white_pressed"
-                fab:fab_plusIconColor="@color/half_black" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:visibility="gone"
             android:id="@+id/lyNoContent"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -67,20 +56,20 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:src="@drawable/ic_item_white_big"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/ViewMargin" />
+                    android:layout_margin="@dimen/ViewMargin"
+                    android:src="@drawable/ic_item_white_big" />
 
                 <TextView
-                    android:gravity="center"
-                    android:text="@string/msgNoItem"
                     style="@style/styBigWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/ViewMargin"
+                    android:gravity="center"
+                    android:text="@string/msgNoItem"
                     app:font="@{`Ubuntu-M`}" />
             </LinearLayout>
         </RelativeLayout>
@@ -95,5 +84,18 @@
             custom:duration="@android:integer/config_shortAnimTime"
             custom:endColor="@color/white"
             custom:startColor="@color/white" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnSearchItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/ViewMargin"
+            android:src="@drawable/ic_search_barcode_tilt"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_plusIconColor="@color/half_black" />
+
     </RelativeLayout>
 </layout>

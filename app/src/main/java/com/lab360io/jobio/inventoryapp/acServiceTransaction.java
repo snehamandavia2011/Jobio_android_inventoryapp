@@ -77,7 +77,7 @@ public class acServiceTransaction extends AppCompatActivity {
         DataBindingUtil.setContentView(this, R.layout.service_transaction);
         ac = this;
         mContext = this;
-        objHelper.setActionBar(ac, mContext.getString(R.string.strAssetDetail));
+        objHelper.setActionBar(ac, mContext.getString(R.string.strService));
         setData();
     }
 

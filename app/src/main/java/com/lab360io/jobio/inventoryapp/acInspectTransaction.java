@@ -74,7 +74,7 @@ public class acInspectTransaction extends AppCompatActivity {
         DataBindingUtil.setContentView(this, R.layout.inspect_transaction);
         ac = this;
         mContext = this;
-        objHelper.setActionBar(ac, mContext.getString(R.string.strAssetDetail));
+        objHelper.setActionBar(ac, mContext.getString(R.string.strInspect));
         setData();
     }
 
@@ -191,6 +191,10 @@ public class acInspectTransaction extends AppCompatActivity {
                                 edInspectionName.setError(getString(R.string.msgEnterInspectionName));
                                 requestFocus(edInspectionName);
                                 isDataEntedProperly = false;
+                            } else if (Helper.isFieldBlank(edInspectionNote.getText().toString())) {
+                                edInspectionNote.setError(getString(R.string.msgEnterInspectionNote));
+                                requestFocus(edInspectionNote);
+                                isDataEntedProperly = false;
                             }
                         }
 
@@ -262,7 +266,8 @@ public class acInspectTransaction extends AppCompatActivity {
                 final String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
                 String[] data = {String.valueOf(tokenId), account_id, objClientAssetInspect.getAitId(), objClientAssetInspect.getAitName(),
                         Helper.convertDateToString(calInspectionDate.getTime(), ConstantVal.DATE_FORMAT + " " + ConstantVal.TIME_FORMAT),
-                        objClientAssetInspect.getAitNote(), objClientAssetInspect.getPhoto(), strIsPresent, objClientAssetInspect.getAitStatusId()};
+                        objClientAssetInspect.getAitNote(), objClientAssetInspect.getPhoto() == null ? "" : objClientAssetInspect.getPhoto(), strIsPresent, objClientAssetInspect.getAitStatusId()};
+                Logger.debug(data.length + "len");
                 URLMapping um = ConstantVal.updateInspectTransaction(mContext);
                 HttpEngine objHttpEngine = new HttpEngine();
                 objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), data, um.getParamNames(), um.isNeedToSync());

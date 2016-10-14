@@ -38,7 +38,7 @@ public class acSearchItemByBarcodeScanner extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), acSearchItemByBarcodeManual.class);
-                startActivityForResult(i, ConstantVal.SEARCH_ITEM_BY_BARCODE_REQUEST_CODE);
+                startActivity(i);
                 finish();
             }
         });

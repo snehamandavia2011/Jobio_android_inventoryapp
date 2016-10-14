@@ -162,6 +162,7 @@
     <string name="msgNotAttendedYet">Not attended yet.</string>
     <string name="title_activity_ac_inspect_transaction">acInspectTransaction</string>
     <string name="msgEnterInspectionName">Enter inspection name</string>
+    <string name="msgEnterInspectionNote">Enter inspection note</string>
     <string name="msgEnterCost">Enter cost</string>
     <string name="msgItemDetailNotAvailAtServer">Unfortunately item detail with respect to entered barcode is not available on server. </string>
     <string name="msgAssetDetailNotAvail">Unfortunately asset detail with respect to entered QR code is not available. </string>

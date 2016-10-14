@@ -21,6 +21,7 @@ import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;
 
+import adapter.AssetAdapter;
 import adapter.ItemAdapter;
 import entity.ClientAsset;
 import entity.ClientItemMaster;
@@ -66,7 +67,7 @@ public class frStockItem extends Fragment implements View.OnClickListener {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                arrClientItemMaster = ClientItemMaster.getDataFromDatabase(mContext, null);
+                arrClientItemMaster = ClientItemMaster.getDataFromDatabase(mContext, null, "");
             }
 
             @Override
@@ -77,8 +78,15 @@ public class frStockItem extends Fragment implements View.OnClickListener {
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
-                ItemAdapter adp = new ItemAdapter(mContext, arrClientItemMaster);
-                lvlItem.setAdapter(adp);
+                if (arrClientItemMaster != null && arrClientItemMaster.size() >= 0) {
+                    lyMainContent.setVisibility(View.VISIBLE);
+                    lyNoContent.setVisibility(View.GONE);
+                    ItemAdapter adp = new ItemAdapter(mContext, arrClientItemMaster);
+                    lvlItem.setAdapter(adp);
+                } else {
+                    lyMainContent.setVisibility(View.GONE);
+                    lyNoContent.setVisibility(View.VISIBLE);
+                }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -89,7 +97,7 @@ public class frStockItem extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btnSearchItem:
                 Intent i = new Intent(getActivity(), acSearchItemByBarcodeScanner.class);
-                startActivityForResult(i, ConstantVal.SEARCH_ITEM_BY_BARCODE_REQUEST_CODE);
+                startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
                 break;
         }
     }

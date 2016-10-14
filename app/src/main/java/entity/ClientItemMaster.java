@@ -6,6 +6,7 @@ import android.database.Cursor;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import utility.DataBase;
 
@@ -212,7 +213,7 @@ public class ClientItemMaster {
         this.last_update_date_time = last_update_date_time;
     }
 
-    public static ArrayList<ClientItemMaster> getDataFromDatabase(Context ctx, String itemUUId) {
+    public static ArrayList<ClientItemMaster> getDataFromDatabase(Context ctx, String itemUUId, String barcode) {
         ArrayList<ClientItemMaster> arrClientItemMaster = null;
         ClientItemMaster objClientItemMaster = null;
         DataBase db = new DataBase(ctx);
@@ -228,7 +229,11 @@ public class ClientItemMaster {
             arrClientItemMaster = new ArrayList<>();
             cur.moveToFirst();
             do {
-                Cursor cutT = db.fetch(DataBase.item_transaction_table, DataBase.item_transaction_int, "imUUID='" + cur.getString(1) + "'");
+                Cursor cutT = null;
+                if (barcode.equals(""))
+                    cutT = db.fetch(DataBase.item_transaction_table, DataBase.item_transaction_int, "imUUID='" + cur.getString(1) + "'");
+                else
+                    cutT = db.fetch(DataBase.item_transaction_table, DataBase.item_transaction_int, "imUUID='" + cur.getString(1) + "' and barcode='" + barcode + "'");
                 ArrayList<ClientItemTransaction> arrT = null;
                 if (cutT != null && cutT.getCount() > 0) {
                     arrT = new ArrayList<>();

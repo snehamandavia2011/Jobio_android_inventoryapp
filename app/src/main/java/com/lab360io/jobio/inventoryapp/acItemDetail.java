@@ -48,6 +48,7 @@ import utility.ServerResponse;
 import utility.URLMapping;
 
 public class acItemDetail extends AppCompatActivity {
+    String barcode;
     DotProgressBar dot_progress_bar;
     CircleImageView item_image;
     ScrollView scrlMainContent;
@@ -100,7 +101,8 @@ public class acItemDetail extends AppCompatActivity {
                 Helper.setViewLayoutParmas(item_image, 30, mContext);
                 if (ac.getIntent().getExtras() != null) {
                     itemUUId = ac.getIntent().getStringExtra("itemUUId");
-                    needToSyncFromServer = ac.getIntent().getBooleanExtra("needToSyncFromServer", false);
+                    barcode = ac.getIntent().getStringExtra("barcode");
+                    needToSyncFromServer = ac.getIntent().getBooleanExtra("needToSyncFromServer", false);//if activivity open by frStockitem then flag is true, if open by barcode scanner then flag is false
                 }
             }
 
@@ -124,7 +126,7 @@ public class acItemDetail extends AppCompatActivity {
         new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] params) {
-                objClientItemMaster = ClientItemMaster.getDataFromDatabase(mContext, itemUUId).get(0);
+                objClientItemMaster = ClientItemMaster.getDataFromDatabase(mContext, itemUUId, barcode).get(0);
                 return null;
             }
 
@@ -152,7 +154,7 @@ public class acItemDetail extends AppCompatActivity {
                 if (result != null && !result.equals("")) {
                     try {
                         objClientItemMaster = parseItemMaster.parse(result);
-                        if (objServerResponse.getResponseCode() == ConstantVal.ServerResponseCode.SUCCESS)
+                        if (objServerResponse.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS))
                             objClientItemMaster.saveUpdateItemData(mContext);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -164,8 +166,8 @@ public class acItemDetail extends AppCompatActivity {
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
-                if (objServerResponse.getResponseCode() == ConstantVal.ServerResponseCode.SUCCESS) {
-                    assignDataToView();
+                if (objServerResponse.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                    fetchDataFromDatabase();
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -188,11 +190,15 @@ public class acItemDetail extends AppCompatActivity {
         try {
             txtLastUpdated.setText(getString(R.string.strLastUpdate) + ": " + Helper.convertDateToAbbrevString(Long.parseLong(objClientItemMaster.getLast_update_date_time())));
         } catch (Exception e) {
+            e.printStackTrace();
             txtLastUpdated.setText(getString(R.string.strLastUpdate) + ": " + getString(R.string.strNA));
         }
-        for (ClientItemTransaction obj : objClientItemMaster.getArrItemTransaction()) {
-            View v = addItemToLayout(obj);
-            lyItemTransactionDetail.addView(v);
+        lyItemTransactionDetail.removeAllViews();
+        if (objClientItemMaster.getArrItemTransaction() != null) {
+            for (ClientItemTransaction obj : objClientItemMaster.getArrItemTransaction()) {
+                View v = addItemToLayout(obj);
+                lyItemTransactionDetail.addView(v);
+            }
         }
         //txtBarcode.setText(objClientAsset.getAmBarcode_no());
         dot_progress_bar.setVisibility(View.GONE);
@@ -208,10 +214,10 @@ public class acItemDetail extends AppCompatActivity {
         TextView txtAvailQty = (TextView) v.findViewById(R.id.txtAvailQty);
         TextView txtBarcode = (TextView) v.findViewById(R.id.txtBarcode);
         txtSupplierName.setText(obj.getSpplierName());
-        txtCost.setText(obj.getCost());
-        txtPrice.setText(obj.getPrice());
-        txtAvailQty.setText(obj.getAvailable_qty());
-        txtBarcode.setText(obj.getBarcode());
+        txtCost.setText(": " + obj.getCost());
+        txtPrice.setText(": " + obj.getPrice());
+        txtAvailQty.setText(": " + obj.getAvailable_qty());
+        txtBarcode.setText(": " + obj.getBarcode());
         txtBarcode.setPaintFlags(txtBarcode.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         txtBarcode.setOnClickListener(new View.OnClickListener() {
             @Override

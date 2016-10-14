@@ -92,6 +92,7 @@ public class ItemAdapter extends BaseAdapter {
                 Intent i = new Intent(ctx, acItemDetail.class);
                 i.putExtra("itemUUId", objClientItemMaster.getUuid());
                 i.putExtra("needToSyncFromServer", true);
+                i.putExtra("barcode", "");
                 ctx.startActivity(i);
             }
         });

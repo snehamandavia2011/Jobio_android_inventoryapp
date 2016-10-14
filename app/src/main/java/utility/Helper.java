@@ -33,6 +33,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.ColorInt;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.IntentCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.graphics.drawable.DrawableWrapper;
 import android.support.v7.app.ActionBar;
@@ -197,7 +198,7 @@ public class Helper {
         dtDialog = (DotProgressBar) ac.findViewById(R.id.dot_progress_bar);
         dtDialog.setVisibility(View.VISIBLE);
         new AsyncTask() {
-            boolean needToSendBroadcast = false;
+            boolean needToSendBroadcast = false, isActivityRunning = true;
 
             @Override
             protected void onPreExecute() {
@@ -211,9 +212,11 @@ public class Helper {
                 Cursor cur = db.fetch(DataBase.item_transaction_table, DataBase.item_transaction_int, "barcode='" + strCode + "'");
                 if (cur != null && cur.getCount() > 0) {
                     needToSendBroadcast = true;
+                    isActivityRunning = false;
                     Intent i = new Intent(ac.getApplicationContext(), acItemDetail.class);
                     i.putExtra("needToSyncFromServer", false);
                     i.putExtra("itemUUId", cur.getString(1));
+                    i.putExtra("barcode", strCode);
                     ac.startActivity(i);
                     ac.finish();
                 }
@@ -237,13 +240,17 @@ public class Helper {
                             if (needToSendBroadcast) {
                                 Intent intent = new Intent();
                                 intent.putExtra("itemUUId", objClientItemMaster.getUuid());
+                                intent.putExtra("barcode", strCode);
                                 intent.setAction(ConstantVal.BroadcastAction.ITEM_DETAIL);
                                 ac.sendBroadcast(intent);
                             } else {
+                                isActivityRunning = false;
                                 Intent i = new Intent(ac.getApplicationContext(), acItemDetail.class);
                                 i.putExtra("needToSyncFromServer", false);
                                 i.putExtra("itemUUId", objClientItemMaster.getUuid());
+                                i.putExtra("barcode", strCode);
                                 ac.startActivity(i);
+                                ac.finish();
                             }
                             //send broadcast to detail activity
                         }
@@ -255,13 +262,13 @@ public class Helper {
                                 dtDialog.setVisibility(View.GONE);
                                 if (result.equals(ConstantVal.ServerResponseCode.BLANK_RESPONSE)) {
                                     displaySnackbar(ac, ac.getString(R.string.msgItemDetailNotAvailAtServer));
-                                    if (fr != null && !ac.isDestroyed()) {
+                                    if (fr != null && isActivityRunning) {
                                         FragmentTransaction ft = fr.getActivity().getFragmentManager().beginTransaction();
                                         ft.detach(fr).attach(fr).commit();
                                     }
-                                } else {
+                                } else if(!result.equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED)){
                                     displaySnackbar(ac, result);
-                                    if (fr != null && !ac.isDestroyed()) {
+                                    if (fr != null && isActivityRunning) {
                                         FragmentTransaction ft = fr.getActivity().getFragmentManager().beginTransaction();
                                         ft.detach(fr).attach(fr).commit();
                                     }
@@ -365,10 +372,10 @@ public class Helper {
                 public void onDismissed(Snackbar snackbar, int event) {
                     super.onDismissed(snackbar, event);
                     Intent i = new Intent(ac, acLogin.class);
-                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+                    //ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
                     ac.startActivity(i);
-                    ac.finish();
+                    //ac.finish();
                 }
             });
             snackbar.show();

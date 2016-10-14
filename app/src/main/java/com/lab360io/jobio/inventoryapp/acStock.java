@@ -2,6 +2,7 @@ package com.lab360io.jobio.inventoryapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ import fragment.frAssetsService;
 import fragment.frStockItem;
 import fragment.frStockStock;
 import fragment.frStockTransaction;
+import utility.ConstantVal;
 import utility.Helper;
 
 public class acStock extends ActionBarActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
@@ -227,4 +229,15 @@ public class acStock extends ActionBarActivity implements TabHost.OnTabChangeLis
         }
         return false;
     }
+
+
+    /*@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ConstantVal.EXIT_REQUEST_CODE && resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+            Activity a = (ac);
+            a.setResult(ConstantVal.EXIT_RESPONSE_CODE);
+            finish();
+        }
+    }*/
 }
