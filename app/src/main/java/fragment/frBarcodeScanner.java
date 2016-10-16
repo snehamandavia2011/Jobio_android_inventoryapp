@@ -30,6 +30,7 @@ import net.sourceforge.zbar.ImageScanner;
 import net.sourceforge.zbar.Symbol;
 import net.sourceforge.zbar.SymbolSet;
 
+import utility.ConstantVal;
 import utility.DotProgressBar;
 import utility.Helper;
 
@@ -183,5 +184,14 @@ public class frBarcodeScanner extends Fragment implements Camera.PreviewCallback
             mAutoFocusHandler.postDelayed(doAutoFocus, 1000);
         }
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+            getActivity().setResult(ConstantVal.EXIT_RESPONSE_CODE);
+            getActivity().finish();
+        }
+    }
 }
 

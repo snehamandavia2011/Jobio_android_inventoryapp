@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.lab360io.jobio.inventoryapp.acAssetDetail;
 import java.util.ArrayList;
 
 import entity.ClientAsset;
+import utility.ConstantVal;
 import utility.Helper;
 
 /**
@@ -84,7 +86,7 @@ public class AssetAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Intent i = new Intent(ctx, acAssetDetail.class);
                 i.putExtra("AssetId",objClientAsset.getAoAsset_id());
-                ctx.startActivity(i);
+                ((AppCompatActivity)ctx).startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
             }
         });
         return convertView;

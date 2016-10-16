@@ -19,6 +19,7 @@ import utility.ConstantVal;
 import utility.DotProgressBar;
 import utility.Helper;
 import utility.HttpEngine;
+import utility.Logger;
 
 public class acSearchItemByBarcodeScanner extends AppCompatActivity {
     TextView txtEnterManuallyBarCode;
@@ -38,8 +39,7 @@ public class acSearchItemByBarcodeScanner extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), acSearchItemByBarcodeManual.class);
-                startActivity(i);
-                finish();
+                startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
             }
         });
     }
@@ -50,5 +50,15 @@ public class acSearchItemByBarcodeScanner extends AppCompatActivity {
             finish();
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Logger.debug("acSearchItemByBarcodeScanner:" + requestCode + " " + resultCode);
+        if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+            ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
+            finish();
+        }
     }
 }

@@ -17,6 +17,7 @@ import com.xwray.fontbinding.FontCache;
 
 import utility.ConstantVal;
 import utility.Helper;
+import utility.Logger;
 
 
 public class acQRCodeScanner extends AppCompatActivity implements QRCodeReaderView.OnQRCodeReadListener {
@@ -65,7 +66,7 @@ public class acQRCodeScanner extends AppCompatActivity implements QRCodeReaderVi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ConstantVal.EXIT_REQUEST_CODE && resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+        if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
             ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
             finish();
         }

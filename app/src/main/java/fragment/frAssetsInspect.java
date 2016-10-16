@@ -251,6 +251,10 @@ public class frAssetsInspect extends Fragment {
         if (requestCode == ConstantVal.INSPECTION_TRANSACTION_REQUEST_CODE) {
             setDataFromLocalDatabase();
         }
+        if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+            getActivity().setResult(ConstantVal.EXIT_RESPONSE_CODE);
+            getActivity().finish();
+        }
     }
 }
 

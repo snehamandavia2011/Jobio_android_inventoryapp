@@ -129,7 +129,14 @@ public class acSplash extends Activity {
         t2.start();
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+            setResult(ConstantVal.EXIT_RESPONSE_CODE);
+            finish();
+        }
+    }
 }
 
 

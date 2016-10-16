@@ -361,6 +361,9 @@ public class acServiceTransaction extends AppCompatActivity {
                     super.onPostExecute(o);
                 }
             }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+            ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
+            finish();
         }
     }
 

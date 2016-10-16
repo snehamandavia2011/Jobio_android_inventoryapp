@@ -53,7 +53,7 @@ public class MyLocation {
         this.gpsType = gpsType;
     }
 
-    public String getAddressFromLocation(Context context) {
+    /*public String getAddressFromLocation(Context context) {
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         String result = null;
         try {
@@ -80,5 +80,5 @@ public class MyLocation {
         }
         Logger.debug("Result:" + result);
         return result;
-    }
+    }*/
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,7 +94,7 @@ public class ItemAdapter extends BaseAdapter {
                 i.putExtra("itemUUId", objClientItemMaster.getUuid());
                 i.putExtra("needToSyncFromServer", true);
                 i.putExtra("barcode", "");
-                ctx.startActivity(i);
+                ((AppCompatActivity) ctx).startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
             }
         });
         return convertView;

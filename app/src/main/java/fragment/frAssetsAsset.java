@@ -159,5 +159,14 @@ public class frAssetsAsset extends Fragment {
             setDataFromLocalDatabase();
         }
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+            getActivity().setResult(ConstantVal.EXIT_RESPONSE_CODE);
+            getActivity().finish();
+        }
+    }
 }
 

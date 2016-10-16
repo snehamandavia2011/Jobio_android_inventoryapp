@@ -1,18 +1,14 @@
 package utility;
 
-import android.app.AlertDialog;
-import android.app.Service;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.IBinder;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 import com.lab360io.jobio.inventoryapp.R;
@@ -20,7 +16,8 @@ import com.lab360io.jobio.inventoryapp.R;
 import entity.MyLocation;
 
 public class GPSTracker implements LocationListener {
-
+    GPSTracker objGPSTracker;
+    Handler handler;
     private final Context mContext;
 
     // flag for GPS status
@@ -46,9 +43,10 @@ public class GPSTracker implements LocationListener {
     // Declaring a Location Manager
     protected LocationManager locationManager;
 
-    public GPSTracker(Context context) {
+    public GPSTracker(Context context, Handler handler) {
+        this.handler=handler;
         this.mContext = context;
-        getLocation();
+        objGPSTracker = this;
     }
 
     public MyLocation getLocation() {
@@ -65,8 +63,31 @@ public class GPSTracker implements LocationListener {
                 // no network provider is enabled
             } else {
                 this.canGetLocation = true;
+                // if GPS Enabled get lat/long using GPS Services
+                if (isGPSEnabled) {
+                    if (location == null) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                locationManager.requestLocationUpdates(
+                                        LocationManager.GPS_PROVIDER,
+                                        MIN_TIME_BW_UPDATES,
+                                        MIN_DISTANCE_CHANGE_FOR_UPDATES, objGPSTracker);
+                                Logger.debug("GPS Enabled");
+                            }
+                        });
+                        if (locationManager != null) {
+                            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                            if (location != null) {
+                                latitude = location.getLatitude();
+                                longitude = location.getLongitude();
+                                objMyLocation = new MyLocation(latitude, longitude, "GPS");
+                            }
+                        }
+                    }
+                }
                 // First get location from Network Provider
-                if (isNetworkEnabled) {
+                else if (isNetworkEnabled) {
                     locationManager.requestLocationUpdates(
                             LocationManager.NETWORK_PROVIDER,
                             MIN_TIME_BW_UPDATES,
@@ -78,24 +99,6 @@ public class GPSTracker implements LocationListener {
                             latitude = location.getLatitude();
                             longitude = location.getLongitude();
                             objMyLocation = new MyLocation(latitude, longitude, "A-GPS");
-                        }
-                    }
-                }
-                // if GPS Enabled get lat/long using GPS Services
-                if (isGPSEnabled) {
-                    if (location == null) {
-                        locationManager.requestLocationUpdates(
-                                LocationManager.GPS_PROVIDER,
-                                MIN_TIME_BW_UPDATES,
-                                MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                        Logger.debug("GPS Enabled");
-                        if (locationManager != null) {
-                            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                            if (location != null) {
-                                latitude = location.getLatitude();
-                                longitude = location.getLongitude();
-                                objMyLocation = new MyLocation(latitude, longitude, "GPS");
-                            }
                         }
                     }
                 }

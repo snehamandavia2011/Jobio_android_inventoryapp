@@ -78,7 +78,7 @@ public class acSearchAssetByQR extends AppCompatActivity implements QRCodeReader
                     if (arr != null && arr.size() == 1) {
                         Intent i = new Intent(ac.getApplicationContext(), acAssetDetail.class);
                         i.putExtra("AssetId", strQRCode);
-                        startActivity(i);
+                        startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
                         finish();
                     } else {
                         objHelper.displaySnackbar(ac, getString(R.string.msgAssetDetailNotAvail));
@@ -127,5 +127,14 @@ public class acSearchAssetByQR extends AppCompatActivity implements QRCodeReader
     protected void onStop() {
         super.onStop();
         objHelper.unRegisterSesionTimeOutBroadcast(ac);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+            ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
+            finish();
+        }
     }
 }

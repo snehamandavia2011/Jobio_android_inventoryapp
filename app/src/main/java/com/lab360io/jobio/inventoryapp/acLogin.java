@@ -190,7 +190,7 @@ public class acLogin extends AppCompatActivity {
                     btnLogin.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.darkgrey)));
                     final HttpEngine objHttpEngine = new HttpEngine();
                     double lat = 0, lon = 0;
-                    GPSTracker gps = new GPSTracker(mContext);
+                    GPSTracker gps = new GPSTracker(mContext, new Handler());
                     MyLocation loc = gps.getLocation();
                     if (loc != null) {
                         lon = loc.getLongitude();

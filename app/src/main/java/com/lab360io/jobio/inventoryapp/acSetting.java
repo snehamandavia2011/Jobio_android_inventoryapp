@@ -1,6 +1,7 @@
 package com.lab360io.jobio.inventoryapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,7 @@ import android.view.View;
 import com.lab360io.jobio.inventoryapp.R;
 import com.xwray.fontbinding.FontCache;
 
+import utility.ConstantVal;
 import utility.Helper;
 
 public class acSetting extends AppCompatActivity {
@@ -68,5 +70,14 @@ public class acSetting extends AppCompatActivity {
             finish();
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+            ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
+            finish();
+        }
     }
 }

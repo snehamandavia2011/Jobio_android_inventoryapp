@@ -41,6 +41,7 @@ import fragment.frStockStock;
 import fragment.frStockTransaction;
 import utility.ConstantVal;
 import utility.Helper;
+import utility.Logger;
 
 public class acStock extends ActionBarActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
 
@@ -231,13 +232,12 @@ public class acStock extends ActionBarActivity implements TabHost.OnTabChangeLis
     }
 
 
-    /*@Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ConstantVal.EXIT_REQUEST_CODE && resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
-            Activity a = (ac);
-            a.setResult(ConstantVal.EXIT_RESPONSE_CODE);
+        if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+            setResult(ConstantVal.EXIT_RESPONSE_CODE);
             finish();
         }
-    }*/
+    }
 }

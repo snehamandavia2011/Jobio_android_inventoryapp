@@ -2,6 +2,7 @@ package com.lab360io.jobio.inventoryapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.graphics.Paint;
@@ -189,5 +190,14 @@ public class acAssetDetail extends AppCompatActivity {
             finish();
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+            ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
+            finish();
+        }
     }
 }

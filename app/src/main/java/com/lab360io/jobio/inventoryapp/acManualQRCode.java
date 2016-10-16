@@ -1,5 +1,6 @@
 package com.lab360io.jobio.inventoryapp;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Handler;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import com.xwray.fontbinding.FontCache;
 
 import me.zhanghai.android.materialedittext.MaterialEditText;
+import utility.ConstantVal;
 import utility.Helper;
 
 
@@ -70,5 +72,14 @@ public class acManualQRCode extends AppCompatActivity {
         super.onDestroy();
         if (objHelper.dtDialog != null && objHelper.dtDialog.getVisibility()==View.VISIBLE)
             objHelper.dtDialog.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+            ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
+            finish();
+        }
     }
 }

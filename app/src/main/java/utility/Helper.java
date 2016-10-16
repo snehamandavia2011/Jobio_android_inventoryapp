@@ -217,7 +217,7 @@ public class Helper {
                     i.putExtra("needToSyncFromServer", false);
                     i.putExtra("itemUUId", cur.getString(1));
                     i.putExtra("barcode", strCode);
-                    ac.startActivity(i);
+                    ac.startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
                     ac.finish();
                 }
                 cur.close();
@@ -249,7 +249,7 @@ public class Helper {
                                 i.putExtra("needToSyncFromServer", false);
                                 i.putExtra("itemUUId", objClientItemMaster.getUuid());
                                 i.putExtra("barcode", strCode);
-                                ac.startActivity(i);
+                                ac.startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
                                 ac.finish();
                             }
                             //send broadcast to detail activity
@@ -372,10 +372,9 @@ public class Helper {
                 public void onDismissed(Snackbar snackbar, int event) {
                     super.onDismissed(snackbar, event);
                     Intent i = new Intent(ac, acLogin.class);
-                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
-                    //ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
+                    ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
                     ac.startActivity(i);
-                    //ac.finish();
+                    ac.finish();
                 }
             });
             snackbar.show();
@@ -502,7 +501,6 @@ public class Helper {
             } else {
                 AppCompatActivity ac = (AppCompatActivity) ctx;
                 Intent i = new Intent(ac, acLogin.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
                 ac.startActivity(i);
                 ac.finish();

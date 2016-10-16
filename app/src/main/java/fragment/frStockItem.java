@@ -28,6 +28,7 @@ import entity.ClientItemMaster;
 import utility.ConstantVal;
 import utility.DataBase;
 import utility.DotProgressBar;
+import utility.Logger;
 
 /**
  * Created by SAI on 10/5/2016.
@@ -99,6 +100,15 @@ public class frStockItem extends Fragment implements View.OnClickListener {
                 Intent i = new Intent(getActivity(), acSearchItemByBarcodeScanner.class);
                 startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+            getActivity().setResult(ConstantVal.EXIT_RESPONSE_CODE);
+            getActivity().finish();
         }
     }
 }

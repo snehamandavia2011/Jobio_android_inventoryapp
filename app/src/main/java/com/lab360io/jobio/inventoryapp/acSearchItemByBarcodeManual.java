@@ -1,5 +1,6 @@
 package com.lab360io.jobio.inventoryapp;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,8 +19,10 @@ import com.lab360io.jobio.inventoryapp.R;
 import com.xwray.fontbinding.FontCache;
 
 import me.zhanghai.android.materialedittext.MaterialEditText;
+import utility.ConstantVal;
 import utility.Helper;
 import utility.HttpEngine;
+import utility.Logger;
 import utility.OptionMenu;
 
 public class acSearchItemByBarcodeManual extends AppCompatActivity {
@@ -99,6 +102,16 @@ public class acSearchItemByBarcodeManual extends AppCompatActivity {
     private void requestFocus(View view) {
         if (view.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Logger.debug("acSearchItemByBarcodeManual:" + requestCode + " " + resultCode);
+        if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+            ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
+            finish();
         }
     }
 }

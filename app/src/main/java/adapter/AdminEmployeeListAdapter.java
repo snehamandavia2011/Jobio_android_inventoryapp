@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import asyncmanager.asyncLoadCommonData;
 import entity.ClientAdminUserEmployee;
 import utility.CircleImageView;
+import utility.ConstantVal;
 import utility.Helper;
 import utility.Logger;
 
@@ -96,7 +98,7 @@ public class AdminEmployeeListAdapter extends BaseAdapter {
                 Intent i = new Intent(mContext, acMessageList.class);
                 i.putExtra("friendAdminUserId", objClientAdminUserEmployee.getAuId());
                 i.putExtra("name", objClientAdminUserEmployee.getFirst_name() + " " + objClientAdminUserEmployee.getLast_name());
-                mContext.startActivity(i);
+                ((AppCompatActivity) mContext).startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
                 if (holder.txtUnreadMessageCount.getVisibility() == View.VISIBLE) {
                     arrClientAdminUserEmployee.get(position).setUnreadMessageCount(0);
                     //    holder.txtUnreadMessageCount.setVisibility(View.GONE);

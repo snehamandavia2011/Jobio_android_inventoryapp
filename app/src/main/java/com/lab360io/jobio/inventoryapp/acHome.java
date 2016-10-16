@@ -296,7 +296,7 @@ public class acHome extends AppCompatActivity {
                         dialog.dismiss();
                         Intent i = new Intent(mContext, acReportIssue.class);
                         i.putExtra(acReportIssue.REQUEST_TYPE, acReportIssue.SUGGESTION);
-                        startActivity(i);
+                        startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
                         break;
                     case 5:
                         dialog.dismiss();
@@ -443,7 +443,7 @@ public class acHome extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ConstantVal.EXIT_REQUEST_CODE && resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+        if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
             ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
             finish();
         }

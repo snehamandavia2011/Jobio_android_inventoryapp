@@ -28,6 +28,7 @@ import java.nio.channels.FileChannel;
 import entity.ClientAdminUser;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import me.zhanghai.android.materialedittext.MaterialTextInputLayout;
+import utility.ConstantVal;
 import utility.DotProgressBar;
 import utility.Helper;
 import utility.Logger;
@@ -229,6 +230,15 @@ public class acReportIssue extends AppCompatActivity {
     private void requestFocus(View view) {
         if (view.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+            ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
+            finish();
         }
     }
 }

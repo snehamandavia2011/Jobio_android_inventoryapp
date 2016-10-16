@@ -244,6 +244,10 @@ public class frAssetsService extends Fragment {
         if (requestCode == ConstantVal.SERVICE_TRANSACTION_REQUEST_CODE) {
             setDataFromLocalDatabase();
         }
+        if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
+            getActivity().setResult(ConstantVal.EXIT_RESPONSE_CODE);
+            getActivity().finish();
+        }
     }
 }
 
