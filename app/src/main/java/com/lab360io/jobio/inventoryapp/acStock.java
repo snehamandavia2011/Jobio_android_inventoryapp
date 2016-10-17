@@ -50,7 +50,7 @@ public class acStock extends ActionBarActivity implements TabHost.OnTabChangeLis
     public static final String TRANSACTION = "Tab3";
     String current_tab = ITEM;
     ActionBarActivity ac;
-    Context mContext;
+    public static Context mContext;
     Helper objHelper = new Helper();
     private TabHost mTabHost;
     private ViewPager mViewPager;

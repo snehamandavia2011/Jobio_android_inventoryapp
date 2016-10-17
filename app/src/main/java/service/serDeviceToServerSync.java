@@ -62,13 +62,20 @@ public class serDeviceToServerSync extends Service {
                             //send one by one request back to server, VERY IMP but do not store entry in sync table
                             int id = cutUnSyncData.getInt(0);
                             String url = cutUnSyncData.getString(1);
-                            String data = cutUnSyncData.getString(2);
+                            StringBuffer data = new StringBuffer(cutUnSyncData.getString(2));
                             //replace token with current token
-                            int startIndex = data.indexOf("token_id=");
+                            int startIndex = data.indexOf("token_id=") + 9;
                             int endIndex = data.indexOf("&", startIndex);
-                            String oldToken = data.substring(startIndex + 9, endIndex);
-                            data = data.replace(oldToken, currentToken);
-                            ServerResponse objServerResponse = objHttpEngine.makeHttpRequestCall(mContext, url, data);
+                            String oldToken = data.substring(startIndex, endIndex);
+                            //Logger.debug(data + " " + startIndex + " " + endIndex + " " + oldToken);
+                            if (oldToken.length() <= 0) {
+                                data = data.insert(startIndex, currentToken);
+                            } else {
+                                data = data.replace(startIndex, endIndex, currentToken);
+                            }
+                            //Logger.debug(data.toString());
+                            ServerResponse objServerResponse = objHttpEngine.makeHttpRequestCall(mContext, url, data.toString());
+
                             if (!objServerResponse.getResponseCode().equals(ConstantVal.ServerResponseCode.NO_INTERNET))
                                 isInternetFound = true;
                             boolean isUpdated = objHttpEngine.updateSyncTable(mContext, id, url, objServerResponse);

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,6 +23,8 @@ import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUserEmployee;
 import entity.ClientAsset;
 import entity.ClientAssetInspectServiceStatus;
+import entity.ClientItemMaster;
+import entity.ClientItemMaster1;
 import parser.parseCommonData;
 import utility.CircleImageView;
 import utility.ConstantVal;
@@ -255,5 +258,111 @@ public class asyncLoadCommonData {
             img.setImageBitmap(bmpNoPic);
             return false;
         }
+    }
+
+    public static void setPreExecutionPhotoToImageView(Context ctx, String strBase64, ImageView img, View.OnClickListener imgClick) {
+        RelativeLayout.LayoutParams rparam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        rparam.addRule(RelativeLayout.CENTER_IN_PARENT);
+        img.setLayoutParams(rparam);
+        if (strBase64 != null && strBase64.length() > 0) {
+            strBase64 = strBase64.substring(strBase64.indexOf(",") + 1);
+            Bitmap bmp = Helper.convertBase64ImageToBitmap(strBase64);
+            if (bmp == null) {
+                img.setImageResource(R.drawable.ic_nopic);
+                img.setBackgroundResource(0);
+            } else {
+                img.setImageResource(0);
+                img.setBackgroundDrawable(new BitmapDrawable(ctx.getResources(), bmp));
+                try {
+                    img.setScaleType(ImageView.ScaleType.FIT_START);
+                } catch (Exception e) {
+
+                }
+                if (imgClick != null) {
+                    img.setTag(bmp);
+                    img.setOnClickListener(imgClick);
+                }
+            }
+        } else {
+            img.setBackgroundResource(0);
+            img.setImageResource(R.drawable.ic_awaiting);
+        }
+    }
+
+    private boolean setPostExecutionPhotoToImageView(String strBase64, ImageView img, String serverResponse, View.OnClickListener imgClick) {
+        RelativeLayout.LayoutParams rparam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        rparam.addRule(RelativeLayout.CENTER_IN_PARENT);
+        img.setLayoutParams(rparam);
+        try {
+            if (strBase64.length() > 0) {
+                strBase64 = strBase64.substring(strBase64.indexOf(",") + 1);
+            }
+            try {
+                img.setScaleType(ImageView.ScaleType.FIT_START);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Bitmap bmp = Helper.convertBase64ImageToBitmap(strBase64);
+            if (strBase64.equals("") || bmp == null) {
+                if (serverResponse.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                    img.setBackgroundResource(0);
+                    img.setImageResource(R.drawable.ic_nopic);
+                }
+            } else {
+                img.setImageResource(0);
+                img.setBackgroundDrawable(new BitmapDrawable(ctx.getResources(), bmp));
+                if (imgClick != null) {
+                    img.setTag(bmp);
+                    img.setOnClickListener(imgClick);
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            img.setBackgroundResource(0);
+            img.setImageResource(R.drawable.ic_nopic);
+            return false;
+        }
+    }
+
+    public void loadItemPhotoById(final ImageView img, final ClientItemMaster1 objClientItemMaster, final View.OnClickListener imgClick) {
+        new AsyncTask() {
+            String photo = "";
+            String strServerResponse = "";
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                setPreExecutionPhotoToImageView(ctx, objClientItemMaster.getPhoto(), img, imgClick);
+            }
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                String id = objClientItemMaster.getUuid();
+                final HttpEngine objHttpEngine = new HttpEngine();
+                final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
+                String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+                final URLMapping um = ConstantVal.loadPhoto(ctx);
+                ServerResponse sr = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(), new String[]{String.valueOf(tokenId), String.valueOf(id), String.valueOf(0), account_id}, um.getParamNames(), um.isNeedToSync());
+                strServerResponse = sr.getResponseCode();
+                parseCommonData objparseCommonData = new parseCommonData();
+                photo = objparseCommonData.parsePhoto(sr.getResponseString());
+                //update item_master table
+                if (strServerResponse.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                    DataBase db = new DataBase(ctx);
+                    db.open();
+                    ContentValues cv = new ContentValues();
+                    cv.put("photo", photo);
+                    db.update(DataBase.item_master_table, DataBase.item_master_int, "uuid='" + id + "'", cv);
+                    db.close();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                objClientItemMaster.setIsImageLoaded(setPostExecutionPhotoToImageView(photo, img, strServerResponse, imgClick));
+            }
+        }.execute();
     }
 }

@@ -333,4 +333,11 @@ public class ConstantVal {
         String URL = getWebURLPrefix(subDomain) + "stockAIM/getSupplierListByItemId";
         return new URLMapping(paramNames, URL, false);
     }
+
+    public static URLMapping getItemTransactionList(Context c) {
+        String[] paramNames = {"token_id", "account_id"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "stockAIM/getItemTransactionList";
+        return new URLMapping(paramNames, URL, false);
+    }
 }

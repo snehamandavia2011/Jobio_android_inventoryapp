@@ -13,13 +13,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acAssetDetail;
 import com.lab360io.jobio.inventoryapp.acItemDetail;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import entity.ClientAsset;
 import entity.ClientItemMaster;
 import utility.ConstantVal;
 import utility.Helper;
@@ -27,7 +25,7 @@ import utility.Helper;
 /**
  * Created by SAI on 9/14/2016.
  */
-public class ItemAdapter extends BaseAdapter {
+public class AddedItemAdapter extends BaseAdapter {
     Typeface ubuntuL, ubuntuM;
     Context ctx;
     ArrayList<ClientItemMaster> arrClientItem;
@@ -38,7 +36,7 @@ public class ItemAdapter extends BaseAdapter {
     }
 
 
-    public ItemAdapter(Context ctx, ArrayList<ClientItemMaster> arrClientItem) {
+    public AddedItemAdapter(Context ctx, ArrayList<ClientItemMaster> arrClientItem) {
         this.ctx = ctx;
         this.arrClientItem = arrClientItem;
         ubuntuL = Helper.getUbuntuL(ctx);
@@ -66,7 +64,7 @@ public class ItemAdapter extends BaseAdapter {
         LayoutInflater mInflater = (LayoutInflater) ctx
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.item_list_item, null);
+            convertView = mInflater.inflate(R.layout.added_item_list_item, null);
             holder = new ViewHolder();
             holder.ly = (RelativeLayout) convertView.findViewById(R.id.ly);
             holder.txtItemDesc = (TextView) convertView.findViewById(R.id.txtItemDesc);

@@ -31,7 +31,7 @@ public class parseItemMaster {
         String item_status = (obj.getString("action_name").equals("null") ? "" : obj.getString("action_name"));
         String manufacturer = (obj.getString("manufacturer").equals("null") ? "" : obj.getString("manufacturer"));
         String model = (obj.getString("model").equals("null") ? "" : obj.getString("model"));
-        String photo = (obj.getString("photo").equals("null") ? "" : obj.getString("photo"));
+        String photo = obj.has("photo") ? obj.getString("photo").equals("null") ? "" : obj.getString("photo") : "";
         String monthly_demand = (obj.getString("monthly_demand").equals("null") ? "" : obj.getString("monthly_demand"));
         String min_qty_for_restock = (obj.getString("min_qty_for_restock").equals("null") ? "" : obj.getString("min_qty_for_restock"));
         String display_status = (obj.getString("display_status").equals("null") ? "" : obj.getString("display_status"));
@@ -49,8 +49,8 @@ public class parseItemMaster {
             String cost = (objTransaaction.getString("cost").equals("null") ? "" : objTransaaction.getString("cost"));
             String price = (objTransaaction.getString("price").equals("null") ? "" : objTransaaction.getString("price"));
             String barcode = (objTransaaction.getString("barcode").equals("null") ? "" : objTransaaction.getString("barcode"));
-            String spplierFirst_name = (objTransaaction.getString("first_name").equals("null") ? "" : objTransaaction.getString("first_name"));
-            String supplierLast_name = (objTransaaction.getString("last_name").equals("null") ? "" : objTransaaction.getString("last_name"));
+            String spplierFirst_name = objTransaaction.has("first_name") ? (objTransaaction.getString("first_name").equals("null") ? "" : objTransaaction.getString("first_name")) : "";
+            String supplierLast_name = objTransaaction.has("last_name") ? (objTransaaction.getString("last_name").equals("null") ? "" : objTransaaction.getString("last_name")) : "";
             arrClientItemTransaction.add(new ClientItemTransaction(tuuid, available_qty, cost, price, barcode, spplierFirst_name + " " + supplierLast_name));
         }
         ClientItemMaster objClientItemMaster = new ClientItemMaster(uuid, item_name, short_code, specification, category_name, uom_name, package_type_name, location_name, item_status, manufacturer, model, photo, monthly_demand, min_qty_for_restock, display_status, custom_field_1, custom_field_2, custom_field_3, custom_field_4, custom_field_5, null, arrClientItemTransaction);

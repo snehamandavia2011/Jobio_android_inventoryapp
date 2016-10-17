@@ -21,14 +21,10 @@ import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;
 
-import adapter.AssetAdapter;
-import adapter.ItemAdapter;
-import entity.ClientAsset;
+import adapter.AddedItemAdapter;
 import entity.ClientItemMaster;
 import utility.ConstantVal;
-import utility.DataBase;
 import utility.DotProgressBar;
-import utility.Logger;
 
 /**
  * Created by SAI on 10/5/2016.
@@ -82,7 +78,7 @@ public class frStockItem extends Fragment implements View.OnClickListener {
                 if (arrClientItemMaster != null && arrClientItemMaster.size() >= 0) {
                     lyMainContent.setVisibility(View.VISIBLE);
                     lyNoContent.setVisibility(View.GONE);
-                    ItemAdapter adp = new ItemAdapter(mContext, arrClientItemMaster);
+                    AddedItemAdapter adp = new AddedItemAdapter(mContext, arrClientItemMaster);
                     lvlItem.setAdapter(adp);
                 } else {
                     lyMainContent.setVisibility(View.GONE);

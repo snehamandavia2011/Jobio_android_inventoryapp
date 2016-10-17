@@ -12,14 +12,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acInspectTransaction;
 import com.lab360io.jobio.inventoryapp.acServiceTransaction;
 import com.thomsonreuters.rippledecoratorview.RippleDecoratorView;
 
 import java.util.HashMap;
 import java.util.List;
 
-import entity.ClientAssetInspect;
 import entity.ClientAssetService;
 import fragment.ListHeader;
 import utility.ConstantVal;
