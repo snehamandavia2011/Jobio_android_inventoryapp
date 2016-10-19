@@ -43,11 +43,11 @@
                         style="@style/styDescWhite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/strStartDate"
+                        android:text="@string/strInOut"
                         app:font="@{`Ubuntu-C`}" />
 
                     <TextView
-                        android:id="@+id/txtStartDate"
+                        android:id="@+id/txtInOut"
                         style="@style/styDescWhite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -64,11 +64,11 @@
                         style="@style/styDescWhite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/strEndDate"
+                        android:text="@string/strDate"
                         app:font="@{`Ubuntu-C`}" />
 
                     <TextView
-                        android:id="@+id/txtEndDate"
+                        android:id="@+id/txtDate"
                         style="@style/styDescWhite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

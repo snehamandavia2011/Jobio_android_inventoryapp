@@ -118,6 +118,10 @@
         <activity
             android:name=".acItemDetail"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".acJobPOInvoicReferenceList"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"></activity>
     </application>
 

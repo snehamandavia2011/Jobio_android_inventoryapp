@@ -106,24 +106,26 @@ public class acAssetDetail extends AppCompatActivity {
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
-                txtAssetNameCategory.setText(objClientAsset.getAmAsset_name() + "[" + objClientAsset.getActmCategory_name() + "]");
-                txtDesc.setText(objClientAsset.getAmDescription());
-                txtModel.setText(objClientAsset.getAmModel_name());
-                txtManufacturer.setText(objClientAsset.getAmManufacturer_name());
-                txtSerialNumber.setText(objClientAsset.getAmSerial_no());
-                txtAssetLocation.setText(objClientAsset.getAmAsset_location());
-                txtCost.setText(objClientAsset.getAmPurchase_cost());
-                txtCurrentValue.setText(objClientAsset.getAmCurrent_value());
-                txtPurchaseFrom.setText(objClientAsset.getAmPurchase_from());
-                txtExpireDate.setText(Helper.convertDateToString(objClientAsset.getAmDate_expired(), ConstantVal.DATE_FORMAT));
-                txtStatus.setText(objClientAsset.getAmAsset_status());
-                for (ClientAssetOwner obj : objClientAsset.getArrOwner()) {
-                    View v = addItemToLayout(obj);
-                    lyassetOwner.addView(v);
+                if (objClientAsset != null) {
+                    txtAssetNameCategory.setText(objClientAsset.getAmAsset_name() + "[" + objClientAsset.getActmCategory_name() + "]");
+                    txtDesc.setText(objClientAsset.getAmDescription());
+                    txtModel.setText(objClientAsset.getAmModel_name());
+                    txtManufacturer.setText(objClientAsset.getAmManufacturer_name());
+                    txtSerialNumber.setText(objClientAsset.getAmSerial_no());
+                    txtAssetLocation.setText(objClientAsset.getAmAsset_location());
+                    txtCost.setText(objClientAsset.getAmPurchase_cost());
+                    txtCurrentValue.setText(objClientAsset.getAmCurrent_value());
+                    txtPurchaseFrom.setText(objClientAsset.getAmPurchase_from());
+                    txtExpireDate.setText(Helper.convertDateToString(objClientAsset.getAmDate_expired(), ConstantVal.DATE_FORMAT));
+                    txtStatus.setText(objClientAsset.getAmAsset_status());
+                    for (ClientAssetOwner obj : objClientAsset.getArrOwner()) {
+                        View v = addItemToLayout(obj);
+                        lyassetOwner.addView(v);
+                    }
+                    //txtBarcode.setText(objClientAsset.getAmBarcode_no());
+                    scrlMailContent.setVisibility(View.VISIBLE);
                 }
-                //txtBarcode.setText(objClientAsset.getAmBarcode_no());
                 dot_progress_bar.setVisibility(View.GONE);
-                scrlMailContent.setVisibility(View.VISIBLE);
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -140,8 +142,8 @@ public class acAssetDetail extends AppCompatActivity {
         LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View v = DataBindingUtil.inflate(mInflater, R.layout.asset_owner_item, null, true).getRoot();
         TextView txtEmployeeName = (TextView) v.findViewById(R.id.txtEmployeeName);
-        TextView txtStartDate = (TextView) v.findViewById(R.id.txtStartDate);
-        TextView txtEndDate = (TextView) v.findViewById(R.id.txtEndDate);
+        TextView txtInOut = (TextView) v.findViewById(R.id.txtInOut);
+        TextView txtDate = (TextView) v.findViewById(R.id.txtDate);
         DataBase db = new DataBase(mContext);
         db.open();
         Cursor curEmp = db.fetch(DataBase.adminuser_employee_table, DataBase.adminuser_employee_int, "empId='" + obj.getAoEmployee_id() + "'");
@@ -149,8 +151,8 @@ public class acAssetDetail extends AppCompatActivity {
         if (curEmp != null && curEmp.getCount() > 0) {
             curEmp.moveToFirst();
             txtEmployeeName.setText(curEmp.getString(3) + " " + curEmp.getString(4) + "[" + curEmp.getString(7) + "]");
-            txtStartDate.setText(": " + Helper.convertDateToString(Helper.convertStringToDate(obj.getAoStart_date(), ConstantVal.DATE_FORMAT), ConstantVal.DATE_FORMAT));
-            txtEndDate.setText(": " + Helper.convertDateToString(Helper.convertStringToDate(obj.getAoEnd_date(), ConstantVal.DATE_FORMAT), ConstantVal.DATE_FORMAT));
+            txtInOut.setText(": " + obj.getAoInOut());
+            txtDate.setText(": " + Helper.convertDateToString(Helper.convertStringToDate(obj.getAoDate(), ConstantVal.DATE_FORMAT), ConstantVal.DATE_FORMAT));
         }
         curEmp.close();
         db.close();

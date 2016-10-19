@@ -90,22 +90,6 @@ public class frStockStock extends Fragment {
                 super.onPostExecute(o);
                 if (isNetworkAvail) {
                     if (arrClientItemMaster1 != null && arrClientItemMaster1.size() > 0) {
-                        Collections.sort(arrClientItemMaster1, new Comparator<ClientItemMaster1>() {
-                            @Override
-                            public int compare(ClientItemMaster1 lhs, ClientItemMaster1 rhs) {
-                                // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
-                                int lQ, rQ;
-                                try {
-
-                                    lQ = Integer.parseInt(lhs.getMin_qty_for_restock()) - Integer.parseInt(lhs.getAvailable_qty());
-                                    rQ = Integer.parseInt(rhs.getMin_qty_for_restock()) - Integer.parseInt(rhs.getAvailable_qty());
-                                } catch (Exception e) {
-                                    lQ = 0;
-                                    rQ = 0;
-                                }
-                                return lQ > rQ ? -1 : (lQ < rQ) ? 1 : 0;
-                            }
-                        });
                         lvlStock.setAdapter(new DownloadedItemAdapter(mContext, arrClientItemMaster1));
                         lyNoInternet.setVisibility(View.GONE);
                         lyMainContent.setVisibility(View.VISIBLE);

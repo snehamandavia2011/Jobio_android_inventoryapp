@@ -102,7 +102,11 @@ import service.serServerToDeviceSync;
 public class Helper {
     public static void startFabric(Context mContext) {
         Fabric.with(mContext, new Crashlytics());
-        CrashlyticsCore.getInstance().setString("Email Address", Helper.getStringPreference(mContext, "", ""));
+        String strEmail = Helper.getStringPreference(mContext, ClientAdminUser.Fields.USER_NAME, "");
+        CrashlyticsCore.getInstance().setString("Email Address", strEmail);
+        CrashlyticsCore.getInstance().setUserIdentifier(strEmail);
+        CrashlyticsCore.getInstance().setUserEmail(strEmail);
+        CrashlyticsCore.getInstance().setUserName(strEmail);
     }
 
     public static void clearPreference(Context c, String key) {

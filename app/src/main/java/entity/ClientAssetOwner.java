@@ -4,12 +4,12 @@ package entity;
  * Created by SAI on 9/13/2016.
  */
 public class ClientAssetOwner {
-    String aoEmployee_id, aoStart_date, aoEnd_date;
+    String aoEmployee_id, aoInOut,aoDate;
 
-    public ClientAssetOwner(String aoEmployee_id, String aoStart_date, String aoEnd_date) {
+    public ClientAssetOwner(String aoEmployee_id, String aoInOut, String aoDate) {
         this.aoEmployee_id = aoEmployee_id;
-        this.aoStart_date = aoStart_date;
-        this.aoEnd_date = aoEnd_date;
+        this.aoInOut = aoInOut;
+        this.aoDate = aoDate;
     }
 
     public String getAoEmployee_id() {
@@ -20,20 +20,20 @@ public class ClientAssetOwner {
         this.aoEmployee_id = aoEmployee_id;
     }
 
-    public String getAoStart_date() {
-        return aoStart_date;
+    public String getAoInOut() {
+        return aoInOut;
     }
 
-    public void setAoStart_date(String aoStart_date) {
-        this.aoStart_date = aoStart_date;
+    public void setAoInOut(String aoInOut) {
+        this.aoInOut = aoInOut;
     }
 
-    public String getAoEnd_date() {
-        return aoEnd_date;
+    public String getAoDate() {
+        return aoDate;
     }
 
-    public void setAoEnd_date(String aoEnd_date) {
-        this.aoEnd_date = aoEnd_date;
+    public void setAoDate(String aoDate) {
+        this.aoDate = aoDate;
     }
 }
 

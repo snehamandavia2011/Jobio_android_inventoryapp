@@ -340,4 +340,23 @@ public class ConstantVal {
         String URL = getWebURLPrefix(subDomain) + "stockAIM/getItemTransactionList";
         return new URLMapping(paramNames, URL, false);
     }
+    public static URLMapping getStockTransactionStatus(Context c) {
+        String[] paramNames = {"token_id", "account_id", "barcode"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "getcommondata/getStockTransactionStatus";
+        return new URLMapping(paramNames, URL, false);
+    }
+    public static URLMapping getStockTransactionReason(Context c) {
+        String[] paramNames = {"token_id", "account_id", "item_uuid"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "getcommondata/getStockTransactionReason";
+        return new URLMapping(paramNames, URL, false);
+    }
+
+    public static URLMapping getCustomerEmployeeSupplierList(Context c) {
+        String[] paramNames = {"token_id", "account_id"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "stockAIM/getCustomerEmployeeSupplierList";
+        return new URLMapping(paramNames, URL, false);
+    }
 }

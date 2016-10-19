@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:rdv="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/tilt">
+
+        <RelativeLayout
+            android:id="@+id/lyMainContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/ViewMargin"
+            android:layout_marginRight="@dimen/ViewMargin"
+            android:layout_marginTop="@dimen/ViewMargin"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/lyBottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/ViewMargin"
+                android:layout_marginTop="@dimen/ViewMargin"
+                android:orientation="horizontal">
+
+                <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/ViewMargin"
+                    android:layout_weight="1"
+                    rdv:rdv_rippleAnimationDuration="600"
+                    rdv:rdv_rippleAnimationFrames="60"
+                    rdv:rdv_rippleAnimationPeakFrame="15"
+                    rdv:rdv_rippleColor="@color/tilt"
+                    rdv:rdv_rippleMaxAlpha="0.8"
+                    rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                    <Button
+                        android:id="@+id/btnCancel"
+                        style="@style/btnWhite"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/buttonHeight"
+                        android:background="@drawable/btn_white"
+                        android:padding="@dimen/ViewPadding"
+                        android:text="@string/strCancel"
+                        app:font="@{`Ubuntu-L`}" />
+                </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+
+                <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    rdv:rdv_rippleAnimationDuration="600"
+                    rdv:rdv_rippleAnimationFrames="60"
+                    rdv:rdv_rippleAnimationPeakFrame="15"
+                    rdv:rdv_rippleColor="@color/tilt"
+                    rdv:rdv_rippleMaxAlpha="0.8"
+                    rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                    <Button
+                        android:id="@+id/btnNext"
+                        style="@style/btnWhite"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/buttonHeight"
+                        android:background="@drawable/btn_white"
+                        android:padding="@dimen/ViewPadding"
+                        android:text="@string/strNext"
+                        app:font="@{`Ubuntu-L`}" />
+                </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/lyBottom">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:padding="@dimen/ViewPadding">
+
+                        <TextView
+                            style="@style/styDescTile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/ViewMargin"
+                            android:text="@string/strStockType"
+                            app:font="@{`Ubuntu-M`}" />
+
+                        <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="@dimen/ViewMargin"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_spinner"
+                            rdv:rdv_rippleAnimationDuration="600"
+                            rdv:rdv_rippleAnimationFrames="60"
+                            rdv:rdv_rippleAnimationPeakFrame="15"
+                            rdv:rdv_rippleColor="@color/tilt"
+                            rdv:rdv_rippleMaxAlpha="0.8"
+                            rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/img"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginRight="@dimen/ViewMargin"
+                                    android:background="@drawable/ic_drop_down" />
+
+                                <Spinner
+                                    android:id="@+id/spnStockType"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@null"
+                                    android:prompt="@string/strStockType"
+                                    android:spinnerMode="dialog" />
+                            </RelativeLayout>
+                        </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+
+                        <TextView
+                            style="@style/styDescTile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/ViewMargin"
+                            android:text="@string/strTransactionReason"
+                            app:font="@{`Ubuntu-M`}" />
+
+                        <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="@dimen/ViewMargin"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_spinner"
+                            rdv:rdv_rippleAnimationDuration="600"
+                            rdv:rdv_rippleAnimationFrames="60"
+                            rdv:rdv_rippleAnimationPeakFrame="15"
+                            rdv:rdv_rippleColor="@color/tilt"
+                            rdv:rdv_rippleMaxAlpha="0.8"
+                            rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginRight="@dimen/ViewMargin"
+                                    android:background="@drawable/ic_drop_down" />
+
+                                <Spinner
+                                    android:id="@+id/spnTransactionReason"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@null"
+                                    android:prompt="@string/strTransactionReason"
+                                    android:spinnerMode="dialog" />
+                            </RelativeLayout>
+                        </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+
+                        <TextView
+                            style="@style/styDescTile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/ViewMargin"
+                            android:text="@string/strReferenceType"
+                            app:font="@{`Ubuntu-M`}" />
+
+                        <TextView
+                            android:id="@+id/txtReference"
+                            style="@style/styDescTile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/ViewMargin"
+                            app:font="@{`Ubuntu-M`}" />
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/lyFromTo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/ViewMargin">
+
+                                <TextView
+                                    style="@style/styDescTile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/strFrom"
+                                    app:font="@{`Ubuntu-M`}" />
+
+                                <TextView
+                                    style="@style/styDescSmallTile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/strEmpCustSupp"
+                                    app:font="@{`Ubuntu-M`}" />
+                            </LinearLayout>
+
+                            <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginBottom="@dimen/ViewMargin"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_spinner"
+                                rdv:rdv_rippleAnimationDuration="600"
+                                rdv:rdv_rippleAnimationFrames="60"
+                                rdv:rdv_rippleAnimationPeakFrame="15"
+                                rdv:rdv_rippleColor="@color/tilt"
+                                rdv:rdv_rippleMaxAlpha="0.8"
+                                rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginRight="@dimen/ViewMargin"
+                                        android:background="@drawable/ic_drop_down" />
+
+                                    <Spinner
+                                        android:id="@+id/spnFrom"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@null"
+                                        android:prompt="@string/strFrom"
+                                        android:spinnerMode="dialog" />
+                                </RelativeLayout>
+                            </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/ViewMargin">
+
+                                <TextView
+                                    style="@style/styDescTile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/strTo"
+                                    app:font="@{`Ubuntu-M`}" />
+
+                                <TextView
+                                    style="@style/styDescSmallTile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/strEmpCustSupp"
+                                    app:font="@{`Ubuntu-M`}" />
+                            </LinearLayout>
+
+                            <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginBottom="@dimen/ViewMargin"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_spinner"
+                                rdv:rdv_rippleAnimationDuration="600"
+                                rdv:rdv_rippleAnimationFrames="60"
+                                rdv:rdv_rippleAnimationPeakFrame="15"
+                                rdv:rdv_rippleColor="@color/tilt"
+                                rdv:rdv_rippleMaxAlpha="0.8"
+                                rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginRight="@dimen/ViewMargin"
+                                        android:background="@drawable/ic_drop_down" />
+
+                                    <Spinner
+                                        android:id="@+id/spnTo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@null"
+                                        android:prompt="@string/strTo"
+                                        android:spinnerMode="dialog" />
+                                </RelativeLayout>
+                            </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+                        </LinearLayout>
+
+                        <utility.DotProgressBar
+                            android:id="@+id/dot_progress_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dorProgressBarheight"
+                            android:layout_centerInParent="true"
+                            android:visibility="gone"
+                            custom:amount="5"
+                            custom:duration="@android:integer/config_shortAnimTime"
+                            custom:endColor="@color/tilt"
+                            custom:startColor="@color/tilt" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/lyNoNetwork"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@color/tilt"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/ViewMargin"
+                    android:src="@drawable/ic_transaction_white" />
+
+                <TextView
+                    style="@style/styBigWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/ViewMargin"
+                    android:gravity="center"
+                    android:text="@string/strInternetNotAvaiable"
+                    app:font="@{`Ubuntu-M`}" />
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

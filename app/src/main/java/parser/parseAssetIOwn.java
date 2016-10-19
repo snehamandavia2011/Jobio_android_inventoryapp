@@ -60,9 +60,9 @@ public class parseAssetIOwn {
                     for (int j = 0; j < arrOwner.length(); j++) {
                         JSONObject objO = arrOwner.getJSONObject(j);
                         String employee_id = (objO.getString("employee_id").equals("null") ? "" : objO.getString("employee_id"));
-                        String start_date = (objO.getString("start_date").equals("null") ? "" : objO.getString("start_date"));
-                        String end_date = (objO.getString("end_date").equals("null") ? "" : objO.getString("end_date"));
-                        arrClientAssetOwner.add(new ClientAssetOwner(employee_id, start_date, end_date));
+                        String inout = (objO.getString("in_out").equals("null") ? "" : objO.getString("in_out"));
+                        String date = (objO.getString("dates").equals("null") ? "" : objO.getString("dates"));
+                        arrClientAssetOwner.add(new ClientAssetOwner(employee_id, inout, date));
                     }
                 }
                 ClientAsset objClientAsset = new ClientAsset(asset_id, category_name, asset_name, description, model_name, manufacturer_name, serial_no, barcode_no, date_acquired, date_soon, purchase_cost, purchase_from, current_value, date_expired, asset_location, service_period, is_schedule_service_on, service_aasigned_employee, inspection_period, is_schedule_inspection_on, inspection_aasigned_employee, next_service_date, next_inspection_date, asset_status, custom_field_1, custom_field_2, custom_field_3, custom_field_4, custom_field_5, arrClientAssetOwner, null);

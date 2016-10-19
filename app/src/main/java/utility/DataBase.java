@@ -28,6 +28,8 @@ public class DataBase {
             db.execSQL(TABLE_8_CREATE);
             db.execSQL(TABLE_9_CREATE);
             db.execSQL(TABLE_10_CREATE);
+            db.execSQL(TABLE_11_CREATE);
+            db.execSQL(TABLE_12_CREATE);
         }
 
         @Override
@@ -41,6 +43,8 @@ public class DataBase {
             db.execSQL("DROP TABLE IF EXISTS " + inspect_view_table);
             db.execSQL("DROP TABLE IF EXISTS " + item_master_table);
             db.execSQL("DROP TABLE IF EXISTS " + item_transaction_table);
+            db.execSQL("DROP TABLE IF EXISTS " + stock_transaction_status_table);
+            db.execSQL("DROP TABLE IF EXISTS " + stock_transaction_reason_table);
             onCreate(db);
         }
     }
@@ -73,6 +77,10 @@ public class DataBase {
     public static final int item_master_int = 9;
     public static final String item_transaction_table = "itemTransaction";
     public static final int item_transaction_int = 10;
+    public static final String stock_transaction_status_table = "stockTransactionSatus";
+    public static final int stock_transaction_status_int = 11;
+    public static final String stock_transaction_reason_table = "stockTransactionReason";
+    public static final int stock_transaction_reason_int = 12;
 
 
     String[][] tables = new String[][]{{"_ID", "URL", "data", "isSync", "last_result_code", "admin_user_id", "account_id"},
@@ -84,7 +92,7 @@ public class DataBase {
                     , "amAsset_location", "amService_period", "amIs_schedule_service_on", "amService_aasigned_employee",
                     "amInspection_period", "amIs_schedule_inspection_on", "amInspection_aasigned_employee", "amNext_service_date",
                     "amNext_inspection_date", "amAsset_status", "amCustom_field_1", "amCustom_field_2", "amCustom_field_3", "amCustom_field_4", "amCustom_field_5"},
-            {"_ID", "aoAsset_id", "aoEmployee_id", "aoStart_date", "aoEnd_date"},
+            {"_ID", "aoAsset_id", "aoEmployee_id", "aoInOut", "aoDate"},
             {"_ID", "aitId", "aitName", "aitAssetId", "aitAsset_name", "aitAssetBarcode", "aitAssignedTo", "aitAssignedDate", "aitIsPresent", "aitDateTime",
                     "aitNote", "aitStatusId", "actmCategory_name",
                     "amAsset_name", "amDescription", "amModel_name", "amManufacturer_name", "amSerial_no", "amBarcode_no",
@@ -106,7 +114,8 @@ public class DataBase {
                     "package_type_name", "location_name", "item_status", "manufacturer", "model", "photo", "monthly_demand",
                     "min_qty_for_restock", "display_status", "custom_field_1", "custom_field_2", "custom_field_3",
                     "custom_field_4", "custom_field_5", "last_update_date_time"},
-            {"_ID", "imUUID", "itUUID", "available_qty", "cost", "price", "barcode", "spplierName"}};
+            {"_ID", "imUUID", "itUUID", "available_qty", "cost", "price", "barcode", "spplierName"},
+            {"_ID", "id", "action_name"}, {"_ID", "id", "stock_transaction_status_id", "reason"}};
     private static final String TABLE_0_CREATE = "create table "
             + device_to_db_sync_table
             + "(_ID integer primary key autoincrement,URL text not null,data text not null,isSync text not null,last_result_code text not null,admin_user_id text not null, account_id text not null);";
@@ -138,7 +147,7 @@ public class DataBase {
     private static final String TABLE_4_CREATE = "create table "
             + asset_owner_table
             + "(_ID integer primary key autoincrement,aoAsset_id text not null,aoEmployee_id text not null," +
-            "aoStart_date text not null,aoEnd_date text not null);";
+            "aoInOut text not null,aoDate text not null);";
     private static final String TABLE_5_CREATE = "create table "
             + inspect_table
             + "(_ID integer primary key autoincrement,aitId text not null,aitName text not null,aitAssetId text not null,aitAsset_name text not null," +
@@ -189,6 +198,14 @@ public class DataBase {
             + "(_ID integer primary key autoincrement,imUUID text not null,itUUID text not null,available_qty text not null," +
             "cost text not null,price text not null,barcode text not null,spplierName text not null );";
 
+    private static final String TABLE_11_CREATE = "create table "
+            + stock_transaction_status_table
+            + "(_ID integer primary key autoincrement,id text not null,action_name text not null);";
+
+    private static final String TABLE_12_CREATE = "create table "
+            + stock_transaction_reason_table
+            + "(_ID integer primary key autoincrement,id text not null,stock_transaction_status_id text not null,reason text not null);";
+
     public DataBase(Context ctx) {
         HCtx = ctx;
     }
@@ -211,6 +228,8 @@ public class DataBase {
         sqLiteDb.delete(service_view_table, null, null);
         sqLiteDb.delete(item_master_table, null, null);
         sqLiteDb.delete(item_transaction_table, null, null);
+        sqLiteDb.delete(stock_transaction_status_table, null, null);
+        sqLiteDb.delete(stock_transaction_reason_table, null, null);
     }
 
     public void cleanNotUserTable() {
@@ -226,6 +245,8 @@ public class DataBase {
         sqLiteDb.delete(asset_owner_table, null, null);
         sqLiteDb.delete(inspect_table, null, null);
         sqLiteDb.delete(service_table, null, null);
+        sqLiteDb.delete(stock_transaction_status_table, null, null);
+        sqLiteDb.delete(stock_transaction_reason_table, null, null);
     }
 
     public void cleanTable(int tableNo) {

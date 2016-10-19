@@ -114,9 +114,9 @@ public class DownloadedItemAdapter extends BaseAdapter {
         }
         holder.txtMinQtyForRestock.setText(ctx.getString(R.string.strMinQtyForRestock) + ": " + minQty);
         if (availQty <= minQty) {
-            holder.imgNotification.setVisibility(View.VISIBLE);
+            holder.imgNotification.setImageResource(R.drawable.ic_red_flag);
         }else{
-            holder.imgNotification.setVisibility(View.GONE);
+            holder.imgNotification.setImageResource(R.drawable.ic_green_flag);
         }
         return convertView;
     }

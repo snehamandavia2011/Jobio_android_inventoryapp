@@ -9,7 +9,7 @@
     <string name="strEnterValidEmail">Enter valid email id</string>
     <string name="strForgotPassword">Forgot Password</string>
     <string name="strLogin">Login</string>
-    <string name="strCopyRight">Copyright © 2015 Jobio. All rights reserved.</string>
+    <string name="strCopyRight">Copyright © 2017 Jobio. All rights reserved.</string>
     <string name="strJobio">Jobio</string>
     <string name="strEnterManuallyQRCode">Enter manually company QR code</string>
     <string name="strEnterManuallyBarCode">Enter manually item bar code</string>
@@ -79,6 +79,8 @@
     <string name="strTomorrow">Tomorrow</string>
     <string name="strYesterday">Yesterday</string>
     <string name="strStock">Stock</string>
+    <string name="strInOut">Check in/Check Out</string>
+    <string name="strDate">Date</string>
     <string name="strAsset">Asset</string>
     <string name="strSync">Sync</string>
     <string name="strMessage">Message</string>
@@ -152,7 +154,7 @@
     <string name="strStatus">Status</string>
     <string name="strStartDate">Start Date</string>
     <string name="strEndDate">End Date</string>
-    <string name="msgAssetOwner">Asset Owner(s)</string>
+    <string name="msgAssetHolder">Asset Holders(s)</string>
     <string name="title_activity_ac_search_asset_by_qr">acSearchAssetByQR</string>
     <string name="msgScanQRCodeToSearchAsset">Scan QR code to search asset.</string>
     <string name="msgScanBarCodeToSearchItem">Scan Barcode code to search item.</string>
@@ -209,4 +211,20 @@
     <string name="strPackage">Package</string>
     <string name="strAvailQty">Available Quantity</string>
     <string name="strLastUpdate">Last update</string>
+    <string name="strStockType">Stock Type</string>
+    <string name="strSelectStockType">Select Stock Type</string>
+    <string name="strTransactionReason">Transaction Reason</string>
+    <string name="strSelectTransactionReason">Select Transaction Reason</string>
+    <string name="strReferenceType">Reference Type</string>
+    <string name="strReference">Reference</string>
+    <string name="strFrom">From</string>
+    <string name="strTo">To</string>
+    <string name="strJobQuotationDetail">(e.g. Job, Quotation, e.t.c.. Detail)</string>
+    <string name="strEmpCustSupp">(e.g. Employee, Customer, Supplier)</string>
+    <string name="strJob">Job</string>
+    <string name="strPurchaseOrder">Purchase Order</string>
+    <string name="strInvoice">Invoice</string>
+    <string name="strNext">Next</string>
+    <string name="title_activity_ac_job_poinvoic_reference_list">acJobPOInvoicReferenceList</string>
 </resources>
+

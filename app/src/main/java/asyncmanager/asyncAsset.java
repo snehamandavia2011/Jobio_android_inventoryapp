@@ -145,7 +145,7 @@ public class asyncAsset {
                             obj.getAmCustom_field_3(), obj.getAmCustom_field_4(), obj.getAmCustom_field_5()};
                     db.insert(DataBase.asset_table, DataBase.asset_int, data);
                     for (ClientAssetOwner objOwner : obj.getArrOwner()) {
-                        String[] dataOwner = {obj.getAoAsset_id(), objOwner.getAoEmployee_id(), objOwner.getAoStart_date(), objOwner.getAoEnd_date()};
+                        String[] dataOwner = {obj.getAoAsset_id(), objOwner.getAoEmployee_id(), objOwner.getAoInOut(), objOwner.getAoDate()};
                         db.insert(DataBase.asset_owner_table, DataBase.asset_owner_int, dataOwner);
                     }
                 }

@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Vector;
 
 import adapter.TabsPagerAdapter;
+import entity.ClientStockSelection;
 import fragment.frAssetsAsset;
 import fragment.frAssetsInspect;
 import fragment.frAssetsService;
@@ -56,6 +57,7 @@ public class acStock extends ActionBarActivity implements TabHost.OnTabChangeLis
     private ViewPager mViewPager;
     private HashMap<String, TabInfo> mapTabInfo = new HashMap<String, TabInfo>();
     private PagerAdapter mPagerAdapter;
+    String stockSelectionOptionName;
 
     private class TabInfo {
         private String tag;
@@ -98,6 +100,7 @@ public class acStock extends ActionBarActivity implements TabHost.OnTabChangeLis
         mContext = this;
         mViewPager = (ViewPager) super.findViewById(R.id.viewpager);
         objHelper.setActionBar(ac, getString(R.string.strStock), getString(R.string.strStock));
+        stockSelectionOptionName = Helper.getStringPreference(mContext, ClientStockSelection.Fields.OPTION_NAME, "");
         if (this.getIntent().getExtras() != null) {
             try {
                 current_tab = this.getIntent().getStringExtra("tab");
@@ -117,8 +120,10 @@ public class acStock extends ActionBarActivity implements TabHost.OnTabChangeLis
 
         List<Fragment> fragments = new Vector<Fragment>();
         fragments.add(new frStockItem());
-        fragments.add(new frStockStock());
-        fragments.add(new frStockTransaction());
+        if (!stockSelectionOptionName.equals("NONE")) {
+            fragments.add(new frStockStock());
+            fragments.add(new frStockTransaction());
+        }
         this.mPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager(), fragments);
         //
         this.mViewPager.setAdapter(this.mPagerAdapter);
@@ -154,10 +159,12 @@ public class acStock extends ActionBarActivity implements TabHost.OnTabChangeLis
 
         acStock.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec(ITEM).setIndicator(iStock), (tabInfo = new TabInfo(ITEM, frStockItem.class, args)));
         this.mapTabInfo.put(tabInfo.tag, tabInfo);
-        acStock.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec(STOCK).setIndicator(sStock), (tabInfo = new TabInfo(STOCK, frStockItem.class, args)));
-        this.mapTabInfo.put(tabInfo.tag, tabInfo);
-        acStock.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec(TRANSACTION).setIndicator(tStock), (tabInfo = new TabInfo(TRANSACTION, frStockTransaction.class, args)));
-        this.mapTabInfo.put(tabInfo.tag, tabInfo);
+        if (!stockSelectionOptionName.equals("NONE")) {
+            acStock.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec(STOCK).setIndicator(sStock), (tabInfo = new TabInfo(STOCK, frStockItem.class, args)));
+            this.mapTabInfo.put(tabInfo.tag, tabInfo);
+            acStock.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec(TRANSACTION).setIndicator(tStock), (tabInfo = new TabInfo(TRANSACTION, frStockTransaction.class, args)));
+            this.mapTabInfo.put(tabInfo.tag, tabInfo);
+        }
         mTabHost.setCurrentTabByTag(current_tab);
         this.onTabChanged(current_tab);
         mTabHost.setOnTabChangedListener(this);
