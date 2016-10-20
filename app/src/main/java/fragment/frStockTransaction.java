@@ -29,12 +29,14 @@ import java.util.ArrayList;
 
 import entity.BusinessAccountdbDetail;
 import entity.ClientCustEmpSupplier;
+import entity.ClientJobPOInvoiceReference;
 import entity.ClientStockTransactionReason;
 import entity.ClientStockTransactionStatusMaster;
 import utility.ConstantVal;
 import utility.DotProgressBar;
 import utility.Helper;
 import utility.HttpEngine;
+import utility.Logger;
 import utility.ServerResponse;
 import utility.URLMapping;
 
@@ -44,18 +46,21 @@ import utility.URLMapping;
 public class frStockTransaction extends Fragment {
     Button btnCancel, btnNext;
     RelativeLayout lyNoNetwork, lyMainContent;
-    LinearLayout lyFromTo;
+    LinearLayout lyFromTo, lyRefList;
     DotProgressBar dot_progress_bar;
-    Spinner spnStockTransactionStatus, spnTransactionReason, spnFrom, spnTo;
+    Spinner spnStockTransactionStatus, spnTransactionReason, spnRef, spnFrom, spnTo;
     TextView txtReference;
     Context mContext;
-    int selStockTransactionStatus, selStockTransactionReason, referenceType;
+    int selStockTransactionStatus, selStockTransactionReason;
+    String referenceType, refId, fromId, toId, fromType, toType;
     ArrayAdapter<ClientStockTransactionStatusMaster> adpStockTransactionStatus;
     ArrayAdapter<ClientStockTransactionReason> adpStockTransactionReason;
     ArrayAdapter<ClientCustEmpSupplier> adpClientCustEmpSupplier;
+    ArrayAdapter<ClientJobPOInvoiceReference> adpClientJobPOInvoiceReference;
     ArrayList<ClientStockTransactionReason> arrClientStockTransactionReason = null;
     ArrayList<ClientStockTransactionStatusMaster> arrClientStockTransactionStatusMaster = null;
     ArrayList<ClientCustEmpSupplier> arrClientCustEmpSupplier = null;
+    ArrayList<ClientJobPOInvoiceReference> arrClientJobPOInvoiceReference = null;
 
     @Nullable
     @Override
@@ -71,20 +76,38 @@ public class frStockTransaction extends Fragment {
         txtReference = (TextView) view.findViewById(R.id.txtReference);
         spnStockTransactionStatus = (Spinner) view.findViewById(R.id.spnStockType);
         spnTransactionReason = (Spinner) view.findViewById(R.id.spnTransactionReason);
+        spnRef = (Spinner) view.findViewById(R.id.spnRef);
         spnFrom = (Spinner) view.findViewById(R.id.spnFrom);
         spnTo = (Spinner) view.findViewById(R.id.spnTo);
         lyFromTo = (LinearLayout) view.findViewById(R.id.lyFromTo);
+        lyRefList = (LinearLayout) view.findViewById(R.id.lyRefList);
         btnNext.setEnabled(false);
         setData();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //dot_progress_bar = (DotProgressBar) getActivity().findViewById(R.id.dot_progress_bar);
     }
 
     private void setData() {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Logger.debug(selStockTransactionStatus + " " + selStockTransactionReason + " " + referenceType + " " + refId + " " + fromId + " " + toId + " " + fromType + " " + toType);
+                //if (dot_progress_bar != null)
+                  //  ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
                 Intent i = new Intent(mContext, acJobPOInvoicReferenceList.class);
-                i.putExtra("ref_type", referenceType);
+                i.putExtra("selStockTransactionStatus", selStockTransactionStatus);
+                i.putExtra("selStockTransactionReason", selStockTransactionReason);
+                i.putExtra("referenceType", referenceType);
+                i.putExtra("refId", refId);
+                i.putExtra("fromId", fromId);
+                i.putExtra("toId", toId);
+                i.putExtra("fromType", fromType);
+                i.putExtra("toType", toType);
                 startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
             }
         });
@@ -94,7 +117,14 @@ public class frStockTransaction extends Fragment {
                 getActivity().finish();
             }
         });
-        setSpnStockType();
+        boolean isNetworkAvail = new HttpEngine().isNetworkAvailable(mContext);
+        if (isNetworkAvail) {
+            lyMainContent.setVisibility(View.VISIBLE);
+            setSpnStockType();
+            setSpnFromTo();
+        } else {
+            lyNoNetwork.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setSpnStockType() {
@@ -123,17 +153,18 @@ public class frStockTransaction extends Fragment {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         selStockTransactionStatus = arrClientStockTransactionStatusMaster.get(position).getId();
-                        referenceType = ReferenceType.getReferenceID(selStockTransactionStatus);
+                        referenceType = StockTransactionReferenceType.getReferenceID(selStockTransactionStatus);
                         if (selStockTransactionStatus == 2) {//STOCK RETURN
-                            txtReference.setText(ReferenceType.getReferenceType(mContext, referenceType));
+                            txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
                         } else if (selStockTransactionStatus == 3) {//STOCK RECEIVED
-                            txtReference.setText(ReferenceType.getReferenceType(mContext, referenceType));
+                            txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
                         } else if (selStockTransactionStatus == 4) {//STOCK DAMAGE
-                            txtReference.setText(ReferenceType.getReferenceType(mContext, referenceType));
+                            txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
                         } else if (selStockTransactionStatus == 7) {//STOCK RELEASE
-                            txtReference.setText(ReferenceType.getReferenceType(mContext, referenceType));
+                            txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
                         }
                         setSpnTrasactionReason();
+                        setSpnRefList();
                     }
 
                     @Override
@@ -169,10 +200,61 @@ public class frStockTransaction extends Fragment {
 
                     }
                 });
-                setSpnFromTo();
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
+
+    private void setSpnRefList() {
+        new AsyncTask() {
+            ServerResponse sr;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                dot_progress_bar.setVisibility(View.VISIBLE);
+                lyRefList.setVisibility(View.GONE);
+            }
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                final HttpEngine objHttpEngine = new HttpEngine();
+                final String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
+                String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+                final URLMapping um = ConstantVal.getTransactionalReferenceList(mContext);
+                sr = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), new String[]{String.valueOf(selStockTransactionStatus), referenceType, tokenId, account_id}, um.getParamNames(), um.isNeedToSync());
+                String result = sr.getResponseString();
+                if (result != null && result.length() > 0) {
+                    arrClientJobPOInvoiceReference = ClientJobPOInvoiceReference.parseList(result);
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                if (arrClientJobPOInvoiceReference != null) {
+                    adpClientJobPOInvoiceReference = new ArrayAdapter<ClientJobPOInvoiceReference>(mContext, R.layout.spinner_item, arrClientJobPOInvoiceReference);
+                    spnRef.setAdapter(adpClientJobPOInvoiceReference);
+                    spnRef.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            refId = arrClientJobPOInvoiceReference.get(position).getUuid();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                    lyRefList.setVisibility(View.VISIBLE);
+                } else {
+                    Helper.displaySnackbar((AppCompatActivity) getActivity(), ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseString()));
+                }
+                dot_progress_bar.setVisibility(View.GONE);
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
 
     private void setSpnFromTo() {
         new AsyncTask() {
@@ -205,44 +287,39 @@ public class frStockTransaction extends Fragment {
                     adpClientCustEmpSupplier = new ArrayAdapter<ClientCustEmpSupplier>(mContext, R.layout.spinner_item, arrClientCustEmpSupplier);
                     spnFrom.setAdapter(adpClientCustEmpSupplier);
                     spnTo.setAdapter(adpClientCustEmpSupplier);
+                    spnFrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            fromId = arrClientCustEmpSupplier.get(position).getUuid();
+                            fromType = arrClientCustEmpSupplier.get(position).getType();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+
+                    spnTo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            toId = arrClientCustEmpSupplier.get(position).getUuid();
+                            toType = arrClientCustEmpSupplier.get(position).getType();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
                     lyFromTo.setVisibility(View.VISIBLE);
                     btnNext.setEnabled(true);
                 } else {
                     Helper.displaySnackbar((AppCompatActivity) getActivity(), ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseString()));
                 }
                 dot_progress_bar.setVisibility(View.GONE);
-                if (dot_progress_bar != null)
-                    ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
-    public static class ReferenceType {
-        static int JOB = 1, INVOICE = 2, PURCHASE_ORDER = 3;
-
-        public static String getReferenceType(Context c, int type) {
-            if (type == JOB) {
-                return c.getString(R.string.strJob);
-            } else if (type == INVOICE) {
-                return c.getString(R.string.strInvoice);
-            } else if (type == PURCHASE_ORDER) {
-                return c.getString(R.string.strPurchaseOrder);
-            }
-            return "";
-        }
-
-        public static int getReferenceID(int selStockTransactionStatus) {
-            if (selStockTransactionStatus == 2) {//STOCK RETURN
-                return JOB;
-            } else if (selStockTransactionStatus == 3) {//STOCK RECEIVED
-                return PURCHASE_ORDER;
-            } else if (selStockTransactionStatus == 4) {//STOCK DAMAGE
-                return INVOICE;
-            } else if (selStockTransactionStatus == 7) {//STOCK RELEASE
-                return JOB;
-            }
-            return 0;
-        }
     }
 
     @Override

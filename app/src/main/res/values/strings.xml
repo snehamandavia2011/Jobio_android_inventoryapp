@@ -151,6 +151,7 @@
     <string name="strCurrentValue">Current Value</string>
     <string name="strPurchaseFrom">Purchase From</string>
     <string name="strDateExpire">Expire Date</string>
+    <string name="strNoExpiry">No Expiry</string>
     <string name="strStatus">Status</string>
     <string name="strStartDate">Start Date</string>
     <string name="strEndDate">End Date</string>
@@ -226,5 +227,9 @@
     <string name="strInvoice">Invoice</string>
     <string name="strNext">Next</string>
     <string name="title_activity_ac_job_poinvoic_reference_list">acJobPOInvoicReferenceList</string>
+    <string name="strNoJob">No Job Found.</string>
+    <string name="strNoPO">No Purchase Order Found.</string>
+    <string name="strNoInvoice">No Invoice Found.</string>
+    <string name="strQuantity">Quantity</string>
 </resources>
 

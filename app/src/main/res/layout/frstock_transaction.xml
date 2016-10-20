@@ -19,7 +19,7 @@
             android:layout_marginLeft="@dimen/ViewMargin"
             android:layout_marginRight="@dimen/ViewMargin"
             android:layout_marginTop="@dimen/ViewMargin"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <LinearLayout
                 android:id="@+id/lyBottom"
@@ -201,11 +201,84 @@
                             app:font="@{`Ubuntu-M`}" />
 
                         <LinearLayout
+                            android:id="@+id/lyRefList"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/ViewMargin">
+
+                                <TextView
+                                    style="@style/styDescTile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/strReference"
+                                    app:font="@{`Ubuntu-M`}" />
+
+                                <TextView
+                                    style="@style/styDescSmallTile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/strJobQuotationDetail"
+                                    app:font="@{`Ubuntu-M`}" />
+                            </LinearLayout>
+
+                            <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginBottom="@dimen/ViewMargin"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_spinner"
+                                rdv:rdv_rippleAnimationDuration="600"
+                                rdv:rdv_rippleAnimationFrames="60"
+                                rdv:rdv_rippleAnimationPeakFrame="15"
+                                rdv:rdv_rippleColor="@color/tilt"
+                                rdv:rdv_rippleMaxAlpha="0.8"
+                                rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginRight="@dimen/ViewMargin"
+                                        android:background="@drawable/ic_drop_down" />
+
+                                    <Spinner
+                                        android:id="@+id/spnRef"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@null"
+                                        android:prompt="@string/strFrom"
+                                        android:spinnerMode="dialog" />
+                                </RelativeLayout>
+                            </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+                        </LinearLayout>
+                        <utility.DotProgressBar
+                            android:id="@+id/dot_progress_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dorProgressBarheight"
+                            android:layout_centerInParent="true"
                             android:visibility="gone"
+                            custom:amount="5"
+                            custom:duration="@android:integer/config_shortAnimTime"
+                            custom:endColor="@color/tilt"
+                            custom:startColor="@color/tilt" />
+                        <LinearLayout
                             android:id="@+id/lyFromTo"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -320,16 +393,7 @@
                             </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
                         </LinearLayout>
 
-                        <utility.DotProgressBar
-                            android:id="@+id/dot_progress_bar"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dorProgressBarheight"
-                            android:layout_centerInParent="true"
-                            android:visibility="gone"
-                            custom:amount="5"
-                            custom:duration="@android:integer/config_shortAnimTime"
-                            custom:endColor="@color/tilt"
-                            custom:startColor="@color/tilt" />
+
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>

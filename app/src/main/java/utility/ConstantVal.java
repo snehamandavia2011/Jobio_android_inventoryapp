@@ -47,10 +47,11 @@ public class ConstantVal {
     }
 
     public static class SettingFlags {
-        public static void clearCache(Context ctx){
-            Helper.clearPreference(ctx,MESSAGE_CONVERSATION_TONE);
-            Helper.clearPreference(ctx,MESSAGE_CONVERSATION_NOTIFICATION);
+        public static void clearCache(Context ctx) {
+            Helper.clearPreference(ctx, MESSAGE_CONVERSATION_TONE);
+            Helper.clearPreference(ctx, MESSAGE_CONVERSATION_NOTIFICATION);
         }
+
         public static final String MESSAGE_CONVERSATION_TONE = "messaage_conversation_tone";
         public static final String MESSAGE_CONVERSATION_NOTIFICATION = "job_incoming_tone";
     }
@@ -327,6 +328,7 @@ public class ConstantVal {
         String URL = getWebURLPrefix(subDomain) + "stockAIM/getItemDetailByBarcode";
         return new URLMapping(paramNames, URL, false);
     }
+
     public static URLMapping getSupplierListByItemId(Context c) {
         String[] paramNames = {"token_id", "account_id", "item_uuid"};
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
@@ -340,12 +342,14 @@ public class ConstantVal {
         String URL = getWebURLPrefix(subDomain) + "stockAIM/getItemTransactionList";
         return new URLMapping(paramNames, URL, false);
     }
+
     public static URLMapping getStockTransactionStatus(Context c) {
         String[] paramNames = {"token_id", "account_id", "barcode"};
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(subDomain) + "getcommondata/getStockTransactionStatus";
         return new URLMapping(paramNames, URL, false);
     }
+
     public static URLMapping getStockTransactionReason(Context c) {
         String[] paramNames = {"token_id", "account_id", "item_uuid"};
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
@@ -357,6 +361,20 @@ public class ConstantVal {
         String[] paramNames = {"token_id", "account_id"};
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(subDomain) + "stockAIM/getCustomerEmployeeSupplierList";
+        return new URLMapping(paramNames, URL, false);
+    }
+
+    public static URLMapping getTransactionalReferenceList(Context c) {
+        String[] paramNames = {"status", "type", "token_id", "account_id"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "stockAIM/getTransactionalReferenceList";
+        return new URLMapping(paramNames, URL, false);
+    }
+
+    public static URLMapping getReferenceDetail(Context c) {
+        String[] paramNames = {"refId", "refType", "statusId", "account_id","token_id"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "stockAIM/getReferenceDetail";
         return new URLMapping(paramNames, URL, false);
     }
 }
