@@ -264,6 +264,7 @@
                             </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
                         </LinearLayout>
                         <utility.DotProgressBar
+
                             android:id="@+id/dot_progress_bar"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dorProgressBarheight"

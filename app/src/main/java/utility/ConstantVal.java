@@ -35,6 +35,8 @@ public class ConstantVal {
     public static final int SERVICE_TRANSACTION_RESPONSE_CODE = 6;
     public static final int SEARCH_ITEM_BY_BARCODE_REQUEST_CODE = 7;
     public static final int SEARCH_ITEM_BY_BARCODE__RESPONSE_CODE = 8;
+    public static final int ZBAR_SCANNER_REQUEST = 9;
+    public static final int ZBAR_QR_SCANNER_REQUEST = 10;
 
     public static class BroadcastAction {
         public static final String CHANGED_MESSAGE_STATUS = "jobio.io.MESSAGE_STATUS";

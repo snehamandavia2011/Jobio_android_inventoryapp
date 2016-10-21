@@ -2,9 +2,11 @@ package adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +16,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lab360io.jobio.inventoryapp.R;
+import com.lab360io.jobio.inventoryapp.acEditJobInvoiceReferenceDetail;
+import com.lab360io.jobio.inventoryapp.acEditPOReferenceDetail;
 
 import java.util.ArrayList;
 
 import asyncmanager.asyncLoadCommonData;
 import entity.ClientItemMaster1;
-import entity.ClientJobInvoiceRefDetail;
 import entity.ClientPORefDetail;
+import utility.ConstantVal;
 import utility.Helper;
 
 /**
@@ -30,19 +34,30 @@ public class PORefDetailAdapter extends BaseAdapter {
     Typeface ubuntuL, ubuntuM;
     Context ctx;
     ArrayList<ClientPORefDetail> arrClientPORefDetail;
+    int selStockTransactionStatus, selStockTransactionReason;
+    String referenceType, refId, fromId, toId, fromType, toType;
 
     private class ViewHolder {
         LinearLayout lyClickableLayout;
-        TextView txtItemName, txtStatus, txtQty, txtPrice, txtBarcode, txtExpireDate;
+        TextView txtItemName, txtQty, txtPrice, txtBarcode, txtExpireDate;
         ImageView imgItem;
     }
 
 
-    public PORefDetailAdapter(Context ctx, ArrayList<ClientPORefDetail> arrClientPORefDetail) {
+    public PORefDetailAdapter(Context ctx, ArrayList<ClientPORefDetail> arrClientPORefDetail, int selStockTransactionStatus,
+                              int selStockTransactionReason, String referenceType, String refId, String fromId, String toId, String fromType, String toType) {
         this.ctx = ctx;
         this.arrClientPORefDetail = arrClientPORefDetail;
         ubuntuL = Helper.getUbuntuL(ctx);
         ubuntuM = Helper.getUbuntuM(ctx);
+        this.selStockTransactionReason = selStockTransactionReason;
+        this.selStockTransactionStatus = selStockTransactionStatus;
+        this.referenceType = referenceType;
+        this.refId = refId;
+        this.fromId = fromId;
+        this.toId = toId;
+        this.fromType = fromType;
+        this.toType = toType;
     }
 
     @Override
@@ -66,10 +81,9 @@ public class PORefDetailAdapter extends BaseAdapter {
         LayoutInflater mInflater = (LayoutInflater) ctx
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.invoice_job_po_detail_list_item, null);
+            convertView = mInflater.inflate(R.layout.po_detail_list_item, null);
             holder = new ViewHolder();
             holder.txtItemName = (TextView) convertView.findViewById(R.id.txtItemName);
-            holder.txtStatus = (TextView) convertView.findViewById(R.id.txtStatus);
             holder.txtQty = (TextView) convertView.findViewById(R.id.txtQty);
             holder.txtPrice = (TextView) convertView.findViewById(R.id.txtPrice);
             holder.txtBarcode = (TextView) convertView.findViewById(R.id.txtBarcode);
@@ -80,7 +94,6 @@ public class PORefDetailAdapter extends BaseAdapter {
             holder.txtExpireDate.setTypeface(ubuntuL);
             holder.txtPrice.setTypeface(ubuntuL);
             holder.txtQty.setTypeface(ubuntuL);
-            holder.txtStatus.setTypeface(ubuntuL);
             holder.txtItemName.setTypeface(ubuntuM);
             holder.txtExpireDate.setSelected(true);
             holder.txtBarcode.setSelected(true);
@@ -97,7 +110,6 @@ public class PORefDetailAdapter extends BaseAdapter {
         holder.txtBarcode.setPaintFlags(holder.txtBarcode.getPaintFlags() & ~Paint.UNDERLINE_TEXT_FLAG);
         holder.txtBarcode.setClickable(false);
 
-
         if (!objClientPORefDetail.isPhotoLoaded()) {
             ClientItemMaster1 objClientItemMaster1 = new ClientItemMaster1();
             objClientItemMaster1.setPhoto("");
@@ -108,7 +120,25 @@ public class PORefDetailAdapter extends BaseAdapter {
         holder.txtQty.setText(ctx.getString(R.string.strQuantity) + " :" + objClientPORefDetail.getPodQty());
         holder.txtPrice.setText(ctx.getString(R.string.strPrice) + " :" + objClientPORefDetail.getPodPrice());
         holder.txtExpireDate.setText(ctx.getString(R.string.strDateExpire) + " :" + ctx.getString(R.string.strNoExpiry));
-        holder.txtStatus.setText(objClientPORefDetail.getPodOrder_status());
+        holder.lyClickableLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ctx, acEditPOReferenceDetail.class);
+                i.putExtra("selStockTransactionStatus", selStockTransactionStatus);
+                i.putExtra("selStockTransactionReason", selStockTransactionReason);
+                i.putExtra("referenceType", referenceType);
+                i.putExtra("refId", refId);
+                i.putExtra("fromId", fromId);
+                i.putExtra("toId", toId);
+                i.putExtra("fromType", fromType);
+                i.putExtra("toType", toType);
+                i.putExtra("itemName",objClientPORefDetail.getImItem_name());
+                i.putExtra("quantity",objClientPORefDetail.getPodQty());
+                i.putExtra("cost",objClientPORefDetail.getPodCost());
+                i.putExtra("price",objClientPORefDetail.getPodPrice());
+                ((AppCompatActivity) ctx).startActivityForResult(i, ConstantVal.EXIT_RESPONSE_CODE);
+            }
+        });
         return convertView;
     }
 

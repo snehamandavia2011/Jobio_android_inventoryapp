@@ -282,7 +282,7 @@ public class ClientJobInvoiceRefDetail {
                 String itReason_id = objJSON.getString("reason_id").equals("null") ? "" : objJSON.getString("reason_id");
                 String itNote = objJSON.getString("note").equals("null") ? "" : objJSON.getString("note");
                 String itBarcode = objJSON.getString("barcode").equals("null") ? "" : objJSON.getString("barcode");
-                String itExpiry = objJSON.getString("expiry").equals("null") ? "" : objJSON.getString("expiry");
+                String itExpiry = objJSON.getString("expiry").equals("null") ? "0000-00-00" : objJSON.getString("expiry");
                 String itFrom_id = objJSON.getString("from_id").equals("null") ? "" : objJSON.getString("from_id");
                 String itTo_id = objJSON.getString("to_id").equals("null") ? "" : objJSON.getString("to_id");
                 String itFrom_type = objJSON.getString("from_type").equals("null") ? "" : objJSON.getString("from_type");

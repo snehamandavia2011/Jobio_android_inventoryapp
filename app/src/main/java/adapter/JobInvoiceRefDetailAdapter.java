@@ -2,27 +2,30 @@ package adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acStock;
+import com.lab360io.jobio.inventoryapp.acEditJobInvoiceReferenceDetail;
 
 import java.util.ArrayList;
 
 import asyncmanager.asyncLoadCommonData;
 import entity.ClientItemMaster1;
 import entity.ClientJobInvoiceRefDetail;
+import utility.ConstantVal;
 import utility.Helper;
+import utility.Logger;
 
 /**
  * Created by SAI on 10/20/2016.
@@ -31,6 +34,8 @@ public class JobInvoiceRefDetailAdapter extends BaseAdapter {
     Typeface ubuntuL, ubuntuM;
     Context ctx;
     ArrayList<ClientJobInvoiceRefDetail> arrClientJobInvoiceRefDetail;
+    int selStockTransactionStatus, selStockTransactionReason;
+    String referenceType, refId, fromId, toId, fromType, toType;
 
     private class ViewHolder {
         LinearLayout lyClickableLayout;
@@ -39,11 +44,20 @@ public class JobInvoiceRefDetailAdapter extends BaseAdapter {
     }
 
 
-    public JobInvoiceRefDetailAdapter(Context ctx, ArrayList<ClientJobInvoiceRefDetail> arrClientJobInvoiceRefDetail) {
+    public JobInvoiceRefDetailAdapter(Context ctx, ArrayList<ClientJobInvoiceRefDetail> arrClientJobInvoiceRefDetail, int selStockTransactionStatus,
+                                      int selStockTransactionReason, String referenceType, String refId, String fromId, String toId, String fromType, String toType) {
         this.ctx = ctx;
         this.arrClientJobInvoiceRefDetail = arrClientJobInvoiceRefDetail;
         ubuntuL = Helper.getUbuntuL(ctx);
         ubuntuM = Helper.getUbuntuM(ctx);
+        this.selStockTransactionReason = selStockTransactionReason;
+        this.selStockTransactionStatus = selStockTransactionStatus;
+        this.referenceType = referenceType;
+        this.refId = refId;
+        this.fromId = fromId;
+        this.toId = toId;
+        this.fromType = fromType;
+        this.toType = toType;
     }
 
     @Override
@@ -67,7 +81,7 @@ public class JobInvoiceRefDetailAdapter extends BaseAdapter {
         LayoutInflater mInflater = (LayoutInflater) ctx
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.invoice_job_po_detail_list_item, null);
+            convertView = mInflater.inflate(R.layout.invoice_job_detail_list_item, null);
             holder = new ViewHolder();
             holder.txtItemName = (TextView) convertView.findViewById(R.id.txtItemName);
             holder.txtStatus = (TextView) convertView.findViewById(R.id.txtStatus);
@@ -116,8 +130,24 @@ public class JobInvoiceRefDetailAdapter extends BaseAdapter {
         holder.txtQty.setText(ctx.getString(R.string.strQuantity) + " :" + objClientJobInvoiceRefDetail.getItQty());
         holder.txtPrice.setText(ctx.getString(R.string.strPrice) + " :" + objClientJobInvoiceRefDetail.getItPrice());
         String strExpiryDate = objClientJobInvoiceRefDetail.getItExpiry().equals("0000-00-00") ? ctx.getString(R.string.strNoExpiry) : objClientJobInvoiceRefDetail.getItExpiry();
+        Logger.debug(strExpiryDate + " " + objClientJobInvoiceRefDetail.getItExpiry());
         holder.txtExpireDate.setText(ctx.getString(R.string.strDateExpire) + " :" + strExpiryDate);
         holder.txtStatus.setText(objClientJobInvoiceRefDetail.getStsmAction_name());
+        holder.lyClickableLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ctx, acEditJobInvoiceReferenceDetail.class);
+                i.putExtra("selStockTransactionStatus", selStockTransactionStatus);
+                i.putExtra("selStockTransactionReason", selStockTransactionReason);
+                i.putExtra("referenceType", referenceType);
+                i.putExtra("refId", refId);
+                i.putExtra("fromId", fromId);
+                i.putExtra("toId", toId);
+                i.putExtra("fromType", fromType);
+                i.putExtra("toType", toType);
+                ((AppCompatActivity) ctx).startActivityForResult(i, ConstantVal.EXIT_RESPONSE_CODE);
+            }
+        });
         return convertView;
     }
 

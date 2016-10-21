@@ -231,5 +231,10 @@
     <string name="strNoPO">No Purchase Order Found.</string>
     <string name="strNoInvoice">No Invoice Found.</string>
     <string name="strQuantity">Quantity</string>
+    <string name="title_activity_ac_edit_transaction_reference_detail">
+        acEditTransactionReferenceDetail
+    </string>
+    <string name="title_activity_edit_job_invoice_reference_detail">EditJobInvoiceReferenceDetail
+    </string>
 </resources>
 

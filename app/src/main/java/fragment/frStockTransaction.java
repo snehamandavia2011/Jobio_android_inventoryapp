@@ -86,19 +86,15 @@ public class frStockTransaction extends Fragment {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        //dot_progress_bar = (DotProgressBar) getActivity().findViewById(R.id.dot_progress_bar);
-    }
 
     private void setData() {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Logger.debug(selStockTransactionStatus + " " + selStockTransactionReason + " " + referenceType + " " + refId + " " + fromId + " " + toId + " " + fromType + " " + toType);
-                //if (dot_progress_bar != null)
-                  //  ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
+                try {
+                    ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
+                }catch (Exception e){}
                 Intent i = new Intent(mContext, acJobPOInvoicReferenceList.class);
                 i.putExtra("selStockTransactionStatus", selStockTransactionStatus);
                 i.putExtra("selStockTransactionReason", selStockTransactionReason);

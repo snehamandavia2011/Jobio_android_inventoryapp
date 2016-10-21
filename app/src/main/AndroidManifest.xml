@@ -122,6 +122,14 @@
         <activity
             android:name=".acJobPOInvoicReferenceList"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".acEditPOReferenceDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".acEditJobInvoiceReferenceDetail"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"></activity>
     </application>
 
