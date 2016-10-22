@@ -9,7 +9,6 @@ import com.lab360io.jobio.inventoryapp.R;
  */
 public class StockTransactionReferenceType {
     public static String JOB = "J", INVOICE = "I", PURCHASE_ORDER = "P";
-
     public static String getReferenceType(Context c, String type) {
         if (type.equals(JOB)) {
             return c.getString(R.string.strJob);

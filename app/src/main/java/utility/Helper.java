@@ -79,7 +79,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Currency;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -109,6 +111,13 @@ public class Helper {
         CrashlyticsCore.getInstance().setUserName(strEmail);
     }
 
+
+
+    public static String getCurrencySymbol() {
+        Locale defaultLocale = Locale.getDefault();
+        Currency currency = Currency.getInstance(defaultLocale);
+        return currency.getSymbol();
+    }
     public static void clearPreference(Context c, String key) {
         SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(c).edit();
         e.remove(key);

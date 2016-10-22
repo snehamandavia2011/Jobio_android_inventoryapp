@@ -155,7 +155,7 @@
                             android:layout_marginBottom="@dimen/ViewMargin">
 
                             <me.zhanghai.android.materialedittext.MaterialEditText
-                                android:id="@+id/edBarcode"
+                                android:id="@+id/edBarCode"
                                 style="@style/singlelineeditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

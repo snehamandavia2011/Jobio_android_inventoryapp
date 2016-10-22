@@ -91,7 +91,6 @@ public class frStockTransaction extends Fragment {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Logger.debug(selStockTransactionStatus + " " + selStockTransactionReason + " " + referenceType + " " + refId + " " + fromId + " " + toId + " " + fromType + " " + toType);
                 try {
                     ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
                 }catch (Exception e){}

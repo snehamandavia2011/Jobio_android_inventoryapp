@@ -50,67 +50,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/ViewMargin"
-                android:layout_marginRight="@dimen/ViewMargin"
                 android:text="Item Name"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <TextView
+                android:id="@+id/txtQty"
+                style="@style/styDescTile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/ViewMargin"
-                android:orientation="horizontal">
+                android:text="Item Name" />
 
-                <TextView
-                    android:id="@+id/txtQty"
-                    style="@style/styDescTile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginRight="@dimen/ViewMargin"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/txtPrice"
-                    style="@style/styDescTile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_weight="1"
-                    android:gravity="left" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <TextView
+                android:id="@+id/txtCost"
+                style="@style/styDescTile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/ViewMargin"
-                android:orientation="horizontal">
+                android:text="Item Name" />
 
-                <TextView
-                    android:id="@+id/txtBarcode"
-                    style="@style/styDescTile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginRight="@dimen/ViewMargin"
-                    android:clickable="true"
-                    android:gravity="left" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/ViewMargin"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txtExpireDate"
-                    style="@style/styDescTile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:gravity="left" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/txtPrice"
+                style="@style/styDescTile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Item Name" />
         </LinearLayout>
 
         <ImageView

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,13 +33,18 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import entity.ClientJobInvoiceRefDetail;
+import fragment.StockTransactionReferenceType;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import utility.ConstantVal;
+import utility.DataBase;
 import utility.Helper;
+import utility.InputFilterMinMax;
+import utility.Logger;
 
 public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
     TextView txtItemName, txtStatus;
-    MaterialEditText MaterialEditText, edPrice, edBarcode, edExpiry;
+    MaterialEditText edPrice, edBarcode, edExpiry, edQuantity;
     Button btnCancel, btnSave;
     Helper objHelper = new Helper();
     AppCompatActivity ac;
@@ -48,6 +55,7 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
     DateFormat dateFormat = new SimpleDateFormat("dd MMM yyy");
     int selStockTransactionStatus, selStockTransactionReason;
     String referenceType, refId, fromId, toId, fromType, toType;
+    ClientJobInvoiceRefDetail objClientJobInvoiceRefDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,15 +82,48 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
                     toId = getIntent().getStringExtra("toId");
                     fromType = getIntent().getStringExtra("fromType");
                     toType = getIntent().getStringExtra("toType");
+                    objClientJobInvoiceRefDetail = (ClientJobInvoiceRefDetail) getIntent().getSerializableExtra("objClientJobInvoiceRefDetail");
+                    Logger.debug(selStockTransactionStatus + " " + selStockTransactionReason + " " + referenceType + " " + refId + " " + fromId + " " + toId +
+                            " " + fromType + " " + toType + objClientJobInvoiceRefDetail.display());
+
                 }
+                InputFilterMinMax filter = new InputFilterMinMax((double) 0, Double.MAX_VALUE);
                 txtItemName = (TextView) findViewById(R.id.txtItemName);
                 txtStatus = (TextView) findViewById(R.id.txtStatus);
                 edPrice = (MaterialEditText) findViewById(R.id.edPrice);
                 edBarcode = (MaterialEditText) findViewById(R.id.edBarCode);
                 edExpiry = (MaterialEditText) findViewById(R.id.edExpiry);
+                edQuantity = (MaterialEditText) findViewById(R.id.edQuantity);
                 btnCancel = (Button) findViewById(R.id.btnCancel);
                 btnSave = (Button) findViewById(R.id.btnSave);
                 btnScanBarcode = (ImageButton) findViewById(R.id.btnScanBarcode);
+                txtItemName.setText(objClientJobInvoiceRefDetail.getImItem_name());
+                DataBase db = new DataBase(mContext);
+                db.open();
+                Cursor cur = db.fetch(DataBase.stock_transaction_status_table, "id=" + selStockTransactionStatus);
+                if (cur != null && cur.getCount() > 0) {
+                    cur.moveToFirst();
+                    txtStatus.setText(cur.getString(2));
+                }
+                edQuantity.setText(objClientJobInvoiceRefDetail.getItQty());
+                edQuantity.setFilters(new InputFilter[]{filter});
+                edPrice.setText(objClientJobInvoiceRefDetail.getItPrice());
+                edPrice.setFilters(new InputFilter[]{filter});
+                edBarcode.setText(objClientJobInvoiceRefDetail.getItBarcode());
+                String expiryDate = objClientJobInvoiceRefDetail.getItExpiry();
+                if (expiryDate != null && !expiryDate.equals("0000-00-00") && expiryDate.equals("")) {
+                    try {
+                        calExpiryDate.setTime(Helper.convertStringToDate(expiryDate, ConstantVal.DATE_FORMAT));
+                        edExpiry.setText(dateFormat.format(calExpiryDate.getTime()));
+                    } catch (Exception e) {
+                        //edExpiry.setText(mContext.getString(R.string.strNoExpiry));
+                    }
+                } else {
+                    //edExpiry.setText(mContext.getString(R.string.strNoExpiry));
+                }
+
+                cur.close();
+                db.close();
                 edExpiry.setOnClickListener(onClick);
                 btnCancel.setOnClickListener(onClick);
                 btnSave.setOnClickListener(onClick);

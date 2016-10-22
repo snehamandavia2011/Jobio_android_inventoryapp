@@ -128,7 +128,7 @@ public class JobInvoiceRefDetailAdapter extends BaseAdapter {
         }
         holder.txtItemName.setText(objClientJobInvoiceRefDetail.getImItem_name());
         holder.txtQty.setText(ctx.getString(R.string.strQuantity) + " :" + objClientJobInvoiceRefDetail.getItQty());
-        holder.txtPrice.setText(ctx.getString(R.string.strPrice) + " :" + objClientJobInvoiceRefDetail.getItPrice());
+        holder.txtPrice.setText(ctx.getString(R.string.strPrice) + " :" + Helper.getCurrencySymbol() + objClientJobInvoiceRefDetail.getItPrice());
         String strExpiryDate = objClientJobInvoiceRefDetail.getItExpiry().equals("0000-00-00") ? ctx.getString(R.string.strNoExpiry) : objClientJobInvoiceRefDetail.getItExpiry();
         Logger.debug(strExpiryDate + " " + objClientJobInvoiceRefDetail.getItExpiry());
         holder.txtExpireDate.setText(ctx.getString(R.string.strDateExpire) + " :" + strExpiryDate);
@@ -145,6 +145,12 @@ public class JobInvoiceRefDetailAdapter extends BaseAdapter {
                 i.putExtra("toId", toId);
                 i.putExtra("fromType", fromType);
                 i.putExtra("toType", toType);
+                i.putExtra("objClientJobInvoiceRefDetail",objClientJobInvoiceRefDetail);
+                /*i.putExtra("itemName", objClientJobInvoiceRefDetail.getImItem_name());
+                i.putExtra("quantity", objClientJobInvoiceRefDetail.getItQty());
+                i.putExtra("price", objClientJobInvoiceRefDetail.getItPrice());
+                i.putExtra("expiryDate", objClientJobInvoiceRefDetail.getItExpiry());
+                i.putExtra("barcode", objClientJobInvoiceRefDetail.getItBarcode());*/
                 ((AppCompatActivity) ctx).startActivityForResult(i, ConstantVal.EXIT_RESPONSE_CODE);
             }
         });

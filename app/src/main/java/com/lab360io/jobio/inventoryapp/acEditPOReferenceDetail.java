@@ -9,6 +9,7 @@ import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,9 +28,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import entity.ClientPORefDetail;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import utility.ConstantVal;
 import utility.Helper;
+import utility.InputFilterMinMax;
+import utility.Logger;
 
 public class acEditPOReferenceDetail extends AppCompatActivity {
     Helper objHelper = new Helper();
@@ -44,7 +48,8 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
     DateFormat dateFormat = new SimpleDateFormat("dd MMM yyy");
     int selStockTransactionStatus, selStockTransactionReason;
     String referenceType, refId, fromId, toId, fromType, toType;
-    String itemName, cost, price, quantity;
+
+    ClientPORefDetail objClientPORefDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +76,20 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
                     toId = getIntent().getStringExtra("toId");
                     fromType = getIntent().getStringExtra("fromType");
                     toType = getIntent().getStringExtra("toType");
-                    itemName = getIntent().getStringExtra("itemName");
-                    cost = getIntent().getStringExtra("cost");
-                    price = getIntent().getStringExtra("price");
-                    quantity = getIntent().getStringExtra("quantity");
+                    objClientPORefDetail = (ClientPORefDetail) getIntent().getSerializableExtra("objClientPORefDetail");
+                    Logger.debug(selStockTransactionStatus + " " + selStockTransactionReason + " " + referenceType + " " + refId + " " + fromId + " " + toId + " " + fromType + " " + toType + objClientPORefDetail.display());
                 }
+                InputFilterMinMax filter = new InputFilterMinMax((double) 0, Double.MAX_VALUE);
                 txtItemName = (TextView) findViewById(R.id.txtItemName);
+                txtItemName.setText(objClientPORefDetail.getImItem_name());
                 txtQuantity = (TextView) findViewById(R.id.txtQuantity);
+                txtQuantity.setText(objClientPORefDetail.getPodQty());
                 edCost = (MaterialEditText) findViewById(R.id.edCost);
+                edCost.setText(objClientPORefDetail.getPodCost());
+                edCost.setFilters(new InputFilter[]{filter});
                 edPrice = (MaterialEditText) findViewById(R.id.edPrice);
+                edPrice.setText(objClientPORefDetail.getPodPrice());
+                edPrice.setFilters(new InputFilter[]{filter});
                 edBarcode = (MaterialEditText) findViewById(R.id.edBarCode);
                 edExpiry = (MaterialEditText) findViewById(R.id.edExpiry);
                 btnCancel = (Button) findViewById(R.id.btnCancel);

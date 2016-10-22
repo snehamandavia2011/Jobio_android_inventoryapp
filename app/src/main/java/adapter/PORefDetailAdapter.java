@@ -39,7 +39,7 @@ public class PORefDetailAdapter extends BaseAdapter {
 
     private class ViewHolder {
         LinearLayout lyClickableLayout;
-        TextView txtItemName, txtQty, txtPrice, txtBarcode, txtExpireDate;
+        TextView txtItemName, txtQty, txtCost, txtPrice;
         ImageView imgItem;
     }
 
@@ -86,17 +86,13 @@ public class PORefDetailAdapter extends BaseAdapter {
             holder.txtItemName = (TextView) convertView.findViewById(R.id.txtItemName);
             holder.txtQty = (TextView) convertView.findViewById(R.id.txtQty);
             holder.txtPrice = (TextView) convertView.findViewById(R.id.txtPrice);
-            holder.txtBarcode = (TextView) convertView.findViewById(R.id.txtBarcode);
-            holder.txtExpireDate = (TextView) convertView.findViewById(R.id.txtExpireDate);
+            holder.txtCost = (TextView) convertView.findViewById(R.id.txtCost);
             holder.imgItem = (ImageView) convertView.findViewById(R.id.imgItem);
             holder.lyClickableLayout = (LinearLayout) convertView.findViewById(R.id.lyClickableLayout);
-            holder.txtBarcode.setTypeface(ubuntuL);
-            holder.txtExpireDate.setTypeface(ubuntuL);
             holder.txtPrice.setTypeface(ubuntuL);
             holder.txtQty.setTypeface(ubuntuL);
+            holder.txtCost.setTypeface(ubuntuL);
             holder.txtItemName.setTypeface(ubuntuM);
-            holder.txtExpireDate.setSelected(true);
-            holder.txtBarcode.setSelected(true);
             holder.txtQty.setSelected(true);
             holder.txtPrice.setSelected(true);
             holder.txtItemName.setSelected(true);
@@ -106,9 +102,6 @@ public class PORefDetailAdapter extends BaseAdapter {
         }
 
         final ClientPORefDetail objClientPORefDetail = arrClientPORefDetail.get(position);
-        holder.txtBarcode.setText(ctx.getString(R.string.strBarcode) + " :" + ctx.getString(R.string.strNA));
-        holder.txtBarcode.setPaintFlags(holder.txtBarcode.getPaintFlags() & ~Paint.UNDERLINE_TEXT_FLAG);
-        holder.txtBarcode.setClickable(false);
 
         if (!objClientPORefDetail.isPhotoLoaded()) {
             ClientItemMaster1 objClientItemMaster1 = new ClientItemMaster1();
@@ -118,8 +111,8 @@ public class PORefDetailAdapter extends BaseAdapter {
         }
         holder.txtItemName.setText(objClientPORefDetail.getImItem_name());
         holder.txtQty.setText(ctx.getString(R.string.strQuantity) + " :" + objClientPORefDetail.getPodQty());
-        holder.txtPrice.setText(ctx.getString(R.string.strPrice) + " :" + objClientPORefDetail.getPodPrice());
-        holder.txtExpireDate.setText(ctx.getString(R.string.strDateExpire) + " :" + ctx.getString(R.string.strNoExpiry));
+        holder.txtPrice.setText(ctx.getString(R.string.strPrice) + " :" + Helper.getCurrencySymbol() + objClientPORefDetail.getPodPrice());
+        holder.txtCost.setText(ctx.getString(R.string.strCost) + " :" + Helper.getCurrencySymbol() + objClientPORefDetail.getPodCost());
         holder.lyClickableLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,10 +125,11 @@ public class PORefDetailAdapter extends BaseAdapter {
                 i.putExtra("toId", toId);
                 i.putExtra("fromType", fromType);
                 i.putExtra("toType", toType);
-                i.putExtra("itemName",objClientPORefDetail.getImItem_name());
-                i.putExtra("quantity",objClientPORefDetail.getPodQty());
-                i.putExtra("cost",objClientPORefDetail.getPodCost());
-                i.putExtra("price",objClientPORefDetail.getPodPrice());
+                i.putExtra("objClientPORefDetail", objClientPORefDetail);
+                /*i.putExtra("itemName", objClientPORefDetail.getImItem_name());
+                i.putExtra("quantity", objClientPORefDetail.getPodQty());
+                i.putExtra("cost", objClientPORefDetail.getPodCost());
+                i.putExtra("price", objClientPORefDetail.getPodPrice());*/
                 ((AppCompatActivity) ctx).startActivityForResult(i, ConstantVal.EXIT_RESPONSE_CODE);
             }
         });

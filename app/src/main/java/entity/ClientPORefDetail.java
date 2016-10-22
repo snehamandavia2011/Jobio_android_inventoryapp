@@ -3,14 +3,19 @@ package entity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by SAI on 10/20/2016.
  */
-public class ClientPORefDetail {
+public class ClientPORefDetail implements Serializable {
     String podId, podPo_id, podItem_id, podQty, podCost, podPrice, podOrder_status, podUser_id, imItem_name;
     boolean isPhotoLoaded;
+
+    public String display() {
+        return " " + podId + " " + podPo_id + " " + podItem_id + " " + podQty + " " + podCost + " " + podPrice + " " + podOrder_status + " " + podUser_id + " " + imItem_name;
+    }
 
     public ClientPORefDetail(String podId, String podPo_id, String podItem_id, String podQty, String podCost, String podPrice, String podOrder_status, String podUser_id, String imItem_name) {
         this.podId = podId;

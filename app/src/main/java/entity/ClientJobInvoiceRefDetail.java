@@ -3,16 +3,25 @@ package entity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+
+import utility.Logger;
 
 /**
  * Created by SAI on 10/20/2016.
  */
-public class ClientJobInvoiceRefDetail {
+public class ClientJobInvoiceRefDetail implements Serializable {
     String imItem_name, imModel, imPhoto, itId, itUUID, itParent_uuid, itPo_transaction_uuid, itPlan_id, itItem_id, itStatus_id, itQty,
             itAvailable_qty, itCost, itPrice, itReason_id, itNote, itBarcode, itExpiry, itFrom_id, itTo_id, itFrom_type, itTo_type, itRef_id,
             itRef_type, itUser_id, stsmAction_name;
     boolean isPhotoLoaded = false;
+
+    public String display() {
+        return " imItem_name:" + imItem_name + " imModel:" + imModel + " imPhoto:" + imPhoto + " itId:" + itId + " itUUID:" + itUUID + " itParent_uuid:" + itParent_uuid + " itPo_transaction_uuid:" + itPo_transaction_uuid + " itPlan_id:" + itPlan_id + " itItem_id:" + itItem_id + " itStatus_id:" + itStatus_id + " itQty:" + itQty + " itAvailable_qty:" +
+                itAvailable_qty + " itCost:" + itCost + " itPrice:" + itPrice + " itReason_id:" + itReason_id + " itNote:" + itNote + " itBarcode:" + itBarcode + " itExpiry:" + itExpiry + " itFrom_id:" + itFrom_id + " itTo_id:" + itTo_id + " itFrom_type:" + itFrom_type + " itTo_type:" + itTo_type + " itRef_id:" + itRef_id + " itRef_type:" +
+                itRef_type + " itUser_id:" + itUser_id + " stsmAction_name:" + stsmAction_name;
+    }
 
     public ClientJobInvoiceRefDetail(String imItem_name, String imModel, String imPhoto, String itId, String itUUID, String itParent_uuid, String itPo_transaction_uuid, String itPlan_id, String itItem_id, String itStatus_id, String itQty, String itAvailable_qty, String itCost, String itPrice, String itReason_id, String itNote, String itBarcode, String itExpiry, String itFrom_id, String itTo_id, String itFrom_type, String itTo_type, String itRef_id, String itRef_type, String itUser_id, String stsmAction_name) {
         this.imItem_name = imItem_name;
