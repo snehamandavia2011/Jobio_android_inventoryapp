@@ -32,11 +32,15 @@ public class ConstantVal {
     public static final int INSPECTION_TRANSACTION_REQUEST_CODE = 3;
     public static final int INSPECTION_TRANSACTION_RESPONSE_CODE = 4;
     public static final int SERVICE_TRANSACTION_REQUEST_CODE = 5;
-    public static final int SERVICE_TRANSACTION_RESPONSE_CODE = 6;
-    public static final int SEARCH_ITEM_BY_BARCODE_REQUEST_CODE = 7;
-    public static final int SEARCH_ITEM_BY_BARCODE__RESPONSE_CODE = 8;
-    public static final int ZBAR_SCANNER_REQUEST = 9;
-    public static final int ZBAR_QR_SCANNER_REQUEST = 10;
+    public static final int EDIT_JOB_INVOICE_REFERENCE_REQUEST = 6;
+    public static final int EDIT_JOB_INVOICE_REFERENCE_RESPONSE = 7;
+    public static final int EDIT_PO_REFERENCE_REQUEST = 8;
+    public static final int EDIT_PO_REFERENCE_RESPONSE = 11;
+    public static final int JOB_PO_INVOICE_REF_REQUEST = 12;
+    public static final int JOB_PO_INVOICE_REF_RESPONSE = 13;
+    public static final int ZBAR_SCANNER_REQUEST = 14;
+    public static final int ZBAR_QR_SCANNER_REQUEST = 15;
+
 
     public static class BroadcastAction {
         public static final String CHANGED_MESSAGE_STATUS = "jobio.io.MESSAGE_STATUS";
@@ -378,5 +382,21 @@ public class ConstantVal {
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(subDomain) + "stockAIM/getReferenceDetail";
         return new URLMapping(paramNames, URL, false);
+    }
+
+    public static URLMapping saveJobInvoiceTransaction(Context c) {
+        String[] paramNames = {"STstatusId","STReasonId","refType","refId","itemId","from","to","from_type","to_type","item_transaction_uuid",
+                "po_transaction_uuid","quantity","price","expiryDate","note","barcode","account_id","adminUserId","date","time","token_id"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "stockAIM/saveJobInvoiceTransaction";
+        return new URLMapping(paramNames, URL, true);
+    }
+
+    public static URLMapping savePOTransaction(Context c) {
+        String[] paramNames = {"STstatusId", "STReasonId", "refType", "refId","itemId","from","to","from_type","to_type","quantity",
+        "cost","price","expiryDate","note","barcode","account_id","adminUserId","date","time","token_id"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "stockAIM/savePOTransaction";
+        return new URLMapping(paramNames, URL, true);
     }
 }

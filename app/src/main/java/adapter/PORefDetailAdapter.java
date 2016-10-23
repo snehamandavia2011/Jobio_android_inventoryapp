@@ -130,7 +130,7 @@ public class PORefDetailAdapter extends BaseAdapter {
                 i.putExtra("quantity", objClientPORefDetail.getPodQty());
                 i.putExtra("cost", objClientPORefDetail.getPodCost());
                 i.putExtra("price", objClientPORefDetail.getPodPrice());*/
-                ((AppCompatActivity) ctx).startActivityForResult(i, ConstantVal.EXIT_RESPONSE_CODE);
+                ((AppCompatActivity) ctx).startActivityForResult(i, ConstantVal.EDIT_PO_REFERENCE_REQUEST);
             }
         });
         return convertView;

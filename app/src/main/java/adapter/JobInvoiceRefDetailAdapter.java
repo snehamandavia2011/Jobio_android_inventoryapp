@@ -151,7 +151,7 @@ public class JobInvoiceRefDetailAdapter extends BaseAdapter {
                 i.putExtra("price", objClientJobInvoiceRefDetail.getItPrice());
                 i.putExtra("expiryDate", objClientJobInvoiceRefDetail.getItExpiry());
                 i.putExtra("barcode", objClientJobInvoiceRefDetail.getItBarcode());*/
-                ((AppCompatActivity) ctx).startActivityForResult(i, ConstantVal.EXIT_RESPONSE_CODE);
+                ((AppCompatActivity) ctx).startActivityForResult(i, ConstantVal.EDIT_JOB_INVOICE_REFERENCE_REQUEST);
             }
         });
         return convertView;

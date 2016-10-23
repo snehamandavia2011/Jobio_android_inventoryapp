@@ -14,9 +14,11 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dm.zbar.android.scanner.ZBarConstants;
@@ -28,19 +30,27 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import entity.BusinessAccountdbDetail;
+import entity.ClientAdminUser;
 import entity.ClientPORefDetail;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import utility.ConstantVal;
+import utility.DotProgressBar;
 import utility.Helper;
+import utility.HttpEngine;
 import utility.InputFilterMinMax;
 import utility.Logger;
+import utility.ServerResponse;
+import utility.URLMapping;
 
 public class acEditPOReferenceDetail extends AppCompatActivity {
+    DotProgressBar dot_progress_bar;
+    RelativeLayout lyMainContent;
     Helper objHelper = new Helper();
     AppCompatActivity ac;
     Context mContext;
     TextView txtItemName, txtQuantity;
-    MaterialEditText edCost, edPrice, edBarcode, edExpiry;
+    MaterialEditText edCost, edPrice, edBarcode, edExpiry, edNote;
     ImageButton btnScanBarcode;
     Button btnCancel, btnSave;
     Calendar calExpiryDate = Calendar.getInstance();
@@ -79,18 +89,21 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
                     objClientPORefDetail = (ClientPORefDetail) getIntent().getSerializableExtra("objClientPORefDetail");
                     Logger.debug(selStockTransactionStatus + " " + selStockTransactionReason + " " + referenceType + " " + refId + " " + fromId + " " + toId + " " + fromType + " " + toType + objClientPORefDetail.display());
                 }
+                lyMainContent = (RelativeLayout) findViewById(R.id.lyMainContent);
+                dot_progress_bar = (DotProgressBar) findViewById(R.id.dot_progress_bar);
                 InputFilterMinMax filter = new InputFilterMinMax((double) 0, Double.MAX_VALUE);
                 txtItemName = (TextView) findViewById(R.id.txtItemName);
                 txtItemName.setText(objClientPORefDetail.getImItem_name());
                 txtQuantity = (TextView) findViewById(R.id.txtQuantity);
                 txtQuantity.setText(objClientPORefDetail.getPodQty());
+                edNote = (MaterialEditText) findViewById(R.id.edNote);
                 edCost = (MaterialEditText) findViewById(R.id.edCost);
                 edCost.setText(objClientPORefDetail.getPodCost());
                 edCost.setFilters(new InputFilter[]{filter});
                 edPrice = (MaterialEditText) findViewById(R.id.edPrice);
                 edPrice.setText(objClientPORefDetail.getPodPrice());
                 edPrice.setFilters(new InputFilter[]{filter});
-                edBarcode = (MaterialEditText) findViewById(R.id.edBarCode);
+                edBarcode = (MaterialEditText) findViewById(R.id.edBarcode);
                 edExpiry = (MaterialEditText) findViewById(R.id.edExpiry);
                 btnCancel = (Button) findViewById(R.id.btnCancel);
                 btnSave = (Button) findViewById(R.id.btnSave);
@@ -183,11 +196,85 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
                     finish();
                     break;
                 case R.id.btnSave:
-
+                    saveData();
                     break;
             }
         }
     };
 
+    private void saveData() {
+        new AsyncTask() {
+            boolean isDataEntered = true;
+            ServerResponse sr;
+            String strCost, strPrice, strBarcode, strnNote, strExpiry;
 
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                lyMainContent.setVisibility(View.GONE);
+                dot_progress_bar.setVisibility(View.VISIBLE);
+                strCost = edCost.getText().toString();
+                strPrice = edPrice.getText().toString();
+                strBarcode = edBarcode.getText().toString();
+                strnNote = edNote.getText().toString();
+                if (!Helper.isFieldBlank(edExpiry.getText().toString())) {
+                    strExpiry = Helper.convertDateToString(calExpiryDate.getTime(), ConstantVal.DATE_FORMAT);
+                } else {
+                    strExpiry = "0000-00-00";
+                }
+                if (Helper.isFieldBlank(edCost.getText().toString())) {
+                    edCost.setError(mContext.getString(R.string.msgEnterCost));
+                    requestFocus(edCost);
+                    isDataEntered = false;
+                }
+                if (Helper.isFieldBlank(edPrice.getText().toString())) {
+                    edPrice.setError(mContext.getString(R.string.msgEnterPrice));
+                    requestFocus(edPrice);
+                    isDataEntered = false;
+                }
+                if (Helper.isFieldBlank(edBarcode.getText().toString())) {
+                    edBarcode.setError(mContext.getString(R.string.strEnterBarCode));
+                    requestFocus(edBarcode);
+                    isDataEntered = false;
+                }
+            }
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                if (isDataEntered) {
+                    Date dt = new Date();
+                    String date = Helper.convertDateToString(dt, ConstantVal.DATE_FORMAT);
+                    String time = Helper.convertDateToString(dt, ConstantVal.TIME_FORMAT);
+                    final HttpEngine objHttpEngine = new HttpEngine();
+                    String admin_user_id = Helper.getStringPreference(mContext, ClientAdminUser.Fields.ADMINUSERID, "");
+                    final String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
+                    String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+                    final URLMapping um = ConstantVal.savePOTransaction(mContext);
+                    String data[] = {String.valueOf(selStockTransactionStatus), String.valueOf(selStockTransactionReason), referenceType, refId,
+                            objClientPORefDetail.getPodItem_id(), fromId, toId, fromType, toType, objClientPORefDetail.getPodQty(),
+                            strCost, strPrice, strExpiry, strnNote, strBarcode, account_id, admin_user_id, date, time, tokenId};
+                    sr = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), data, um.getParamNames(), um.isNeedToSync());
+                    String result = sr.getResponseString();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                lyMainContent.setVisibility(View.VISIBLE);
+                dot_progress_bar.setVisibility(View.GONE);
+                if (isDataEntered && sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                    ac.setResult(ConstantVal.EDIT_PO_REFERENCE_RESPONSE);
+                    finish();
+                }
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
 }

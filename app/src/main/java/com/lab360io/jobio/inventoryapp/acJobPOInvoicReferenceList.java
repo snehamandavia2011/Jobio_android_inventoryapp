@@ -125,8 +125,8 @@ public class acJobPOInvoicReferenceList extends AppCompatActivity {
                         if (arrClientJobInvoiceRefDetail != null && arrClientJobInvoiceRefDetail.size() > 0) {
                             lyMainContent.setVisibility(View.VISIBLE);
                             lyNoContent.setVisibility(View.GONE);
-                            lvlJobPOInvoice.setAdapter(new JobInvoiceRefDetailAdapter(mContext, arrClientJobInvoiceRefDetail,selStockTransactionStatus,
-                                    selStockTransactionReason,referenceType,refId,fromId,toId,fromType,toType));
+                            lvlJobPOInvoice.setAdapter(new JobInvoiceRefDetailAdapter(mContext, arrClientJobInvoiceRefDetail, selStockTransactionStatus,
+                                    selStockTransactionReason, referenceType, refId, fromId, toId, fromType, toType));
                         } else {
                             lyMainContent.setVisibility(View.GONE);
                             lyNoContent.setVisibility(View.VISIBLE);
@@ -140,8 +140,8 @@ public class acJobPOInvoicReferenceList extends AppCompatActivity {
                         if (arrClientPORefDetail != null && arrClientPORefDetail.size() > 0) {
                             lyMainContent.setVisibility(View.VISIBLE);
                             lyNoContent.setVisibility(View.GONE);
-                            lvlJobPOInvoice.setAdapter(new PORefDetailAdapter(mContext, arrClientPORefDetail,selStockTransactionStatus,
-                                    selStockTransactionReason,referenceType,refId,fromId,toId,fromType,toType));
+                            lvlJobPOInvoice.setAdapter(new PORefDetailAdapter(mContext, arrClientPORefDetail, selStockTransactionStatus,
+                                    selStockTransactionReason, referenceType, refId, fromId, toId, fromType, toType));
                         } else {
                             lyMainContent.setVisibility(View.GONE);
                             lyNoContent.setVisibility(View.VISIBLE);
@@ -199,6 +199,12 @@ public class acJobPOInvoicReferenceList extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
             ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
+            finish();
+        } else if (requestCode == ConstantVal.EDIT_JOB_INVOICE_REFERENCE_REQUEST && resultCode == ConstantVal.EDIT_JOB_INVOICE_REFERENCE_RESPONSE) {
+            ac.setResult(ConstantVal.JOB_PO_INVOICE_REF_RESPONSE);
+            finish();
+        } else if (requestCode == ConstantVal.EDIT_PO_REFERENCE_REQUEST && resultCode == ConstantVal.EDIT_PO_REFERENCE_RESPONSE) {
+            ac.setResult(ConstantVal.JOB_PO_INVOICE_REF_RESPONSE);
             finish();
         }
     }

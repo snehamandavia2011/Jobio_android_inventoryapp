@@ -167,6 +167,8 @@
     <string name="msgEnterInspectionName">Enter inspection name</string>
     <string name="msgEnterInspectionNote">Enter inspection note</string>
     <string name="msgEnterCost">Enter cost</string>
+    <string name="msgEnterPrice">Enter price</string>
+    <string name="msgEnterQuantity">Enter quantity</string>
     <string name="msgItemDetailNotAvailAtServer">Unfortunately item detail with respect to entered barcode is not available on server. </string>
     <string name="msgAssetDetailNotAvail">Unfortunately asset detail with respect to entered QR code is not available. </string>
     <string name="strInspectionName">Inspection Name</string>
@@ -236,5 +238,6 @@
     </string>
     <string name="title_activity_edit_job_invoice_reference_detail">EditJobInvoiceReferenceDetail
     </string>
+    <string name="strNote">Note</string>
 </resources>
 

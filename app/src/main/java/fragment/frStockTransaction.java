@@ -103,7 +103,7 @@ public class frStockTransaction extends Fragment {
                 i.putExtra("toId", toId);
                 i.putExtra("fromType", fromType);
                 i.putExtra("toType", toType);
-                startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
+                startActivityForResult(i, ConstantVal.JOB_PO_INVOICE_REF_REQUEST);
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
