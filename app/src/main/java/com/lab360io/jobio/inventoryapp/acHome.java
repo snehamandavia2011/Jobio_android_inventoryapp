@@ -107,7 +107,7 @@ public class acHome extends AppCompatActivity {
             public void onClick(View v) {
                 //((ImageButton) ((RelativeLayout) findViewById(R.id.rlMenu)).findViewById(R.id.btnJob)).performClick();
                 Intent i = new Intent(ac.getApplicationContext(), acAsset.class);
-                i.putExtra("tab",acAsset.SERVICE);
+                i.putExtra("tab", acAsset.SERVICE);
                 ac.startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
             }
         });
@@ -116,7 +116,7 @@ public class acHome extends AppCompatActivity {
             public void onClick(View v) {
                 //((ImageButton) ((RelativeLayout) findViewById(R.id.rlMenu)).findViewById(R.id.btnInquiry)).performClick();
                 Intent i = new Intent(ac.getApplicationContext(), acAsset.class);
-                i.putExtra("tab",acAsset.INSPECT);
+                i.putExtra("tab", acAsset.INSPECT);
                 ac.startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
             }
         });
@@ -228,6 +228,10 @@ public class acHome extends AppCompatActivity {
                         isDataVerified = false;
                         txtMessage.setVisibility(View.VISIBLE);
                         txtMessage.setText(getString(R.string.msgNewandConfirmPassword));
+                    } else if (!Helper.isValidPassword(edNewPassword.getText().toString())) {
+                        isDataVerified = false;
+                        txtMessage.setVisibility(View.VISIBLE);
+                        txtMessage.setText(getString(R.string.msgPasswordvalidation));
                     } else {
 //check whether old passowrd is exists on server or not, if exists then replace the password with new.
                         userName = Helper.getStringPreference(mContext, ClientAdminUser.Fields.USER_NAME, "");

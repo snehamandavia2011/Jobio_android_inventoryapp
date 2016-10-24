@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
 import android.view.KeyEvent;
@@ -33,6 +34,7 @@ import java.util.Date;
 import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUser;
 import entity.ClientPORefDetail;
+import entity.JobPOInvoiceTransactionResult;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import utility.ConstantVal;
 import utility.DotProgressBar;
@@ -164,8 +166,8 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
         if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
             ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
             finish();
-        } else if (requestCode == ConstantVal.ZBAR_QR_SCANNER_REQUEST && resultCode == RESULT_OK) {
-            edBarcode.setText(ZBarConstants.SCAN_RESULT);
+        } else if (requestCode == ConstantVal.ZBAR_SCANNER_REQUEST && resultCode == RESULT_OK) {
+            edBarcode.setText(data.getStringExtra(ZBarConstants.SCAN_RESULT));
         }
     }
 
@@ -207,7 +209,7 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
             boolean isDataEntered = true;
             ServerResponse sr;
             String strCost, strPrice, strBarcode, strnNote, strExpiry;
-
+            JobPOInvoiceTransactionResult objJobPOInvoiceTransactionResult;
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -255,6 +257,7 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
                             strCost, strPrice, strExpiry, strnNote, strBarcode, account_id, admin_user_id, date, time, tokenId};
                     sr = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), data, um.getParamNames(), um.isNeedToSync());
                     String result = sr.getResponseString();
+                    objJobPOInvoiceTransactionResult = JobPOInvoiceTransactionResult.parseResult(result);
                 }
                 return null;
             }
@@ -264,9 +267,19 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
                 super.onPostExecute(o);
                 lyMainContent.setVisibility(View.VISIBLE);
                 dot_progress_bar.setVisibility(View.GONE);
-                if (isDataEntered && sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
-                    ac.setResult(ConstantVal.EDIT_PO_REFERENCE_RESPONSE);
-                    finish();
+                if (isDataEntered) {
+                    if (isDataEntered && sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                        Helper.displaySnackbar(ac, objJobPOInvoiceTransactionResult.getMessage()).setCallback(new Snackbar.Callback() {
+                            @Override
+                            public void onDismissed(Snackbar snackbar, int event) {
+                                super.onDismissed(snackbar, event);
+                                ac.setResult(ConstantVal.EDIT_PO_REFERENCE_RESPONSE);
+                                finish();
+                            }
+                        });
+                    } else {
+                        Helper.displaySnackbar(ac, sr.getResponseCode());
+                    }
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

@@ -109,6 +109,7 @@
     <string name="msgGPSNotAvailable">GPS is not enabled. Do you want to go to settings menu?</string>
     <string name="strYes">Yes</string>
     <string name="strNo">No</string>
+    <string name="strNoReferenceFound">No reference found</string>
     <string name="msgAlreadyLogin">You are already login on</string>
     <string name="msgStillLoginProblem">If still unable to login then contact \"support@jobio.io\"</string>
     <string name="strNot">Not</string>
@@ -239,5 +240,6 @@
     <string name="title_activity_edit_job_invoice_reference_detail">EditJobInvoiceReferenceDetail
     </string>
     <string name="strNote">Note</string>
+    <string name="msgPasswordvalidation">Password must have six character and minimum one digit</string>
 </resources>
 

@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.lab360io.jobio.inventoryapp.R;
 import com.lab360io.jobio.inventoryapp.acJobPOInvoicReferenceList;
+import com.thomsonreuters.rippledecoratorview.RippleDecoratorView;
 import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class frStockTransaction extends Fragment {
     LinearLayout lyFromTo, lyRefList;
     DotProgressBar dot_progress_bar;
     Spinner spnStockTransactionStatus, spnTransactionReason, spnRef, spnFrom, spnTo;
-    TextView txtReference;
+    TextView txtReference, txtNoReferenceFound;
     Context mContext;
     int selStockTransactionStatus, selStockTransactionReason;
     String referenceType, refId, fromId, toId, fromType, toType;
@@ -61,6 +62,7 @@ public class frStockTransaction extends Fragment {
     ArrayList<ClientStockTransactionStatusMaster> arrClientStockTransactionStatusMaster = null;
     ArrayList<ClientCustEmpSupplier> arrClientCustEmpSupplier = null;
     ArrayList<ClientJobPOInvoiceReference> arrClientJobPOInvoiceReference = null;
+    RippleDecoratorView refView;
 
     @Nullable
     @Override
@@ -74,6 +76,7 @@ public class frStockTransaction extends Fragment {
         btnNext = (Button) view.findViewById(R.id.btnNext);
         dot_progress_bar = (DotProgressBar) view.findViewById(R.id.dot_progress_bar);
         txtReference = (TextView) view.findViewById(R.id.txtReference);
+        txtNoReferenceFound = (TextView) view.findViewById(R.id.txtNoReferenceFound);
         spnStockTransactionStatus = (Spinner) view.findViewById(R.id.spnStockType);
         spnTransactionReason = (Spinner) view.findViewById(R.id.spnTransactionReason);
         spnRef = (Spinner) view.findViewById(R.id.spnRef);
@@ -81,6 +84,7 @@ public class frStockTransaction extends Fragment {
         spnTo = (Spinner) view.findViewById(R.id.spnTo);
         lyFromTo = (LinearLayout) view.findViewById(R.id.lyFromTo);
         lyRefList = (LinearLayout) view.findViewById(R.id.lyRefList);
+        refView = (RippleDecoratorView) view.findViewById(R.id.refView);
         btnNext.setEnabled(false);
         setData();
         return view;
@@ -93,7 +97,8 @@ public class frStockTransaction extends Fragment {
             public void onClick(View v) {
                 try {
                     ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
                 Intent i = new Intent(mContext, acJobPOInvoicReferenceList.class);
                 i.putExtra("selStockTransactionStatus", selStockTransactionStatus);
                 i.putExtra("selStockTransactionReason", selStockTransactionReason);
@@ -206,6 +211,8 @@ public class frStockTransaction extends Fragment {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
+                if (btnNext.isEnabled())
+                    btnNext.setEnabled(false);
                 dot_progress_bar.setVisibility(View.VISIBLE);
                 lyRefList.setVisibility(View.GONE);
             }
@@ -227,7 +234,8 @@ public class frStockTransaction extends Fragment {
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
-                if (arrClientJobPOInvoiceReference != null) {
+                lyRefList.setVisibility(View.VISIBLE);
+                if (arrClientJobPOInvoiceReference != null && arrClientJobPOInvoiceReference.size() > 0) {
                     adpClientJobPOInvoiceReference = new ArrayAdapter<ClientJobPOInvoiceReference>(mContext, R.layout.spinner_item, arrClientJobPOInvoiceReference);
                     spnRef.setAdapter(adpClientJobPOInvoiceReference);
                     spnRef.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -241,9 +249,17 @@ public class frStockTransaction extends Fragment {
 
                         }
                     });
-                    lyRefList.setVisibility(View.VISIBLE);
+                    if (!btnNext.isEnabled())
+                        btnNext.setEnabled(true);
+                    txtNoReferenceFound.setVisibility(View.GONE);
+                    refView.setVisibility(View.VISIBLE);
                 } else {
-                    Helper.displaySnackbar((AppCompatActivity) getActivity(), ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseString()));
+                    if (btnNext.isEnabled())
+                        btnNext.setEnabled(false);
+                    txtNoReferenceFound.setVisibility(View.VISIBLE);
+                    refView.setVisibility(View.GONE);
+                    if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS))
+                        Helper.displaySnackbar((AppCompatActivity) getActivity(), sr.getResponseCode());
                 }
                 dot_progress_bar.setVisibility(View.GONE);
             }

@@ -38,6 +38,7 @@ import java.util.Date;
 import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUser;
 import entity.ClientJobInvoiceRefDetail;
+import entity.JobPOInvoiceTransactionResult;
 import fragment.StockTransactionReferenceType;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import utility.ConstantVal;
@@ -124,7 +125,7 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
                 edPrice.setFilters(new InputFilter[]{filter});
                 edBarcode.setText(objClientJobInvoiceRefDetail.getItBarcode());
                 String expiryDate = objClientJobInvoiceRefDetail.getItExpiry();
-                if (expiryDate != null && !expiryDate.equals("0000-00-00") && expiryDate.equals("")) {
+                if (expiryDate != null && !expiryDate.equals("0000-00-00") && !expiryDate.equals("")) {
                     try {
                         calExpiryDate.setTime(Helper.convertStringToDate(expiryDate, ConstantVal.DATE_FORMAT));
                         edExpiry.setText(dateFormat.format(calExpiryDate.getTime()));
@@ -193,8 +194,8 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
         if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
             ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
             finish();
-        } else if (requestCode == ConstantVal.ZBAR_QR_SCANNER_REQUEST && resultCode == RESULT_OK) {
-            edBarcode.setText(ZBarConstants.SCAN_RESULT);
+        } else if (requestCode == ConstantVal.ZBAR_SCANNER_REQUEST && resultCode == RESULT_OK) {
+            edBarcode.setText(data.getStringExtra(ZBarConstants.SCAN_RESULT));
         }
     }
 
@@ -235,6 +236,7 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
         new AsyncTask() {
             boolean isDataEntered = true;
             ServerResponse sr;
+            JobPOInvoiceTransactionResult objJobPOInvoiceTransactionResult;
 
             @Override
             protected void onPreExecute() {
@@ -285,6 +287,7 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
                             account_id, admin_user_id, date, time, tokenId};
                     sr = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), data, um.getParamNames(), um.isNeedToSync());
                     String result = sr.getResponseString();
+                    objJobPOInvoiceTransactionResult = JobPOInvoiceTransactionResult.parseResult(result);
                 }
                 return null;
             }
@@ -294,9 +297,19 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
                 super.onPostExecute(o);
                 lyMainContent.setVisibility(View.VISIBLE);
                 dot_progress_bar.setVisibility(View.GONE);
-                if (isDataEntered && sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
-                    ac.setResult(ConstantVal.EDIT_JOB_INVOICE_REFERENCE_RESPONSE);
-                    finish();
+                if (isDataEntered) {
+                    if (isDataEntered && sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                        Helper.displaySnackbar(ac, objJobPOInvoiceTransactionResult.getMessage()).setCallback(new Snackbar.Callback() {
+                            @Override
+                            public void onDismissed(Snackbar snackbar, int event) {
+                                super.onDismissed(snackbar, event);
+                                ac.setResult(ConstantVal.EDIT_JOB_INVOICE_REFERENCE_RESPONSE);
+                                finish();
+                            }
+                        });
+                    } else {
+                        Helper.displaySnackbar(ac, sr.getResponseCode());
+                    }
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

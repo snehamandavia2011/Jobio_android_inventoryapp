@@ -63,15 +63,19 @@ public class serDeviceToServerSync extends Service {
                             int id = cutUnSyncData.getInt(0);
                             String url = cutUnSyncData.getString(1);
                             StringBuffer data = new StringBuffer(cutUnSyncData.getString(2));
-                            //replace token with current token
-                            int startIndex = data.indexOf("token_id=") + 9;
-                            int endIndex = data.indexOf("&", startIndex);
-                            String oldToken = data.substring(startIndex, endIndex);
-                            //Logger.debug(data + " " + startIndex + " " + endIndex + " " + oldToken);
-                            if (oldToken.length() <= 0) {
-                                data = data.insert(startIndex, currentToken);
-                            } else {
-                                data = data.replace(startIndex, endIndex, currentToken);
+                            try {
+                                //replace token with current token
+                                int startIndex = data.indexOf("token_id=") + 9;
+                                int endIndex = data.indexOf("&", startIndex);
+                                String oldToken = data.substring(startIndex, endIndex);
+                                //Logger.debug(data + " " + startIndex + " " + endIndex + " " + oldToken);
+                                if (oldToken.length() <= 0) {
+                                    data = data.insert(startIndex, currentToken);
+                                } else {
+                                    data = data.replace(startIndex, endIndex, currentToken);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                             //Logger.debug(data.toString());
                             ServerResponse objServerResponse = objHttpEngine.makeHttpRequestCall(mContext, url, data.toString());

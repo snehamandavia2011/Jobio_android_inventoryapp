@@ -194,7 +194,7 @@
 
                         <TextView
                             android:id="@+id/txtReference"
-                            style="@style/styDescTile"
+                            style="@style/styDescDarkGreyX"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/ViewMargin"
@@ -227,7 +227,17 @@
                                     app:font="@{`Ubuntu-M`}" />
                             </LinearLayout>
 
+                            <TextView
+                                android:id="@+id/txtNoReferenceFound"
+                                style="@style/styDescDarkGreyX"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/strNoReferenceFound"
+                                android:visibility="gone"
+                                app:font="@{`Ubuntu-M`}" />
+
                             <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                                android:id="@+id/refView"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_horizontal"
@@ -263,6 +273,7 @@
                                 </RelativeLayout>
                             </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
                         </LinearLayout>
+
                         <utility.DotProgressBar
 
                             android:id="@+id/dot_progress_bar"
@@ -274,6 +285,7 @@
                             custom:duration="@android:integer/config_shortAnimTime"
                             custom:endColor="@color/tilt"
                             custom:startColor="@color/tilt" />
+
                         <LinearLayout
                             android:id="@+id/lyFromTo"
                             android:layout_width="wrap_content"

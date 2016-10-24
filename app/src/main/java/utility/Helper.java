@@ -112,12 +112,12 @@ public class Helper {
     }
 
 
-
     public static String getCurrencySymbol() {
         Locale defaultLocale = Locale.getDefault();
         Currency currency = Currency.getInstance(defaultLocale);
         return currency.getSymbol();
     }
+
     public static void clearPreference(Context c, String key) {
         SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(c).edit();
         e.remove(key);
@@ -279,7 +279,7 @@ public class Helper {
                                         FragmentTransaction ft = fr.getActivity().getFragmentManager().beginTransaction();
                                         ft.detach(fr).attach(fr).commit();
                                     }
-                                } else if(!result.equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED)){
+                                } else if (!result.equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED)) {
                                     displaySnackbar(ac, result);
                                     if (fr != null && isActivityRunning) {
                                         FragmentTransaction ft = fr.getActivity().getFragmentManager().beginTransaction();
@@ -1164,4 +1164,16 @@ public class Helper {
         dialog.show();
     }
 
+    public static boolean isValidPassword(String pass) {
+        if (pass.length() >= 6) {
+            for (char c : pass.toCharArray()) {
+                if (Character.isDigit(c)) {
+                    return true;
+                }
+            }
+        } else {
+            return false;
+        }
+        return false;
+    }
 }
