@@ -21,7 +21,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -58,6 +60,8 @@ public class acStock extends ActionBarActivity implements TabHost.OnTabChangeLis
     private HashMap<String, TabInfo> mapTabInfo = new HashMap<String, TabInfo>();
     private PagerAdapter mPagerAdapter;
     String stockSelectionOptionName;
+    RelativeLayout lyNoContent;
+    FrameLayout lyMainContent;
 
     private class TabInfo {
         private String tag;
@@ -99,6 +103,8 @@ public class acStock extends ActionBarActivity implements TabHost.OnTabChangeLis
         ac = this;
         mContext = this;
         mViewPager = (ViewPager) super.findViewById(R.id.viewpager);
+        lyNoContent = (RelativeLayout) findViewById(R.id.lyNoContent);
+        lyMainContent = (FrameLayout) findViewById(R.id.lyMainContent);
         objHelper.setActionBar(ac, getString(R.string.strStock), getString(R.string.strStock));
         stockSelectionOptionName = Helper.getStringPreference(mContext, ClientStockSelection.Fields.OPTION_NAME, "");
         if (this.getIntent().getExtras() != null) {
@@ -109,11 +115,20 @@ public class acStock extends ActionBarActivity implements TabHost.OnTabChangeLis
                 current_tab = ITEM;
             }
         }
-        this.initialiseTabHost(savedInstanceState);
-        if (savedInstanceState != null) {
-            mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab")); //set the tab as per the saved state
+        if (Helper.isModuleAccessAllow(mContext, ConstantVal.ModuleAccess.INVENTORY) == false) {
+            lyNoContent.setVisibility(View.VISIBLE);
+            lyMainContent.setVisibility(View.GONE);
+            ((TextView) findViewById(R.id.txtMessage)).setText(getString(R.string.msgFeatureNotAvailContactAdmin));
+            ((ImageView) findViewById(R.id.imgIcon)).setBackgroundResource(R.drawable.ic_stock_white_big);
+        } else {
+            lyNoContent.setVisibility(View.GONE);
+            lyMainContent.setVisibility(View.VISIBLE);
+            this.initialiseTabHost(savedInstanceState);
+            if (savedInstanceState != null) {
+                mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab")); //set the tab as per the saved state
+            }
+            this.intialiseViewPager();
         }
-        this.intialiseViewPager();
     }
 
     private void intialiseViewPager() {

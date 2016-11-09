@@ -1,4 +1,5 @@
 <resources>
+    <string name="msgFeatureNotAvailContactAdmin">Feature is not available. Contact to admin</string>
     <string name="app_name">Jobio AIM</string>
     <string name="strHiya">Hiya</string>
     <string name="strNA">NA</string>
@@ -79,7 +80,7 @@
     <string name="strTomorrow">Tomorrow</string>
     <string name="strYesterday">Yesterday</string>
     <string name="strStock">Stock</string>
-    <string name="strInOut">Check in/Check Out</string>
+    <string name="strInOut">In/Out</string>
     <string name="strDate">Date</string>
     <string name="strAsset">Asset</string>
     <string name="strSync">Sync</string>
@@ -140,6 +141,7 @@
     <string name="msgDescNotAvail">Description is not available</string>
     <string name="title_activity_ac_asset_detail">acAssetDetail</string>
     <string name="strAssetDetail">Asset Detail</string>
+    <string name="strItemDetail">Item Detail</string>
     <string name="strSearchItem">Search Item</string>
     <string name="strAssetDesc">Asset Description</string>
     <string name="strModel">Model</string>

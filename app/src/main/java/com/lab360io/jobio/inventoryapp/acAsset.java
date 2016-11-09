@@ -23,8 +23,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -56,6 +58,8 @@ public class acAsset extends ActionBarActivity implements TabHost.OnTabChangeLis
     private ViewPager mViewPager;
     private HashMap<String, TabInfo> mapTabInfo = new HashMap<String, TabInfo>();
     private PagerAdapter mPagerAdapter;
+    RelativeLayout lyNoContent;
+    FrameLayout lyMainContent;
 
     private class TabInfo {
         private String tag;
@@ -97,6 +101,8 @@ public class acAsset extends ActionBarActivity implements TabHost.OnTabChangeLis
         ac = this;
         mContext = this;
         mViewPager = (ViewPager) super.findViewById(R.id.viewpager);
+        lyNoContent = (RelativeLayout) findViewById(R.id.lyNoContent);
+        lyMainContent = (FrameLayout) findViewById(R.id.lyMainContent);
         objHelper.setActionBar(ac, getString(R.string.strAsset), getString(R.string.strAsset));
         if (this.getIntent().getExtras() != null) {
             try {
@@ -106,11 +112,20 @@ public class acAsset extends ActionBarActivity implements TabHost.OnTabChangeLis
                 current_tab = ASSET;
             }
         }
-        this.initialiseTabHost(savedInstanceState);
-        if (savedInstanceState != null) {
-            mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab")); //set the tab as per the saved state
+        if (Helper.isModuleAccessAllow(mContext, ConstantVal.ModuleAccess.ASSET) == false) {
+            lyNoContent.setVisibility(View.VISIBLE);
+            lyMainContent.setVisibility(View.GONE);
+            ((TextView) findViewById(R.id.txtMessage)).setText(getString(R.string.msgFeatureNotAvailContactAdmin));
+            ((ImageView) findViewById(R.id.imgIcon)).setBackgroundResource(R.drawable.ic_asset_white_big);
+        } else {
+            lyNoContent.setVisibility(View.GONE);
+            lyMainContent.setVisibility(View.VISIBLE);
+            this.initialiseTabHost(savedInstanceState);
+            if (savedInstanceState != null) {
+                mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab")); //set the tab as per the saved state
+            }
+            this.intialiseViewPager();
         }
-        this.intialiseViewPager();
     }
 
     private void intialiseViewPager() {

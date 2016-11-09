@@ -15,6 +15,7 @@ import asyncmanager.asyncEmployeeList;
 import asyncmanager.asyncLoadCommonData;
 import asyncmanager.asyncLocationTrackingInterval;
 import asyncmanager.asyncMessageList;
+import asyncmanager.asyncModuleFlag;
 import asyncmanager.asyncUserData;
 import utility.ConstantVal;
 import utility.Helper;
@@ -60,6 +61,7 @@ public class serServerToDeviceSync extends Service {
                 new asyncUserData(mContext).join();
                 new asyncAsset(mContext).getAllData().join();
                 new asyncLoadCommonData(mContext).startSync().join();
+                new asyncModuleFlag(mContext).join();
                 new asyncLocationTrackingInterval(mContext);
                 new asyncEmployeeList(mContext);
                 if (!acMessageList.IS_MESSAGE_LOADING_RUN) {

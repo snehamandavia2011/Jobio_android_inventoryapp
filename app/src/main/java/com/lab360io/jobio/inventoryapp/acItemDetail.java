@@ -70,7 +70,7 @@ public class acItemDetail extends AppCompatActivity {
         DataBindingUtil.setContentView(this, R.layout.item_detail);
         ac = this;
         mContext = this;
-        objHelper.setActionBar(ac, mContext.getString(R.string.strAssetDetail));
+        objHelper.setActionBar(ac, mContext.getString(R.string.strItemDetail));
         mContext.registerReceiver(objItemDetailBroadcast, new IntentFilter(ConstantVal.BroadcastAction.ITEM_DETAIL));
         setData();
     }

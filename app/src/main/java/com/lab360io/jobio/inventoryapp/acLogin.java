@@ -40,6 +40,7 @@ import asyncmanager.asyncEmployeeList;
 import asyncmanager.asyncLoadCommonData;
 import asyncmanager.asyncLocationTrackingInterval;
 import asyncmanager.asyncMessageList;
+import asyncmanager.asyncModuleFlag;
 import asyncmanager.asyncUserData;
 import entity.BusinessAccountMaster;
 import entity.BusinessAccountdbDetail;
@@ -233,6 +234,7 @@ public class acLogin extends AppCompatActivity {
                                             new asyncAsset(mContext).getAllData().join();
                                             new asyncDashboardData(mContext).join();
                                             new asyncLocationTrackingInterval(mContext).join();
+                                            new asyncModuleFlag(mContext).join();
                                             new asyncEmployeeList(mContext).join();
                                             new asyncLoadCommonData(mContext).startSync().join();
                                             new asyncMessageList(mContext);

@@ -30,6 +30,7 @@ public class DataBase {
             db.execSQL(TABLE_10_CREATE);
             db.execSQL(TABLE_11_CREATE);
             db.execSQL(TABLE_12_CREATE);
+            db.execSQL(TABLE_13_CREATE);
         }
 
         @Override
@@ -45,6 +46,7 @@ public class DataBase {
             db.execSQL("DROP TABLE IF EXISTS " + item_transaction_table);
             db.execSQL("DROP TABLE IF EXISTS " + stock_transaction_status_table);
             db.execSQL("DROP TABLE IF EXISTS " + stock_transaction_reason_table);
+            db.execSQL("DROP TABLE IF EXISTS " + module_flag_table);
             onCreate(db);
         }
     }
@@ -81,6 +83,8 @@ public class DataBase {
     public static final int stock_transaction_status_int = 11;
     public static final String stock_transaction_reason_table = "stockTransactionReason";
     public static final int stock_transaction_reason_int = 12;
+    public static final String module_flag_table = "ModuleFlag";
+    public static final int module_Flag_int = 13;
 
 
     String[][] tables = new String[][]{{"_ID", "URL", "data", "isSync", "last_result_code", "admin_user_id", "account_id"},
@@ -115,7 +119,8 @@ public class DataBase {
                     "min_qty_for_restock", "display_status", "custom_field_1", "custom_field_2", "custom_field_3",
                     "custom_field_4", "custom_field_5", "last_update_date_time"},
             {"_ID", "imUUID", "itUUID", "available_qty", "cost", "price", "barcode", "spplierName"},
-            {"_ID", "id", "action_name"}, {"_ID", "id", "stock_transaction_status_id", "reason"}};
+            {"_ID", "id", "action_name"}, {"_ID", "id", "stock_transaction_status_id", "reason"},
+            {"localPKModuleId", "serverPKModuleId", "moduleName", "access"}};
     private static final String TABLE_0_CREATE = "create table "
             + device_to_db_sync_table
             + "(_ID integer primary key autoincrement,URL text not null,data text not null,isSync text not null,last_result_code text not null,admin_user_id text not null, account_id text not null);";
@@ -206,6 +211,11 @@ public class DataBase {
             + stock_transaction_reason_table
             + "(_ID integer primary key autoincrement,id text not null,stock_transaction_status_id text not null,reason text not null);";
 
+    private static final String TABLE_13_CREATE = "create table "
+            + module_flag_table
+            + "(localPKModuleId integer primary key autoincrement,"
+            + "serverPKModuleId text not null,moduleName text not null, access text not null);";
+
     public DataBase(Context ctx) {
         HCtx = ctx;
     }
@@ -230,6 +240,7 @@ public class DataBase {
         sqLiteDb.delete(item_transaction_table, null, null);
         sqLiteDb.delete(stock_transaction_status_table, null, null);
         sqLiteDb.delete(stock_transaction_reason_table, null, null);
+        sqLiteDb.delete(module_flag_table, null, null);
     }
 
     public void cleanNotUserTable() {
@@ -247,6 +258,7 @@ public class DataBase {
         sqLiteDb.delete(service_table, null, null);
         sqLiteDb.delete(stock_transaction_status_table, null, null);
         sqLiteDb.delete(stock_transaction_reason_table, null, null);
+        sqLiteDb.delete(module_flag_table, null, null);
     }
 
     public void cleanTable(int tableNo) {
@@ -277,13 +289,16 @@ public class DataBase {
                 break;
             case service_view_int:
                 sqLiteDb.delete(service_view_table, null, null);
+                break;
             case item_master_int:
                 sqLiteDb.delete(item_master_table, null, null);
                 break;
             case item_transaction_int:
                 sqLiteDb.delete(item_transaction_table, null, null);
                 break;
-
+            case module_Flag_int:
+                sqLiteDb.delete(module_flag_table, null, null);
+                break;
             default:
                 break;
         }

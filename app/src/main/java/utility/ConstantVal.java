@@ -52,6 +52,16 @@ public class ConstantVal {
         public static final String ITEM_DETAIL = "jobio.io.CHANGED_ITEM_DETAIL";
     }
 
+    public static class AdminUserType {
+        public static final int FIELD_APP_USERS = 2;
+        public static final int AIM_APP_USERS = 3;
+    }
+
+    public static class ModuleAccess {
+        public static final String INVENTORY = "Inventory";
+        public static final String ASSET = "Asset";
+    }
+
     public static class SettingFlags {
         public static void clearCache(Context ctx) {
             Helper.clearPreference(ctx, MESSAGE_CONVERSATION_TONE);
@@ -398,5 +408,12 @@ public class ConstantVal {
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(subDomain) + "stockAIM/savePOTransaction";
         return new URLMapping(paramNames, URL, true);
+    }
+
+    public static URLMapping getModuleFlagUrl(Context c) {
+        String[] paramName = {"admin_user_Id","userType", "token_id", "account_id"};
+        String QRCode = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(QRCode) + "getmoduleflag/flag";
+        return new URLMapping(paramName, URL, false);
     }
 }

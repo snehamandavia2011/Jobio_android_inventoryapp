@@ -426,11 +426,11 @@ public class Helper {
         try {
             new JSONObject(test);
         } catch (JSONException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             try {
                 new JSONArray(test);
             } catch (JSONException ex1) {
-                ex1.printStackTrace();
+                //ex1.printStackTrace();
                 return false;
             }
         }
@@ -1175,5 +1175,24 @@ public class Helper {
             return false;
         }
         return false;
+    }
+
+    public static boolean isModuleAccessAllow(Context mContext, String moduleName) {
+        boolean isAllow = false;
+        DataBase db = new DataBase(mContext);
+        db.open();
+        Cursor cur = db.fetch(DataBase.module_flag_table, DataBase.module_Flag_int, "moduleName='" + moduleName + "'");
+        if (cur != null && cur.getCount() > 0) {
+            cur.moveToFirst();
+            do {
+                if (cur.getInt(3) == 1) {
+                    isAllow = true;
+                    return isAllow;
+                }
+            } while (cur.moveToNext());
+        }
+        cur.close();
+        db.close();
+        return isAllow;
     }
 }

@@ -35,6 +35,8 @@ import android.widget.TextView;
 
 import com.xwray.fontbinding.FontCache;
 
+import java.util.Calendar;
+
 import asyncmanager.asyncLoadCommonData;
 import entity.BusinessAccountMaster;
 import entity.BusinessAccountdbDetail;
@@ -363,7 +365,13 @@ public class acHome extends AppCompatActivity {
                 }
                 DataBase db = new DataBase(mContext);
                 db.open();
-                serviceCount.setText(String.valueOf(0));
+                Calendar calYesterday = Calendar.getInstance();
+                calYesterday.add(Calendar.DATE, -1);
+                Calendar calTomorrow = Calendar.getInstance();
+                calTomorrow.add(Calendar.DATE, 1);
+                Logger.debug(calYesterday.getTime() + " " + calTomorrow.getTime() + " " + calYesterday.getTimeInMillis() + " " + calTomorrow.getTimeInMillis());
+                int sCount = db.getCounts(DataBase.service_table, "amNext_service_date>" + calYesterday.getTimeInMillis() + " and amNext_service_date<" + calTomorrow.getTimeInMillis());
+                serviceCount.setText(String.valueOf(sCount));
                 serviceStatus.setText(mContext.getString(R.string.strService));
                 serviceDay.setText(mContext.getString(R.string.strToday));
                 int msgCount = db.getCounts(DataBase.field_message_table, "to_id='" + adminUserId + "' and is_viewed='N'");
