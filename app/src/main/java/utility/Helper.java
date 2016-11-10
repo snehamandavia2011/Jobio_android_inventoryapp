@@ -7,7 +7,6 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -33,7 +32,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.ColorInt;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.IntentCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.graphics.drawable.DrawableWrapper;
 import android.support.v7.app.ActionBar;
@@ -60,15 +58,15 @@ import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
-import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acAsset;
-import com.lab360io.jobio.inventoryapp.acHome;
-import com.lab360io.jobio.inventoryapp.acItemDetail;
-import com.lab360io.jobio.inventoryapp.acLogin;
-import com.lab360io.jobio.inventoryapp.acMessageEmployeeList;
-import com.lab360io.jobio.inventoryapp.acSetting;
-import com.lab360io.jobio.inventoryapp.acStock;
-import com.lab360io.jobio.inventoryapp.acSync;
+import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acAsset;
+import com.lab360io.jobio.officeApp.acHome;
+import com.lab360io.jobio.officeApp.acItemDetail;
+import com.lab360io.jobio.officeApp.acLogin;
+import com.lab360io.jobio.officeApp.acMessageEmployeeList;
+import com.lab360io.jobio.officeApp.acSetting;
+import com.lab360io.jobio.officeApp.acStock;
+import com.lab360io.jobio.officeApp.acSync;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -452,7 +450,9 @@ public class Helper {
     }
 
     public static boolean isFieldBlank(String val) {
-        if (val.equals("") || val == null) {
+        if (val == null) {
+            return true;
+        } else if (val.equals("")) {
             return true;
         }
         return false;

@@ -4,12 +4,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
@@ -22,8 +20,8 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acSearchAssetByQR;
+import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acSearchAssetByQR;
 import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;
@@ -31,11 +29,8 @@ import java.util.ArrayList;
 import adapter.AssetAdapter;
 import asyncmanager.asyncAsset;
 import entity.ClientAsset;
-import entity.ClientAssetOwner;
 import utility.ConstantVal;
-import utility.DataBase;
 import utility.DotProgressBar;
-import utility.Logger;
 
 
 /**

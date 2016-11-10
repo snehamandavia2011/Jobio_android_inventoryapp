@@ -2,28 +2,22 @@ package adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acItemDetail;
-import com.lab360io.jobio.inventoryapp.acStock;
+import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acStock;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import asyncmanager.asyncLoadCommonData;
 import entity.ClientItemMaster1;
-import utility.ConstantVal;
 import utility.Helper;
 
 /**

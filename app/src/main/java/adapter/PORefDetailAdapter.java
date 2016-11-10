@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -15,9 +14,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acEditJobInvoiceReferenceDetail;
-import com.lab360io.jobio.inventoryapp.acEditPOReferenceDetail;
+import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acEditPOReferenceDetail;
 
 import java.util.ArrayList;
 

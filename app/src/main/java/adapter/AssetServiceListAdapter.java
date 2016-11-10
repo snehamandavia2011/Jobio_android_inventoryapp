@@ -11,8 +11,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acServiceTransaction;
+import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acServiceTransaction;
 import com.thomsonreuters.rippledecoratorview.RippleDecoratorView;
 
 import java.util.HashMap;

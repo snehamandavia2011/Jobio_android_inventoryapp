@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
 
+import utility.Logger;
+
 /**
  * Created by SAI on 2/20/2016.
  */
@@ -22,7 +24,6 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
      */
     @Override
     public Fragment getItem(int position) {
-
         return this.fragments.get(position);
     }
 
@@ -33,4 +34,5 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return this.fragments.size();
     }
+
 }

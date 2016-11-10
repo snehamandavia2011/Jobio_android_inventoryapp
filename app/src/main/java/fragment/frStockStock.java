@@ -10,35 +10,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.lab360io.jobio.inventoryapp.R;
+import com.lab360io.jobio.officeApp.R;
 import com.xwray.fontbinding.FontCache;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 
-import adapter.AssetAdapter;
 import adapter.DownloadedItemAdapter;
 import entity.BusinessAccountdbDetail;
-import entity.ClientAsset;
-import entity.ClientEmployeeMaster;
 import entity.ClientItemMaster1;
-import parser.parseAssetIOwn;
-import parser.parseItemMaster;
 import utility.ConstantVal;
 import utility.DotProgressBar;
 import utility.Helper;
 import utility.HttpEngine;
-import utility.Logger;
 import utility.ServerResponse;
 import utility.URLMapping;
 

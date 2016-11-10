@@ -352,6 +352,7 @@
                     </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
                     <TextView
+                        android:id="@+id/txtUploadPhoto"
                         style="@style/stySubTitleTile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -403,6 +404,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/txtUploadInvoice"
                         style="@style/stySubTitleTile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

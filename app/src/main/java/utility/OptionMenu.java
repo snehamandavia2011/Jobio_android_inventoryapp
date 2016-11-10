@@ -7,9 +7,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acLogin;
-import com.lab360io.jobio.inventoryapp.acSplash;
+import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acLogin;
+import com.lab360io.jobio.officeApp.acSplash;
 
 /**
  * Created by SNEHA MANDAVIA on 3/17/2016.

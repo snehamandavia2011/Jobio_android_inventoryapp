@@ -15,8 +15,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acSearchItemByBarcodeScanner;
+import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acSearchItemByBarcodeScanner;
 import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;

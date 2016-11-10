@@ -24,7 +24,7 @@ import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.lab360io.jobio.inventoryapp.R;
+import com.lab360io.jobio.officeApp.R;
 
 public class CircleImageView extends ImageView {
 

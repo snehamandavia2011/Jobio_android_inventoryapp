@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.crashlytics.android.core.CrashlyticsCore;
-import com.lab360io.jobio.inventoryapp.R;
+import com.lab360io.jobio.officeApp.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;

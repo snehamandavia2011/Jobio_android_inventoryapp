@@ -11,19 +11,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acAssetDetail;
-import com.lab360io.jobio.inventoryapp.acHome;
-import com.lab360io.jobio.inventoryapp.acItemDetail;
+import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acAssetDetail;
+import com.lab360io.jobio.officeApp.acHome;
+import com.lab360io.jobio.officeApp.acItemDetail;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUserEmployee;
 import entity.ClientAsset;
-import entity.ClientAssetInspectServiceStatus;
-import entity.ClientItemMaster;
 import entity.ClientItemMaster1;
 import parser.parseCommonData;
 import utility.CircleImageView;

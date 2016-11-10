@@ -10,15 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acMessageList;
+import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acMessageList;
 
 import java.util.ArrayList;
 
@@ -27,7 +23,6 @@ import entity.ClientAdminUserEmployee;
 import utility.CircleImageView;
 import utility.ConstantVal;
 import utility.Helper;
-import utility.Logger;
 
 
 /**

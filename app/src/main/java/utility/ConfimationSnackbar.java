@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.lab360io.jobio.inventoryapp.R;
+import com.lab360io.jobio.officeApp.R;
 
 /**
  * Created by SNEHA MANDAVIA on 5/18/2016.

@@ -15,14 +15,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acJobPOInvoicReferenceList;
+import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acJobPOInvoicReferenceList;
 import com.thomsonreuters.rippledecoratorview.RippleDecoratorView;
 import com.xwray.fontbinding.FontCache;
 
@@ -37,7 +35,6 @@ import utility.ConstantVal;
 import utility.DotProgressBar;
 import utility.Helper;
 import utility.HttpEngine;
-import utility.Logger;
 import utility.ServerResponse;
 import utility.URLMapping;
 

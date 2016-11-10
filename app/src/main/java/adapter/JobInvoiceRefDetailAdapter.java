@@ -15,8 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acEditJobInvoiceReferenceDetail;
+import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acEditJobInvoiceReferenceDetail;
 
 import java.util.ArrayList;
 

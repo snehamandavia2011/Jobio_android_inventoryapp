@@ -2,7 +2,6 @@ package asyncmanager;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +11,8 @@ import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
-import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acMessageList;
+import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acMessageList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

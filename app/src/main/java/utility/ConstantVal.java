@@ -2,7 +2,7 @@ package utility;
 
 import android.content.Context;
 
-import com.lab360io.jobio.inventoryapp.R;
+import com.lab360io.jobio.officeApp.R;
 
 import java.util.ArrayList;
 

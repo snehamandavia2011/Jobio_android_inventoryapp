@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 
-import com.lab360io.jobio.inventoryapp.acMessageList;
+import com.lab360io.jobio.officeApp.acMessageList;
 
 import java.util.Date;
 

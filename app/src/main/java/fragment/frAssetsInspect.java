@@ -15,16 +15,10 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.lab360io.jobio.inventoryapp.R;
-import com.lab360io.jobio.inventoryapp.acSearchAssetByQR;
+import com.lab360io.jobio.officeApp.R;
 import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;
@@ -32,16 +26,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import adapter.AssetAdapter;
 import adapter.AssetInspectListAdapter;
 import asyncmanager.asyncAsset;
-import entity.ClientAsset;
 import entity.ClientAssetInspect;
 import utility.ConstantVal;
 import utility.DataBase;
 import utility.DotProgressBar;
 import utility.Helper;
-import utility.Logger;
 
 
 /**
