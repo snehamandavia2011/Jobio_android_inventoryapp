@@ -46,6 +46,7 @@ import utility.Helper;
 import utility.HttpEngine;
 import utility.Logger;
 import utility.OptionMenu;
+import utility.ServerResponse;
 import utility.URLMapping;
 
 public class acMessageList extends AppCompatActivity {
@@ -170,6 +171,7 @@ public class acMessageList extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             new AsyncTask() {
+                ServerResponse sr;
                 ClientFieldMessage objClientFieldMessage;
                 View view = null;
                 long localPK;
@@ -233,13 +235,16 @@ public class acMessageList extends AppCompatActivity {
                     String time = Helper.convertDateToString(objClientFieldMessage.getDate(), ConstantVal.TIME_FORMAT);
                     String[] Data = {String.valueOf(tokenId), String.valueOf(localPK), objClientFieldMessage.getMessage(), objClientFieldMessage.getFrom_id(),
                             objClientFieldMessage.getTo_id(), objClientFieldMessage.getIs_viewed(), date, time, account_id};
-                    objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), Data, um.getParamNames(), um.isNeedToSync());
+                    sr = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), Data, um.getParamNames(), um.isNeedToSync());
                     return null;
                 }
 
                 @Override
                 protected void onPostExecute(Object o) {
                     super.onPostExecute(o);
+                    if(sr.getResponseCode().equals(ConstantVal.ServerResponseCode.NO_INTERNET)){
+                        Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet));
+                    }
                 }
             }.execute();
         }
@@ -426,7 +431,7 @@ public class acMessageList extends AppCompatActivity {
         public void onReceive(final Context context, Intent intent) {//Receive the broadcast from asyncMessageList
             final int localPK = intent.getIntExtra(acMessageList.LOCAL_PK, 0);
             final int status = intent.getIntExtra(acMessageList.STATUS, 0);
-            Logger.debug("Broadcast receive:" + localPK + " " + status);
+            //Logger.debug("Broadcast receive:" + localPK + " " + status);
             new AsyncTask() {
                 @Override
                 protected void onPreExecute() {

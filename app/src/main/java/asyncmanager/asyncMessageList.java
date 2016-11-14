@@ -196,7 +196,7 @@ public class asyncMessageList {
                             db.close();
                         }
                     } catch (Exception e) {
-                        Logger.debug("Error:" + e.getMessage());
+                        //Logger.debug("Error:" + e.getMessage());
                         e.printStackTrace();
                     }
                 }

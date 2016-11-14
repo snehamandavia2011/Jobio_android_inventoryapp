@@ -58,7 +58,7 @@ public class acSplash extends Activity {
                                     txtAccountName.setVisibility(View.GONE);
                                     imgLogo.setImageBitmap(Helper.convertBase64ImageToBitmap(imageDataBytes));
                                 } catch (Exception e) {
-                                    Logger.debug(e.getMessage());
+                                    //Logger.debug(e.getMessage());
                                     txtAccountName.setVisibility(View.VISIBLE);
                                     imgLogo.setVisibility(View.GONE);
                                     txtAccountName.setText(strAccountName);

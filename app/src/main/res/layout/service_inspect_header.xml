@@ -12,6 +12,7 @@
         android:background="@drawable/white_bg" />
 
     <RelativeLayout
+        android:layout_marginBottom="@dimen/ViewMargin"
         android:id="@+id/relative_layout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

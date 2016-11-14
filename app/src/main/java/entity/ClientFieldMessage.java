@@ -76,7 +76,7 @@ public class ClientFieldMessage {
         String where = "from_id='" + friendId + "' and to_id='" + selfId + "' OR from_id='" + selfId + "' and to_id='" + friendId + "'";
         String orderby = "datetime ='',datetime ASC";
         Cursor cur = db.fetch(DataBase.field_message_table, where, orderby);
-        Logger.debug("count:" + cur.getCount());
+        //Logger.debug("count:" + cur.getCount());
         if (cur != null && cur.getCount() > 0) {
             arr = new ArrayList<>();
             cur.moveToFirst();

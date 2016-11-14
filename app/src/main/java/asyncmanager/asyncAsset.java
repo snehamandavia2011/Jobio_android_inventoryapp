@@ -171,7 +171,7 @@ public class asyncAsset {
         if (result != null && !result.equals("") && responseCode == ConstantVal.ServerResponseCode.SUCCESS) {
             try {
                 arrServerdata = parseAssetIOwn.getList(result);
-                Logger.debug("size:" + arrServerdata.size());
+                //Logger.debug("size:" + arrServerdata.size());
             } catch (JSONException e) {
                 e.printStackTrace();
             }

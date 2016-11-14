@@ -90,8 +90,8 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
                     fromType = getIntent().getStringExtra("fromType");
                     toType = getIntent().getStringExtra("toType");
                     objClientJobInvoiceRefDetail = (ClientJobInvoiceRefDetail) getIntent().getSerializableExtra("objClientJobInvoiceRefDetail");
-                    Logger.debug(selStockTransactionStatus + " " + selStockTransactionReason + " " + referenceType + " " + refId + " " + fromId + " " + toId +
-                            " " + fromType + " " + toType + objClientJobInvoiceRefDetail.display());
+                    //Logger.debug(selStockTransactionStatus + " " + selStockTransactionReason + " " + referenceType + " " + refId + " " + fromId + " " + toId +
+                    //      " " + fromType + " " + toType + objClientJobInvoiceRefDetail.display());
 
                 }
                 lyMainContent = (RelativeLayout) findViewById(R.id.lyMainContent);
@@ -222,7 +222,11 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
                     finish();
                     break;
                 case R.id.btnSave:
-                    saveData();
+                    if (new HttpEngine().isNetworkAvailable(mContext))
+                        saveData();
+                    else {
+                        Helper.displaySnackbar(ac, mContext.getString(R.string.strInternetNotAvaiable));
+                    }
                     break;
             }
         }
@@ -294,8 +298,8 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
                 lyMainContent.setVisibility(View.VISIBLE);
                 dot_progress_bar.setVisibility(View.GONE);
                 if (isDataEntered) {
-                    if (isDataEntered && sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
-                        Helper.displaySnackbar(ac, objJobPOInvoiceTransactionResult.getMessage()).setCallback(new Snackbar.Callback() {
+                    if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.NO_INTERNET)) {
+                        Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet)).setCallback(new Snackbar.Callback() {
                             @Override
                             public void onDismissed(Snackbar snackbar, int event) {
                                 super.onDismissed(snackbar, event);
@@ -303,12 +307,25 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
                                 finish();
                             }
                         });
-                    } else {
-                        Helper.displaySnackbar(ac, sr.getResponseCode());
+                    } else if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                        ac.setResult(ConstantVal.EDIT_JOB_INVOICE_REFERENCE_RESPONSE);
+                        finish();
+                    } else if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED)) {
+                        Helper.displaySnackbar(ac, sr.getResponseCode()).setCallback(new Snackbar.Callback() {
+                            @Override
+                            public void onDismissed(Snackbar snackbar, int event) {
+                                super.onDismissed(snackbar, event);
+                                finish();
+                            }
+                        });
                     }
                 }
             }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
+
+                .
+
+                        executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void requestFocus(View view) {

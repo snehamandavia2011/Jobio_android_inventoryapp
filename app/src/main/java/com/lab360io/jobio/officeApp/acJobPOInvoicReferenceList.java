@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -113,7 +114,13 @@ public class acJobPOInvoicReferenceList extends AppCompatActivity {
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
                 if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS))
-                    Helper.displaySnackbar(ac, ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseCode()));
+                    Helper.displaySnackbar(ac, ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseCode())).setCallback(new Snackbar.Callback() {
+                        @Override
+                        public void onDismissed(Snackbar snackbar, int event) {
+                            super.onDismissed(snackbar, event);
+                            finish();
+                        }
+                    });
                 else {
                     if (referenceType.equals(StockTransactionReferenceType.JOB) || referenceType.equals(StockTransactionReferenceType.INVOICE)) {
                         if (arrClientJobInvoiceRefDetail != null && arrClientJobInvoiceRefDetail.size() > 0) {

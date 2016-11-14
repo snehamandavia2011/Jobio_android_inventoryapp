@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -45,6 +46,7 @@ import utility.DataBase;
 import utility.Helper;
 import utility.HttpEngine;
 import utility.Logger;
+import utility.ServerResponse;
 import utility.URLMapping;
 
 public class acInspectTransaction extends AppCompatActivity {
@@ -208,8 +210,7 @@ public class acInspectTransaction extends AppCompatActivity {
                         @Override
                         protected void onPostExecute(Object o) {
                             super.onPostExecute(o);
-                            if (isDataEntedProperly) {
-                                ac.finish();
+
                                 /*Snackbar snackbar = Snackbar
                                         .make(ac.findViewById(android.R.id.content), mContext.getString(R.string.msgDataSaveSuccessfully), Snackbar.LENGTH_LONG);
                                 snackbar.setCallback(new Snackbar.Callback() {
@@ -220,7 +221,7 @@ public class acInspectTransaction extends AppCompatActivity {
                                     }
                                 });
                                 snackbar.show();*/
-                            }
+
                         }
                     }.execute();
                     break;
@@ -234,6 +235,8 @@ public class acInspectTransaction extends AppCompatActivity {
 
     private void saveUpdateData() {
         new AsyncTask() {
+            ServerResponse sr;
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -266,18 +269,37 @@ public class acInspectTransaction extends AppCompatActivity {
                 String[] data = {String.valueOf(tokenId), account_id, objClientAssetInspect.getAitId(), objClientAssetInspect.getAitName(),
                         Helper.convertDateToString(calInspectionDate.getTime(), ConstantVal.DATE_FORMAT + " " + ConstantVal.TIME_FORMAT),
                         objClientAssetInspect.getAitNote(), objClientAssetInspect.getPhoto() == null ? "" : objClientAssetInspect.getPhoto(), strIsPresent, objClientAssetInspect.getAitStatusId()};
-                Logger.debug(data.length + "len");
+                //Logger.debug(data.length + "len");
                 URLMapping um = ConstantVal.updateInspectTransaction(mContext);
                 HttpEngine objHttpEngine = new HttpEngine();
-                objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), data, um.getParamNames(), um.isNeedToSync());
-                setResult(ConstantVal.INSPECTION_TRANSACTION_RESPONSE_CODE);
-                finish();
+                sr = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), data, um.getParamNames(), um.isNeedToSync());
                 return null;
             }
 
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
+                if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.NO_INTERNET)) {
+                    Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet)).setCallback(new Snackbar.Callback() {
+                        @Override
+                        public void onDismissed(Snackbar snackbar, int event) {
+                            super.onDismissed(snackbar, event);
+                            setResult(ConstantVal.INSPECTION_TRANSACTION_RESPONSE_CODE);
+                            finish();
+                        }
+                    });
+                } else if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                    Helper.displaySnackbar(ac, sr.getResponseCode()).setCallback(new Snackbar.Callback() {
+                        @Override
+                        public void onDismissed(Snackbar snackbar, int event) {
+                            super.onDismissed(snackbar, event);
+                            setResult(ConstantVal.INSPECTION_TRANSACTION_RESPONSE_CODE);
+                            finish();
+                        }
+                    });
+                } else if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                    finish();
+                }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

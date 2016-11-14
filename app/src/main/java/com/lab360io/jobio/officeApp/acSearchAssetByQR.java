@@ -61,7 +61,7 @@ public class acSearchAssetByQR extends AppCompatActivity implements QRCodeReader
         mydecoderview.getCameraManager().stopPreview();
         isPreviewOn = false;
         if (!isPreviewOn) {
-            Logger.debug("isPreviewOn:" + isPreviewOn);
+            //Logger.debug("isPreviewOn:" + isPreviewOn);
             final String strQRCode = text;
             new AsyncTask() {
                 @Override

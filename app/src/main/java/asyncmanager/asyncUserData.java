@@ -40,7 +40,7 @@ public class asyncUserData extends Thread {
         String qrcode = Helper.getStringPreference(ctx, ConstantVal.QRCODE_VALUE, "");
         String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
         URLMapping um = ConstantVal.getUserDataUrl(ctx);
-        ServerResponse objServerResponse = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(), new String[]{userName, password, qrcode, String.valueOf(tokenId), account_id,ConstantVal.APP_REF_TYPE}, um.getParamNames(), um.isNeedToSync());
+        ServerResponse objServerResponse = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(), new String[]{userName, password, qrcode, String.valueOf(tokenId), account_id, ConstantVal.APP_REF_TYPE}, um.getParamNames(), um.isNeedToSync());
         responseCode = objServerResponse.getResponseCode();
         String result = objServerResponse.getResponseString();
         if (result != null && !result.equals("")) {

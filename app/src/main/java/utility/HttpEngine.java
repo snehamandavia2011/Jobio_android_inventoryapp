@@ -1,5 +1,6 @@
 package utility;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -8,6 +9,11 @@ import android.util.Log;
 
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acHome;
+import com.lab360io.jobio.officeApp.acLogin;
+import com.lab360io.jobio.officeApp.acManualQRCode;
+import com.lab360io.jobio.officeApp.acQRCodeScanner;
+import com.lab360io.jobio.officeApp.acSplash;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,6 +28,7 @@ import java.net.UnknownHostException;
 import asyncmanager.asyncMessageList;
 import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUser;
+import service.serDeviceToServerSync;
 
 /**
  * Created by SAI on 12/7/2015.
@@ -29,6 +36,11 @@ import entity.ClientAdminUser;
 public class HttpEngine {
     public ServerResponse getDataFromWebAPI(Context mContext, String strURL, String[] paramValues, String[] paramNames, boolean isRequireToSync) {
         //Logger.debug("URL:" + strURL);
+        if (mContext instanceof Activity && (mContext.getClass() != acSplash.class && mContext.getClass() != acLogin.class &&
+                mContext.getClass() != acManualQRCode.class && mContext.getClass() != acQRCodeScanner.class && mContext.getClass() != acHome.class)&&
+                !serDeviceToServerSync.isSyncing)
+            serDeviceToServerSync.syncData(mContext);
+
         ServerResponse objServerResponse = null;
         String data = "";
         try {
@@ -154,8 +166,8 @@ public class HttpEngine {
         String resultCode = objServerResponse.getResponseCode();
         ContentValues cv = new ContentValues();
         cv.put("isSync", 0);
-        if (resultCode.equals(ConstantVal.ServerResponseCode.NO_INTERNET))
-            Helper.displaySnackbar((AppCompatActivity) ctx, ctx.getString(R.string.msgSyncNoInternet));
+        /*if (resultCode.equals(ConstantVal.ServerResponseCode.NO_INTERNET) && needToShowSnackbarIfUnsync)
+            Helper.displaySnackbar((AppCompatActivity) ctx, ctx.getString(R.string.msgSyncNoInternet));*/
 
         if (resultCode.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
             cv.put("isSync", 1);

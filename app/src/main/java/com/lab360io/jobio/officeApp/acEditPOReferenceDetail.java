@@ -89,7 +89,7 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
                     fromType = getIntent().getStringExtra("fromType");
                     toType = getIntent().getStringExtra("toType");
                     objClientPORefDetail = (ClientPORefDetail) getIntent().getSerializableExtra("objClientPORefDetail");
-                    Logger.debug(selStockTransactionStatus + " " + selStockTransactionReason + " " + referenceType + " " + refId + " " + fromId + " " + toId + " " + fromType + " " + toType + objClientPORefDetail.display());
+                    //Logger.debug(selStockTransactionStatus + " " + selStockTransactionReason + " " + referenceType + " " + refId + " " + fromId + " " + toId + " " + fromType + " " + toType + objClientPORefDetail.display());
                 }
                 lyMainContent = (RelativeLayout) findViewById(R.id.lyMainContent);
                 dot_progress_bar = (DotProgressBar) findViewById(R.id.dot_progress_bar);
@@ -198,7 +198,11 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
                     finish();
                     break;
                 case R.id.btnSave:
-                    saveData();
+                    if (new HttpEngine().isNetworkAvailable(mContext))
+                        saveData();
+                    else {
+                        Helper.displaySnackbar(ac, mContext.getString(R.string.strInternetNotAvaiable));
+                    }
                     break;
             }
         }
@@ -210,6 +214,7 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
             ServerResponse sr;
             String strCost, strPrice, strBarcode, strnNote, strExpiry;
             JobPOInvoiceTransactionResult objJobPOInvoiceTransactionResult;
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -268,8 +273,8 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
                 lyMainContent.setVisibility(View.VISIBLE);
                 dot_progress_bar.setVisibility(View.GONE);
                 if (isDataEntered) {
-                    if (isDataEntered && sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
-                        Helper.displaySnackbar(ac, objJobPOInvoiceTransactionResult.getMessage()).setCallback(new Snackbar.Callback() {
+                    if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.NO_INTERNET)) {
+                        Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet)).setCallback(new Snackbar.Callback() {
                             @Override
                             public void onDismissed(Snackbar snackbar, int event) {
                                 super.onDismissed(snackbar, event);
@@ -277,8 +282,17 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
                                 finish();
                             }
                         });
-                    } else {
-                        Helper.displaySnackbar(ac, sr.getResponseCode());
+                    } else if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                        ac.setResult(ConstantVal.EDIT_PO_REFERENCE_RESPONSE);
+                        finish();
+                    } else if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED)) {
+                        Helper.displaySnackbar(ac, sr.getResponseCode()).setCallback(new Snackbar.Callback() {
+                            @Override
+                            public void onDismissed(Snackbar snackbar, int event) {
+                                super.onDismissed(snackbar, event);
+                                finish();
+                            }
+                        });
                     }
                 }
             }

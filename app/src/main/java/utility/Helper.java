@@ -197,7 +197,7 @@ public class Helper {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteFormat = stream.toByteArray();
         String imgString = Base64.encodeToString(byteFormat, Base64.NO_WRAP);
-        Logger.debug(imgString);
+        //Logger.debug(imgString);
         return imgString;
     }
 

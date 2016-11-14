@@ -72,7 +72,7 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
             return this.listDataHeader.get(groupPosition);
         } catch (Exception e) {
             e.printStackTrace();
-            Logger.debug("Error in getGroup:" + e.getMessage() + ":" + listDataHeader.size());
+            //Logger.debug("Error in getGroup:" + e.getMessage() + ":" + listDataHeader.size());
             return null;
         }
     }
@@ -84,7 +84,7 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
                     .get(childPosition);
         } catch (Exception e) {
             e.printStackTrace();
-            Logger.debug("Error in getChild" + e.getMessage() + listDataChild.size());
+            //Logger.debug("Error in getChild" + e.getMessage() + listDataChild.size());
             return null;
         }
     }
@@ -176,7 +176,7 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
         holderChild.txtStatus.setText(ConstantVal.InspectionServiceStatus.getStatusName(mContext, objClientAssetService.getViewStatus()));
         holderChild.txtStatus.setSelected(true);
         try {
-            Logger.debug("getAitStatusId: " + objClientAssetService.getAstStatusId());
+            //Logger.debug("getAitStatusId: " + objClientAssetService.getAstStatusId());
             holderChild.txtStatusSer.setText(ConstantVal.assetServiceInspectionStatus.getStatusName(mContext, Integer.parseInt(objClientAssetService.getAstStatusId())));
             if (Integer.parseInt(objClientAssetService.getAstStatusId()) != (ConstantVal.assetServiceInspectionStatus.NOT_ATTENDED_YET)) {
                 holderChild.rplDone.setVisibility(View.GONE);

@@ -33,6 +33,7 @@ import adapter.TabsPagerAdapter;
 import fragment.frAssetsAsset;
 import fragment.frAssetsInspect;
 import fragment.frAssetsService;
+import service.serDeviceToServerSync;
 import utility.ConstantVal;
 import utility.Helper;
 import utility.Logger;
@@ -200,7 +201,7 @@ public class acAsset extends ActionBarActivity implements TabHost.OnTabChangeLis
     public void onTabChanged(String tabId) {
         int pos = this.mTabHost.getCurrentTab();
         this.mViewPager.setCurrentItem(pos);
-        Logger.debug("............................." + this.mViewPager.getCurrentItem() + " " + pos);
+        //Logger.debug("............................." + this.mViewPager.getCurrentItem() + " " + pos);
         for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
             View viewTab = mTabHost.getTabWidget().getChildAt(i);
             viewTab.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.tilt)));

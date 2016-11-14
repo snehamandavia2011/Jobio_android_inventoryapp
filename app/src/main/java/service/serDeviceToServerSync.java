@@ -22,7 +22,7 @@ import utility.ServerResponse;
 
 public class serDeviceToServerSync extends Service {
     Context mContext;
-    public static boolean isServiceRunning = false;
+    public static boolean isServiceRunning = false, isSyncing = false;
     boolean isSessionExists;
 
     public serDeviceToServerSync() {
@@ -47,48 +47,7 @@ public class serDeviceToServerSync extends Service {
             public void run() {
                 HttpEngine objHttpEngine = new HttpEngine();
                 if (objHttpEngine.isNetworkAvailable(mContext)) {
-                    //check, is there any pending unsync data or not, by checking firing qyery on sync table with filtering status as 0
-                    String currentAdminUserId = Helper.getStringPreference(mContext, ClientAdminUser.Fields.ADMINUSERID, "");
-                    String currentAccountId = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
-                    String currentToken = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
-                    DataBase db = new DataBase(mContext);
-                    db.open();
-                    Cursor cutUnSyncData = db.fetch(DataBase.device_to_db_sync_table, DataBase.device_to_db_sync_int, "isSync=0 and admin_user_id='" + currentAdminUserId + "'and account_id='" + currentAccountId + "'");
-                    boolean isInternetFound = false;
-                    if (cutUnSyncData != null && cutUnSyncData.getCount() > 0) {
-                        Logger.debug("Data need to sync serDeviceToServerSync:" + cutUnSyncData.getCount());
-                        cutUnSyncData.moveToFirst();
-                        do {
-                            //send one by one request back to server, VERY IMP but do not store entry in sync table
-                            int id = cutUnSyncData.getInt(0);
-                            String url = cutUnSyncData.getString(1);
-                            StringBuffer data = new StringBuffer(cutUnSyncData.getString(2));
-                            try {
-                                //replace token with current token
-                                int startIndex = data.indexOf("token_id=") + 9;
-                                int endIndex = data.indexOf("&", startIndex);
-                                String oldToken = data.substring(startIndex, endIndex);
-                                //Logger.debug(data + " " + startIndex + " " + endIndex + " " + oldToken);
-                                if (oldToken.length() <= 0) {
-                                    data = data.insert(startIndex, currentToken);
-                                } else {
-                                    data = data.replace(startIndex, endIndex, currentToken);
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            //Logger.debug(data.toString());
-                            ServerResponse objServerResponse = objHttpEngine.makeHttpRequestCall(mContext, url, data.toString());
-
-                            if (!objServerResponse.getResponseCode().equals(ConstantVal.ServerResponseCode.NO_INTERNET))
-                                isInternetFound = true;
-                            boolean isUpdated = objHttpEngine.updateSyncTable(mContext, id, url, objServerResponse);
-                            Logger.debug("After Device to server sync:" + objServerResponse.getResponseCode() + " isInternetFound:" + isInternetFound);
-                        } while (cutUnSyncData.moveToNext());
-                    }
-                    cutUnSyncData.close();
-                    db.close();
-
+                    boolean isInternetFound = syncData(mContext);
                     //Though service fot server to device sync is running every 5 minutes, but as internet is available start the
                     //service for "Server to device sync". And this "Server to device sync" make the sync if current time - last sync time
                     // is greater than 15 minutes, else do not make any sync.
@@ -123,5 +82,56 @@ D - If one or more than one data sync successfully with server than store lastIn
     public void onDestroy() {
         super.onDestroy();
         isServiceRunning = false;
+    }
+
+    public static boolean syncData(Context mContext) {
+        isSyncing = true;
+        boolean isSessionExists = Helper.getBooleanPreference(mContext, ConstantVal.IS_SESSION_EXISTS, false);
+        boolean isInternetFound = false;
+        if (isSessionExists && isServiceRunning) {
+            HttpEngine objHttpEngine = new HttpEngine();
+            //check, is there any pending unsync data or not, by checking firing qyery on sync table with filtering status as 0
+            String currentAdminUserId = Helper.getStringPreference(mContext, ClientAdminUser.Fields.ADMINUSERID, "");
+            String currentAccountId = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+            String currentToken = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
+            DataBase db = new DataBase(mContext);
+            db.open();
+            Cursor cutUnSyncData = db.fetch(DataBase.device_to_db_sync_table, DataBase.device_to_db_sync_int, "isSync=0 and admin_user_id='" + currentAdminUserId + "'and account_id='" + currentAccountId + "'");
+            if (cutUnSyncData != null && cutUnSyncData.getCount() > 0) {
+                Logger.debug("Data need to sync serDeviceToServerSync:" + cutUnSyncData.getCount());
+                cutUnSyncData.moveToFirst();
+                do {
+                    //send one by one request back to server, VERY IMP but do not store entry in sync table
+                    int id = cutUnSyncData.getInt(0);
+                    String url = cutUnSyncData.getString(1);
+                    StringBuffer data = new StringBuffer(cutUnSyncData.getString(2));
+                    try {
+                        //replace token with current token
+                        int startIndex = data.indexOf("token_id=") + 9;
+                        int endIndex = data.indexOf("&", startIndex) == -1 ? data.length() : data.indexOf("&", startIndex);
+                        Logger.debug("Sneha........." + data + " " + startIndex + " " + endIndex + " ");
+                        String oldToken = data.substring(startIndex, endIndex);
+                        if (oldToken.length() <= 0) {
+                            data = data.insert(startIndex, currentToken);
+                        } else {
+                            data = data.replace(startIndex, endIndex, currentToken);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //Logger.debug(data.toString());
+                    ServerResponse objServerResponse = objHttpEngine.makeHttpRequestCall(mContext, url, data.toString());
+
+                    if (!objServerResponse.getResponseCode().equals(ConstantVal.ServerResponseCode.NO_INTERNET))
+                        isInternetFound = true;
+                    boolean isUpdated = objHttpEngine.updateSyncTable(mContext, id, url, objServerResponse);
+                    Logger.debug("After Device to server sync:" + objServerResponse.getResponseCode() + " isInternetFound:" + isInternetFound);
+                } while (cutUnSyncData.moveToNext());
+            }
+            cutUnSyncData.close();
+            db.close();
+        }
+        isSyncing = false;
+        return isInternetFound;
     }
 }

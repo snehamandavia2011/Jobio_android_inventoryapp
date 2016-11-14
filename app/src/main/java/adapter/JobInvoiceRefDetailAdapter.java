@@ -130,7 +130,7 @@ public class JobInvoiceRefDetailAdapter extends BaseAdapter {
         holder.txtQty.setText(ctx.getString(R.string.strQuantity) + " :" + objClientJobInvoiceRefDetail.getItQty());
         holder.txtPrice.setText(ctx.getString(R.string.strPrice) + " :" + Helper.getCurrencySymbol() + objClientJobInvoiceRefDetail.getItPrice());
         String strExpiryDate = objClientJobInvoiceRefDetail.getItExpiry().equals("0000-00-00") ? ctx.getString(R.string.strNoExpiry) : objClientJobInvoiceRefDetail.getItExpiry();
-        Logger.debug(strExpiryDate + " " + objClientJobInvoiceRefDetail.getItExpiry());
+        //Logger.debug(strExpiryDate + " " + objClientJobInvoiceRefDetail.getItExpiry());
         holder.txtExpireDate.setText(ctx.getString(R.string.strDateExpire) + " :" + strExpiryDate);
         holder.txtStatus.setText(objClientJobInvoiceRefDetail.getStsmAction_name());
         holder.lyClickableLayout.setOnClickListener(new View.OnClickListener() {

@@ -65,7 +65,7 @@ public class acHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Helper.startFabric(this);
-        OneSignal.startInit(this).init();
+        //OneSignal.startInit(this).init();
         FontCache.getInstance(getApplicationContext()).addFont("Ubuntu", "Ubuntu-C.ttf");
         DataBindingUtil.setContentView(this, R.layout.home_main);
         mContext = this;
@@ -158,14 +158,14 @@ public class acHome extends AppCompatActivity {
             }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             isFeedbackCountIncrease = true;
         } else {
-            Logger.debug("not going to increase counter");
+            //Logger.debug("not going to increase counter");
         }
     }
 
 
     private void openResetPasswordDialog() {
         String isPasswordReset = Helper.getStringPreference(mContext, ClientAdminUserAppsRel.Fields.IS_PASSWORD_RESETED, "N");
-        Logger.debug("in openResetPasswordDialog:" + isPasswordReset);
+        //Logger.debug("in openResetPasswordDialog:" + isPasswordReset);
         if (isPasswordReset.equals("N")) {
             LayoutInflater infalInflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -366,7 +366,7 @@ public class acHome extends AppCompatActivity {
                 Calendar calTomorrow = Calendar.getInstance();
                 calTomorrow.add(Calendar.DATE, 1);
                 Date dtTomorrow = Helper.convertStringToDate(Helper.convertDateToString(calTomorrow.getTime(), ConstantVal.DATE_FORMAT), ConstantVal.DATE_FORMAT);
-                Logger.debug(dtYesterday.toString() + " " + dtTomorrow.toString() + " " + dtYesterday.getTime() + " " + dtTomorrow.getTime());
+                //Logger.debug(dtYesterday.toString() + " " + dtTomorrow.toString() + " " + dtYesterday.getTime() + " " + dtTomorrow.getTime());
                 int sCount = db.getCounts(DataBase.service_table, "amNext_service_date>" + dtYesterday.getTime() + " and amNext_service_date<" + dtTomorrow.getTime());
                 serviceCount.setText(String.valueOf(sCount));
                 serviceStatus.setText(mContext.getString(R.string.strService));

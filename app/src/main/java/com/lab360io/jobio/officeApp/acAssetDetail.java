@@ -141,7 +141,7 @@ public class acAssetDetail extends AppCompatActivity {
         DataBase db = new DataBase(mContext);
         db.open();
         Cursor curEmp = db.fetch(DataBase.adminuser_employee_table, DataBase.adminuser_employee_int, "empId='" + obj.getAoEmployee_id() + "'");
-        Logger.debug(obj.getAoEmployee_id() + " " + curEmp.getCount());
+        //Logger.debug(obj.getAoEmployee_id() + " " + curEmp.getCount());
         if (curEmp != null && curEmp.getCount() > 0) {
             curEmp.moveToFirst();
             txtEmployeeName.setText(curEmp.getString(3) + " " + curEmp.getString(4) + "[" + curEmp.getString(7) + "]");

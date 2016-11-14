@@ -103,7 +103,7 @@ public class acSearchItemByBarcodeManual extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Logger.debug("acSearchItemByBarcodeManual:" + requestCode + " " + resultCode);
+        //Logger.debug("acSearchItemByBarcodeManual:" + requestCode + " " + resultCode);
         if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
             ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
             finish();
