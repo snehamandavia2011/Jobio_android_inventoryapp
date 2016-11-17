@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import utility.URLMapping;
  * Created by SAI on 10/5/2016.
  */
 public class frStockStock extends Fragment {
+    Helper objHelper = new Helper();
     DotProgressBar dot_progress_bar;
     RelativeLayout lyNoInternet, lyNoContent, lyMainContent;
     ListView lvlStock;
@@ -120,4 +122,16 @@ public class frStockStock extends Fragment {
         }
         return arrClientItemMaster;
     }
+
+   /* @Override
+    public void onStart() {
+        super.onStart();
+        objHelper.registerSessionTimeoutBroadcast((AppCompatActivity) getActivity());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        objHelper.unRegisterSesionTimeOutBroadcast((AppCompatActivity)getActivity());
+    }*/
 }

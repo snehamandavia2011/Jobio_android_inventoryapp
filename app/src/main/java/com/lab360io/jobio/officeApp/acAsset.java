@@ -210,7 +210,7 @@ public class acAsset extends ActionBarActivity implements TabHost.OnTabChangeLis
         viewCurrent.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.lightGrey)));
     }
 
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         objHelper.registerSessionTimeoutBroadcast(ac);
@@ -220,7 +220,7 @@ public class acAsset extends ActionBarActivity implements TabHost.OnTabChangeLis
     protected void onStop() {
         super.onStop();
         objHelper.unRegisterSesionTimeOutBroadcast(ac);
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

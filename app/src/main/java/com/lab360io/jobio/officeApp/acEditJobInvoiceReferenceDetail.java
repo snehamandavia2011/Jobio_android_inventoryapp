@@ -308,8 +308,14 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
                             }
                         });
                     } else if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
-                        ac.setResult(ConstantVal.EDIT_JOB_INVOICE_REFERENCE_RESPONSE);
-                        finish();
+                        Helper.displaySnackbar(ac, objJobPOInvoiceTransactionResult.getMessage()).setCallback(new Snackbar.Callback() {
+                            @Override
+                            public void onDismissed(Snackbar snackbar, int event) {
+                                super.onDismissed(snackbar, event);
+                                ac.setResult(ConstantVal.EDIT_JOB_INVOICE_REFERENCE_RESPONSE);
+                                finish();
+                            }
+                        });
                     } else if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED)) {
                         Helper.displaySnackbar(ac, sr.getResponseCode()).setCallback(new Snackbar.Callback() {
                             @Override

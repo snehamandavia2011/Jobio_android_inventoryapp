@@ -288,7 +288,9 @@ public class acInspectTransaction extends AppCompatActivity {
                             finish();
                         }
                     });
-                } else if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                } else if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                    finish();
+                } else if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED)) {
                     Helper.displaySnackbar(ac, sr.getResponseCode()).setCallback(new Snackbar.Callback() {
                         @Override
                         public void onDismissed(Snackbar snackbar, int event) {
@@ -297,8 +299,6 @@ public class acInspectTransaction extends AppCompatActivity {
                             finish();
                         }
                     });
-                } else if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
-                    finish();
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

@@ -338,4 +338,16 @@ public class frStockTransaction extends Fragment {
             getActivity().finish();
         }
     }
+
+    /*@Override
+    public void onStart() {
+        super.onStart();
+        objHelper.registerSessionTimeoutBroadcast((AppCompatActivity) getActivity());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        objHelper.unRegisterSesionTimeOutBroadcast((AppCompatActivity) getActivity());
+    }*/
 }

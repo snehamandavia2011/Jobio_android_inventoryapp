@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +26,13 @@ import adapter.AddedItemAdapter;
 import entity.ClientItemMaster;
 import utility.ConstantVal;
 import utility.DotProgressBar;
+import utility.Helper;
 
 /**
  * Created by SAI on 10/5/2016.
  */
 public class frStockItem extends Fragment implements View.OnClickListener {
+    Helper objHelper = new Helper();
     ArrayList<ClientItemMaster> arrClientItemMaster;
     Fragment contextFragment;
     FragmentActivity frActivity;
@@ -107,4 +110,16 @@ public class frStockItem extends Fragment implements View.OnClickListener {
             getActivity().finish();
         }
     }
+
+    /*@Override
+    public void onStart() {
+        super.onStart();
+        objHelper.registerSessionTimeoutBroadcast((AppCompatActivity)getActivity());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        objHelper.unRegisterSesionTimeOutBroadcast((AppCompatActivity) getActivity());
+    }*/
 }

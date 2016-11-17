@@ -37,9 +37,13 @@ public class HttpEngine {
     public ServerResponse getDataFromWebAPI(Context mContext, String strURL, String[] paramValues, String[] paramNames, boolean isRequireToSync) {
         //Logger.debug("URL:" + strURL);
         if (mContext instanceof Activity && (mContext.getClass() != acSplash.class && mContext.getClass() != acLogin.class &&
-                mContext.getClass() != acManualQRCode.class && mContext.getClass() != acQRCodeScanner.class && mContext.getClass() != acHome.class)&&
-                !serDeviceToServerSync.isSyncing)
-            serDeviceToServerSync.syncData(mContext);
+                mContext.getClass() != acManualQRCode.class && mContext.getClass() != acQRCodeScanner.class && mContext.getClass() != acHome.class) &&
+                !serDeviceToServerSync.isSyncing) {
+            boolean isInternetFound = serDeviceToServerSync.syncData(mContext);
+            if(!isInternetFound){
+
+            }
+        }
 
         ServerResponse objServerResponse = null;
         String data = "";

@@ -100,6 +100,7 @@ import service.serServerToDeviceSync;
  * Created by SAI on 8/5/2016.
  */
 public class Helper {
+
     public static void startFabric(Context mContext) {
         Fabric.with(mContext, new Crashlytics());
         String strEmail = Helper.getStringPreference(mContext, ClientAdminUser.Fields.USER_NAME, "");
@@ -487,18 +488,19 @@ public class Helper {
 
     public static void logOutUser(Context ctx, boolean isNeedTosendBroadcast) {
         boolean isSessionExists = Helper.getBooleanPreference(ctx, ConstantVal.IS_SESSION_EXISTS, false);
+        Logger.debug("logout:"+isSessionExists);
         if (isSessionExists) {
             try {
-                DataBase db = new DataBase(ctx);
-                db.open();
-                db.cleanLogoutTable();
-                db.close();
-                Helper.clearPreference(ctx, ConstantVal.TOKEN);
                 Helper.clearPreference(ctx, ConstantVal.IS_SESSION_EXISTS);
+                Helper.clearPreference(ctx, ConstantVal.TOKEN);
                 Helper.clearPreference(ctx, ConstantVal.LAST_SERVER_TO_DEVICE_SYNC_TIME);
                 Helper.clearPreference(ctx, ConstantVal.LAST_ITEM_MASTER_SYNC_TIME);
                 Helper.clearPreference(ctx, ConstantVal.LAST_MESSAGE_SYNC_TIME);
                 Helper.clearPreference(ctx, ConstantVal.WELCOME_MESSAGE);
+                DataBase db = new DataBase(ctx);
+                db.open();
+                db.cleanLogoutTable();
+                db.close();
                 serServerToDeviceSync.isServiceRunning = false;
                 serLocationTracker.isServiceRunning = false;
                 serDeviceToServerSync.isServiceRunning = false;

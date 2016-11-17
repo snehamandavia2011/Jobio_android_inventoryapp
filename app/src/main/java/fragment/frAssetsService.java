@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ import utility.Helper;
  * Created by SAI on 9/12/2016.
  */
 public class frAssetsService extends Fragment {
+    Helper objHelper = new Helper();
     AssetServiceListAdapter objAdapter;
     Handler handler = new Handler();
     int intTodayDateHeaderPosition, intFirstTodayorFutureDatePositionofChild, intFirstTodayorFutureDatePositionofGroup;
@@ -227,6 +229,7 @@ public class frAssetsService extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+
         //onstop set jobid is true.
         DataBase db = new DataBase(mContext);
         db.open();
@@ -235,6 +238,7 @@ public class frAssetsService extends Fragment {
         db.update(DataBase.service_view_table, "localViewStatus=?", new String[]{String.valueOf(ConstantVal.InspectionServiceStatus.NEW)}, cv);
         db.close();
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

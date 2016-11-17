@@ -13,6 +13,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,12 +32,14 @@ import asyncmanager.asyncAsset;
 import entity.ClientAsset;
 import utility.ConstantVal;
 import utility.DotProgressBar;
+import utility.Helper;
 
 
 /**
  * Created by SAI on 9/12/2016.
  */
 public class frAssetsAsset extends Fragment {
+    Helper objHelper = new Helper();
     Fragment contextFragment;
     FragmentActivity frActivity;
     Context mContext;
@@ -67,6 +70,18 @@ public class frAssetsAsset extends Fragment {
     private void setData() {
         setDataFromLocalDatabase();
         fetchDataFromServer();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        objHelper.registerSessionTimeoutBroadcast((AppCompatActivity)getActivity());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        objHelper.unRegisterSesionTimeOutBroadcast((AppCompatActivity)getActivity());
     }
 
     private void fetchDataFromServer() {

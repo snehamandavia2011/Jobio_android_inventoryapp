@@ -58,7 +58,7 @@ public class acItemDetail extends AppCompatActivity {
         DataBindingUtil.setContentView(this, R.layout.item_detail);
         ac = this;
         mContext = this;
-        objHelper.setActionBar(ac, mContext.getString(R.string.strItemDetail));
+//        objHelper.setActionBar(ac, mContext.getString(R.string.strItemDetail));
         mContext.registerReceiver(objItemDetailBroadcast, new IntentFilter(ConstantVal.BroadcastAction.ITEM_DETAIL));
         setData();
     }
@@ -68,7 +68,7 @@ public class acItemDetail extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                objHelper.setActionBar(ac, mContext.getString(R.string.strAssetDetail));
+                objHelper.setActionBar(ac, mContext.getString(R.string.strItemDetail));
                 dot_progress_bar = (DotProgressBar) findViewById(R.id.dot_progress_bar);
                 dot_progress_bar.setVisibility(View.VISIBLE);
                 scrlMainContent = (ScrollView) findViewById(R.id.scrlMainContent);
