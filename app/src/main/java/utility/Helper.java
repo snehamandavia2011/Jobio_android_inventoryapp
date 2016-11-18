@@ -486,7 +486,7 @@ public class Helper {
         }
     }
 
-    public static void logOutUser(Context ctx, boolean isNeedTosendBroadcast) {
+    public static synchronized void logOutUser(Context ctx, boolean isNeedTosendBroadcast) {
         boolean isSessionExists = Helper.getBooleanPreference(ctx, ConstantVal.IS_SESSION_EXISTS, false);
         Logger.debug("logout:"+isSessionExists);
         if (isSessionExists) {

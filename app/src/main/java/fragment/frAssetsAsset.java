@@ -72,7 +72,7 @@ public class frAssetsAsset extends Fragment {
         fetchDataFromServer();
     }
 
-    @Override
+    /*@Override
     public void onStart() {
         super.onStart();
         objHelper.registerSessionTimeoutBroadcast((AppCompatActivity)getActivity());
@@ -82,7 +82,7 @@ public class frAssetsAsset extends Fragment {
     public void onStop() {
         super.onStop();
         objHelper.unRegisterSesionTimeOutBroadcast((AppCompatActivity)getActivity());
-    }
+    }*/
 
     private void fetchDataFromServer() {
         new AsyncTask() {

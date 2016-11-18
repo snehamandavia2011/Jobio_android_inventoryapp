@@ -255,7 +255,7 @@ public class frStockTransaction extends Fragment {
                         btnNext.setEnabled(false);
                     txtNoReferenceFound.setVisibility(View.VISIBLE);
                     refView.setVisibility(View.GONE);
-                    if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS))
+                    if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS) && !sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED))
                         Helper.displaySnackbar((AppCompatActivity) getActivity(), sr.getResponseCode());
                 }
                 dot_progress_bar.setVisibility(View.GONE);
