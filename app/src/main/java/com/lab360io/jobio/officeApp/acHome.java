@@ -367,7 +367,7 @@ public class acHome extends AppCompatActivity {
                 calTomorrow.add(Calendar.DATE, 1);
                 Date dtTomorrow = Helper.convertStringToDate(Helper.convertDateToString(calTomorrow.getTime(), ConstantVal.DATE_FORMAT), ConstantVal.DATE_FORMAT);
                 //Logger.debug(dtYesterday.toString() + " " + dtTomorrow.toString() + " " + dtYesterday.getTime() + " " + dtTomorrow.getTime());
-                int sCount = db.getCounts(DataBase.service_table, "amNext_service_date>" + dtYesterday.getTime() + " and amNext_service_date<" + dtTomorrow.getTime());
+                int sCount = db.getCounts(DataBase.service_table, "astAssignedDate>" + dtYesterday.getTime() + " and astAssignedDate<" + dtTomorrow.getTime());
                 serviceCount.setText(String.valueOf(sCount));
                 serviceStatus.setText(mContext.getString(R.string.strService));
                 serviceDay.setText(mContext.getString(R.string.strToday));
@@ -375,7 +375,7 @@ public class acHome extends AppCompatActivity {
                 messageCount.setText(String.valueOf(msgCount));
                 messageStatus.setText(mContext.getString(R.string.strUnread));
                 messageDay.setText(mContext.getString(R.string.strToday));
-                int iCount = db.getCounts(DataBase.inspect_table, "amNext_inspection_date>" + dtYesterday.getTime() + " and amNext_inspection_date<" + dtTomorrow.getTime());
+                int iCount = db.getCounts(DataBase.inspect_table, "aitAssignedDate>" + dtYesterday.getTime() + " and aitAssignedDate<" + dtTomorrow.getTime());
                 inspectCount.setText(String.valueOf(iCount));
                 inspectStatus.setText(mContext.getString(R.string.strInspect));
                 inspectDay.setText(mContext.getString(R.string.strToday));

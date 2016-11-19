@@ -164,11 +164,11 @@ public class frAssetsService extends Fragment {
             Date dt1 = null;
             int newJobCount = 0;
             for (; mainCount < arrClientAssetService.size(); ) {
-                dt1 = arrClientAssetService.get(mainCount).getAmNext_service_date();
+                dt1 = arrClientAssetService.get(mainCount).getAstAssignedDate();
                 newJobCount = 0;
                 chileData = new ArrayList<ClientAssetService>();
                 for (; mainCount < arrClientAssetService.size(); mainCount++) {
-                    Date dt2 = arrClientAssetService.get(mainCount).getAmNext_service_date();
+                    Date dt2 = arrClientAssetService.get(mainCount).getAstAssignedDate();
                     Date dtTodayDate = new Date();
                     if (!isFutureDatePositionFound) {
                         if (dt2.getTime() >= dtTodayDate.getTime()) {

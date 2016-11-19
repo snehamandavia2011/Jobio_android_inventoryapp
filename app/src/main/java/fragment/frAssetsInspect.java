@@ -34,6 +34,7 @@ import utility.ConstantVal;
 import utility.DataBase;
 import utility.DotProgressBar;
 import utility.Helper;
+import utility.Logger;
 
 
 /**
@@ -136,6 +137,7 @@ public class frAssetsInspect extends Fragment {
             @Override
             public void run() {
                 lvlInspect.invalidate();
+                //Logger.debug("Header......."+listDataHeader.get(0).getHeader());
                 objAdapter = new AssetInspectListAdapter(mContext, contextFragment, listDataHeader, listDataChild);
                 lvlInspect.setAdapter(objAdapter);
                 expandGroup();
@@ -164,11 +166,11 @@ public class frAssetsInspect extends Fragment {
             Date dt1 = null;
             int newJobCount = 0;
             for (; mainCount < arrClientAssetInspectInspect.size(); ) {
-                dt1 = arrClientAssetInspectInspect.get(mainCount).getAmNext_inspection_date();
+                dt1 = arrClientAssetInspectInspect.get(mainCount).getAitAssignedDate();
                 newJobCount = 0;
                 chileData = new ArrayList<ClientAssetInspect>();
                 for (; mainCount < arrClientAssetInspectInspect.size(); mainCount++) {
-                    Date dt2 = arrClientAssetInspectInspect.get(mainCount).getAmNext_inspection_date();
+                    Date dt2 = arrClientAssetInspectInspect.get(mainCount).getAitAssignedDate();
                     Date dtTodayDate = new Date();
                     if (!isFutureDatePositionFound) {
                         if (dt2.getTime() >= dtTodayDate.getTime()) {
