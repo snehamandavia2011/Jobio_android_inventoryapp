@@ -175,7 +175,7 @@ public class asyncMessageList {
                                             objClientFieldMessage.getIs_viewed(), String.valueOf(objClientFieldMessage.getDate().getTime()),
                                             String.valueOf(objClientFieldMessage.getTimeStamp().getTime())});
                                     if (objClientFieldMessage.getTo_id().equals(String.valueOf(userId)) && objClientFieldMessage.getIs_viewed().equals("N")) {
-                                        //generate hashtable for notification
+                                        //generate hashtable for Notification
                                         if (map.containsKey(objClientFieldMessage.getFrom_id())) {
                                             MessageNotification objMessageNotification = map.get(objClientFieldMessage.getFrom_id());
                                             objMessageNotification.setCount(objMessageNotification.getCount() + 1);
@@ -283,7 +283,7 @@ public class asyncMessageList {
             MessageNotification objMessageNotification = entry.getValue();
             NotificationManager mNotificationManager =
                     (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
-// Sets an ID for the notification, so it can be updated
+// Sets an ID for the Notification, so it can be updated
             NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(ctx)
                     .setContentTitle(ctx.getString(R.string.strJobioMessage))
                     .setContentText(objMessageNotification.getName())

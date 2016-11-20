@@ -4,6 +4,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.onesignal.OneSignal;
 
+import notification.NotificationReceiveHandler;
 import utility.Logger;
 
 /**
@@ -14,5 +15,8 @@ public class ApplicationOffice extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         OneSignal.startInit(this).init();
+        OneSignal.startInit(this)
+                .setNotificationReceivedHandler(new NotificationReceiveHandler())
+                .init();
     }
 }

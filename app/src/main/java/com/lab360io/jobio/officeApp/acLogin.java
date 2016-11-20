@@ -26,7 +26,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.onesignal.OneSignal;
 import com.thomsonreuters.rippledecoratorview.RippleDecoratorView;
 import com.xwray.fontbinding.FontCache;
 
@@ -57,6 +56,7 @@ import utility.DotProgressBar;
 import utility.GPSTracker;
 import utility.Helper;
 import utility.HttpEngine;
+import notification.Notification;
 import utility.OptionMenu;
 import utility.ServerResponse;
 import utility.URLMapping;
@@ -229,14 +229,9 @@ public class acLogin extends AppCompatActivity {
                                     if (objLoginUser != null && !objLoginUser.getToken().equals("")) {
                                         //save verified data to shared preferences
                                         objLoginUser.saveDatatoPreference(mContext);
-                                        OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
-                                            @Override
-                                            public void idsAvailable(String userId, String registrationId) {
-                                                //call web API to save userID to mysql server
-                                            }
-                                        });
                                         try {
                                             new asyncUserData(mContext).join();
+                                            new Notification().savePlayerId(mContext).join();
                                             new asyncAsset(mContext).getAllData().join();
                                             new asyncDashboardData(mContext).join();
                                             new asyncLocationTrackingInterval(mContext).join();
