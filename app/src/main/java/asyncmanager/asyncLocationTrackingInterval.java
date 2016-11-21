@@ -61,4 +61,12 @@ public class asyncLocationTrackingInterval extends Thread {
             return null;
         }
     }
+
+    public static boolean isDataLoadSuccessfully() {
+        if (responseCode.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -66,6 +66,7 @@ public class ClientStockTransactionReason {
         if (arr != null && arr.size() > 0) {
             DataBase db = new DataBase(ctx);
             db.open();
+            db.cleanTable(DataBase.stock_transaction_reason_int);
             for (ClientStockTransactionReason obj : arr) {
                 db.insert(DataBase.stock_transaction_reason_table, DataBase.stock_transaction_reason_int, new String[]{String.valueOf(obj.getId()), String.valueOf(obj.getStockTransactionStatusId()), obj.getReason()});
             }

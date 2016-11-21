@@ -243,5 +243,6 @@
     </string>
     <string name="strNote">Note</string>
     <string name="msgPasswordvalidation">Password must have six character and minimum one digit</string>
+    <string name="strUnableToLoadData">Unable to load data.</string>
 </resources>
 

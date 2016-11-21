@@ -57,6 +57,7 @@ import utility.GPSTracker;
 import utility.Helper;
 import utility.HttpEngine;
 import notification.Notification;
+import utility.Logger;
 import utility.OptionMenu;
 import utility.ServerResponse;
 import utility.URLMapping;
@@ -250,10 +251,29 @@ public class acLogin extends AppCompatActivity {
                                                 }
                                             });
                                         }
-                                        Helper.startBackgroundService(mContext);
-                                        Intent i = new Intent(mContext, acHome.class);
-                                        startActivity(i);
-                                        finish();
+                                        Logger.debug((asyncUserData.isDataLoadSuccessfully() + " " + Notification.isDataLoadSuccessfully() + " " +
+                                                asyncAsset.isDataLoadSuccessfully() + " " + asyncDashboardData.isDataLoadSuccessfully() + " " +
+                                                asyncLocationTrackingInterval.isDataLoadSuccessfully() + " " + asyncModuleFlag.isDataLoadSuccessfully() + " " +
+                                                asyncEmployeeList.isDataLoadSuccessfully()));
+                                        if (asyncUserData.isDataLoadSuccessfully() && Notification.isDataLoadSuccessfully() &&
+                                                asyncAsset.isDataLoadSuccessfully() && asyncDashboardData.isDataLoadSuccessfully() &&
+                                                asyncLocationTrackingInterval.isDataLoadSuccessfully() && asyncModuleFlag.isDataLoadSuccessfully() &&
+                                                asyncEmployeeList.isDataLoadSuccessfully()) {
+                                            Helper.startBackgroundService(mContext);
+                                            Intent i = new Intent(mContext, acHome.class);
+                                            startActivity(i);
+                                            finish();
+                                        } else {
+                                            Helper.displaySnackbar(ac, getString(R.string.strUnableToLoadData));
+                                            handler.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    btnLogin.setEnabled(true);
+                                                    btnLogin.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
+                                                }
+                                            });
+
+                                        }
                                     }
                                 } catch (JSONException e) {
                                     Helper.displaySnackbar(ac, result);

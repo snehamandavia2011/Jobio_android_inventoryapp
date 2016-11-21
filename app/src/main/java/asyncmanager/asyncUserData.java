@@ -58,4 +58,12 @@ public class asyncUserData extends Thread {
             }
         }
     }
+
+    public static boolean isDataLoadSuccessfully() {
+        if (responseCode.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

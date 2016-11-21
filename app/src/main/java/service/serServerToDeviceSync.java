@@ -70,13 +70,13 @@ public class serServerToDeviceSync extends Service {
                 } else {
                     Logger.debug("Message is not going to sync via service");
                 }
-                Logger.debug("asyncUserData.responseCode:" + asyncUserData.responseCode+" asyncAsset:"+asyncAsset.responseCode);
+                Logger.debug("asyncUserData.responseCode:" + asyncUserData.responseCode+" asyncAsset:"+asyncAsset.assetResponseCode);
                 if ((asyncUserData.responseCode.equals(ConstantVal.ServerResponseCode.SUCCESS) ||//008
                         asyncUserData.responseCode.equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED) ||//005
                         asyncUserData.responseCode.equals(ConstantVal.ServerResponseCode.INVALID_LOGIN)) ||//006
-                        (asyncAsset.responseCode.equals(ConstantVal.ServerResponseCode.SUCCESS) ||
-                                asyncAsset.responseCode.equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED) ||
-                                asyncAsset.responseCode.equals(ConstantVal.ServerResponseCode.INVALID_LOGIN))) {
+                        (asyncAsset.assetResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS) ||
+                                asyncAsset.inspectResponseCode.equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED) ||
+                                asyncAsset.serviceResponseCode.equals(ConstantVal.ServerResponseCode.INVALID_LOGIN))) {
                     Date dt = new Date();
                     Logger.debug("in serServerToDeviceSync Last internet connectivity time is going to save:" + dt.toString());
                     Helper.setLongPreference(mContext, ConstantVal.LAST_SERVER_TO_DEVICE_SYNC_TIME, dt.getTime());

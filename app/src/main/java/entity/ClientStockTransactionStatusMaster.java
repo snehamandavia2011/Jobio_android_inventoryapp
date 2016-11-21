@@ -57,6 +57,7 @@ public class ClientStockTransactionStatusMaster {
         if (arr != null && arr.size() > 0) {
             DataBase db = new DataBase(ctx);
             db.open();
+            db.cleanTable(DataBase.stock_transaction_status_int);
             for (ClientStockTransactionStatusMaster obj : arr) {
                 db.insert(DataBase.stock_transaction_status_table, DataBase.stock_transaction_status_int, new String[]{String.valueOf(obj.getId()), obj.getAction_name()});
             }

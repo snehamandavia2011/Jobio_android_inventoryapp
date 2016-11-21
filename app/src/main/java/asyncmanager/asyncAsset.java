@@ -30,7 +30,7 @@ import utility.URLMapping;
  */
 public class asyncAsset {
     Context ctx;
-    public static String responseCode;
+    public static String assetResponseCode,serviceResponseCode,inspectResponseCode;
 
     public asyncAsset(Context ctx) {
         this.ctx = ctx;
@@ -167,8 +167,8 @@ public class asyncAsset {
         ServerResponse objServerRespose = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(),
                 new String[]{account_id, employee_id, String.valueOf(tokenId)}, um.getParamNames(), um.isNeedToSync());
         String result = objServerRespose.getResponseString();
-        responseCode = objServerRespose.getResponseCode();
-        if (result != null && !result.equals("") && responseCode == ConstantVal.ServerResponseCode.SUCCESS) {
+        assetResponseCode = objServerRespose.getResponseCode();
+        if (result != null && !result.equals("") && assetResponseCode == ConstantVal.ServerResponseCode.SUCCESS) {
             try {
                 arrServerdata = parseAssetIOwn.getList(result);
                 //Logger.debug("size:" + arrServerdata.size());
@@ -189,8 +189,8 @@ public class asyncAsset {
         ServerResponse objServerRespose = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(),
                 new String[]{account_id, employee_id, String.valueOf(tokenId)}, um.getParamNames(), um.isNeedToSync());
         String result = objServerRespose.getResponseString();
-        responseCode = objServerRespose.getResponseCode();
-        if (result != null && !result.equals("") && responseCode == ConstantVal.ServerResponseCode.SUCCESS) {
+        inspectResponseCode = objServerRespose.getResponseCode();
+        if (result != null && !result.equals("") && inspectResponseCode == ConstantVal.ServerResponseCode.SUCCESS) {
             try {
                 arrServerdata = parseInspect.getList(result);
             } catch (JSONException e) {
@@ -210,8 +210,8 @@ public class asyncAsset {
         ServerResponse objServerRespose = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(),
                 new String[]{account_id, employee_id, String.valueOf(tokenId)}, um.getParamNames(), um.isNeedToSync());
         String result = objServerRespose.getResponseString();
-        responseCode = objServerRespose.getResponseCode();
-        if (result != null && !result.equals("") && responseCode == ConstantVal.ServerResponseCode.SUCCESS) {
+        serviceResponseCode = objServerRespose.getResponseCode();
+        if (result != null && !result.equals("") && serviceResponseCode == ConstantVal.ServerResponseCode.SUCCESS) {
             try {
                 arrServerdata = parseService.getList(result);
             } catch (JSONException e) {
@@ -219,6 +219,15 @@ public class asyncAsset {
             }
         }
         return arrServerdata;
+    }
 
+    public static boolean isDataLoadSuccessfully(){
+        if(assetResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS) &&
+                inspectResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS)&&
+                serviceResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS)){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

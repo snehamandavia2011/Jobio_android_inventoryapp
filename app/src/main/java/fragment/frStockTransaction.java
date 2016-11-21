@@ -130,7 +130,7 @@ public class frStockTransaction extends Fragment {
             protected Object doInBackground(Object[] params) {
                 arrClientStockTransactionStatusMaster = ClientStockTransactionStatusMaster.getDataFromDatabaseIn(mContext);
                 //arr.add(0, new ClientStockTransactionStatusMaster(0, getString(R.string.strSelectStockType)));
-                adpStockTransactionStatus = new ArrayAdapter<ClientStockTransactionStatusMaster>(mContext, R.layout.spinner_item, arrClientStockTransactionStatusMaster); /*{
+                /*{
                     @Override
                     public boolean isEnabled(int position) {
                         if (position == 0)
@@ -145,30 +145,33 @@ public class frStockTransaction extends Fragment {
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
-                spnStockTransactionStatus.setAdapter(adpStockTransactionStatus);
-                spnStockTransactionStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        selStockTransactionStatus = arrClientStockTransactionStatusMaster.get(position).getId();
-                        referenceType = StockTransactionReferenceType.getReferenceID(selStockTransactionStatus);
-                        if (selStockTransactionStatus == 2) {//STOCK RETURN
-                            txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
-                        } else if (selStockTransactionStatus == 3) {//STOCK RECEIVED
-                            txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
-                        } else if (selStockTransactionStatus == 4) {//STOCK DAMAGE
-                            txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
-                        } else if (selStockTransactionStatus == 7) {//STOCK RELEASE
-                            txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
+                if (arrClientStockTransactionStatusMaster != null && arrClientStockTransactionStatusMaster.size() > 0) {
+                    adpStockTransactionStatus = new ArrayAdapter<ClientStockTransactionStatusMaster>(mContext, R.layout.spinner_item, arrClientStockTransactionStatusMaster);
+                    spnStockTransactionStatus.setAdapter(adpStockTransactionStatus);
+                    spnStockTransactionStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            selStockTransactionStatus = arrClientStockTransactionStatusMaster.get(position).getId();
+                            referenceType = StockTransactionReferenceType.getReferenceID(selStockTransactionStatus);
+                            if (selStockTransactionStatus == 2) {//STOCK RETURN
+                                txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
+                            } else if (selStockTransactionStatus == 3) {//STOCK RECEIVED
+                                txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
+                            } else if (selStockTransactionStatus == 4) {//STOCK DAMAGE
+                                txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
+                            } else if (selStockTransactionStatus == 7) {//STOCK RELEASE
+                                txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
+                            }
+                            setSpnTrasactionReason();
+                            setSpnRefList();
                         }
-                        setSpnTrasactionReason();
-                        setSpnRefList();
-                    }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -178,25 +181,27 @@ public class frStockTransaction extends Fragment {
             @Override
             protected Object doInBackground(Object[] params) {
                 arrClientStockTransactionReason = ClientStockTransactionReason.getDataFromDatabase(mContext, selStockTransactionStatus);
-                adpStockTransactionReason = new ArrayAdapter<ClientStockTransactionReason>(mContext, R.layout.spinner_item, arrClientStockTransactionReason);
                 return null;
             }
 
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
-                spnTransactionReason.setAdapter(adpStockTransactionReason);
-                spnTransactionReason.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        selStockTransactionReason = arrClientStockTransactionReason.get(position).getId();
-                    }
+                if (arrClientStockTransactionReason != null && arrClientStockTransactionReason.size() > 0) {
+                    adpStockTransactionReason = new ArrayAdapter<ClientStockTransactionReason>(mContext, R.layout.spinner_item, arrClientStockTransactionReason);
+                    spnTransactionReason.setAdapter(adpStockTransactionReason);
+                    spnTransactionReason.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            selStockTransactionReason = arrClientStockTransactionReason.get(position).getId();
+                        }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

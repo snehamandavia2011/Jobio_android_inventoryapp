@@ -21,6 +21,7 @@ import utility.URLMapping;
  */
 public class asyncEmployeeList extends Thread {
     Context ctx;
+    public static String responseCode;
 
     public asyncEmployeeList(Context ctx) {
         this.ctx = ctx;
@@ -54,8 +55,9 @@ public class asyncEmployeeList extends Thread {
         String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
         URLMapping um = ConstantVal.getClientAdminUserEmployeeList(ctx);
         ServerResponse objServerRespose = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(),
-                new String[]{String.valueOf(tokenId),account_id}, um.getParamNames(), um.isNeedToSync());
+                new String[]{String.valueOf(tokenId), account_id}, um.getParamNames(), um.isNeedToSync());
         String result = objServerRespose.getResponseString();
+        responseCode = objServerRespose.getResponseCode();
         if (result != null && !result.equals("")) {
             try {
                 arrServerdata = parseAdminUserEmployeeList.getList(result);
@@ -64,5 +66,13 @@ public class asyncEmployeeList extends Thread {
             }
         }
         return arrServerdata;
+    }
+
+    public static boolean isDataLoadSuccessfully() {
+        if (responseCode.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
