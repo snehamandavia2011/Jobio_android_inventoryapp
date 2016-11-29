@@ -1,5 +1,6 @@
 package notification;
 
+import com.lab360io.jobio.officeApp.ApplicationOffice;
 import com.onesignal.OSNotification;
 import com.onesignal.OneSignal;
 
@@ -13,14 +14,10 @@ import utility.Logger;
 public class NotificationReceiveHandler implements OneSignal.NotificationReceivedHandler {
     @Override
     public void notificationReceived(OSNotification notification) {
-        JSONObject data = notification.payload.additionalData;
-        String customKey;
+        Logger.debug("Notification receive ");
 
-        if (data != null) {
-            customKey = data.optString("customkey", null);
-            if (customKey != null)
-                Logger.debug(customKey);
-        }
+        JSONObject data = notification.payload.additionalData;
+        Notification.performActionWhileNotificationReceive(data, ApplicationOffice.getContext());
     }
 }
 

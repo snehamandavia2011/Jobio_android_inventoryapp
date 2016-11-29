@@ -41,6 +41,11 @@ public class ConstantVal {
     public static final int ZBAR_SCANNER_REQUEST = 14;
     public static final int ZBAR_QR_SCANNER_REQUEST = 15;
 
+    public static class NotificationType {
+        public static final String ADD_SERVICE_TRANSACTION = "ADD_SERVICE_TRANSACTION";
+        public static final String ADD_INSPECTION_TRANSACTION = "ADD_INSPECTION_TRANSACTION";
+        public static final String MESSAGE_RECEIVED = "MESSAGE_RECEIVED";
+    }
 
     public static class BroadcastAction {
         public static final String CHANGED_MESSAGE_STATUS = "jobio.io.MESSAGE_STATUS";
@@ -421,6 +426,12 @@ public class ConstantVal {
         String[] paramName = {"admin_user_Id", "player_id", "device", "token_id", "account_id"};
         String QRCode = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(QRCode) + "controllernotification/savePlayerId";
+        return new URLMapping(paramName, URL, true);
+    }
+    public static URLMapping updateChatWindowUser(Context c) {
+        String[] paramName = {"token_id", "account_id", "admin_user_id", "is_chat_window_open", "chat_window_user_id"};
+        String QRCode = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(QRCode) + "managemessage/updateChatWindowUser";
         return new URLMapping(paramName, URL, true);
     }
 }

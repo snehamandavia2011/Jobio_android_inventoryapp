@@ -175,7 +175,7 @@ public class acLogin extends AppCompatActivity {
                 finish();*/
                 boolean isDataEntedProperly = true;
                 if (Helper.isFieldBlank(edUserName.getText().toString())) {
-                    edUserName.setError(getString(R.string.strEnterUserName));
+                    edUserName.setError(getString(R.string.strEnterEmailId));
                     requestFocus(edUserName);
                     isDataEntedProperly = false;
                 } else if (!Helper.isValidEmailId(edUserName.getText().toString())) {
@@ -312,7 +312,7 @@ public class acLogin extends AppCompatActivity {
                 email = edUserName.getText().toString();
                 if (Helper.isFieldBlank(email)) {
                     isDataEnteredProper = false;
-                    edUserName.setError(getString(R.string.strEnterUserName));
+                    edUserName.setError(getString(R.string.strEnterEmailId));
                     requestFocus(edUserName);
                 } else if (!Helper.isValidEmailId(email)) {
                     isDataEnteredProper = false;

@@ -1,14 +1,18 @@
 package notification;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import com.onesignal.OneSignal;
+
+import org.json.JSONObject;
 
 import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUser;
 import utility.ConstantVal;
 import utility.Helper;
 import utility.HttpEngine;
+import utility.Logger;
 import utility.ServerResponse;
 import utility.URLMapping;
 
@@ -16,7 +20,7 @@ import utility.URLMapping;
  * Created by SAI on 11/19/2016.
  */
 public class Notification {
-    public static String responseCode;
+    public static String responseCode = "";
 
     public Thread savePlayerId(final Context mContext) {
         Thread t = new Thread() {
@@ -47,5 +51,42 @@ public class Notification {
         } else {
             return false;
         }
+    }
+
+    public static void initNotification(Context mContext) {
+        OneSignal.startInit(mContext).init();
+        OneSignal.startInit(mContext).setNotificationReceivedHandler(new NotificationReceiveHandler()).init();
+        OneSignal.startInit(mContext).setNotificationOpenedHandler(new NotificationOpenHandler(mContext)).init();
+    }
+
+    public static void performActionWhileNotificationReceive(final JSONObject data, final Context mContext) {
+        new AsyncTask() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                String action;
+                if (data != null) {
+                    try {
+                        action = data.optString("action", null);
+                        if (action != null) {
+                            if (action.equals(ConstantVal.NotificationType.ADD_SERVICE_TRANSACTION)) {//data:account_id,employee_id
+
+                            } else if (action.equals(ConstantVal.NotificationType.ADD_INSPECTION_TRANSACTION)) {//data:account_id
+
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                return null;
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+
     }
 }

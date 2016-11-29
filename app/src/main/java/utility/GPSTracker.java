@@ -88,10 +88,16 @@ public class GPSTracker implements LocationListener {
                 }
                 // First get location from Network Provider
                 else if (isNetworkEnabled) {
-                    locationManager.requestLocationUpdates(
-                            LocationManager.NETWORK_PROVIDER,
-                            MIN_TIME_BW_UPDATES,
-                            MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            locationManager.requestLocationUpdates(
+                                    LocationManager.NETWORK_PROVIDER,
+                                    MIN_TIME_BW_UPDATES,
+                                    MIN_DISTANCE_CHANGE_FOR_UPDATES, objGPSTracker);
+                        }
+                    });
+
                     Logger.debug("Network Enable");
                     if (locationManager != null) {
                         location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.xwray.fontbinding.FontCache;
 
 import entity.BusinessAccountMaster;
+import notification.Notification;
 import utility.ConstantVal;
 import utility.Helper;
 import utility.Logger;
@@ -30,6 +31,7 @@ public class acSplash extends Activity {
         FontCache.getInstance(getApplicationContext()).addFont("Ubuntu", "Ubuntu-C.ttf");
         DataBindingUtil.setContentView(this, R.layout.splash);
         mContext = this;
+        Notification.initNotification(getApplicationContext());
         imgLogo = (ImageView) findViewById(R.id.imgLogo);
         txtAccountName = (TextView) findViewById(R.id.txtAccountName);
         final boolean isConfigure = Helper.getBooleanPreference(mContext, ConstantVal.IS_QRCODE_CONFIGURE, false);

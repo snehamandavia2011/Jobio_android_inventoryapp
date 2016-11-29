@@ -175,6 +175,7 @@ public class acHome extends AppCompatActivity {
             final MaterialEditText edNewPassword = (MaterialEditText) view1.findViewById(R.id.edNewPassword);
             final MaterialEditText edConfirmPassword = (MaterialEditText) view1.findViewById(R.id.edConfirmPassword);
             final TextView txtMessage = (TextView) view1.findViewById(R.id.txtMessage);
+            txtMessage.setSelected(true);
             Button btnSave = (Button) view1.findViewById(R.id.btnSave);
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override

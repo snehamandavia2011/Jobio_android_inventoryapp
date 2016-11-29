@@ -418,12 +418,14 @@ public class acMessageList extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         objHelper.registerSessionTimeoutBroadcast(ac);
+        updateWindowScreen("Y", friendAdminUserId);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         objHelper.unRegisterSesionTimeOutBroadcast(ac);
+        updateWindowScreen("N", "");
     }
 
     private BroadcastReceiver objMessageStatusBroadcast = new BroadcastReceiver() {
@@ -499,5 +501,20 @@ public class acMessageList extends AppCompatActivity {
             ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
             finish();
         }
+    }
+
+    private void updateWindowScreen(final String isWindowOpen, final String toUserId) {
+        new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] params) {
+                String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
+                String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+                HttpEngine objHttpEngine = new HttpEngine();
+                URLMapping um = ConstantVal.updateChatWindowUser(mContext);
+                String[] Data = {String.valueOf(tokenId), account_id, selfAdminUserId, isWindowOpen, toUserId};
+                objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), Data, um.getParamNames(), um.isNeedToSync());
+                return null;
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 }
