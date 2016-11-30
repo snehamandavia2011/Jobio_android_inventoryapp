@@ -423,7 +423,7 @@ public class ConstantVal {
     }
 
     public static URLMapping savePlayerId(Context c) {
-        String[] paramName = {"admin_user_Id", "player_id", "device", "token_id", "account_id"};
+        String[] paramName = {"admin_user_Id", "player_id", "device", "token_id", "account_id","app_ref_type"};
         String QRCode = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(QRCode) + "controllernotification/savePlayerId";
         return new URLMapping(paramName, URL, true);

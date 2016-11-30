@@ -59,6 +59,7 @@ public class NotificationOpenHandler implements OneSignal.NotificationOpenedHand
                                 ((MultiDexApplication) mContext).startActivity(i1);
 
                                 Intent i2 = new Intent(mContext, acAsset.class);
+                                i2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 i2.putExtra("tab", acAsset.INSPECT);
                                 try{
                                     ((AppCompatActivity) mContext).startActivityForResult(i2, ConstantVal.EXIT_REQUEST_CODE);
@@ -73,6 +74,7 @@ public class NotificationOpenHandler implements OneSignal.NotificationOpenedHand
                                 ((MultiDexApplication) mContext).startActivity(i1);
 
                                 Intent i2 = new Intent(mContext, acAsset.class);
+                                i2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 i2.putExtra("tab", acAsset.SERVICE);
                                 try{
                                     ((AppCompatActivity) mContext).startActivityForResult(i2, ConstantVal.EXIT_REQUEST_CODE);
@@ -98,6 +100,7 @@ public class NotificationOpenHandler implements OneSignal.NotificationOpenedHand
                                 ((MultiDexApplication) mContext).startActivity(i1);
 
                                 Intent i2 = new Intent(mContext, acMessageEmployeeList.class);
+                                i2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 try{
                                     ((AppCompatActivity) mContext).startActivityForResult(i2, ConstantVal.EXIT_REQUEST_CODE);
                                 }catch (Exception e){
@@ -105,7 +108,7 @@ public class NotificationOpenHandler implements OneSignal.NotificationOpenedHand
                                 }
 
                                 Intent i3 = new Intent(mContext, acMessageList.class);
-                                i3.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                i3.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 i3.putExtra("friendAdminUserId", from_id);
                                 i3.putExtra("name", name);
                                 try{

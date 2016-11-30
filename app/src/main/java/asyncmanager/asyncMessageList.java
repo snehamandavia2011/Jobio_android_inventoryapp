@@ -214,9 +214,9 @@ public class asyncMessageList {
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
-                if (Helper.getBooleanPreference(ctx, ConstantVal.SettingFlags.MESSAGE_CONVERSATION_NOTIFICATION, true)) {
+                /*if (Helper.getBooleanPreference(ctx, ConstantVal.SettingFlags.MESSAGE_CONVERSATION_NOTIFICATION, true)) {
                     showNotification(map);
-                }
+                }*/
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

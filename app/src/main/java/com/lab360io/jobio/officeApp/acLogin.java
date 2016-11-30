@@ -270,6 +270,7 @@ public class acLogin extends AppCompatActivity {
                                                 public void run() {
                                                     btnLogin.setEnabled(true);
                                                     btnLogin.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
+                                                    Helper.logOutUser(mContext,false);
                                                 }
                                             });
 

@@ -7,6 +7,7 @@ import com.onesignal.OneSignal;
 
 import org.json.JSONObject;
 
+import asyncmanager.asyncMessageList;
 import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUser;
 import utility.ConstantVal;
@@ -34,7 +35,7 @@ public class Notification {
                         String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
                         String adminUser_id = Helper.getStringPreference(mContext, ClientAdminUser.Fields.ADMINUSERID, "");
                         URLMapping um = ConstantVal.savePlayerId(mContext);
-                        String[] data = {adminUser_id, userId, "Mobile", tokenId, account_id};
+                        String[] data = {adminUser_id, userId, "Mobile", tokenId, account_id, ConstantVal.APP_REF_TYPE};
                         ServerResponse objServerResponse = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), data, um.getParamNames(), um.isNeedToSync());
                         responseCode = objServerResponse.getResponseCode();
                     }
@@ -77,6 +78,14 @@ public class Notification {
 
                             } else if (action.equals(ConstantVal.NotificationType.ADD_INSPECTION_TRANSACTION)) {//data:account_id
 
+                            } else if (action.equals(ConstantVal.NotificationType.MESSAGE_RECEIVED)) {//data:account_id
+                                String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+                                String admin_user_id = Helper.getStringPreference(mContext, ClientAdminUser.Fields.ADMINUSERID, "");
+                                String acId = data.optString("account_id", null);
+                                String to_id = data.optString("to_id", null);
+                                Logger.debug(acId + " " + account_id + " " + to_id + " " + admin_user_id);
+                                if (account_id.equals(acId) && admin_user_id.equals(to_id))
+                                    new asyncMessageList(mContext);
                             }
                         }
                     } catch (Exception e) {

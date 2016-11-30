@@ -84,7 +84,7 @@ public class acMessageEmployeeList extends AppCompatActivity {
                         if (cur.getString(1).equals(loginUserId))
                             continue;
                         //get count of unread message
-                        String where = "from_id='" + cur.getInt(1) + "' and to_id='" + loginUserId + "' and is_viewed='N'";
+                        String where = "from_id='" + cur.getString(1) + "' and to_id='" + loginUserId + "' and is_viewed='N'";
                         //Logger.debug(where);
                         int count = db.getCounts(DataBase.field_message_table, where);
                         arrClientAdminUserEmployee.add(new ClientAdminUserEmployee(cur.getString(1), cur.getString(2), cur.getString(3), cur.getString(4),

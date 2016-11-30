@@ -35,7 +35,6 @@ import service.serDeviceToServerSync;
  */
 public class HttpEngine {
     public ServerResponse getDataFromWebAPI(Context mContext, String strURL, String[] paramValues, String[] paramNames, boolean isRequireToSync) {
-        //Logger.debug("URL:" + strURL);
         if (mContext instanceof Activity && (mContext.getClass() != acSplash.class && mContext.getClass() != acLogin.class &&
                 mContext.getClass() != acManualQRCode.class && mContext.getClass() != acQRCodeScanner.class && mContext.getClass() != acHome.class) &&
                 !serDeviceToServerSync.isSyncing) {
@@ -54,7 +53,7 @@ public class HttpEngine {
             }
             if (!data.equals(""))
                 data = data.substring(1, data.length());
-            //Logger.debug("data:" + data);
+            Logger.debug("[URL:" + strURL + "][Data:" + data + "]");
 
             long intSync = 0;
             if (isRequireToSync) {
@@ -72,8 +71,6 @@ public class HttpEngine {
     }
 
     public ServerResponse makeHttpRequestCall(Context mContext, String strURL, String data) {
-        Logger.debug("URL:" + strURL);
-        Logger.debug("Data:" + data);
         ServerResponse objServerResponse = null;
         try {
             if (!isNetworkAvailable(mContext)) {
@@ -90,9 +87,7 @@ public class HttpEngine {
                 wr.write(data);
                 wr.flush();
                 urlConnection.connect();
-                Logger.debug("Response code from server:" + urlConnection.getResponseCode() + " " + urlConnection.getResponseMessage());
                 int resoponseCode = urlConnection.getResponseCode();
-                //Logger.debug("Response message from server:" + urlConnection.getResponseMessage());
                 if (resoponseCode >= 500 && resoponseCode <= 520) {
                     objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.SERVER_ERROR, ConstantVal.ServerResponseCode.SERVER_ERROR);
                 } else if (strURL.contains("verifyQRCode") && (resoponseCode >= 400 && resoponseCode <= 451)) {
@@ -108,7 +103,7 @@ public class HttpEngine {
                         res.append(new String(chBuff, 0, len));
                     in.close();
                     String strResponse = res.toString();
-                    Logger.debug("Response from server:" + strResponse);
+                    Logger.debug("[URL:" + strURL + "][SERVER RESPONSE CODE:" + resoponseCode + "][SERVER RESPONSE MESSAGE:" + urlConnection.getResponseMessage() + "][RESPONSE FROM API:" + strResponse + "]");
                     if (strResponse == null || strResponse.equals("")) {
                         objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.BLANK_RESPONSE, ConstantVal.ServerResponseCode.BLANK_RESPONSE);
                     } else if (strResponse.equals(ConstantVal.ServerResponseCode.INVALID_QR_CODE)) {
@@ -148,7 +143,7 @@ public class HttpEngine {
             objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.BLANK_RESPONSE, ConstantVal.ServerResponseCode.BLANK_RESPONSE);
             e.printStackTrace();
         }
-        Logger.debug("Application response code" + objServerResponse.getResponseCode());
+        Logger.debug("[URL:" + strURL + "][Application response code" + objServerResponse.getResponseCode() + "]");
         String strEmail = Helper.getStringPreference(mContext, ClientAdminUser.Fields.USER_NAME, "");
         String message = "[Code:" + objServerResponse.getResponseCode() + "][Response:" + objServerResponse.getResponseString() + "]";
         CrashlyticsCore.getInstance().log(Log.ASSERT, strEmail, message);

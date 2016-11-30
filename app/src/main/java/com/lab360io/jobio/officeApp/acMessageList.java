@@ -242,7 +242,7 @@ public class acMessageList extends AppCompatActivity {
                 @Override
                 protected void onPostExecute(Object o) {
                     super.onPostExecute(o);
-                    if(sr.getResponseCode().equals(ConstantVal.ServerResponseCode.NO_INTERNET)){
+                    if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.NO_INTERNET)) {
                         Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet));
                     }
                 }
@@ -441,7 +441,8 @@ public class acMessageList extends AppCompatActivity {
                     View v = findViewFromLyList(localPK);
                     if (v != null) {
                         ImageView img = (ImageView) v.findViewById(R.id.status);
-                        setImageofStatus(img, status);
+                        if (img != null)
+                            setImageofStatus(img, status);
                     }
                 }
 
