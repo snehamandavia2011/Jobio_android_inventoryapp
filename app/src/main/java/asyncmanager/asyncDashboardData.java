@@ -112,11 +112,16 @@ public class asyncDashboardData extends Thread {
 
 
     public static boolean isDataLoadSuccessfully() {
-        if ((welcomeResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS) || welcomeResponseCode.equals(ConstantVal.ServerResponseCode.BLANK_RESPONSE)) &&
-                STSResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS) &&
-                STRResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
-            return true;
-        } else {
+        try {
+            if ((welcomeResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS) || welcomeResponseCode.equals(ConstantVal.ServerResponseCode.BLANK_RESPONSE)) &&
+                    STSResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS) &&
+                    STRResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

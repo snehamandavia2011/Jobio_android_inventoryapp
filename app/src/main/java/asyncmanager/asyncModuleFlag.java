@@ -71,9 +71,14 @@ public class asyncModuleFlag extends Thread {
     }
 
     public static boolean isDataLoadSuccessfully() {
-        if (responseCode.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
-            return true;
-        } else {
+        try {
+            if (responseCode.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                return true;
+            } else {
+                return false;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
             return false;
         }
     }

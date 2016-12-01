@@ -222,11 +222,16 @@ public class asyncAsset {
     }
 
     public static boolean isDataLoadSuccessfully(){
-        if(assetResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS) &&
-                inspectResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS)&&
-                serviceResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS)){
-            return true;
-        }else{
+        try {
+            if (assetResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS) &&
+                    inspectResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS) &&
+                    serviceResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                return true;
+            } else {
+                return false;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
             return false;
         }
     }
