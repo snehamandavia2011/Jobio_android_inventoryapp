@@ -13,9 +13,9 @@ android {
         versionName "1.0"
         multiDexEnabled true
 
-        manifestPlaceholders = [onesignal_app_id: "851433de-3a1e-4750-b0aa-355ec5ba60a8",
+        manifestPlaceholders = [onesignal_app_id: "4635b650-bb8f-493e-b671-41335fe235a7",
                                 // Project number pulled from dashboard, local value is ignored.
-                                onesignal_google_project_number: "636235551686"]
+                                onesignal_google_project_number: "72130636561"]
     }
     dexOptions {
         javaMaxHeapSize "4g" //specify the heap size for the dex process

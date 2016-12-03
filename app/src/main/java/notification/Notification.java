@@ -29,6 +29,8 @@ public class Notification {
                 OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
                     @Override
                     public void idsAvailable(String userId, String registrationId) {
+                        //Logger.debug("idsAvailable: " + userId);
+                        //Logger.debug(registrationId != null ? "Reg:" + registrationId : "Reg is null");
                         //call web API to save userID to mysql server
                         HttpEngine objHttpEngine = new HttpEngine();
                         final String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
@@ -53,7 +55,7 @@ public class Notification {
             } else {
                 return false;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
