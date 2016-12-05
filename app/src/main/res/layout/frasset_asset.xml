@@ -28,7 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ViewMargin"
-                    android:text="@string/msgAssetIOwn"
+                    android:text="@string/msgAssetIHold"
                     app:font="@{`Ubuntu-L`}" />
 
 
