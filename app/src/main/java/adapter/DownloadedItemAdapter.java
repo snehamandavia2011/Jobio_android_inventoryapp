@@ -90,7 +90,7 @@ public class DownloadedItemAdapter extends BaseAdapter {
         if (!objClientItemMaster1.isImageLoaded()) {
             new asyncLoadCommonData(ctx).loadItemPhotoById(holder.imgItem, objClientItemMaster1, imgClick);
         }
-        holder.txtItemNameType.setText(objClientItemMaster1.getItem_name() + "[" + objClientItemMaster1.getCategory_name() + "]");
+        holder.txtItemNameType.setText(objClientItemMaster1.getItem_name() + " [" + objClientItemMaster1.getCategory_name() + "]");
         holder.txtSpecification.setText(objClientItemMaster1.getSpecification().equals("") ? ctx.getString(R.string.msgDescNotAvail).toUpperCase() : objClientItemMaster1.getSpecification());
         int minQty, availQty;
         try {

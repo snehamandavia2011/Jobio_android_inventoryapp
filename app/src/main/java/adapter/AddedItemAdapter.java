@@ -81,7 +81,7 @@ public class AddedItemAdapter extends BaseAdapter {
         }
 
         final ClientItemMaster objClientItemMaster = arrClientItem.get(position);
-        holder.txtItemName.setText(objClientItemMaster.getItem_name() + "[" + objClientItemMaster.getCategory_name() + "]");
+        holder.txtItemName.setText(objClientItemMaster.getItem_name() + " [" + objClientItemMaster.getCategory_name() + "]");
         holder.txtItemDesc.setText(objClientItemMaster.getSpecification().equals("") ? ctx.getString(R.string.msgDescNotAvail).toUpperCase() : objClientItemMaster.getSpecification());
         String date = Helper.convertDateToString(new Date(Long.parseLong(objClientItemMaster.getLast_update_date_time())), ConstantVal.DATE_FORMAT + " " + ConstantVal.TIME_FORMAT);
         holder.txtLastUpdated.setText(ctx.getString(R.string.strLastUpdated) + ": " + date);

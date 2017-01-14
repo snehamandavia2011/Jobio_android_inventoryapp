@@ -165,7 +165,7 @@ public class acItemDetail extends AppCompatActivity {
         if (objClientItemMaster != null) {
             asyncLoadCommonData.setPreExecutionPhotoToImageView(mContext, objClientItemMaster.getPhoto(), item_image, null, R.drawable.ic_nopic);
         }
-        txtItemNameCategory.setText(objClientItemMaster.getItem_name() + "[" + objClientItemMaster.getCategory_name() + "]");
+        txtItemNameCategory.setText(objClientItemMaster.getItem_name() + " [" + objClientItemMaster.getCategory_name() + "]");
         txtDesc.setText(objClientItemMaster.getSpecification().equals("") ? mContext.getString(R.string.msgDescNotAvail) : objClientItemMaster.getSpecification());
         txtShortCode.setText(objClientItemMaster.getShort_code());
         txtUnitOfMeasure.setText(objClientItemMaster.getUom_name());

@@ -19,7 +19,7 @@
             android:layout_marginLeft="@dimen/ViewMargin"
             android:layout_marginRight="@dimen/ViewMargin"
             android:layout_marginTop="@dimen/ViewMargin"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:id="@+id/lyBottom"
@@ -103,42 +103,75 @@
                             android:text="@string/strStockType"
                             app:font="@{`Ubuntu-M`}" />
 
-                        <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                        <RadioGroup
+                            android:id="@+id/radioGroup1"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_horizontal"
+                            android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/ViewMargin"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_spinner"
-                            rdv:rdv_rippleAnimationDuration="600"
-                            rdv:rdv_rippleAnimationFrames="60"
-                            rdv:rdv_rippleAnimationPeakFrame="15"
-                            rdv:rdv_rippleColor="@color/tilt"
-                            rdv:rdv_rippleMaxAlpha="0.8"
-                            rdv:rdv_rippleRadius="@dimen/rippleRadius">
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                            <RadioButton
+                                android:id="@+id/rd1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/ViewMargin"
+                                android:layout_weight="1"
+                                android:background="@drawable/rbtn_selector"
+                                android:button="@null"
+                                android:ellipsize="marquee"
+                                android:gravity="center"
+                                android:padding="@dimen/ViewPadding"
+                                android:singleLine="true"
+                                android:textColor="@drawable/rbtn_textcolor_selector"
+                                app:font="@{`Ubuntu-L`}" />
 
-                                <ImageView
-                                    android:id="@+id/img"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginRight="@dimen/ViewMargin"
-                                    android:background="@drawable/ic_drop_down" />
+                            <RadioButton
+                                android:id="@+id/rd2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/ViewMargin"
+                                android:layout_weight="1"
+                                android:background="@drawable/rbtn_selector"
+                                android:button="@null"
+                                android:ellipsize="marquee"
+                                android:gravity="center"
+                                android:padding="@dimen/ViewPadding"
+                                android:singleLine="true"
+                                android:textColor="@drawable/rbtn_textcolor_selector"
+                                app:font="@{`Ubuntu-L`}" />
 
-                                <Spinner
-                                    android:id="@+id/spnStockType"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="@null"
-                                    android:prompt="@string/strStockType"
-                                    android:spinnerMode="dialog" />
-                            </RelativeLayout>
-                        </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+                            <RadioButton
+                                android:id="@+id/rd3"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/ViewMargin"
+                                android:layout_weight="1"
+                                android:background="@drawable/rbtn_selector"
+                                android:button="@null"
+                                android:ellipsize="marquee"
+                                android:gravity="center"
+                                android:padding="@dimen/ViewPadding"
+                                android:singleLine="true"
+                                android:textColor="@drawable/rbtn_textcolor_selector"
+                                app:font="@{`Ubuntu-L`}" />
+
+                            <RadioButton
+                                android:id="@+id/rd4"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/ViewMargin"
+                                android:layout_weight="1"
+                                android:background="@drawable/rbtn_selector"
+                                android:button="@null"
+                                android:ellipsize="marquee"
+                                android:gravity="center"
+                                android:padding="@dimen/ViewPadding"
+                                android:singleLine="true"
+                                android:textColor="@drawable/rbtn_textcolor_selector"
+                                app:font="@{`Ubuntu-L`}" />
+                        </RadioGroup>
+
 
                         <TextView
                             style="@style/styDescTile"

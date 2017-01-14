@@ -46,7 +46,7 @@ public class frStockTransaction extends Fragment {
     RelativeLayout lyNoNetwork, lyMainContent;
     LinearLayout lyFromTo, lyRefList;
     DotProgressBar dot_progress_bar;
-    Spinner spnStockTransactionStatus, spnTransactionReason, spnRef, spnFrom, spnTo;
+    Spinner spnTransactionReason, spnRef, spnFrom, spnTo;// spnStockTransactionStatus;
     TextView txtReference, txtNoReferenceFound;
     Context mContext;
     int selStockTransactionStatus, selStockTransactionReason;
@@ -74,7 +74,7 @@ public class frStockTransaction extends Fragment {
         dot_progress_bar = (DotProgressBar) view.findViewById(R.id.dot_progress_bar);
         txtReference = (TextView) view.findViewById(R.id.txtReference);
         txtNoReferenceFound = (TextView) view.findViewById(R.id.txtNoReferenceFound);
-        spnStockTransactionStatus = (Spinner) view.findViewById(R.id.spnStockType);
+        //spnStockTransactionStatus = (Spinner) view.findViewById(R.id.spnStockType);
         spnTransactionReason = (Spinner) view.findViewById(R.id.spnTransactionReason);
         spnRef = (Spinner) view.findViewById(R.id.spnRef);
         spnFrom = (Spinner) view.findViewById(R.id.spnFrom);
