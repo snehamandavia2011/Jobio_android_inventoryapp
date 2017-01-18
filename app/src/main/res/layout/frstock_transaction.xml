@@ -19,7 +19,7 @@
             android:layout_marginLeft="@dimen/ViewMargin"
             android:layout_marginRight="@dimen/ViewMargin"
             android:layout_marginTop="@dimen/ViewMargin"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <LinearLayout
                 android:id="@+id/lyBottom"
@@ -104,7 +104,7 @@
                             app:font="@{`Ubuntu-M`}" />
 
                         <RadioGroup
-                            android:id="@+id/radioGroup1"
+                            android:id="@+id/rgStockType"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/ViewMargin"
@@ -113,62 +113,34 @@
 
                             <RadioButton
                                 android:id="@+id/rd1"
+                                style="@style/styRadioButton"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="@dimen/ViewMargin"
-                                android:layout_weight="1"
-                                android:background="@drawable/rbtn_selector"
-                                android:button="@null"
-                                android:ellipsize="marquee"
-                                android:gravity="center"
-                                android:padding="@dimen/ViewPadding"
-                                android:singleLine="true"
-                                android:textColor="@drawable/rbtn_textcolor_selector"
                                 app:font="@{`Ubuntu-L`}" />
 
                             <RadioButton
                                 android:id="@+id/rd2"
+                                style="@style/styRadioButton"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="@dimen/ViewMargin"
-                                android:layout_weight="1"
-                                android:background="@drawable/rbtn_selector"
-                                android:button="@null"
-                                android:ellipsize="marquee"
-                                android:gravity="center"
-                                android:padding="@dimen/ViewPadding"
-                                android:singleLine="true"
-                                android:textColor="@drawable/rbtn_textcolor_selector"
                                 app:font="@{`Ubuntu-L`}" />
 
                             <RadioButton
                                 android:id="@+id/rd3"
+                                style="@style/styRadioButton"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="@dimen/ViewMargin"
-                                android:layout_weight="1"
-                                android:background="@drawable/rbtn_selector"
-                                android:button="@null"
-                                android:ellipsize="marquee"
-                                android:gravity="center"
-                                android:padding="@dimen/ViewPadding"
-                                android:singleLine="true"
-                                android:textColor="@drawable/rbtn_textcolor_selector"
                                 app:font="@{`Ubuntu-L`}" />
 
                             <RadioButton
                                 android:id="@+id/rd4"
+                                style="@style/styRadioButton"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="@dimen/ViewMargin"
-                                android:layout_weight="1"
-                                android:background="@drawable/rbtn_selector"
-                                android:button="@null"
-                                android:ellipsize="marquee"
-                                android:gravity="center"
-                                android:padding="@dimen/ViewPadding"
-                                android:singleLine="true"
-                                android:textColor="@drawable/rbtn_textcolor_selector"
                                 app:font="@{`Ubuntu-L`}" />
                         </RadioGroup>
 

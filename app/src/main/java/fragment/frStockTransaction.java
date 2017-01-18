@@ -15,6 +15,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,6 +37,7 @@ import utility.ConstantVal;
 import utility.DotProgressBar;
 import utility.Helper;
 import utility.HttpEngine;
+import utility.Logger;
 import utility.ServerResponse;
 import utility.URLMapping;
 
@@ -47,6 +50,8 @@ public class frStockTransaction extends Fragment {
     LinearLayout lyFromTo, lyRefList;
     DotProgressBar dot_progress_bar;
     Spinner spnTransactionReason, spnRef, spnFrom, spnTo;// spnStockTransactionStatus;
+    RadioGroup rgStockType;
+    RadioButton rd1, rd2, rd3, rd4;
     TextView txtReference, txtNoReferenceFound;
     Context mContext;
     int selStockTransactionStatus, selStockTransactionReason;
@@ -67,6 +72,15 @@ public class frStockTransaction extends Fragment {
         mContext = getActivity();
         FontCache.getInstance(mContext).addFont("Ubuntu", "Ubuntu-C.ttf");
         View view = DataBindingUtil.inflate(inflater, R.layout.frstock_transaction, null, true).getRoot();
+        rgStockType = (RadioGroup) view.findViewById(R.id.rgStockType);
+        rd1 = (RadioButton) view.findViewById(R.id.rd1);
+        rd2 = (RadioButton) view.findViewById(R.id.rd2);
+        rd3 = (RadioButton) view.findViewById(R.id.rd3);
+        rd4 = (RadioButton) view.findViewById(R.id.rd4);
+        rd1.setSelected(true);
+        rd2.setSelected(true);
+        rd3.setSelected(true);
+        rd4.setSelected(true);
         lyMainContent = (RelativeLayout) view.findViewById(R.id.lyMainContent);
         lyNoNetwork = (RelativeLayout) view.findViewById(R.id.lyNoNetwork);
         btnCancel = (Button) view.findViewById(R.id.btnCancel);
@@ -117,9 +131,11 @@ public class frStockTransaction extends Fragment {
         boolean isNetworkAvail = new HttpEngine().isNetworkAvailable(mContext);
         if (isNetworkAvail) {
             lyMainContent.setVisibility(View.VISIBLE);
+            lyNoNetwork.setVisibility(View.GONE);
             setSpnStockType();
             setSpnFromTo();
         } else {
+            lyMainContent.setVisibility(View.GONE);
             lyNoNetwork.setVisibility(View.VISIBLE);
         }
     }
@@ -146,7 +162,46 @@ public class frStockTransaction extends Fragment {
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
                 if (arrClientStockTransactionStatusMaster != null && arrClientStockTransactionStatusMaster.size() > 0) {
-                    adpStockTransactionStatus = new ArrayAdapter<ClientStockTransactionStatusMaster>(mContext, R.layout.spinner_item, arrClientStockTransactionStatusMaster);
+                    try {
+                        for (int i = 0; i < arrClientStockTransactionStatusMaster.size(); i++) {
+                            if (i == 0) {
+                                rd1.setText(arrClientStockTransactionStatusMaster.get(i).getAction_name());
+                                rd1.setTag(arrClientStockTransactionStatusMaster.get(i).getId());
+                            } else if (i == 1) {
+                                rd2.setText(arrClientStockTransactionStatusMaster.get(i).getAction_name());
+                                rd2.setTag(arrClientStockTransactionStatusMaster.get(i).getId());
+                            } else if (i == 2) {
+                                rd3.setText(arrClientStockTransactionStatusMaster.get(i).getAction_name());
+                                rd3.setTag(arrClientStockTransactionStatusMaster.get(i).getId());
+                            } else if (i == 3) {
+                                rd4.setText(arrClientStockTransactionStatusMaster.get(i).getAction_name());
+                                rd4.setTag(arrClientStockTransactionStatusMaster.get(i).getId());
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    rgStockType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                            selStockTransactionStatus = Integer.parseInt(group.findViewById(checkedId).getTag().toString());
+                            Logger.debug("selStockTransactionStatus:" + selStockTransactionStatus);
+                            referenceType = StockTransactionReferenceType.getReferenceID(selStockTransactionStatus);
+                            if (selStockTransactionStatus == 2) {//STOCK RETURN
+                                txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
+                            } else if (selStockTransactionStatus == 3) {//STOCK RECEIVED
+                                txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
+                            } else if (selStockTransactionStatus == 4) {//STOCK DAMAGE
+                                txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
+                            } else if (selStockTransactionStatus == 7) {//STOCK RELEASE
+                                txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
+                            }
+                            setSpnTrasactionReason();
+                            setSpnRefList();
+                        }
+                    });
+                    rgStockType.check(R.id.rd1);
+                    /*adpStockTransactionStatus = new ArrayAdapter<ClientStockTransactionStatusMaster>(mContext, R.layout.spinner_item, arrClientStockTransactionStatusMaster);
                     spnStockTransactionStatus.setAdapter(adpStockTransactionStatus);
                     spnStockTransactionStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -170,7 +225,7 @@ public class frStockTransaction extends Fragment {
                         public void onNothingSelected(AdapterView<?> parent) {
 
                         }
-                    });
+                    });*/
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

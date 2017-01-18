@@ -30,7 +30,7 @@ import utility.URLMapping;
  */
 public class asyncAsset {
     Context ctx;
-    public static String assetResponseCode,serviceResponseCode,inspectResponseCode;
+    public static String assetResponseCode, serviceResponseCode, inspectResponseCode;
 
     public asyncAsset(Context ctx) {
         this.ctx = ctx;
@@ -74,7 +74,12 @@ public class asyncAsset {
                     String where = "astId=" + obj.getAstId() + "";
                     Cursor curIsVied = db.fetch(DataBase.service_view_table, DataBase.service_view_int, where);
                     if (curIsVied != null && curIsVied.getCount() == 0) {
-                        String status = String.valueOf(ConstantVal.InspectionServiceStatus.NEW);
+                        String status;
+                        if (Integer.parseInt(obj.getAstStatusId()) == ConstantVal.assetServiceInspectionStatus.DONE) {
+                            status = String.valueOf(ConstantVal.InspectionServiceStatus.DONE);
+                        } else {
+                            status = String.valueOf(ConstantVal.InspectionServiceStatus.NEW);
+                        }
                         db.insert(DataBase.service_view_table, DataBase.service_view_int, new String[]{obj.getAstId(), status});
                     }
                     curIsVied.close();
@@ -112,7 +117,12 @@ public class asyncAsset {
                     String where = "aitId=" + obj.getAitId() + "";
                     Cursor curIsVied = db.fetch(DataBase.inspect_view_table, DataBase.inspect_view_int, where);
                     if (curIsVied != null && curIsVied.getCount() == 0) {
-                        String status = String.valueOf(ConstantVal.InspectionServiceStatus.NEW);
+                        String status;
+                        if (Integer.parseInt(obj.getAitStatusId()) == ConstantVal.assetServiceInspectionStatus.DONE) {
+                            status = String.valueOf(ConstantVal.InspectionServiceStatus.DONE);
+                        } else {
+                            status = String.valueOf(ConstantVal.InspectionServiceStatus.NEW);
+                        }
                         db.insert(DataBase.inspect_view_table, DataBase.inspect_view_int, new String[]{obj.getAitId(), status});
                     }
                     curIsVied.close();
@@ -221,7 +231,7 @@ public class asyncAsset {
         return arrServerdata;
     }
 
-    public static boolean isDataLoadSuccessfully(){
+    public static boolean isDataLoadSuccessfully() {
         try {
             if (assetResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS) &&
                     inspectResponseCode.equals(ConstantVal.ServerResponseCode.SUCCESS) &&
@@ -230,7 +240,7 @@ public class asyncAsset {
             } else {
                 return false;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

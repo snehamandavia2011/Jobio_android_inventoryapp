@@ -5,6 +5,19 @@
 
     <style name="AppTheme1" parent="Theme.AppCompat.Light.NoActionBar"></style>
     <!-- .NoActionBar -->
+    <style name="styRadioButton">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:selectable">true</item>
+        <item name="android:button">@null</item>
+        <item name="android:padding">@dimen/ViewPadding</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/rbtn_selector</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/rbtn_textcolor_selector</item>
+        <item name="android:textSize">13sp</item>
+    </style>
 
     <style name="styBigTilt">
         <item name="android:textColor">@color/tilt</item>

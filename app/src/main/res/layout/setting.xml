@@ -7,9 +7,592 @@
 
     <data />
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <include layout="@layout/home_menu"></include>
-    </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/tilt">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/ViewPadding"
+                        android:paddingRight="@dimen/ViewPadding">
+
+                        <LinearLayout
+                            android:id="@+id/lyInspectionTransactionSetting"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/ViewPadding"
+                            android:layout_marginTop="@dimen/ViewPadding"
+                            android:orientation="vertical"
+                            android:visibility="visible">
+
+                            <TextView
+                                style="@style/stySubTitleTile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:gravity="center_vertical"
+                                android:padding="@dimen/ViewPaddingBig"
+                                android:text="@string/strInspectionTransaction"
+                                app:font="@{`Ubuntu-C`}" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/ViewMargin"
+                                android:background="@color/white"
+                                android:orientation="vertical"
+                                android:padding="@dimen/ViewPaddingBig">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <CheckBox
+                                        android:id="@+id/chkInspectionTransactionTone"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="@dimen/ViewPadding" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_toLeftOf="@id/chkInspectionTransactionTone"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            style="@style/stySubTitleTile"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/strIncomingTone"
+                                            app:font="@{`Ubuntu-C`}" />
+
+                                        <TextView
+                                            style="@style/styDescSmallDarkGray"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/ViewMargin"
+                                            android:text="@string/msgPlaySoundWhileAddInspectionTransaction"
+                                            app:font="@{`Ubuntu-L`}" />
+                                    </LinearLayout>
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/ViewPaddingBig">
+
+                                    <CheckBox
+                                        android:id="@+id/chkInspectionTransactionNotification"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="@dimen/ViewPadding" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_toLeftOf="@id/chkInspectionTransactionNotification"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            style="@style/stySubTitleTile"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/strNotification"
+                                            app:font="@{`Ubuntu-C`}" />
+
+                                        <TextView
+                                            style="@style/styDescSmallDarkGray"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/ViewMargin"
+                                            android:text="@string/msgDisplayNotificationWhileAddInspectionTransaction"
+                                            android:textIsSelectable="true"
+                                            app:font="@{`Ubuntu-L`}" />
+                                    </LinearLayout>
+                                </RelativeLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lyServiceTransactionSetting"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/ViewPadding"
+                            android:orientation="vertical"
+                            android:visibility="visible">
+
+                            <TextView
+                                style="@style/stySubTitleTile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:gravity="center_vertical"
+                                android:padding="@dimen/ViewPaddingBig"
+                                android:text="@string/strServiceTransaction"
+                                app:font="@{`Ubuntu-C`}" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/ViewMargin"
+                                android:background="@color/white"
+                                android:orientation="vertical"
+                                android:padding="@dimen/ViewPaddingBig">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <CheckBox
+                                        android:id="@+id/chkServiceTransactionTone"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="@dimen/ViewPadding" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_toLeftOf="@id/chkServiceTransactionTone"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            style="@style/stySubTitleTile"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/strIncomingTone"
+                                            app:font="@{`Ubuntu-C`}" />
+
+                                        <TextView
+                                            style="@style/styDescSmallDarkGray"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/ViewMargin"
+                                            android:text="@string/msgPlaySoundWhileAddServiceTransaction"
+                                            app:font="@{`Ubuntu-L`}" />
+                                    </LinearLayout>
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/ViewPaddingBig">
+
+                                    <CheckBox
+                                        android:id="@+id/chkServiceTransactionNotification"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="@dimen/ViewPadding" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_toLeftOf="@id/chkServiceTransactionNotification"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            style="@style/stySubTitleTile"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/strNotification"
+                                            app:font="@{`Ubuntu-C`}" />
+
+                                        <TextView
+                                            style="@style/styDescSmallDarkGray"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/ViewMargin"
+                                            android:text="@string/msgDisplayNotificationWhileAddServiceTransaction"
+                                            android:textIsSelectable="true"
+                                            app:font="@{`Ubuntu-L`}" />
+                                    </LinearLayout>
+                                </RelativeLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lyAddEditInspectionSetting"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/ViewPadding"
+                            android:orientation="vertical"
+                            android:visibility="visible">
+
+                            <TextView
+                                style="@style/stySubTitleTile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:gravity="center_vertical"
+                                android:padding="@dimen/ViewPaddingBig"
+                                android:text="@string/strAddEditInspection"
+                                app:font="@{`Ubuntu-C`}" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/ViewMargin"
+                                android:background="@color/white"
+                                android:orientation="vertical"
+                                android:padding="@dimen/ViewPaddingBig">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <CheckBox
+                                        android:id="@+id/chkAddEditInspectionTone"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="@dimen/ViewPadding" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_toLeftOf="@id/chkAddEditInspectionTone"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            style="@style/stySubTitleTile"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/strIncomingTone"
+                                            app:font="@{`Ubuntu-C`}" />
+
+                                        <TextView
+                                            style="@style/styDescSmallDarkGray"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/ViewMargin"
+                                            android:text="@string/msgPlaySoundWhileAddEditInspection"
+                                            app:font="@{`Ubuntu-L`}" />
+                                    </LinearLayout>
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/ViewPaddingBig">
+
+                                    <CheckBox
+                                        android:id="@+id/chkAddEditInspectionNotification"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="@dimen/ViewPadding" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_toLeftOf="@id/chkAddEditInspectionNotification"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            style="@style/stySubTitleTile"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/strNotification"
+                                            app:font="@{`Ubuntu-C`}" />
+
+                                        <TextView
+                                            style="@style/styDescSmallDarkGray"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/ViewMargin"
+                                            android:text="@string/msgDisplayNotificationWhileAddEditInspection"
+                                            android:textIsSelectable="true"
+                                            app:font="@{`Ubuntu-L`}" />
+                                    </LinearLayout>
+                                </RelativeLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lyAddEditServiceSetting"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/ViewPadding"
+                            android:orientation="vertical"
+                            android:visibility="visible">
+
+                            <TextView
+                                style="@style/stySubTitleTile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:gravity="center_vertical"
+                                android:padding="@dimen/ViewPaddingBig"
+                                android:text="@string/strAddEditService"
+                                app:font="@{`Ubuntu-C`}" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/ViewMargin"
+                                android:background="@color/white"
+                                android:orientation="vertical"
+                                android:padding="@dimen/ViewPaddingBig">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <CheckBox
+                                        android:id="@+id/chkAddEditServiceTone"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="@dimen/ViewPadding" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_toLeftOf="@id/chkAddEditServiceTone"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            style="@style/stySubTitleTile"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/strIncomingTone"
+                                            app:font="@{`Ubuntu-C`}" />
+
+                                        <TextView
+                                            style="@style/styDescSmallDarkGray"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/ViewMargin"
+                                            android:text="@string/msgPlaySoundWhileAddEditSerice"
+                                            app:font="@{`Ubuntu-L`}" />
+                                    </LinearLayout>
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/ViewPaddingBig">
+
+                                    <CheckBox
+                                        android:id="@+id/chkAddEditServiceNotification"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="@dimen/ViewPadding" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_toLeftOf="@id/chkAddEditServiceNotification"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            style="@style/stySubTitleTile"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/strNotification"
+                                            app:font="@{`Ubuntu-C`}" />
+
+                                        <TextView
+                                            style="@style/styDescSmallDarkGray"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/ViewMargin"
+                                            android:text="@string/msgDisplayNotificationWhileAddEditService"
+                                            android:textIsSelectable="true"
+                                            app:font="@{`Ubuntu-L`}" />
+                                    </LinearLayout>
+                                </RelativeLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lyMessageSetting"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/ViewPadding"
+                            android:orientation="vertical"
+                            android:visibility="visible">
+
+                            <TextView
+                                style="@style/stySubTitleTile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:gravity="center_vertical"
+                                android:padding="@dimen/ViewPaddingBig"
+                                android:text="@string/strMessageSetting"
+                                app:font="@{`Ubuntu-C`}" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/ViewMargin"
+                                android:background="@color/white"
+                                android:orientation="vertical"
+                                android:padding="@dimen/ViewPaddingBig">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <CheckBox
+                                        android:id="@+id/chkConversationTone"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="@dimen/ViewPadding" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_toLeftOf="@id/chkConversationTone"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            style="@style/stySubTitleTile"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/strConversationTone"
+                                            app:font="@{`Ubuntu-C`}" />
+
+                                        <TextView
+                                            style="@style/styDescSmallDarkGray"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/ViewMargin"
+                                            android:text="@string/strPlaySoundForIncomingOutgoingMessage"
+                                            android:textIsSelectable="true"
+                                            app:font="@{`Ubuntu-L`}" />
+                                    </LinearLayout>
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/ViewPaddingBig">
+
+                                    <CheckBox
+                                        android:id="@+id/chkMessageNotification"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="@dimen/ViewPadding" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_toLeftOf="@id/chkMessageNotification"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            style="@style/stySubTitleTile"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/strNotification"
+                                            app:font="@{`Ubuntu-C`}" />
+
+                                        <TextView
+                                            android:id="@+id/txtDisplayNotificationMessage"
+                                            style="@style/styDescSmallDarkGray"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/ViewMargin"
+                                            android:text="@string/strDisplayNotificationForIncomingMessage"
+                                            android:textIsSelectable="true"
+                                            app:font="@{`Ubuntu-L`}" />
+                                    </LinearLayout>
+                                </RelativeLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/ViewPadding"
+                            rdv:rdv_rippleAnimationDuration="600"
+                            rdv:rdv_rippleAnimationFrames="60"
+                            rdv:rdv_rippleAnimationPeakFrame="15"
+                            rdv:rdv_rippleColor="@color/tilt"
+                            rdv:rdv_rippleMaxAlpha="0.8"
+                            rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                            <Button
+                                android:id="@+id/btnReportIssue"
+                                style="@style/btnWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:gravity="left|center_vertical"
+                                android:padding="@dimen/ViewPaddingBig"
+                                android:text="@string/strReportAnIssue"
+                                app:font="@{`Ubuntu-L`}" />
+                        </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+
+                        <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/ViewPaddingBig"
+                            rdv:rdv_rippleAnimationDuration="600"
+                            rdv:rdv_rippleAnimationFrames="60"
+                            rdv:rdv_rippleAnimationPeakFrame="15"
+                            rdv:rdv_rippleColor="@color/tilt"
+                            rdv:rdv_rippleMaxAlpha="0.8"
+                            rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                            <Button
+                                android:id="@+id/btnSendFeedback"
+                                style="@style/btnWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:gravity="left|center_vertical"
+                                android:padding="@dimen/ViewPaddingBig"
+                                android:text="@string/strSendFeedback"
+                                app:font="@{`Ubuntu-L`}" />
+                        </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+
+                        <TextView
+                            android:id="@+id/strAppVersion"
+                            style="@style/stySubTitleWhite"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="right|center_vertical"
+                            android:padding="@dimen/ViewPaddingBig"
+                            app:font="@{`Ubuntu-C`}" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </ScrollView>
+
+            <include layout="@layout/home_menu"></include>
+        </RelativeLayout>
+    </ScrollView>
 </layout>

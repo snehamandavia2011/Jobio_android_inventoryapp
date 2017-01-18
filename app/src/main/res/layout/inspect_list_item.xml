@@ -31,8 +31,8 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ViewMargin"
         android:layout_marginBottom="@dimen/ViewMargin"
+        android:layout_marginTop="@dimen/ViewMargin"
         android:layout_weight="4"
         android:background="@drawable/white_bg"
         android:orientation="vertical"
@@ -49,6 +49,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtDate"
+                style="@style/styDescTile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ViewMargin" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

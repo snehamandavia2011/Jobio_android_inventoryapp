@@ -141,7 +141,7 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
     }
 
     private class ViewHolderChild {
-        TextView txtStatus, txtAssetName, txtStatusSer;
+        TextView txtStatus, txtAssetName, txtStatusSer, txtDate;
         Button btnDone;
         RippleDecoratorView rplDone;
     }
@@ -156,6 +156,7 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.inspect_list_item, null);
             holderChild.txtStatus = (TextView) convertView.findViewById(R.id.txtStatus);
+            holderChild.txtDate = (TextView) convertView.findViewById(R.id.txtDate);
             holderChild.txtAssetName = (TextView) convertView.findViewById(R.id.txtAssetName);
             holderChild.txtStatusSer = (TextView) convertView.findViewById(R.id.txtStatusSer);
             holderChild.rplDone = (RippleDecoratorView) convertView.findViewById(R.id.rplDone);
@@ -164,6 +165,7 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
             holderChild.txtAssetName.setTypeface(ubuntuM);
             holderChild.txtStatusSer.setTypeface(ubuntuC);
             holderChild.txtStatus.setTypeface(ubuntuL);
+            holderChild.txtDate.setTypeface(ubuntuL);
             convertView.setTag(holderChild);
         } else {
             holderChild = (ViewHolderChild) convertView.getTag();
@@ -180,6 +182,11 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
             holderChild.txtStatusSer.setText(ConstantVal.assetServiceInspectionStatus.getStatusName(mContext, Integer.parseInt(objClientAssetService.getAstStatusId())));
             if (Integer.parseInt(objClientAssetService.getAstStatusId()) != (ConstantVal.assetServiceInspectionStatus.NOT_ATTENDED_YET)) {
                 holderChild.rplDone.setVisibility(View.GONE);
+            }
+            if (Integer.parseInt(objClientAssetService.getAstStatusId()) == (ConstantVal.assetServiceInspectionStatus.DONE)) {
+                holderChild.txtDate.setText(Helper.convertDateToString(objClientAssetService.getAstDateTime(), ConstantVal.DATE_FORMAT + " " + ConstantVal.TIME_FORMAT));
+            } else {
+                holderChild.txtDate.setVisibility(View.GONE);
             }
         } catch (Exception e) {
             e.printStackTrace();

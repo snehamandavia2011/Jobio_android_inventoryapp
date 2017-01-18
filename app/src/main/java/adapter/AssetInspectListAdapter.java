@@ -141,7 +141,7 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
     }
 
     private class ViewHolderChild {
-        TextView txtStatus, txtAssetName, txtStatusSer;
+        TextView txtStatus, txtAssetName, txtStatusSer, txtDate;
         Button btnDone;
         RippleDecoratorView rplDone;
     }
@@ -156,6 +156,7 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.inspect_list_item, null);
             holderChild.txtStatus = (TextView) convertView.findViewById(R.id.txtStatus);
+            holderChild.txtDate = (TextView) convertView.findViewById(R.id.txtDate);
             holderChild.txtAssetName = (TextView) convertView.findViewById(R.id.txtAssetName);
             holderChild.txtStatusSer = (TextView) convertView.findViewById(R.id.txtStatusSer);
             holderChild.rplDone = (RippleDecoratorView) convertView.findViewById(R.id.rplDone);
@@ -180,6 +181,11 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
             holderChild.txtStatusSer.setText(ConstantVal.assetServiceInspectionStatus.getStatusName(mContext, Integer.parseInt(objClientAssetInspect.getAitStatusId())));
             if (Integer.parseInt(objClientAssetInspect.getAitStatusId()) != (ConstantVal.assetServiceInspectionStatus.NOT_ATTENDED_YET)) {
                 holderChild.rplDone.setVisibility(View.GONE);
+            }
+            if (Integer.parseInt(objClientAssetInspect.getAitStatusId()) == (ConstantVal.assetServiceInspectionStatus.DONE)) {
+                holderChild.txtDate.setText(Helper.convertDateToString(objClientAssetInspect.getAitDateTime(), ConstantVal.DATE_FORMAT + " " + ConstantVal.TIME_FORMAT));
+            } else {
+                holderChild.txtDate.setVisibility(View.GONE);
             }
         } catch (Exception e) {
             e.printStackTrace();

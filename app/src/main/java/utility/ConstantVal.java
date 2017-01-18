@@ -71,10 +71,26 @@ public class ConstantVal {
         public static void clearCache(Context ctx) {
             Helper.clearPreference(ctx, MESSAGE_CONVERSATION_TONE);
             Helper.clearPreference(ctx, MESSAGE_CONVERSATION_NOTIFICATION);
+            Helper.clearPreference(ctx, INSPECTION_TRANSACTION_TONE);
+            Helper.clearPreference(ctx, INSPECTION_TRANSACTION_NOTIFICATION);
+            Helper.clearPreference(ctx, SERVICE_TRANSACTION_TONE);
+            Helper.clearPreference(ctx, SERVICE_TRANSACTION_NOTIFICATION);
+            Helper.clearPreference(ctx, ADD_EDIT_INSPECTION_TONE);
+            Helper.clearPreference(ctx, ADD_EDIT_INSPECTION_NOTIFICATION);
+            Helper.clearPreference(ctx, ADD_EDIT_SERVICE_TONE);
+            Helper.clearPreference(ctx, ADD_EDIT_SERVICE_NOTIFICATION);
         }
 
         public static final String MESSAGE_CONVERSATION_TONE = "messaage_conversation_tone";
         public static final String MESSAGE_CONVERSATION_NOTIFICATION = "job_incoming_tone";
+        public static final String INSPECTION_TRANSACTION_TONE = "inspection_transaction_tone";
+        public static final String INSPECTION_TRANSACTION_NOTIFICATION = "inspection_transaction_notification";
+        public static final String SERVICE_TRANSACTION_TONE = "service_transaction_tone";
+        public static final String SERVICE_TRANSACTION_NOTIFICATION = "service_transaction_notification";
+        public static final String ADD_EDIT_INSPECTION_TONE = "add_edit_inspection_tone";
+        public static final String ADD_EDIT_INSPECTION_NOTIFICATION = "add_edit_inspection_notification";
+        public static final String ADD_EDIT_SERVICE_TONE = "add_edit_service_tone";
+        public static final String ADD_EDIT_SERVICE_NOTIFICATION = "add_edit_service_notification";
     }
 
     public static class MessageChatStatus {
@@ -423,11 +439,12 @@ public class ConstantVal {
     }
 
     public static URLMapping savePlayerId(Context c) {
-        String[] paramName = {"admin_user_Id", "player_id", "device", "token_id", "account_id","app_ref_type"};
+        String[] paramName = {"admin_user_Id", "player_id", "device", "token_id", "account_id", "app_ref_type"};
         String QRCode = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(QRCode) + "controllernotification/savePlayerId";
         return new URLMapping(paramName, URL, true);
     }
+
     public static URLMapping updateChatWindowUser(Context c) {
         String[] paramName = {"token_id", "account_id", "admin_user_id", "is_chat_window_open", "chat_window_user_id"};
         String QRCode = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");

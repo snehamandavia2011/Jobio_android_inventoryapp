@@ -136,7 +136,7 @@
     <string name="msgNoItem">No Item</string>
     <string name="msgNoAsset">No asset</string>
     <string name="msgAssetIHold">Asset(s) I hold</string>
-    <string name="msgInspectToCarryOut">Inspect(s) to carry out</string>
+    <string name="msgInspectToCarryOut">Inspection(s) to carry out</string>
     <string name="msgServiceToCarryOut">Service(s) to carry out</string>
     <string name="msgDescNotAvail">Description is not available</string>
     <string name="title_activity_ac_asset_detail">acAssetDetail</string>
@@ -163,7 +163,7 @@
     <string name="msgScanQRCodeToSearchAsset">Scan QR code to search asset.</string>
     <string name="msgScanBarCodeToSearchItem">Scan Barcode code to search item.</string>
     <string name="msgSearchAssetbyClick">Search asset by click on asset name</string>
-    <string name="strNew">New</string>
+    <string name="strNew">NEW</string>
     <string name="strPending">Pending</string>
     <string name="msgNotAttendedYet">Not attended yet.</string>
     <string name="title_activity_ac_inspect_transaction">acInspectTransaction</string>
@@ -244,5 +244,32 @@
     <string name="strNote">Note</string>
     <string name="msgPasswordvalidation">Password must have six character and minimum one digit</string>
     <string name="strUnableToLoadData">Unable to load data.</string>
+    <string name="strRestart">Restart</string>
+    <string name="strUnsyncList">UNSYNC LIST</string>
+    <string name="strNetwork">NETWORK</string>
+    <string name="stSyncServicer">SYNC SERVICE</string>
+    <string name="strConnected">Connected</string>
+    <string name="strDisconnected">Disconnected</string>
+    <string name="strSyncService">SYNC SERVICE</string>
+    <string name="strInspectionTransaction">Inspection Transaction</string>
+    <string name="strServiceTransaction">Service Transaction</string>
+    <string name="strAddEditInspection">Add Edit Inspection</string>
+    <string name="strAddEditService">Add Edit Service</string>
+    <string name="msgPlaySoundWhileAddInspectionTransaction">Play sound while add new inspection transaction</string>
+    <string name="msgDisplayNotificationWhileAddInspectionTransaction">Display notification while add new inspection transaction</string>
+    <string name="msgPlaySoundWhileAddServiceTransaction">Play sound while add new service transaction</string>
+    <string name="msgDisplayNotificationWhileAddServiceTransaction">Display notification while add new service transaction</string>
+    <string name="msgPlaySoundWhileAddEditInspection">Play sound while add/edit inspection.</string>
+    <string name="msgDisplayNotificationWhileAddEditInspection">Display notification while add/edit inspection.</string>
+    <string name="msgPlaySoundWhileAddEditSerice">Play sound while add/edit service.</string>
+    <string name="msgDisplayNotificationWhileAddEditService">Display notification while add/edit service.</string>
+    <string name="strIncomingTone">Incoming Tone</string>
+    <string name="strNotification">Notification</string>
+    <string name="strMessageSetting">MESSAGE SETTINGS</string>
+    <string name="strConversationTone">CONVERSATION TONE</string>
+    <string name="strPlaySoundForIncomingOutgoingMessage">Play sounds for incoming and outgoing Msg</string>
+    <string name="strDisplayNotificationForIncomingMessage">Display notification for incoming Msg in notification bar</string>
+    <string name="strReportAnIssue">REPORT AN ISSUE</string>
+    <string name="strSendFeedback">SEND FEEDBACK</string>
 </resources>
 
