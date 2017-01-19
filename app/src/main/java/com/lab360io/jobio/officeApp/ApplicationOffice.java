@@ -3,11 +3,7 @@ package com.lab360io.jobio.officeApp;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
-import com.onesignal.OneSignal;
-
 import notification.Notification;
-import notification.NotificationReceiveHandler;
-import utility.Logger;
 
 /**
  * Created by SAI on 11/12/2016.

@@ -251,10 +251,10 @@
     <string name="strConnected">Connected</string>
     <string name="strDisconnected">Disconnected</string>
     <string name="strSyncService">SYNC SERVICE</string>
-    <string name="strInspectionTransaction">Inspection Transaction</string>
-    <string name="strServiceTransaction">Service Transaction</string>
-    <string name="strAddEditInspection">Add Edit Inspection</string>
-    <string name="strAddEditService">Add Edit Service</string>
+    <string name="strInspectionTransaction">INSPECTION TRANSACTION</string>
+    <string name="strServiceTransaction">SERVICE TRANSACTION</string>
+    <string name="strAddEditInspection">ADD EDIT INSPECTION</string>
+    <string name="strAddEditService">ADD EDIT SERVICE</string>
     <string name="msgPlaySoundWhileAddInspectionTransaction">Play sound while add new inspection transaction</string>
     <string name="msgDisplayNotificationWhileAddInspectionTransaction">Display notification while add new inspection transaction</string>
     <string name="msgPlaySoundWhileAddServiceTransaction">Play sound while add new service transaction</string>
@@ -268,7 +268,7 @@
     <string name="strMessageSetting">MESSAGE SETTINGS</string>
     <string name="strConversationTone">CONVERSATION TONE</string>
     <string name="strPlaySoundForIncomingOutgoingMessage">Play sounds for incoming and outgoing Msg</string>
-    <string name="strDisplayNotificationForIncomingMessage">Display notification for incoming Msg in notification bar</string>
+    <string name="strDisplayNotificationForIncomingMessage">Display notification for incoming Msg in notification bar.</string>
     <string name="strReportAnIssue">REPORT AN ISSUE</string>
     <string name="strSendFeedback">SEND FEEDBACK</string>
 </resources>

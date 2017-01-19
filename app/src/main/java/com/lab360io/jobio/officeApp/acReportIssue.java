@@ -31,6 +31,7 @@ import me.zhanghai.android.materialedittext.MaterialTextInputLayout;
 import utility.ConstantVal;
 import utility.DotProgressBar;
 import utility.Helper;
+import utility.Logger;
 import utility.OptionMenu;
 
 public class acReportIssue extends AppCompatActivity {
@@ -58,7 +59,7 @@ public class acReportIssue extends AppCompatActivity {
         DataBindingUtil.setContentView(this, R.layout.report_issue);
         ac = this;
         mContext = this;
-        //objHelper.setActionBar(ac, mContext.getString(R.string.strSettings));
+        objHelper.setActionBar(ac, mContext.getString(R.string.strSettings));
         setData();
     }
 
@@ -113,9 +114,9 @@ public class acReportIssue extends AppCompatActivity {
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
-                if (requestType == ISSUE) {
-                    dot_progress_bar.setVisibility(View.GONE);
-                    ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
+                dot_progress_bar.setVisibility(View.GONE);
+                ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
+                if (requestType == ISSUE && database != null) {
                     lyLogReady.setVisibility(View.VISIBLE);
                 }
             }
@@ -168,10 +169,9 @@ public class acReportIssue extends AppCompatActivity {
         try {
             File sd = Environment.getExternalStorageDirectory();
             File data = Environment.getDataDirectory();
-
             if (sd.canWrite()) {
-                String currentDBPath = "//data//" + BuildConfig.APPLICATION_ID + "//databases//dbJobio";
-                String backupDBPath = "dbJobio.db";
+                String currentDBPath = "//data//" + BuildConfig.APPLICATION_ID + "//databases//dbJobioAIM";
+                String backupDBPath = "dbJobioAIM.db";
                 File currentDB = new File(data, currentDBPath);
                 File backupDB = new File(sd, backupDBPath);
                 if (currentDB.exists()) {

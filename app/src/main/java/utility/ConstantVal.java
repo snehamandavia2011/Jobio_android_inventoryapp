@@ -45,6 +45,8 @@ public class ConstantVal {
         public static final String ADD_SERVICE_TRANSACTION = "ADD_SERVICE_TRANSACTION";
         public static final String ADD_INSPECTION_TRANSACTION = "ADD_INSPECTION_TRANSACTION";
         public static final String MESSAGE_RECEIVED = "MESSAGE_RECEIVED";
+        public static final String ADD_EDIT_SERVICE="ADD_EDIT_SERVICE";
+        public static final String ADD_EDIT_INSPECTION="ADD_EDIT_INSPECTION";
     }
 
     public static class BroadcastAction {

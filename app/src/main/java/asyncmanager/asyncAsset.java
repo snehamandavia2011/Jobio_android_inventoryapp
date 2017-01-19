@@ -190,24 +190,30 @@ public class asyncAsset {
     }
 
     private ArrayList<ClientAssetInspect> getInspetFromServer() {
-        HttpEngine objHttpEngine = new HttpEngine();
-        ArrayList<ClientAssetInspect> arrServerdata = null;
-        final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
-        String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
-        String employee_id = Helper.getStringPreference(ctx, ClientEmployeeMaster.Fields.EMPLOYEE_ID, "");
-        URLMapping um = ConstantVal.fetchAssignedInspection(ctx);
-        ServerResponse objServerRespose = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(),
-                new String[]{account_id, employee_id, String.valueOf(tokenId)}, um.getParamNames(), um.isNeedToSync());
-        String result = objServerRespose.getResponseString();
-        inspectResponseCode = objServerRespose.getResponseCode();
-        if (result != null && !result.equals("") && inspectResponseCode == ConstantVal.ServerResponseCode.SUCCESS) {
-            try {
-                arrServerdata = parseInspect.getList(result);
-            } catch (JSONException e) {
-                e.printStackTrace();
+        try {
+            HttpEngine objHttpEngine = new HttpEngine();
+            ArrayList<ClientAssetInspect> arrServerdata = null;
+            final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
+            String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+            String employee_id = Helper.getStringPreference(ctx, ClientEmployeeMaster.Fields.EMPLOYEE_ID, "");
+            URLMapping um = ConstantVal.fetchAssignedInspection(ctx);
+            ServerResponse objServerRespose = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(),
+                    new String[]{account_id, employee_id, String.valueOf(tokenId)}, um.getParamNames(), um.isNeedToSync());
+            String result = objServerRespose.getResponseString();
+            inspectResponseCode = objServerRespose.getResponseCode();
+            if (result != null && !result.equals("") && inspectResponseCode == ConstantVal.ServerResponseCode.SUCCESS) {
+                try {
+                    arrServerdata = parseInspect.getList(result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
+
+            return arrServerdata;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        return arrServerdata;
     }
 
     private ArrayList<ClientAssetService> getServiceFromServer() {

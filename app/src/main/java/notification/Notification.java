@@ -1,21 +1,36 @@
 package notification;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.media.RingtoneManager;
 import android.os.AsyncTask;
 
+import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acAsset;
+import com.lab360io.jobio.officeApp.acHome;
+import com.lab360io.jobio.officeApp.acMessageEmployeeList;
 import com.onesignal.OneSignal;
 
 import org.json.JSONObject;
 
+import asyncmanager.asyncAsset;
 import asyncmanager.asyncMessageList;
 import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUser;
 import utility.ConstantVal;
+import utility.DataBase;
 import utility.Helper;
 import utility.HttpEngine;
 import utility.Logger;
 import utility.ServerResponse;
 import utility.URLMapping;
+
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
+
 
 /**
  * Created by SAI on 11/19/2016.
@@ -63,8 +78,8 @@ public class Notification {
 
     public static void initNotification(Context mContext) {
         OneSignal.startInit(mContext).init();
-        OneSignal.startInit(mContext).setNotificationReceivedHandler(new NotificationReceiveHandler()).init();
-        OneSignal.startInit(mContext).setNotificationOpenedHandler(new NotificationOpenHandler(mContext)).init();
+        //OneSignal.startInit(mContext).setNotificationReceivedHandler(new NotificationReceiveHandler()).init();
+        //OneSignal.startInit(mContext).setNotificationOpenedHandler(new NotificationOpenHandler(mContext)).init();
     }
 
     public static void performActionWhileNotificationReceive(final JSONObject data, final Context mContext) {
@@ -82,8 +97,12 @@ public class Notification {
                         action = data.optString("action", null);
                         if (action != null) {
                             if (action.equals(ConstantVal.NotificationType.ADD_SERVICE_TRANSACTION)) {//data:account_id,employee_id
-
+                                new asyncAsset(mContext).getService();
                             } else if (action.equals(ConstantVal.NotificationType.ADD_INSPECTION_TRANSACTION)) {//data:account_id
+                                new asyncAsset(mContext).getInspect();
+                            } else if (action.equals(ConstantVal.NotificationType.ADD_EDIT_SERVICE)) {//data:account_id
+
+                            } else if (action.equals(ConstantVal.NotificationType.ADD_EDIT_INSPECTION)) {//data:account_id
 
                             } else if (action.equals(ConstantVal.NotificationType.MESSAGE_RECEIVED)) {//data:account_id
                                 String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
@@ -104,5 +123,128 @@ public class Notification {
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
+    }
+
+    public static void showAndroidNotification(final JSONObject data, String title, String body, final Context mContext) {
+        String action = data.optString("action", null);
+        if (action != null) {
+            if (action.equals(ConstantVal.NotificationType.MESSAGE_RECEIVED)) {
+                final boolean messageNotification = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.MESSAGE_CONVERSATION_NOTIFICATION, true);
+                if (messageNotification) {
+                    String from_id = data.optString("from_id", null);
+                    DataBase db = new DataBase(mContext);
+                    db.open();
+                    Cursor cur = db.fetch(DataBase.adminuser_employee_table, DataBase.adminuser_employee_int, "auId='" + from_id + "'");
+                    String name = "";
+                    if (cur != null && cur.getCount() > 0) {
+                        cur.moveToFirst();
+                        name = cur.getString(3) + " " + cur.getString(4);
+                    }
+                    db.close();
+                    showMessageNotification(from_id, name, title, body, mContext);
+                }
+            } else if (action.equals(ConstantVal.NotificationType.ADD_INSPECTION_TRANSACTION)) {
+                final boolean iTransactionNotification = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.INSPECTION_TRANSACTION_NOTIFICATION, true);
+                if (iTransactionNotification) {
+                    final boolean sound = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.INSPECTION_TRANSACTION_TONE, true);
+                    showInspectNotification(title, body, mContext, sound);
+                }
+            } else if (action.equals(ConstantVal.NotificationType.ADD_SERVICE_TRANSACTION)) {
+                final boolean sTransactionNotification = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.SERVICE_TRANSACTION_NOTIFICATION, true);
+                if (sTransactionNotification) {
+                    final boolean sound = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.SERVICE_TRANSACTION_TONE, true);
+                    showServiceNotification(title, body, mContext, sound);
+                }
+            } else if (action.equals(ConstantVal.NotificationType.ADD_EDIT_INSPECTION)) {
+                final boolean addEditInspectionNotification = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.ADD_EDIT_INSPECTION_NOTIFICATION, true);
+                if (addEditInspectionNotification) {
+                    final boolean sound = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.ADD_EDIT_INSPECTION_TONE, true);
+                    showInspectNotification(title, body, mContext, sound);
+                }
+            } else if (action.equals(ConstantVal.NotificationType.ADD_EDIT_SERVICE)) {
+                final boolean addEditServiceNotification = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.ADD_EDIT_SERVICE_NOTIFICATION, true);
+                if (addEditServiceNotification) {
+                    final boolean sound = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.ADD_EDIT_SERVICE_TONE, true);
+                    showServiceNotification(title, body, mContext, sound);
+                }
+            }
+        }
+    }
+
+    private static void showMessageNotification(String from_id, String name, String title, String content, Context ctx) {
+        NotificationManager mNotificationManager =
+                (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(ctx)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setSmallIcon(R.drawable.ic_chat_white)
+                .setAutoCancel(true);
+        if (Helper.getBooleanPreference(ctx, ConstantVal.SettingFlags.MESSAGE_CONVERSATION_TONE, true)) {
+            mNotifyBuilder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        }
+        Intent intentHome = new Intent(ctx, acHome.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(ctx);
+        stackBuilder.addParentStack(acHome.class);
+        stackBuilder.addNextIntent(intentHome);
+
+        Intent intentMessageEmp = new Intent(ctx, acMessageEmployeeList.class);
+        stackBuilder.addNextIntent(intentMessageEmp);
+
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        mNotifyBuilder.setContentIntent(resultPendingIntent);
+        mNotificationManager.notify(0,
+                mNotifyBuilder.build());
+    }
+
+    private static void showInspectNotification(String title, String content, Context ctx, boolean needToPlayTone) {
+        NotificationManager mNotificationManager =
+                (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(ctx)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setSmallIcon(R.drawable.ic_inspect_white)
+                .setAutoCancel(true);
+        if (needToPlayTone) {
+            mNotifyBuilder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        }
+        Intent intentHome = new Intent(ctx, acHome.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(ctx);
+        stackBuilder.addParentStack(acHome.class);
+        stackBuilder.addNextIntent(intentHome);
+
+        Intent intentAsset = new Intent(ctx, acAsset.class);
+        intentAsset.putExtra("tab", acAsset.INSPECT);
+        stackBuilder.addNextIntent(intentAsset);
+
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        mNotifyBuilder.setContentIntent(resultPendingIntent);
+        mNotificationManager.notify(0,
+                mNotifyBuilder.build());
+    }
+
+    private static void showServiceNotification(String title, String content, Context ctx, boolean needToPlayTone) {
+        NotificationManager mNotificationManager =
+                (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(ctx)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setSmallIcon(R.drawable.ic_service_white)
+                .setAutoCancel(true);
+        if (needToPlayTone) {
+            mNotifyBuilder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        }
+        Intent intentHome = new Intent(ctx, acHome.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(ctx);
+        stackBuilder.addParentStack(acHome.class);
+        stackBuilder.addNextIntent(intentHome);
+
+        Intent intentAsset = new Intent(ctx, acAsset.class);
+        intentAsset.putExtra("tab", acAsset.SERVICE);
+        stackBuilder.addNextIntent(intentAsset);
+
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        mNotifyBuilder.setContentIntent(resultPendingIntent);
+        mNotificationManager.notify(0,
+                mNotifyBuilder.build());
     }
 }

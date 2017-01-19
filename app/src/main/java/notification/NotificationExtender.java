@@ -1,5 +1,6 @@
 package notification;
 
+import android.media.RingtoneManager;
 import android.support.v4.app.NotificationCompat;
 
 import com.lab360io.jobio.officeApp.ApplicationOffice;
@@ -19,19 +20,21 @@ import utility.Logger;
 public class NotificationExtender extends NotificationExtenderService {
     @Override
     protected boolean onNotificationProcessing(OSNotificationReceivedResult receivedResult) {
-        OverrideSettings overrideSettings = new OverrideSettings();
+        Logger.debug("in NotificationExtender");
+
+        /*OverrideSettings overrideSettings = new OverrideSettings();
         overrideSettings.extender = new NotificationCompat.Extender() {
             @Override
             public NotificationCompat.Builder extend(NotificationCompat.Builder builder) {
-                // Sets the background notification color to Green on Android 5.0+ devices.
-                return builder.setColor(new BigInteger("FF00FF00", 16).intValue());
+                builder.setSound(null);
+                builder.setDefaults(0);
+                return builder;
             }
-        };
+        };*/
 
-        OSNotificationDisplayedResult displayedResult = displayNotification(overrideSettings);
-        Logger.debug("in NotificationExtenderService");
         JSONObject data = receivedResult.payload.additionalData;
         Notification.performActionWhileNotificationReceive(data, ApplicationOffice.getContext());
+        Notification.showAndroidNotification(data, receivedResult.payload.title, receivedResult.payload.body, ApplicationOffice.getContext());
         return true;
     }
 }
