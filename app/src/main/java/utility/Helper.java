@@ -334,40 +334,56 @@ public class Helper {
                 URLMapping um = ConstantVal.getQRCodeVerificationUrl(ctx, strCode);
                 ServerResponse objServerResponse = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(),
                         new String[]{strCode}, um.getParamNames(), um.isNeedToSync());
-                final String result = Html.fromHtml(objServerResponse.getResponseString()).toString();
-                //Logger.debug("After login Server Response:" + result);
-                if (result != null && !result.equals("")) {
-                    try {
-                        JSONObject objJSON = new JSONObject(result);
-                        String photo = objJSON.getString("account_logo");
-                        String account_id = objJSON.getString("account_id");
-                        Helper.setStringPreference(ctx, ConstantVal.QRCODE_VALUE, strCode);
-                        Helper.setBooleanPreference(ctx, ConstantVal.IS_QRCODE_CONFIGURE, true);
-                        Helper.setStringPreference(ctx, BusinessAccountMaster.Fields.ACCOUNT_LOGO, photo);
-                        Helper.setStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, account_id);
-                        mHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent i = new Intent(ac.getApplicationContext(), acLogin.class);
-                                //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
-                                ac.startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
-                                ac.finish();
+                if (objServerResponse.getResponseCode().equals(ConstantVal.ServerResponseCode.SERVER_ERROR)) {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            dtDialog.setVisibility(View.GONE);
+                            displaySnackbar(ac, ctx.getString(R.string.strQRNotExist));
+                            for (View v : view) {
+                                v.setEnabled(true);
+                                v.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
                             }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        mHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                dtDialog.setVisibility(View.GONE);
-                                displaySnackbar(ac, result);
-                                for (View v : view) {
-                                    v.setEnabled(true);
-                                    v.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
+                        }
+                    });
+                } else {
+                    final String result = Html.fromHtml(objServerResponse.getResponseString()).toString();
+                    //Logger.debug("After login Server Response:" + result);
+                    if (result != null && !result.equals("")) {
+                        try {
+                            JSONObject objJSON = new JSONObject(result);
+                            String photo = objJSON.getString("account_logo");
+                            String account_id = objJSON.getString("account_id");
+                            String account_name = objJSON.getString("account_name");
+                            Helper.setStringPreference(ctx, ConstantVal.QRCODE_VALUE, strCode);
+                            Helper.setBooleanPreference(ctx, ConstantVal.IS_QRCODE_CONFIGURE, true);
+                            Helper.setStringPreference(ctx, BusinessAccountMaster.Fields.ACCOUNT_LOGO, photo);
+                            Helper.setStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, account_id);
+                            Helper.setStringPreference(ctx, BusinessAccountMaster.Fields.ACCOUNT_NAME, account_name);
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent i = new Intent(ac.getApplicationContext(), acLogin.class);
+                                    //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
+                                    ac.startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
+                                    ac.finish();
                                 }
-                            }
-                        });
+                            });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dtDialog.setVisibility(View.GONE);
+                                    displaySnackbar(ac, result);
+                                    for (View v : view) {
+                                        v.setEnabled(true);
+                                        v.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
+                                    }
+                                }
+                            });
+                        }
                     }
                 }
             }
@@ -488,7 +504,7 @@ public class Helper {
 
     public static synchronized void logOutUser(Context ctx, boolean isNeedTosendBroadcast) {
         boolean isSessionExists = Helper.getBooleanPreference(ctx, ConstantVal.IS_SESSION_EXISTS, false);
-        Logger.debug("logout:"+isSessionExists);
+        Logger.debug("logout:" + isSessionExists);
         if (isSessionExists) {
             try {
                 Helper.clearPreference(ctx, ConstantVal.IS_SESSION_EXISTS);

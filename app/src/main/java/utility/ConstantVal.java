@@ -45,8 +45,8 @@ public class ConstantVal {
         public static final String ADD_SERVICE_TRANSACTION = "ADD_SERVICE_TRANSACTION";
         public static final String ADD_INSPECTION_TRANSACTION = "ADD_INSPECTION_TRANSACTION";
         public static final String MESSAGE_RECEIVED = "MESSAGE_RECEIVED";
-        public static final String ADD_EDIT_SERVICE="ADD_EDIT_SERVICE";
-        public static final String ADD_EDIT_INSPECTION="ADD_EDIT_INSPECTION";
+        public static final String ADD_EDIT_SERVICE = "ADD_EDIT_SERVICE";
+        public static final String ADD_EDIT_INSPECTION = "ADD_EDIT_INSPECTION";
     }
 
     public static class BroadcastAction {
@@ -291,7 +291,7 @@ public class ConstantVal {
     }
 
     public static URLMapping getLoginCredentialsUrl(Context c) {//different in AIM
-        String[] paramName = {"user_name", "password", "location", "device_version", "os_name", "account_id", "date", "time"};
+        String[] paramName = {"QRCode", "user_name", "password", "location", "device_version", "os_name", "account_id", "date", "time"};
         String QRCode = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(QRCode) + "verifycredentialsAIM/verifyUserNamePassword";
         return new URLMapping(paramName, URL, false);

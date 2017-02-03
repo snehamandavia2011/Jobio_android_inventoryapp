@@ -215,9 +215,10 @@ public class acLogin extends AppCompatActivity {
                             Date dt = new Date();
                             String date = Helper.convertDateToString(dt, ConstantVal.DATE_FORMAT);
                             String time = Helper.convertDateToString(dt, ConstantVal.TIME_FORMAT);
+                            String QRCode = Helper.getStringPreference(mContext, ConstantVal.QRCODE_VALUE, "");
                             URLMapping um = ConstantVal.getLoginCredentialsUrl(mContext);
                             ServerResponse objServerResponse = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(),
-                                    new String[]{strUserName, strPassword, strLocation, deviceName, deviceVersion, account_id, date, time}, um.getParamNames(), um.isNeedToSync());
+                                    new String[]{QRCode, strUserName, strPassword, strLocation, deviceName, deviceVersion, account_id, date, time}, um.getParamNames(), um.isNeedToSync());
                             String result = Html.fromHtml(objServerResponse.getResponseString()).toString();
                             //Logger.debug("After login Server Response:" + result);
                             if (result != null && !result.equals("")) {
@@ -270,7 +271,7 @@ public class acLogin extends AppCompatActivity {
                                                 public void run() {
                                                     btnLogin.setEnabled(true);
                                                     btnLogin.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
-                                                    Helper.logOutUser(mContext,false);
+                                                    Helper.logOutUser(mContext, false);
                                                 }
                                             });
 
