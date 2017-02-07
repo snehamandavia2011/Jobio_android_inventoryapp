@@ -12,9 +12,9 @@ import utility.Logger;
  * Created by SAI on 12/14/2015.
  */
 public class BusinessAccountMaster {
-    int postcode,planId;
-    String account_name,accountLogo,locationType,house_no, street, landmark, cordinates, city, state, country, accountEmail;
-    long accountPhone, ownerMobile;
+    int planId;
+    String postcode, account_name, accountLogo, locationType, house_no, street, landmark, cordinates, city, state, country, accountEmail;
+    String accountPhone, ownerMobile;
 
     public BusinessAccountMaster() {
     }
@@ -45,16 +45,17 @@ public class BusinessAccountMaster {
         this.setHouse_no(objJSON.getString("house_no"));
         this.setStreet(objJSON.getString("street"));
         this.setLandmark(objJSON.getString("landmark"));
-        this.setPostcode(objJSON.getString("postcode").equals("null") ? 0 : objJSON.getInt("postcode"));
+        this.setPostcode(objJSON.getString("postcode").equals("null") ? "" : objJSON.getString("postcode"));
         this.setCordinates(objJSON.getString("cordinates"));
         this.setCity(objJSON.getString("city"));
         this.setState(objJSON.getString("state"));
         this.setCountry(objJSON.getString("country"));
         this.setAccountEmail(objJSON.getString("account_email"));
-        this.setAccountPhone(objJSON.getString("account_phone").equals("null") ? 0 : objJSON.getInt("account_phone"));
-        this.setOwnerMobile(objJSON.getString("owner_mobile").equals("null") ? 0 : objJSON.getInt("owner_mobile"));
+        this.setAccountPhone(objJSON.getString("account_phone").equals("null") ? "" : objJSON.getString("account_phone"));
+        this.setOwnerMobile(objJSON.getString("owner_mobile").equals("null") ? "" : objJSON.getString("owner_mobile"));
 //        this.display();
     }
+
     public static void clearCache(Context c) {
         Helper.clearPreference(c, Fields.PLAN_ID);
         Helper.clearPreference(c, Fields.ACCOUNT_NAME);
@@ -72,7 +73,8 @@ public class BusinessAccountMaster {
         Helper.clearPreference(c, Fields.ACCOUNT_PHONE);
         Helper.clearPreference(c, Fields.OWNER_MOBILE);
     }
-    public void saveFiledsToPreferences(Context c){
+
+    public void saveFiledsToPreferences(Context c) {
         Helper.setIntPreference(c, Fields.PLAN_ID, this.getPlanId());
         Helper.setStringPreference(c, Fields.ACCOUNT_NAME, this.getAccount_name());
         Helper.setStringPreference(c, Fields.ACCOUNT_LOGO, this.getAccountLogo());
@@ -81,13 +83,13 @@ public class BusinessAccountMaster {
         Helper.setStringPreference(c, Fields.HOUSE_NO, this.getHouse_no());
         Helper.setStringPreference(c, Fields.STREET, this.getStreet());
         Helper.setStringPreference(c, Fields.LANDMARK, this.getLandmark());
-        Helper.setIntPreference(c, Fields.POST_CODE, this.getPostcode());
+        Helper.setStringPreference(c, Fields.POST_CODE, this.getPostcode());
         Helper.setStringPreference(c, Fields.CORDINATES, this.getCordinates());
         Helper.setStringPreference(c, Fields.CITY, this.getCity());
         Helper.setStringPreference(c, Fields.STATE, this.getState());
         Helper.setStringPreference(c, Fields.COUNTRY, this.getCountry());
-        Helper.setLongPreference(c, Fields.ACCOUNT_PHONE, this.getAccountPhone());
-        Helper.setLongPreference(c, Fields.OWNER_MOBILE, this.getOwnerMobile());
+        Helper.setStringPreference(c, Fields.ACCOUNT_PHONE, this.getAccountPhone());
+        Helper.setStringPreference(c, Fields.OWNER_MOBILE, this.getOwnerMobile());
     }
 
     public void display() {
@@ -203,27 +205,27 @@ public class BusinessAccountMaster {
         this.accountEmail = accountEmail;
     }
 
-    public long getAccountPhone() {
+    public String getAccountPhone() {
         return accountPhone;
     }
 
-    public void setAccountPhone(long accountPhone) {
+    public void setAccountPhone(String accountPhone) {
         this.accountPhone = accountPhone;
     }
 
-    public long getOwnerMobile() {
+    public String getOwnerMobile() {
         return ownerMobile;
     }
 
-    public void setOwnerMobile(long ownerMobile) {
+    public void setOwnerMobile(String ownerMobile) {
         this.ownerMobile = ownerMobile;
     }
 
-    public int getPostcode() {
+    public String getPostcode() {
         return postcode;
     }
 
-    public void setPostcode(int postcode) {
+    public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
 }

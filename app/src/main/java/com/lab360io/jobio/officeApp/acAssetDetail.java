@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -138,6 +139,7 @@ public class acAssetDetail extends AppCompatActivity {
         TextView txtEmployeeName = (TextView) v.findViewById(R.id.txtEmployeeName);
         TextView txtInOut = (TextView) v.findViewById(R.id.txtInOut);
         TextView txtDate = (TextView) v.findViewById(R.id.txtDate);
+        ImageView imgInOut = (ImageView) v.findViewById(R.id.imgInOut);
         DataBase db = new DataBase(mContext);
         db.open();
         Cursor curEmp = db.fetch(DataBase.adminuser_employee_table, DataBase.adminuser_employee_int, "empId='" + obj.getAoEmployee_id() + "'");
@@ -145,8 +147,16 @@ public class acAssetDetail extends AppCompatActivity {
         if (curEmp != null && curEmp.getCount() > 0) {
             curEmp.moveToFirst();
             txtEmployeeName.setText(curEmp.getString(3) + " " + curEmp.getString(4) + "[" + curEmp.getString(7) + "]");
-            txtInOut.setText(": " + obj.getAoInOut());
-            txtDate.setText(": " + Helper.convertDateToString(Helper.convertStringToDate(obj.getAoDate(), ConstantVal.DATE_FORMAT), ConstantVal.DATE_FORMAT));
+            txtInOut.setText(obj.getAoInOut());
+            if (obj.getAoInOut().equals(ClientAssetOwner.CheckInOut.CHECK_IN)) {
+                txtInOut.setTextAppearance(mContext, R.style.styDescDarkGreyX);
+                imgInOut.setImageResource(R.drawable.ic_checkin_small);
+            } else if (obj.getAoInOut().equals(ClientAssetOwner.CheckInOut.CHECK_OUT)) {
+                txtInOut.setTextAppearance(mContext, R.style.styDescWhite);
+                imgInOut.setImageResource(R.drawable.ic_checkout_small);
+            }
+            String strDate = Helper.convertDateToString(Helper.convertStringToDate(obj.getAoDate(), ConstantVal.DATE_FORMAT), ConstantVal.DATE_FORMAT);
+            txtDate.setText(": " + (strDate.equals("") ? getString(R.string.strNA) : strDate));
         }
         curEmp.close();
         db.close();

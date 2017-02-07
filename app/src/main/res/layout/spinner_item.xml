@@ -8,7 +8,7 @@
         style="@style/stySpinnerStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:font="@{`Ubuntu-C`}"
-        android:padding="@dimen/ViewPadding"
+        app:font="@{`Ubuntu-L`}"
+        android:padding="@dimen/ViewPaddingBig"
         android:singleLine="false"/>
 </layout>

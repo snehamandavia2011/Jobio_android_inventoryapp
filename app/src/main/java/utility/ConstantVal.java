@@ -64,6 +64,12 @@ public class ConstantVal {
         public static final int AIM_APP_USERS = 3;
     }
 
+    public static class UserType {
+        public static final String CUSTOMER = "Customer";
+        public static final String EMPLOYEE = "Employee";
+        public static final String SUPPLIER = "Supplier";
+    }
+
     public static class ModuleAccess {
         public static final String INVENTORY = "Inventory";
         public static final String ASSET = "Asset";

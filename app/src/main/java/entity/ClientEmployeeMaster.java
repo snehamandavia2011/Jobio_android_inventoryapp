@@ -13,27 +13,24 @@ import utility.Logger;
  * Created by SAI on 12/14/2015.
  */
 public class ClientEmployeeMaster {
-    private String photo, firstName, lastName,employeeId;
+    private String firstName, lastName,employeeId;
 
     public ClientEmployeeMaster() {
     }
 
     public class Fields {
-        public static final String PHOTO = "photo";
         public static final String EMPLOYEE_ID = "employeeId";
         public static final String FIRST_NAME = "first_name";
         public static final String LAST_NAME = "last_name";
     }
 
     public static void clearCache(Context c) {
-        Helper.clearPreference(c, Fields.PHOTO);
         Helper.clearPreference(c, Fields.EMPLOYEE_ID);
         Helper.clearPreference(c, Fields.FIRST_NAME);
         Helper.clearPreference(c, Fields.LAST_NAME);
     }
 
     public void saveFiledsToPreferences(Context c) {
-        Helper.setStringPreference(c, Fields.PHOTO, this.getPhoto());
         Helper.setStringPreference(c, Fields.FIRST_NAME, this.getFirstName());
         Helper.setStringPreference(c, Fields.LAST_NAME, this.getLastName());
         Helper.setStringPreference(c, Fields.EMPLOYEE_ID, this.getEmployeeId());
@@ -45,7 +42,6 @@ public class ClientEmployeeMaster {
     }
 
     public void parseJSON(JSONObject objJSON) throws JSONException {
-        this.setPhoto(objJSON.getString("photo"));
         this.setEmployeeId(objJSON.getString("employeeuuId").equals("null") ? "" : objJSON.getString("employeeuuId"));
         this.setFirstName(objJSON.getString("first_name").equals("null") ? "" : objJSON.getString("first_name"));
         this.setLastName(objJSON.getString("last_name").equals("null") ? "" : objJSON.getString("last_name"));
@@ -54,18 +50,9 @@ public class ClientEmployeeMaster {
 
     public void display() {
         Logger.debug(".....................ClientEmployeeMaster...........................");
-        Logger.debug("photo:" + photo);
         Logger.debug("employee id:" + employeeId);
         Logger.debug("first_name:" + firstName);
         Logger.debug("last name:" + lastName);
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
     }
 
     public String getEmployeeId() {

@@ -28,6 +28,7 @@ import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;
 
+import adapter.ClientCustomerEmployeeSupplierAdapter;
 import entity.BusinessAccountdbDetail;
 import entity.ClientCustEmpSupplier;
 import entity.ClientJobPOInvoiceReference;
@@ -58,7 +59,8 @@ public class frStockTransaction extends Fragment {
     String referenceType, refId, fromId, toId, fromType, toType;
     ArrayAdapter<ClientStockTransactionStatusMaster> adpStockTransactionStatus;
     ArrayAdapter<ClientStockTransactionReason> adpStockTransactionReason;
-    ArrayAdapter<ClientCustEmpSupplier> adpClientCustEmpSupplier;
+    //ArrayAdapter<ClientCustEmpSupplier> adpClientCustEmpSupplier;
+    ClientCustomerEmployeeSupplierAdapter adpClientCustEmpSupplier;
     ArrayAdapter<ClientJobPOInvoiceReference> adpClientJobPOInvoiceReference;
     ArrayList<ClientStockTransactionReason> arrClientStockTransactionReason = null;
     ArrayList<ClientStockTransactionStatusMaster> arrClientStockTransactionStatusMaster = null;
@@ -165,16 +167,16 @@ public class frStockTransaction extends Fragment {
                     try {
                         for (int i = 0; i < arrClientStockTransactionStatusMaster.size(); i++) {
                             if (i == 0) {
-                                rd1.setText(arrClientStockTransactionStatusMaster.get(i).getAction_name());
+                                rd1.setText(arrClientStockTransactionStatusMaster.get(i).getAction_name().replace("STOCK", ""));
                                 rd1.setTag(arrClientStockTransactionStatusMaster.get(i).getId());
                             } else if (i == 1) {
-                                rd2.setText(arrClientStockTransactionStatusMaster.get(i).getAction_name());
+                                rd2.setText(arrClientStockTransactionStatusMaster.get(i).getAction_name().replace("STOCK", ""));
                                 rd2.setTag(arrClientStockTransactionStatusMaster.get(i).getId());
                             } else if (i == 2) {
-                                rd3.setText(arrClientStockTransactionStatusMaster.get(i).getAction_name());
+                                rd3.setText(arrClientStockTransactionStatusMaster.get(i).getAction_name().replace("STOCK", ""));
                                 rd3.setTag(arrClientStockTransactionStatusMaster.get(i).getId());
                             } else if (i == 3) {
-                                rd4.setText(arrClientStockTransactionStatusMaster.get(i).getAction_name());
+                                rd4.setText(arrClientStockTransactionStatusMaster.get(i).getAction_name().replace("STOCK", ""));
                                 rd4.setTag(arrClientStockTransactionStatusMaster.get(i).getId());
                             }
                         }
@@ -318,6 +320,7 @@ public class frStockTransaction extends Fragment {
                     if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS) && !sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED))
                         Helper.displaySnackbar((AppCompatActivity) getActivity(), sr.getResponseCode());
                 }
+                dot_progress_bar.clearAnimation();
                 dot_progress_bar.setVisibility(View.GONE);
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -352,7 +355,8 @@ public class frStockTransaction extends Fragment {
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
                 if (arrClientCustEmpSupplier != null) {
-                    adpClientCustEmpSupplier = new ArrayAdapter<ClientCustEmpSupplier>(mContext, R.layout.spinner_item, arrClientCustEmpSupplier);
+                    //adpClientCustEmpSupplier = new ArrayAdapter<ClientCustEmpSupplier>(mContext, R.layout.spinner_item, arrClientCustEmpSupplier);
+                    adpClientCustEmpSupplier =new ClientCustomerEmployeeSupplierAdapter(mContext,arrClientCustEmpSupplier);
                     spnFrom.setAdapter(adpClientCustEmpSupplier);
                     spnTo.setAdapter(adpClientCustEmpSupplier);
                     spnFrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -385,6 +389,7 @@ public class frStockTransaction extends Fragment {
                 } else {
                     Helper.displaySnackbar((AppCompatActivity) getActivity(), ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseString()));
                 }
+                dot_progress_bar.clearAnimation();
                 dot_progress_bar.setVisibility(View.GONE);
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

@@ -4,6 +4,12 @@ package entity;
  * Created by SAI on 9/13/2016.
  */
 public class ClientAssetOwner {
+
+    public static class CheckInOut {
+        public static String CHECK_IN = "CHECK IN";
+        public static String CHECK_OUT = "CHECK OUT";
+    }
+
     String aoEmployee_id, aoInOut,aoDate;
 
     public ClientAssetOwner(String aoEmployee_id, String aoInOut, String aoDate) {

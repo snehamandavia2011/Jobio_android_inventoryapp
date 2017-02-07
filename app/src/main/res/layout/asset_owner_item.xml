@@ -39,19 +39,20 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <TextView
-                        style="@style/styDescWhite"
+                    <ImageView
+                        android:id="@+id/imgInOut"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/strInOut"
-                        app:font="@{`Ubuntu-C`}" />
+                        android:background="@color/white"
+                        android:padding="@dimen/ViewPaddingSmall" />
 
                     <TextView
+                        android:layout_marginLeft="@dimen/ViewMargin"
                         android:id="@+id/txtInOut"
-                        style="@style/styDescWhite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:font="@{`Ubuntu-L`}" />
+                        app:font="@{`Ubuntu-L`}"
+                        android:layout_gravity="center_vertical"/>
                 </LinearLayout>
 
                 <LinearLayout

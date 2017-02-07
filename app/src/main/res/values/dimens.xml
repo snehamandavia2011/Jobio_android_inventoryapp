@@ -6,6 +6,7 @@
     <dimen name="actionBarImageSize">45dp</dimen>
     <dimen name="ViewMarginSmall">2dp</dimen>
     <dimen name="ViewMargin">5dp</dimen>
+    <dimen name="ViewMarginBig">10dp</dimen>
     <dimen name="ViewPaddingBig">10dp</dimen>
     <dimen name="ViewPadding">5dp</dimen>
     <dimen name="ViewPaddingSmall">2dp</dimen>
