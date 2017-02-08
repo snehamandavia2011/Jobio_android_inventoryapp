@@ -48,11 +48,12 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:padding="@dimen/ViewPadding">
+                android:padding="@dimen/ViewPaddingBig">
 
                 <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/ViewMarginBig">
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
                         android:id="@+id/edUserName"
@@ -72,11 +73,12 @@
                     android:clickable="true"
                     android:text="@string/strNotUserName" />-->
                 <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                    android:visibility="gone"
                     android:id="@+id/rippleNotUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:layout_marginTop="@dimen/ViewMargin"
+                    android:layout_marginBottom="@dimen/ViewMarginBig"
                     rdv:rdv_rippleAnimationDuration="600"
                     rdv:rdv_rippleAnimationFrames="60"
                     rdv:rdv_rippleAnimationPeakFrame="15"
@@ -96,7 +98,7 @@
                 <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/ViewMargin">
+                    android:layout_marginBottom="@dimen/ViewMarginBig">
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
                         android:id="@+id/edPassword"
@@ -186,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/ViewMargin"
+                android:layout_marginLeft="@dimen/ViewMarginBig"
                 android:layout_toRightOf="@id/txtJobio"
                 android:text="@string/strCopyRight"
                 app:font="@{`Ubuntu-L`}" />

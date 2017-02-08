@@ -28,7 +28,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/ViewPadding"
+                android:layout_marginLeft="@dimen/ViewMarginBig"
                 android:layout_toRightOf="@id/imgQRCode"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -49,8 +49,6 @@
                     style="@style/styDescSmallWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
                     android:text="@string/msgScanQRCode"
                     app:font="@{`Ubuntu-L`}" />
 
@@ -58,8 +56,6 @@
                     style="@style/styDescSmallWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
                     android:layout_marginTop="@dimen/ViewMargin"
                     android:text="@string/strCheckmailQRCode"
                     app:font="@{`Ubuntu-L`}" />
@@ -70,14 +66,14 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="@dimen/ViewMargin"
+                    android:layout_marginTop="@dimen/ViewMarginBig"
                     android:text="@string/strOR"
                     app:font="@{`Ubuntu-L`}" />
 
                 <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/ViewMargin"
+                    android:layout_marginTop="@dimen/ViewMarginBig"
                     rdv:rdv_rippleAnimationDuration="600"
                     rdv:rdv_rippleAnimationFrames="60"
                     rdv:rdv_rippleAnimationPeakFrame="15"

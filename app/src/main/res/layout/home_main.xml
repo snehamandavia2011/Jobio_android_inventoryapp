@@ -30,14 +30,14 @@
                     android:background="@drawable/white_bg"
                     android:gravity="center"
                     android:maxLines="4"
-                    android:padding="@dimen/ViewPadding"
+                    android:padding="@dimen/ViewPaddingBig"
                     android:text="Welcome Text"
                     app:font="@{`Ubuntu-C`}" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/ViewMargin">
+                    android:layout_marginTop="@dimen/ViewMarginBig">
 
                     <LinearLayout
                         android:id="@+id/lyUserDetail"
@@ -51,7 +51,7 @@
                             style="@style/styTitleTilt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/ViewMargin"
+                            android:layout_marginTop="@dimen/ViewMarginBig"
                             android:gravity="center"
                             android:text="User Name"
                             android:textStyle="bold"
@@ -63,8 +63,8 @@
                             style="@style/stySubTitleTile"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/ViewMargin"
-                            android:layout_marginTop="@dimen/ViewMargin"
+                            android:layout_marginBottom="@dimen/ViewMarginBig"
+                            android:layout_marginTop="@dimen/ViewMarginBig"
                             android:gravity="center"
                             android:text="User Name"
                             app:font="@{`Ubuntu-C`}" />
@@ -112,14 +112,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:background="@color/white"
-                                android:padding="@dimen/ViewPadding"
+                                android:padding="@dimen/ViewPaddingBig"
                                 android:src="@drawable/ic_inspect_tilt" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
-                                android:padding="@dimen/ViewPadding">
+                                android:padding="@dimen/ViewPaddingBig">
 
                                 <TextView
                                     android:id="@+id/inspectDay"
@@ -170,14 +170,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:background="@color/white"
-                                android:padding="@dimen/ViewMargin"
+                                android:padding="@dimen/ViewMarginBig"
                                 android:src="@drawable/ic_service_tilt" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
-                                android:padding="@dimen/ViewPadding">
+                                android:padding="@dimen/ViewPaddingBig">
 
                                 <TextView
                                     android:id="@+id/serviceDay"
@@ -228,14 +228,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:background="@color/white"
-                                android:padding="@dimen/ViewMargin"
+                                android:padding="@dimen/ViewMarginBig"
                                 android:src="@drawable/ic_message_tilt" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
-                                android:padding="@dimen/ViewPadding">
+                                android:padding="@dimen/ViewPaddingBig">
 
                                 <TextView
                                     android:id="@+id/messageDay"

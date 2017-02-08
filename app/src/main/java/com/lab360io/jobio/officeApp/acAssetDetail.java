@@ -103,7 +103,7 @@ public class acAssetDetail extends AppCompatActivity {
                 super.onPostExecute(o);
                 if (objClientAsset != null) {
                     txtAssetNameCategory.setText(objClientAsset.getAmAsset_name() + "[" + objClientAsset.getActmCategory_name() + "]");
-                    txtDesc.setText(objClientAsset.getAmDescription());
+                    txtDesc.setText(objClientAsset.getAmDescription().equals("") ? getString(R.string.msgDescNotAvail) : objClientAsset.getAmDescription());
                     txtModel.setText(objClientAsset.getAmModel_name());
                     txtManufacturer.setText(objClientAsset.getAmManufacturer_name());
                     txtSerialNumber.setText(objClientAsset.getAmSerial_no());
@@ -120,6 +120,7 @@ public class acAssetDetail extends AppCompatActivity {
                     //txtBarcode.setText(objClientAsset.getAmBarcode_no());
                     scrlMailContent.setVisibility(View.VISIBLE);
                 }
+                dot_progress_bar.clearAnimation();
                 dot_progress_bar.setVisibility(View.GONE);
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -146,7 +147,7 @@ public class acAssetDetail extends AppCompatActivity {
         //Logger.debug(obj.getAoEmployee_id() + " " + curEmp.getCount());
         if (curEmp != null && curEmp.getCount() > 0) {
             curEmp.moveToFirst();
-            txtEmployeeName.setText(curEmp.getString(3) + " " + curEmp.getString(4) + "[" + curEmp.getString(7) + "]");
+            txtEmployeeName.setText(curEmp.getString(3) + " " + curEmp.getString(4) + " [" + curEmp.getString(7) + "]");
             txtInOut.setText(obj.getAoInOut());
             if (obj.getAoInOut().equals(ClientAssetOwner.CheckInOut.CHECK_IN)) {
                 txtInOut.setTextAppearance(mContext, R.style.styDescDarkGreyX);

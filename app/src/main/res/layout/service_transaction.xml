@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_bg"
                     android:orientation="vertical"
-                    android:padding="@dimen/ViewPadding">
+                    android:padding="@dimen/ViewPaddingBig">
 
                     <!--<TextView
                         style="@style/stySubTitleTile"
@@ -110,7 +110,7 @@
                     <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/ViewMargin">
+                        android:layout_marginBottom="@dimen/ViewMarginBig">
 
                         <me.zhanghai.android.materialedittext.MaterialEditText
                             android:id="@+id/edServiceName"
@@ -134,7 +134,7 @@
                         style="@style/styDescDarkGreyX"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/ViewMargin"
+                        android:layout_marginBottom="@dimen/ViewMarginBig"
                         app:font="@{`Ubuntu-L`}" />
 
                     <TextView
@@ -150,7 +150,7 @@
                         style="@style/styDescDarkGreyX"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/ViewMargin"
+                        android:layout_marginBottom="@dimen/ViewMarginBig"
                         app:font="@{`Ubuntu-L`}" />
 
                     <TextView
@@ -166,7 +166,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spinnerHeight"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginBottom="@dimen/ViewMargin"
+                        android:layout_marginBottom="@dimen/ViewMarginBig"
                         android:background="@drawable/bg_spinner"
                         rdv:rdv_rippleAnimationDuration="600"
                         rdv:rdv_rippleAnimationFrames="60"
@@ -192,8 +192,7 @@
                             <Spinner
                                 android:id="@+id/spnPerformBy"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_toLeftOf="@id/i1"
+                                android:layout_height="@dimen/spinnerHeight"
                                 android:background="@null"
                                 android:prompt="@string/strSelectEmployee"
                                 android:spinnerMode="dialog" />
@@ -210,7 +209,7 @@
                     <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/ViewMargin">
+                        android:layout_marginBottom="@dimen/ViewMarginBig">
 
                         <me.zhanghai.android.materialedittext.MaterialEditText
                             android:hint="@string/strServiceFirmName"
@@ -231,7 +230,7 @@
                     <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/ViewMargin">
+                        android:layout_marginBottom="@dimen/ViewMarginBig">
 
                         <me.zhanghai.android.materialedittext.MaterialEditText
                             android:inputType="number"
@@ -254,7 +253,7 @@
                     <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/ViewMargin">
+                        android:layout_marginBottom="@dimen/ViewMarginBig">
 
                         <me.zhanghai.android.materialedittext.MaterialEditText
                             android:id="@+id/edServiceDate"
@@ -276,7 +275,7 @@
                     <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/ViewMargin">
+                        android:layout_marginBottom="@dimen/ViewMarginBig">
 
                         <me.zhanghai.android.materialedittext.MaterialEditText
                             android:id="@+id/edServiceTime"
@@ -302,7 +301,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spinnerHeight"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginBottom="@dimen/ViewMargin"
+                        android:layout_marginBottom="@dimen/ViewMarginBig"
                         android:background="@drawable/bg_spinner"
                         rdv:rdv_rippleAnimationDuration="600"
                         rdv:rdv_rippleAnimationFrames="60"
@@ -328,8 +327,7 @@
                             <Spinner
                                 android:id="@+id/spnStatus"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_toLeftOf="@id/img"
+                                android:layout_height="@dimen/spinnerHeight"
                                 android:background="@null"
                                 android:prompt="@string/msgSelectInpectStatus"
                                 android:spinnerMode="dialog" />
@@ -340,7 +338,7 @@
                     <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/ViewMargin">
+                        android:layout_marginBottom="@dimen/ViewMarginBig">
 
                         <me.zhanghai.android.materialedittext.MaterialEditText
                             android:id="@+id/edServiceNote"
@@ -363,7 +361,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/ViewMargin"
+                        android:layout_marginBottom="@dimen/ViewMarginBig"
                         android:background="@color/tilt">
 
 
@@ -415,7 +413,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/ViewMargin"
+
                         android:background="@color/tilt">
 
 

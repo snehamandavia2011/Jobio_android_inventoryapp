@@ -245,7 +245,8 @@ public class frStockTransaction extends Fragment {
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
                 if (arrClientStockTransactionReason != null && arrClientStockTransactionReason.size() > 0) {
-                    adpStockTransactionReason = new ArrayAdapter<ClientStockTransactionReason>(mContext, R.layout.spinner_item, arrClientStockTransactionReason);
+                    adpStockTransactionReason = new ArrayAdapter<ClientStockTransactionReason>(mContext, R.layout.spinner_item_no_padding, arrClientStockTransactionReason);
+                    adpStockTransactionReason.setDropDownViewResource(R.layout.spinner_item);
                     spnTransactionReason.setAdapter(adpStockTransactionReason);
                     spnTransactionReason.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -295,7 +296,8 @@ public class frStockTransaction extends Fragment {
                 super.onPostExecute(o);
                 lyRefList.setVisibility(View.VISIBLE);
                 if (arrClientJobPOInvoiceReference != null && arrClientJobPOInvoiceReference.size() > 0) {
-                    adpClientJobPOInvoiceReference = new ArrayAdapter<ClientJobPOInvoiceReference>(mContext, R.layout.spinner_item, arrClientJobPOInvoiceReference);
+                    adpClientJobPOInvoiceReference = new ArrayAdapter<ClientJobPOInvoiceReference>(mContext, R.layout.spinner_item_no_padding, arrClientJobPOInvoiceReference);
+                    adpClientJobPOInvoiceReference.setDropDownViewResource(R.layout.spinner_item);
                     spnRef.setAdapter(adpClientJobPOInvoiceReference);
                     spnRef.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -356,7 +358,7 @@ public class frStockTransaction extends Fragment {
                 super.onPostExecute(o);
                 if (arrClientCustEmpSupplier != null) {
                     //adpClientCustEmpSupplier = new ArrayAdapter<ClientCustEmpSupplier>(mContext, R.layout.spinner_item, arrClientCustEmpSupplier);
-                    adpClientCustEmpSupplier =new ClientCustomerEmployeeSupplierAdapter(mContext,arrClientCustEmpSupplier);
+                    adpClientCustEmpSupplier = new ClientCustomerEmployeeSupplierAdapter(mContext, arrClientCustEmpSupplier);
                     spnFrom.setAdapter(adpClientCustEmpSupplier);
                     spnTo.setAdapter(adpClientCustEmpSupplier);
                     spnFrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

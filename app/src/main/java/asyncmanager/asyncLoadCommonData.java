@@ -5,6 +5,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ImageView;
@@ -177,12 +180,16 @@ public class asyncLoadCommonData {
                     img.setImageBitmap(bmpNoPic);
                     img.setBackgroundResource(0);
                 } else {
+                    Drawable color = new ColorDrawable(ctx.getResources().getColor(R.color.white));
+                    Drawable image;
                     if (ctx.getClass() == acHome.class || ctx.getClass() == acAssetDetail.class || ctx.getClass() == acItemDetail.class) {
-                        img.setImageBitmap(Helper.getResizedBitmap(bmp, pixel, pixel));
+                        image = new BitmapDrawable(ctx.getResources(), Helper.getResizedBitmap(bmp, pixel, pixel));
                     } else {
-                        img.setImageBitmap(bmp);
+                        image = new BitmapDrawable(ctx.getResources(), bmp);
                     }
                     try {
+                        LayerDrawable ld = new LayerDrawable(new Drawable[]{color, image});
+                        img.setImageDrawable(ld);
                         img.setScaleType(ImageView.ScaleType.FIT_START);
                     } catch (Exception e) {
 
@@ -234,12 +241,16 @@ public class asyncLoadCommonData {
                     img.setImageBitmap(bmpNoPic);
                 }
             } else {
+                Drawable color = new ColorDrawable(ctx.getResources().getColor(R.color.white));
+                Drawable image;
                 if (ctx.getClass() == acHome.class || ctx.getClass() == acAssetDetail.class || ctx.getClass() == acItemDetail.class) {
-                    img.setImageBitmap(Helper.getResizedBitmap(bmp, pixel, pixel));
+                    image = new BitmapDrawable(ctx.getResources(), Helper.getResizedBitmap(bmp, pixel, pixel));
                 } else {
-                    img.setImageBitmap(bmp);
+                    image = new BitmapDrawable(ctx.getResources(), bmp);
                 }
                 try {
+                    LayerDrawable ld = new LayerDrawable(new Drawable[]{color, image});
+                    img.setImageDrawable(ld);
                     img.setScaleType(ImageView.ScaleType.FIT_START);
                 } catch (Exception e) {
 

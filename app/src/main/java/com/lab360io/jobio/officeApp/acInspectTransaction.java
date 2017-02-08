@@ -133,7 +133,8 @@ public class acInspectTransaction extends AppCompatActivity {
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
-                ArrayAdapter<ClientAssetInspectServiceStatus> adpSpinner = new ArrayAdapter<ClientAssetInspectServiceStatus>(mContext, R.layout.spinner_item, arrClientAssetInspectServiceStatus);
+                ArrayAdapter<ClientAssetInspectServiceStatus> adpSpinner = new ArrayAdapter<ClientAssetInspectServiceStatus>(mContext, R.layout.spinner_item_no_padding, arrClientAssetInspectServiceStatus);
+                adpSpinner.setDropDownViewResource(R.layout.spinner_item);
                 spnStatus.setAdapter(adpSpinner);
                 txtAssetName.setText(objClientAssetInspect.getAitAsset_name());
                 txtAssignedTo.setText(assignedT0EmpName);

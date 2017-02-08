@@ -112,6 +112,7 @@ public class frAssetsInspect extends Fragment {
                 super.onPostExecute(o);
                 if (dot_progress_bar != null) {
                     try {
+                        dot_progress_bar.clearAnimation();
                         dot_progress_bar.setVisibility(View.GONE);
                         ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
                     } catch (Exception e) {

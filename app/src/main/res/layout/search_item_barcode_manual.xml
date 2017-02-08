@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:padding="@dimen/ViewPadding">
+                android:padding="@dimen/ViewPaddingBig">
 
                 <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                     android:layout_width="match_parent"

@@ -338,6 +338,7 @@ public class Helper {
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
+                            dtDialog.clearAnimation();
                             dtDialog.setVisibility(View.GONE);
                             displaySnackbar(ac, ctx.getString(R.string.strQRNotExist));
                             for (View v : view) {
@@ -375,6 +376,7 @@ public class Helper {
                             mHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
+                                    dtDialog.clearAnimation();
                                     dtDialog.setVisibility(View.GONE);
                                     displaySnackbar(ac, result);
                                     for (View v : view) {

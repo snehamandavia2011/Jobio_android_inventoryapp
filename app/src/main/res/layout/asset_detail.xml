@@ -15,7 +15,7 @@
             android:id="@+id/scrlMainContent"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -48,7 +48,7 @@
                                 style="@style/stySubTitleTile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:textStyle="bold"
                                 app:font="@{`Ubuntu-M`}" />
 
@@ -56,7 +56,7 @@
                                 style="@style/stySubTitleTile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:text="@string/strAssetDesc"
                                 app:font="@{`Ubuntu-C`}" />
 
@@ -65,20 +65,20 @@
                                 style="@style/styDescDarkGreyX"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 app:font="@{`Ubuntu-L`}" />
 
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:background="@color/tilt" />
 
                             <TextView
                                 style="@style/stySubTitleTile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:text="@string/strModel"
                                 app:font="@{`Ubuntu-C`}" />
 
@@ -87,13 +87,13 @@
                                 style="@style/styDescDarkGreyX"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 app:font="@{`Ubuntu-L`}" />
 
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:background="@color/tilt" />
 
 
@@ -101,7 +101,7 @@
                                 style="@style/stySubTitleTile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:text="@string/strManufacturer"
                                 app:font="@{`Ubuntu-C`}" />
 
@@ -110,13 +110,13 @@
                                 style="@style/styDescDarkGreyX"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 app:font="@{`Ubuntu-L`}" />
 
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:background="@color/tilt" />
 
 
@@ -124,7 +124,7 @@
                                 style="@style/stySubTitleTile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:text="@string/strSerialNumber"
                                 app:font="@{`Ubuntu-C`}" />
 
@@ -133,20 +133,20 @@
                                 style="@style/styDescDarkGreyX"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 app:font="@{`Ubuntu-L`}" />
 
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:background="@color/tilt" />
 
                             <TextView
                                 style="@style/stySubTitleTile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:text="@string/strBarcode"
                                 app:font="@{`Ubuntu-C`}" />
 
@@ -155,7 +155,7 @@
                                 style="@style/stySubTitleTile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:clickable="true"
                                 android:layout_gravity="right"
                                 android:text="@string/strShowBarcode"
@@ -164,14 +164,14 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:background="@color/tilt" />
 
                             <TextView
                                 style="@style/stySubTitleTile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:text="@string/strAssetLocation"
                                 app:font="@{`Ubuntu-C`}" />
 
@@ -180,20 +180,20 @@
                                 style="@style/styDescDarkGreyX"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 app:font="@{`Ubuntu-L`}" />
 
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:background="@color/tilt" />
 
                             <TextView
                                 style="@style/stySubTitleTile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:text="@string/strCost"
                                 app:font="@{`Ubuntu-C`}" />
 
@@ -202,20 +202,20 @@
                                 style="@style/styDescDarkGreyX"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 app:font="@{`Ubuntu-L`}" />
 
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:background="@color/tilt" />
 
                             <TextView
                                 style="@style/stySubTitleTile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:text="@string/strCurrentValue"
                                 app:font="@{`Ubuntu-C`}" />
 
@@ -224,20 +224,20 @@
                                 style="@style/styDescDarkGreyX"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 app:font="@{`Ubuntu-L`}" />
 
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:background="@color/tilt" />
 
                             <TextView
                                 style="@style/stySubTitleTile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:text="@string/strPurchaseFrom"
                                 app:font="@{`Ubuntu-C`}" />
 
@@ -246,20 +246,20 @@
                                 style="@style/styDescDarkGreyX"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 app:font="@{`Ubuntu-L`}" />
 
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:background="@color/tilt" />
 
                             <TextView
                                 style="@style/stySubTitleTile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:text="@string/strDateExpire"
                                 app:font="@{`Ubuntu-C`}" />
 
@@ -268,20 +268,20 @@
                                 style="@style/styDescDarkGreyX"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 app:font="@{`Ubuntu-L`}" />
 
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:background="@color/tilt" />
 
                             <TextView
                                 style="@style/stySubTitleTile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:text="@string/strStatus"
                                 app:font="@{`Ubuntu-C`}" />
 
@@ -290,14 +290,8 @@
                                 style="@style/styDescDarkGreyX"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 app:font="@{`Ubuntu-L`}" />
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
-                                android:background="@color/tilt" />
 
                         </LinearLayout>
 
@@ -306,13 +300,13 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/white_bg"
                             android:orientation="vertical"
-                            android:padding="@dimen/ViewPaddingSmall">
+                            android:padding="@dimen/listViewDividerHeight">
 
                             <TextView
                                 style="@style/stySubTitleTile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                                android:layout_marginBottom="@dimen/ViewMargin"
                                 android:text="@string/msgAssetHolder"
                                 app:font="@{`Ubuntu-M`}" />
 

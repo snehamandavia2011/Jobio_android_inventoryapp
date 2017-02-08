@@ -142,10 +142,12 @@ public class acServiceTransaction extends AppCompatActivity {
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
-                ArrayAdapter<ClientAssetInspectServiceStatus> adpSpinner = new ArrayAdapter<ClientAssetInspectServiceStatus>(mContext, R.layout.spinner_item, arrClientAssetInspectServiceStatus);
+                ArrayAdapter<ClientAssetInspectServiceStatus> adpSpinner = new ArrayAdapter<ClientAssetInspectServiceStatus>(mContext, R.layout.spinner_item_no_padding, arrClientAssetInspectServiceStatus);
+                adpSpinner.setDropDownViewResource(R.layout.spinner_item);
                 spnStatus.setAdapter(adpSpinner);
 
-                ArrayAdapter<ClientAdminUserEmployee> adpPerformBy = new ArrayAdapter<ClientAdminUserEmployee>(mContext, R.layout.spinner_item, arrClientAdminUserEmployee);
+                ArrayAdapter<ClientAdminUserEmployee> adpPerformBy = new ArrayAdapter<ClientAdminUserEmployee>(mContext, R.layout.spinner_item_no_padding, arrClientAdminUserEmployee);
+                adpPerformBy.setDropDownViewResource(R.layout.spinner_item);
                 spnPerformBy.setAdapter(adpPerformBy);
 
                 txtAssetName.setText(objClientAssetService.getAstAsset_name());

@@ -55,7 +55,21 @@ public class ClientCustomerEmployeeSupplierAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater mInflater = (LayoutInflater) ctx
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        TextView txt = (TextView) mInflater.inflate(R.layout.spinner_item_no_padding, null);
+        setTextView(position,txt);
+        return txt;
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        LayoutInflater mInflater = (LayoutInflater) ctx
+                .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         TextView txt = (TextView) mInflater.inflate(R.layout.spinner_item, null);
+        setTextView(position,txt);
+        return txt;
+    }
+
+    private TextView setTextView(int position,TextView txt){
         txt.setText(arrClientCustEmpSupplier.get(position).getName());
         String name = arrClientCustEmpSupplier.get(position).getName();
         String type = arrClientCustEmpSupplier.get(position).getType();

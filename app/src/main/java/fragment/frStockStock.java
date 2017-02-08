@@ -92,6 +92,7 @@ public class frStockStock extends Fragment {
                     lyMainContent.setVisibility(View.GONE);
                     lyNoContent.setVisibility(View.GONE);
                 }
+                dot_progress_bar.clearAnimation();
                 dot_progress_bar.setVisibility(View.GONE);
                 ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
             }
