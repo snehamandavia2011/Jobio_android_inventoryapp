@@ -141,66 +141,81 @@
                                 app:font="@{`Ubuntu-L`}" />
                         </RadioGroup>
 
-
-                        <TextView
-                            style="@style/stySubTitleTile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/ViewMargin"
-                            android:text="@string/strTransactionReason"
-                            app:font="@{`Ubuntu-C`}" />
-
-                        <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/lyTransactionReason"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/spinnerHeight"
-                            android:layout_gravity="center_horizontal"
+                            android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/ViewMarginBig"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_spinner"
-                            rdv:rdv_rippleAnimationDuration="600"
-                            rdv:rdv_rippleAnimationFrames="60"
-                            rdv:rdv_rippleAnimationPeakFrame="15"
-                            rdv:rdv_rippleColor="@color/tilt"
-                            rdv:rdv_rippleMaxAlpha="0.8"
-                            rdv:rdv_rippleRadius="@dimen/rippleRadius">
+                            android:orientation="vertical">
 
-                            <RelativeLayout
+                            <TextView
+                                style="@style/stySubTitleTile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/ViewMargin"
+                                android:text="@string/strTransactionReason"
+                                app:font="@{`Ubuntu-C`}" />
+
+                            <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="@dimen/spinnerHeight"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_spinner"
+                                rdv:rdv_rippleAnimationDuration="600"
+                                rdv:rdv_rippleAnimationFrames="60"
+                                rdv:rdv_rippleAnimationPeakFrame="15"
+                                rdv:rdv_rippleColor="@color/tilt"
+                                rdv:rdv_rippleMaxAlpha="0.8"
+                                rdv:rdv_rippleRadius="@dimen/rippleRadius">
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginRight="@dimen/ViewMargin"
-                                    android:background="@drawable/ic_drop_down" />
-
-                                <Spinner
-                                    android:id="@+id/spnTransactionReason"
+                                <RelativeLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="@dimen/spinnerHeight"
-                                    android:background="@null"
-                                    android:prompt="@string/strTransactionReason"
-                                    android:spinnerMode="dialog" />
-                            </RelativeLayout>
-                        </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+                                    android:layout_height="wrap_content">
 
-                        <TextView
-                            style="@style/stySubTitleTile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/ViewMargin"
-                            android:text="@string/strReferenceType"
-                            app:font="@{`Ubuntu-C`}" />
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginRight="@dimen/ViewMargin"
+                                        android:background="@drawable/ic_drop_down" />
 
-                        <TextView
-                            android:id="@+id/txtReference"
-                            style="@style/styDescDarkGreyX"
-                            android:layout_width="wrap_content"
+                                    <Spinner
+                                        android:id="@+id/spnTransactionReason"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/spinnerHeight"
+                                        android:background="@null"
+                                        android:prompt="@string/strTransactionReason"
+                                        android:spinnerMode="dialog" />
+                                </RelativeLayout>
+                            </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/lyReferenceType"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/ViewMarginBig"
-                            app:font="@{`Ubuntu-M`}" />
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/stySubTitleTile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/ViewMargin"
+                                android:text="@string/strReferenceType"
+                                app:font="@{`Ubuntu-C`}" />
+
+                            <TextView
+                                android:id="@+id/txtReference"
+                                style="@style/styDescDarkGreyX"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:font="@{`Ubuntu-M`}" />
+                        </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/lyRefList"

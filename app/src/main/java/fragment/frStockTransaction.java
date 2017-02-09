@@ -48,7 +48,7 @@ import utility.URLMapping;
 public class frStockTransaction extends Fragment {
     Button btnCancel, btnNext;
     RelativeLayout lyNoNetwork, lyMainContent;
-    LinearLayout lyFromTo, lyRefList;
+    LinearLayout lyFromTo, lyRefList, lyTransactionReason, lyReferenceType;
     DotProgressBar dot_progress_bar;
     Spinner spnTransactionReason, spnRef, spnFrom, spnTo;// spnStockTransactionStatus;
     RadioGroup rgStockType;
@@ -97,6 +97,8 @@ public class frStockTransaction extends Fragment {
         spnTo = (Spinner) view.findViewById(R.id.spnTo);
         lyFromTo = (LinearLayout) view.findViewById(R.id.lyFromTo);
         lyRefList = (LinearLayout) view.findViewById(R.id.lyRefList);
+        lyTransactionReason = (LinearLayout) view.findViewById(R.id.lyTransactionReason);
+        lyReferenceType = (LinearLayout) view.findViewById(R.id.lyReferenceType);
         refView = (RippleDecoratorView) view.findViewById(R.id.refView);
         btnNext.setEnabled(false);
         setData();
@@ -135,7 +137,7 @@ public class frStockTransaction extends Fragment {
             lyMainContent.setVisibility(View.VISIBLE);
             lyNoNetwork.setVisibility(View.GONE);
             setSpnStockType();
-            setSpnFromTo();
+            getFromToList();
         } else {
             lyMainContent.setVisibility(View.GONE);
             lyNoNetwork.setVisibility(View.VISIBLE);
@@ -186,20 +188,10 @@ public class frStockTransaction extends Fragment {
                     rgStockType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(RadioGroup group, int checkedId) {
+                            invisibleAllView();
                             selStockTransactionStatus = Integer.parseInt(group.findViewById(checkedId).getTag().toString());
                             Logger.debug("selStockTransactionStatus:" + selStockTransactionStatus);
-                            referenceType = StockTransactionReferenceType.getReferenceID(selStockTransactionStatus);
-                            if (selStockTransactionStatus == 2) {//STOCK RETURN
-                                txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
-                            } else if (selStockTransactionStatus == 3) {//STOCK RECEIVED
-                                txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
-                            } else if (selStockTransactionStatus == 4) {//STOCK DAMAGE
-                                txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
-                            } else if (selStockTransactionStatus == 7) {//STOCK RELEASE
-                                txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
-                            }
                             setSpnTrasactionReason();
-                            setSpnRefList();
                         }
                     });
                     rgStockType.check(R.id.rd1);
@@ -245,6 +237,7 @@ public class frStockTransaction extends Fragment {
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
                 if (arrClientStockTransactionReason != null && arrClientStockTransactionReason.size() > 0) {
+                    lyTransactionReason.setVisibility(View.VISIBLE);
                     adpStockTransactionReason = new ArrayAdapter<ClientStockTransactionReason>(mContext, R.layout.spinner_item_no_padding, arrClientStockTransactionReason);
                     adpStockTransactionReason.setDropDownViewResource(R.layout.spinner_item);
                     spnTransactionReason.setAdapter(adpStockTransactionReason);
@@ -259,6 +252,18 @@ public class frStockTransaction extends Fragment {
 
                         }
                     });
+                    lyReferenceType.setVisibility(View.VISIBLE);
+                    referenceType = StockTransactionReferenceType.getReferenceID(selStockTransactionStatus);
+                    if (selStockTransactionStatus == 2) {//STOCK RETURN
+                        txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
+                    } else if (selStockTransactionStatus == 3) {//STOCK RECEIVED
+                        txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
+                    } else if (selStockTransactionStatus == 4) {//STOCK DAMAGE
+                        txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
+                    } else if (selStockTransactionStatus == 7) {//STOCK RELEASE
+                        txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
+                    }
+                    setSpnRefList();
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -314,6 +319,7 @@ public class frStockTransaction extends Fragment {
                         btnNext.setEnabled(true);
                     txtNoReferenceFound.setVisibility(View.GONE);
                     refView.setVisibility(View.VISIBLE);
+                    setSpnFromTo();
                 } else {
                     if (btnNext.isEnabled())
                         btnNext.setEnabled(false);
@@ -331,7 +337,6 @@ public class frStockTransaction extends Fragment {
 
     private void setSpnFromTo() {
         new AsyncTask() {
-            ServerResponse sr;
 
             @Override
             protected void onPreExecute() {
@@ -341,15 +346,6 @@ public class frStockTransaction extends Fragment {
 
             @Override
             protected Object doInBackground(Object[] params) {
-                final HttpEngine objHttpEngine = new HttpEngine();
-                final String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
-                String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
-                final URLMapping um = ConstantVal.getCustomerEmployeeSupplierList(mContext);
-                sr = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), new String[]{tokenId, account_id}, um.getParamNames(), um.isNeedToSync());
-                String result = sr.getResponseString();
-                if (result != null && result.length() > 0) {
-                    arrClientCustEmpSupplier = ClientCustEmpSupplier.parseData(result);
-                }
                 return null;
             }
 
@@ -389,7 +385,7 @@ public class frStockTransaction extends Fragment {
                     lyFromTo.setVisibility(View.VISIBLE);
                     btnNext.setEnabled(true);
                 } else {
-                    Helper.displaySnackbar((AppCompatActivity) getActivity(), ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseString()));
+
                 }
                 dot_progress_bar.clearAnimation();
                 dot_progress_bar.setVisibility(View.GONE);
@@ -404,6 +400,40 @@ public class frStockTransaction extends Fragment {
             getActivity().setResult(ConstantVal.EXIT_RESPONSE_CODE);
             getActivity().finish();
         }
+    }
+
+    private void invisibleAllView() {
+        lyTransactionReason.setVisibility(View.GONE);
+        lyReferenceType.setVisibility(View.GONE);
+        lyRefList.setVisibility(View.GONE);
+        lyFromTo.setVisibility(View.GONE);
+    }
+
+    private void getFromToList() {
+        new AsyncTask() {
+            ServerResponse sr;
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                final HttpEngine objHttpEngine = new HttpEngine();
+                final String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
+                String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+                final URLMapping um = ConstantVal.getCustomerEmployeeSupplierList(mContext);
+                sr = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), new String[]{tokenId, account_id}, um.getParamNames(), um.isNeedToSync());
+                String result = sr.getResponseString();
+                if (result != null && result.length() > 0) {
+                    arrClientCustEmpSupplier = ClientCustEmpSupplier.parseData(result);
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                if (arrClientCustEmpSupplier == null || arrClientCustEmpSupplier.size() <= 0)
+                    Helper.displaySnackbar((AppCompatActivity) getActivity(), ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseString()));
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     /*@Override

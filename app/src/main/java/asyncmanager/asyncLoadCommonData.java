@@ -269,7 +269,7 @@ public class asyncLoadCommonData {
     }
 
     public static void setPreExecutionPhotoToImageView(Context ctx, String strBase64, ImageView img, View.OnClickListener imgClick) {
-        RelativeLayout.LayoutParams rparam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams rparam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         rparam.addRule(RelativeLayout.CENTER_IN_PARENT);
         img.setLayoutParams(rparam);
         if (strBase64 != null && strBase64.length() > 0) {
@@ -298,7 +298,7 @@ public class asyncLoadCommonData {
     }
 
     private boolean setPostExecutionPhotoToImageView(String strBase64, ImageView img, String serverResponse, View.OnClickListener imgClick) {
-        RelativeLayout.LayoutParams rparam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams rparam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         rparam.addRule(RelativeLayout.CENTER_IN_PARENT);
         img.setLayoutParams(rparam);
         try {
