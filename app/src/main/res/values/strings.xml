@@ -28,7 +28,7 @@
     <string name="strRequestTimeout">Request time out</string>
     <string name="strSessionExpire">Session has been expire</string>
     <string name="strInvalidUserNameAndPassword">Invalid username or password</string>
-    <string name="strInvalidUserName">Invalid username.</string>
+    <string name="strInvalidUserName">This email id is not registered with us!</string>
     <string name="strDatacannotReceive">Unable to receive data from network</string>
     <string name="strServerError">Server error</string>
     <string name="strClientError">Invalid URL request</string>

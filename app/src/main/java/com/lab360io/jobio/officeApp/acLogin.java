@@ -143,10 +143,11 @@ public class acLogin extends AppCompatActivity {
                 Button btnSendNewPassword = (Button) view1.findViewById(R.id.btnSendNewPassword);
                 final DotProgressBar dot_progress_bar = (DotProgressBar) view1.findViewById(R.id.dot_progress_bar);
                 final MaterialEditText edUserName = (MaterialEditText) view1.findViewById(R.id.edUserName);
+                final TextView msgError = (TextView) view1.findViewById(R.id.msgError);
                 btnSendNewPassword.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        sendPassoword(dialog, edUserName, lyInput, lyConfirmation, dot_progress_bar);
+                        sendPassoword(dialog, msgError, edUserName, lyInput, lyConfirmation, dot_progress_bar);
                     }
                 });
                 btnDone.setOnClickListener(new View.OnClickListener() {
@@ -303,7 +304,7 @@ public class acLogin extends AppCompatActivity {
         });
     }
 
-    private void sendPassoword(final Dialog d, final MaterialEditText edUserName, final LinearLayout lyInput, final LinearLayout lyConfirmation, final DotProgressBar dot_progress_bar) {
+    private void sendPassoword(final Dialog d, final TextView msgError, final MaterialEditText edUserName, final LinearLayout lyInput, final LinearLayout lyConfirmation, final DotProgressBar dot_progress_bar) {
         new AsyncTask() {
             boolean isDataEnteredProper = true;
             String email, newPassword;
@@ -334,26 +335,44 @@ public class acLogin extends AppCompatActivity {
                     URLMapping umForgotPassword = ConstantVal.forgotPassword(mContext);
                     HttpEngine objHttpEngine = new HttpEngine();
                     String[] dataVerifyUser = {email, account_id};
-                    String strVerifyUserCode = objHttpEngine.getDataFromWebAPI(mContext, umVerifyUser.getUrl(), dataVerifyUser, umVerifyUser.getParamNames(), umVerifyUser.isNeedToSync()).getResponseCode();
+                    final String strVerifyUserCode = objHttpEngine.getDataFromWebAPI(mContext, umVerifyUser.getUrl(), dataVerifyUser, umVerifyUser.getParamNames(), umVerifyUser.isNeedToSync()).getResponseCode();
                     if (strVerifyUserCode.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
                         Date dt = new Date();
                         String date = Helper.convertDateToString(dt, ConstantVal.DATE_FORMAT);
                         String time = Helper.convertDateToString(dt, ConstantVal.TIME_FORMAT);
                         String[] data = {account_id, email, date, time, ConstantVal.APP_REF_TYPE};
-                        String result = objHttpEngine.getDataFromWebAPI(mContext, umForgotPassword.getUrl(), data, umForgotPassword.getParamNames(), umForgotPassword.isNeedToSync()).getResponseString();
+                        final String result = objHttpEngine.getDataFromWebAPI(mContext, umForgotPassword.getUrl(), data, umForgotPassword.getParamNames(), umForgotPassword.isNeedToSync()).getResponseString();
                         if (result != null && result.length() > 0) {
                             try {
                                 JSONObject objJSON = new JSONObject(result);
                                 newPassword = objJSON.getString("password");
                             } catch (Exception e) {
-                                Helper.displaySnackbar(ac, result);
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        msgError.setVisibility(View.VISIBLE);
+                                        msgError.setText(ConstantVal.ServerResponseCode.getMessage(ac, result));
+                                    }
+                                });
                             }
                         }
                     } else {
                         if (strVerifyUserCode.equals(ConstantVal.ServerResponseCode.INVALID_LOGIN)) {
-                            Helper.displaySnackbar(ac, mContext.getString(R.string.strInvalidUserName));
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    msgError.setVisibility(View.VISIBLE);
+                                    msgError.setText(mContext.getString(R.string.strInvalidUserName));
+                                }
+                            });
                         } else {
-                            Helper.displaySnackbar(ac, strVerifyUserCode);
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    msgError.setVisibility(View.VISIBLE);
+                                    msgError.setText(ConstantVal.ServerResponseCode.getMessage(ac, strVerifyUserCode));
+                                }
+                            });
                         }
                     }
                 }

@@ -838,6 +838,7 @@ public class Helper {
                         btnDropDownMenu.setVisibility(View.GONE);
                     }
                 } catch (Exception e) {
+                    btnDropDownMenu.setVisibility(View.GONE);
                 }
                 txtName.setText(text);
             }
