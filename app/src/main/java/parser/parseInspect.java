@@ -31,7 +31,7 @@ public class parseInspect {
                 String assigned_to = (obj.getString("assigned_to").equals("null") ? "" : obj.getString("assigned_to"));
                 Date assigned_date = Helper.convertStringToDate(obj.getString("assigned_date"), ConstantVal.DATE_FORMAT);
                 String is_present = (obj.getString("is_present").equals("null") ? "" : obj.getString("is_present"));
-                Date date_time = Helper.convertStringToDate(obj.getString("date_time"), ConstantVal.DATE_FORMAT + " " + ConstantVal.TIME_FORMAT);
+                Date date_time = Helper.convertStringToDate(obj.getString("performed_datetime"), ConstantVal.DATE_FORMAT + " " + ConstantVal.TIME_FORMAT);
                 String note = (obj.getString("note").equals("null") ? "" : obj.getString("note"));
                 String status_id = (obj.getString("status_id").equals("null") ? "" : obj.getString("status_id"));
                 String category_name = (obj.getString("category_name").equals("null") ? "" : obj.getString("category_name"));

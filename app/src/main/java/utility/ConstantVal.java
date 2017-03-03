@@ -71,7 +71,7 @@ public class ConstantVal {
     }
 
     public static class ModuleAccess {
-        public static final String INVENTORY = "Inventory";
+        public static final String STOCK = "Stock";
         public static final String ASSET = "Asset";
     }
 
