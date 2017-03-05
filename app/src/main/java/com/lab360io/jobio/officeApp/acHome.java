@@ -164,7 +164,7 @@ public class acHome extends AppCompatActivity {
 
 
     private void openResetPasswordDialog() {
-        String isPasswordReset = Helper.getStringPreference(mContext, ClientAdminUserAppsRel.Fields.IS_PASSWORD_RESETED, "N");
+        String isPasswordReset = Helper.getStringPreference(mContext, ClientAdminUser.Fields.ISPASSWORDSET, "N");
         //Logger.debug("in openResetPasswordDialog:" + isPasswordReset);
         if (isPasswordReset.equals("N")) {
             LayoutInflater infalInflater = (LayoutInflater) mContext
@@ -199,7 +199,7 @@ public class acHome extends AppCompatActivity {
         }
     }
 
-    private void saveResetPassword(final Dialog dialog, final MaterialEditText edOldPassword, final MaterialEditText edNewPassword, final MaterialEditText edConfirmPassword, final TextView txtMessage) {
+    private synchronized void saveResetPassword(final Dialog dialog, final MaterialEditText edOldPassword, final MaterialEditText edNewPassword, final MaterialEditText edConfirmPassword, final TextView txtMessage) {
         new AsyncTask() {
             boolean isDataVerified = true;
             boolean isAllFieldsEntered = true;
@@ -244,6 +244,7 @@ public class acHome extends AppCompatActivity {
                             txtMessage.setVisibility(View.VISIBLE);
                             txtMessage.setText(getString(R.string.msgNewPasswordShouldDiffentThanOld));
                         } else {
+                            isDataVerified = true;
                             dialog.dismiss();
                             openFeedback();
                         }
@@ -254,7 +255,7 @@ public class acHome extends AppCompatActivity {
             @Override
             protected Object doInBackground(Object[] params) {
                 if (isDataVerified && isAllFieldsEntered) {
-                    Helper.setStringPreference(mContext, ClientAdminUserAppsRel.Fields.IS_PASSWORD_RESETED, "Y");
+                    Helper.setStringPreference(mContext, ClientAdminUser.Fields.ISPASSWORDSET, "Y");
                     Helper.setStringPreference(mContext, ClientAdminUser.Fields.PASSWORD, newPassword);
                     final String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
                     String adminUserId = Helper.getStringPreference(mContext, ClientAdminUser.Fields.ADMINUSERID, "");
@@ -270,6 +271,9 @@ public class acHome extends AppCompatActivity {
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
+                if (isDataVerified && isAllFieldsEntered) {
+                    dialog.dismiss();
+                }
             }
         }.execute();
     }

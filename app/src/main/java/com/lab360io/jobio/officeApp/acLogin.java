@@ -387,7 +387,7 @@ public class acLogin extends AppCompatActivity {
                     lyConfirmation.setVisibility(View.VISIBLE);
                     lyInput.setVisibility(View.GONE);
                     Helper.setStringPreference(mContext, ClientAdminUser.Fields.PASSWORD, newPassword);
-                    Helper.setStringPreference(mContext, ClientAdminUserAppsRel.Fields.IS_PASSWORD_RESETED, "N");
+                    Helper.setStringPreference(mContext, ClientAdminUser.Fields.ISPASSWORDSET, "N");
                 }
             }
         }.execute();

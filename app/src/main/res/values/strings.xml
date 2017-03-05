@@ -1,4 +1,4 @@
-<resources>
+﻿<resources>
     <string name="msgFeatureNotAvailContactAdmin">Feature is not available. Contact to admin</string>
     <string name="app_name">Jobio Office</string>
     <string name="strHiya">Hiya</string>
@@ -242,7 +242,7 @@
     <string name="title_activity_edit_job_invoice_reference_detail">EditJobInvoiceReferenceDetail
     </string>
     <string name="strNote">Note</string>
-    <string name="msgPasswordvalidation">Password must have six character and minimum one digit</string>
+    <string name="msgPasswordvalidation">Password must have six characters and minimum one digit</string>
     <string name="strUnableToLoadData">Unable to load data.</string>
     <string name="strRestart">Restart</string>
     <string name="strUnsyncList">UNSYNC LIST</string>
