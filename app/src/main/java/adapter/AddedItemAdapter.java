@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import entity.ClientItemMaster;
+import entity.ClientRegional;
 import utility.ConstantVal;
 import utility.Helper;
 
@@ -83,7 +84,8 @@ public class AddedItemAdapter extends BaseAdapter {
         final ClientItemMaster objClientItemMaster = arrClientItem.get(position);
         holder.txtItemName.setText(objClientItemMaster.getItem_name() + " [" + objClientItemMaster.getCategory_name() + "]");
         holder.txtItemDesc.setText(objClientItemMaster.getSpecification().equals("") ? ctx.getString(R.string.msgDescNotAvail).toUpperCase() : objClientItemMaster.getSpecification());
-        String date = Helper.convertDateToString(new Date(Long.parseLong(objClientItemMaster.getLast_update_date_time())), ConstantVal.DATE_FORMAT + " " + ConstantVal.TIME_FORMAT);
+        String dateTimeFormat = Helper.getStringPreference(ctx, ClientRegional.Fields.DATE_FORMAT,ConstantVal.DEVICE_DEFAULT_DATE_FORMAT)+" "+Helper.getStringPreference(ctx, ClientRegional.Fields.TIME_FORMAT,ConstantVal.DEVICE_DEFAULT_TIME_FORMAT);
+        String date = Helper.convertDateToString(new Date(Long.parseLong(objClientItemMaster.getLast_update_date_time())), dateTimeFormat);
         holder.txtLastUpdated.setText(ctx.getString(R.string.strLastUpdated) + ": " + date);
         holder.ly.setOnClickListener(new View.OnClickListener() {
             @Override

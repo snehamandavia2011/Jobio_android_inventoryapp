@@ -34,6 +34,7 @@ import java.util.Date;
 import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUser;
 import entity.ClientPORefDetail;
+import entity.ClientRegional;
 import entity.JobPOInvoiceTransactionResult;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import utility.ConstantVal;
@@ -57,7 +58,7 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
     Button btnCancel, btnSave;
     Calendar calExpiryDate = Calendar.getInstance();
     Date dtCurrentDate = new Date();
-    DateFormat dateFormat = new SimpleDateFormat("dd MMM yyy");
+    DateFormat dateFormat;// = new SimpleDateFormat("dd MMM yyy");
     int selStockTransactionStatus, selStockTransactionReason;
     String referenceType, refId, fromId, toId, fromType, toType;
 
@@ -71,6 +72,7 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
         DataBindingUtil.setContentView(this, R.layout.edit_po_reference_detail);
         ac = this;
         mContext = this;
+        dateFormat = new SimpleDateFormat(Helper.getStringPreference(mContext, ClientRegional.Fields.DATE_FORMAT, ConstantVal.DEVICE_DEFAULT_DATE_FORMAT));
         setData();
     }
 

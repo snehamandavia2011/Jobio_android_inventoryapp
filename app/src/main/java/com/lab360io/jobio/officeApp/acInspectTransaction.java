@@ -39,6 +39,7 @@ import java.util.Date;
 import entity.BusinessAccountdbDetail;
 import entity.ClientAssetInspect;
 import entity.ClientAssetInspectServiceStatus;
+import entity.ClientRegional;
 import io.fabric.sdk.android.services.concurrency.AsyncTask;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import utility.ConstantVal;
@@ -53,8 +54,8 @@ public class acInspectTransaction extends AppCompatActivity {
     ArrayList<ClientAssetInspectServiceStatus> arrClientAssetInspectServiceStatus = new ArrayList<>();
     ClientAssetInspect objClientAssetInspect = new ClientAssetInspect();
     boolean isDataEntedProperly = true;
-    DateFormat dateFormat = new SimpleDateFormat("dd MMM yyy");
-    DateFormat timeFormate = new SimpleDateFormat("hh:mm");
+    DateFormat dateFormat;// = new SimpleDateFormat("dd MMM yyy");
+    DateFormat timeFormate;// = new SimpleDateFormat("hh:mm");
     Date dtCurrentDate = new Date();
     TextView txtAssetName, txtAssignedTo;
     MaterialEditText edInspectionName, edInspectionDate, edInspectionNote, edInspectionTime;
@@ -76,6 +77,9 @@ public class acInspectTransaction extends AppCompatActivity {
         ac = this;
         mContext = this;
         objHelper.setActionBar(ac, mContext.getString(R.string.strInspect));
+        dateFormat = new SimpleDateFormat(Helper.getStringPreference(mContext, ClientRegional.Fields.DATE_FORMAT, ConstantVal.DEVICE_DEFAULT_DATE_FORMAT));
+        timeFormate = new SimpleDateFormat(Helper.getStringPreference(mContext, ClientRegional.Fields.TIME_FORMAT, ConstantVal.DEVICE_DEFAULT_TIME_FORMAT));
+        Logger.debug(Helper.getStringPreference(mContext, ClientRegional.Fields.TIME_FORMAT, ConstantVal.DEVICE_DEFAULT_TIME_FORMAT));
         setData();
     }
 
@@ -168,12 +172,15 @@ public class acInspectTransaction extends AppCompatActivity {
                     final Dialog tp = new TimePickerDialog(mContext, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                            calInspectionDate.set(Calendar.HOUR, hourOfDay);
-                            calInspectionDate.set(Calendar.MINUTE, minute);
-                            edInspectionTime.setText(timeFormate.format(calInspectionDate.getTime()));
-                            objClientAssetInspect.setAitDateTime(calInspectionDate.getTime());
+                            if (view.isShown()) {
+                                calInspectionDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                calInspectionDate.set(Calendar.MINUTE, minute);
+                                edInspectionTime.setText(timeFormate.format(calInspectionDate.getTime()));
+                                objClientAssetInspect.setAitDateTime(calInspectionDate.getTime());
+                                Logger.debug(hourOfDay + " " + minute + " " + calInspectionDate.getTime());
+                            }
                         }
-                    }, calInspectionDate.get(Calendar.HOUR), calInspectionDate.get(Calendar.MINUTE), true);
+                    }, calInspectionDate.get(Calendar.HOUR_OF_DAY), calInspectionDate.get(Calendar.MINUTE), true);
                     tp.show();
                     break;
                 }

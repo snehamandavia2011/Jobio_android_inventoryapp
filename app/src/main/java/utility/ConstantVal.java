@@ -21,8 +21,10 @@ public class ConstantVal {
     public static final String LAST_SERVER_TO_DEVICE_SYNC_TIME = "last_server_to_device_sync_time";
     public static final String LAST_MESSAGE_SYNC_TIME = "last_message_sync_time";
     public static final String COUNT_TO_OPEN_FEEDBACK_ONDASHBOARD = "count_to_open_feedback_ondashboard";
-    public static final String DATE_FORMAT = "yyyy-MM-dd";
-    public static final String TIME_FORMAT = "HH:mm:ss";
+    public static final String DATE_FORMAT = "yyyy-MM-dd";//server format
+    public static final String TIME_FORMAT = "HH:mm:ss";//server format
+    public static final String DEVICE_DEFAULT_DATE_FORMAT = "dd MMM, yyyy";
+    public static final String DEVICE_DEFAULT_TIME_FORMAT = "HH:mm";
     public static final String WELCOME_MESSAGE = "welcome_message";
 
     public static final int REQUEST_TO_START_CAMERA_ACTIVITY = 100;

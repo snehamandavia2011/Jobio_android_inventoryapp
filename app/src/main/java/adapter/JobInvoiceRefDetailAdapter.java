@@ -18,11 +18,14 @@ import android.widget.TextView;
 import com.lab360io.jobio.officeApp.R;
 import com.lab360io.jobio.officeApp.acEditJobInvoiceReferenceDetail;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import asyncmanager.asyncLoadCommonData;
 import entity.ClientItemMaster1;
 import entity.ClientJobInvoiceRefDetail;
+import entity.ClientRegional;
 import utility.ConstantVal;
 import utility.Helper;
 import utility.Logger;
@@ -130,6 +133,13 @@ public class JobInvoiceRefDetailAdapter extends BaseAdapter {
         holder.txtQty.setText(ctx.getString(R.string.strQuantity) + " :" + objClientJobInvoiceRefDetail.getItQty());
         holder.txtPrice.setText(ctx.getString(R.string.strPrice) + " :" + Helper.getCurrencySymbol() + objClientJobInvoiceRefDetail.getItPrice());
         String strExpiryDate = objClientJobInvoiceRefDetail.getItExpiry().equals("0000-00-00") ? ctx.getString(R.string.strNoExpiry) : objClientJobInvoiceRefDetail.getItExpiry();
+        if (objClientJobInvoiceRefDetail.getItExpiry().equals("0000-00-00")) {
+            strExpiryDate = ctx.getString(R.string.strNoExpiry);
+        } else {
+            DateFormat df = new SimpleDateFormat(Helper.getStringPreference(ctx, ClientRegional.Fields.DATE_FORMAT, ConstantVal.DATE_FORMAT));
+            strExpiryDate = df.format(Helper.convertStringToDate(objClientJobInvoiceRefDetail.getItExpiry(), ConstantVal.DATE_FORMAT));
+        }
+
         //Logger.debug(strExpiryDate + " " + objClientJobInvoiceRefDetail.getItExpiry());
         holder.txtExpireDate.setText(ctx.getString(R.string.strDateExpire) + " :" + strExpiryDate);
         holder.txtStatus.setText(objClientJobInvoiceRefDetail.getStsmAction_name());
@@ -145,7 +155,7 @@ public class JobInvoiceRefDetailAdapter extends BaseAdapter {
                 i.putExtra("toId", toId);
                 i.putExtra("fromType", fromType);
                 i.putExtra("toType", toType);
-                i.putExtra("objClientJobInvoiceRefDetail",objClientJobInvoiceRefDetail);
+                i.putExtra("objClientJobInvoiceRefDetail", objClientJobInvoiceRefDetail);
                 /*i.putExtra("itemName", objClientJobInvoiceRefDetail.getImItem_name());
                 i.putExtra("quantity", objClientJobInvoiceRefDetail.getItQty());
                 i.putExtra("price", objClientJobInvoiceRefDetail.getItPrice());

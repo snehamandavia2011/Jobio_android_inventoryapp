@@ -89,6 +89,7 @@ import entity.ClientAdminUser;
 import entity.ClientAdminUserAppsRel;
 import entity.ClientEmployeeMaster;
 import entity.ClientItemMaster;
+import entity.ClientRegional;
 import entity.ClientStockSelection;
 import io.fabric.sdk.android.Fabric;
 import parser.parseItemMaster;
@@ -491,6 +492,7 @@ public class Helper {
             BusinessAccountdbDetail.clearCache(ctx);
             BusinessAccountMaster.clearCache(ctx);
             ClientStockSelection.clearCache(ctx);
+            ClientRegional.clearCache(ctx);
             ClientAdminUser.clearCache(ctx);
             ClientAdminUserAppsRel.clearCache(ctx);
             ClientEmployeeMaster.clearCache(ctx);
@@ -763,7 +765,7 @@ public class Helper {
         } else if (yesterday.get(Calendar.DATE) == realTime.get(Calendar.DATE) && yesterday.get(Calendar.MONTH) == realTime.get(Calendar.MONTH) && yesterday.get(Calendar.YEAR) == realTime.get(Calendar.YEAR)) {
             strText = ct.getString(R.string.strYesterday);
         } else {
-            SimpleDateFormat df = new SimpleDateFormat("dd MMM, yyyy");
+            SimpleDateFormat df = new SimpleDateFormat(Helper.getStringPreference(ct, ClientRegional.Fields.DATE_FORMAT, ConstantVal.DEVICE_DEFAULT_DATE_FORMAT));
             strText = df.format(realTime.getTime());
             //strText = realTime.get(Calendar.DATE) + "-" + (realTime.get(Calendar.MONTH) + 1) + "-" + realTime.get(Calendar.YEAR);
         }

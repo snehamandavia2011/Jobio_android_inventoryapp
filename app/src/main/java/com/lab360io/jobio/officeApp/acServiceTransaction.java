@@ -40,6 +40,7 @@ import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUserEmployee;
 import entity.ClientAssetInspectServiceStatus;
 import entity.ClientAssetService;
+import entity.ClientRegional;
 import io.fabric.sdk.android.services.concurrency.AsyncTask;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import utility.ConstantVal;
@@ -54,8 +55,8 @@ public class acServiceTransaction extends AppCompatActivity {
     ArrayList<ClientAssetInspectServiceStatus> arrClientAssetInspectServiceStatus = new ArrayList<>();
     ClientAssetService objClientAssetService = new ClientAssetService();
     boolean isDataEntedProperly = true;
-    DateFormat dateFormat = new SimpleDateFormat("dd MMM yyy");
-    DateFormat timeFormate = new SimpleDateFormat("hh:mm");
+    DateFormat dateFormat;// = new SimpleDateFormat("dd MMM yyy");
+    DateFormat timeFormate;// = new SimpleDateFormat("hh:mm");
     Date dtCurrentDate = new Date();
     TextView txtAssetName, txtAssignedTo;
     MaterialEditText edServiceName, edServiceFirmName, edCost, edServiceDate, edServiceTime, edServiceNote;
@@ -76,6 +77,8 @@ public class acServiceTransaction extends AppCompatActivity {
         DataBindingUtil.setContentView(this, R.layout.service_transaction);
         ac = this;
         mContext = this;
+        dateFormat = new SimpleDateFormat(Helper.getStringPreference(mContext, ClientRegional.Fields.DATE_FORMAT, ConstantVal.DEVICE_DEFAULT_DATE_FORMAT));
+        timeFormate = new SimpleDateFormat(Helper.getStringPreference(mContext, ClientRegional.Fields.TIME_FORMAT, ConstantVal.DEVICE_DEFAULT_TIME_FORMAT));
         objHelper.setActionBar(ac, mContext.getString(R.string.strService));
         setData();
     }

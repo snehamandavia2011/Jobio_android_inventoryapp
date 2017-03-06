@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import entity.ClientAssetService;
+import entity.ClientRegional;
 import fragment.ListHeader;
 import utility.ConstantVal;
 import utility.Helper;
@@ -184,7 +185,8 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
                 holderChild.rplDone.setVisibility(View.GONE);
             }
             if (Integer.parseInt(objClientAssetService.getAstStatusId()) == (ConstantVal.assetServiceInspectionStatus.DONE)) {
-                holderChild.txtDate.setText(Helper.convertDateToString(objClientAssetService.getAstDateTime(), ConstantVal.DATE_FORMAT + " " + ConstantVal.TIME_FORMAT));
+                String dateTimeFormat = Helper.getStringPreference(mContext, ClientRegional.Fields.DATE_FORMAT, ConstantVal.DATE_FORMAT) + " " + Helper.getStringPreference(mContext, ClientRegional.Fields.TIME_FORMAT, ConstantVal.TIME_FORMAT);
+                holderChild.txtDate.setText(Helper.convertDateToString(objClientAssetService.getAstDateTime(), dateTimeFormat));
             } else {
                 holderChild.txtDate.setVisibility(View.GONE);
             }

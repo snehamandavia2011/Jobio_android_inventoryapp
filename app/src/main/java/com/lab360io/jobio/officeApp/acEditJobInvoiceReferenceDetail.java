@@ -35,6 +35,7 @@ import java.util.Date;
 import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUser;
 import entity.ClientJobInvoiceRefDetail;
+import entity.ClientRegional;
 import entity.JobPOInvoiceTransactionResult;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import utility.ConstantVal;
@@ -59,7 +60,7 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
     ImageButton btnScanBarcode;
     Calendar calExpiryDate = Calendar.getInstance();
     Date dtCurrentDate = new Date();
-    DateFormat dateFormat = new SimpleDateFormat("dd MMM yyy");
+    DateFormat dateFormat;// = new SimpleDateFormat("dd MMM yyy");
     int selStockTransactionStatus, selStockTransactionReason;
     String referenceType, refId, fromId, toId, fromType, toType;
     ClientJobInvoiceRefDetail objClientJobInvoiceRefDetail;
@@ -72,6 +73,7 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
         DataBindingUtil.setContentView(this, R.layout.edit_job_invoice_reference_detail);
         ac = this;
         mContext = this;
+        dateFormat = new SimpleDateFormat(Helper.getStringPreference(mContext, ClientRegional.Fields.DATE_FORMAT, ConstantVal.DEVICE_DEFAULT_DATE_FORMAT));
         setData();
     }
 
@@ -121,9 +123,10 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
                 edPrice.setFilters(new InputFilter[]{filter});
                 edBarcode.setText(objClientJobInvoiceRefDetail.getItBarcode());
                 String expiryDate = objClientJobInvoiceRefDetail.getItExpiry();
+                Logger.debug("Expiry date:"+expiryDate);
                 if (expiryDate != null && !expiryDate.equals("0000-00-00") && !expiryDate.equals("")) {
                     try {
-                        calExpiryDate.setTime(Helper.convertStringToDate(expiryDate, ConstantVal.DATE_FORMAT));
+                        calExpiryDate.setTime(Helper.convertStringToDate(expiryDate, Helper.getStringPreference(mContext, ClientRegional.Fields.DATE_FORMAT, ConstantVal.DEVICE_DEFAULT_DATE_FORMAT)));
                         edExpiry.setText(dateFormat.format(calExpiryDate.getTime()));
                     } catch (Exception e) {
                         //edExpiry.setText(mContext.getString(R.string.strNoExpiry));

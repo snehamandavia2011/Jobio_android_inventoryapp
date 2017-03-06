@@ -8,6 +8,7 @@ import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUser;
 import entity.ClientAdminUserAppsRel;
 import entity.ClientEmployeeMaster;
+import entity.ClientRegional;
 import entity.ClientStockSelection;
 import entity.UserData;
 
@@ -20,6 +21,7 @@ public class parsUserData {
         ClientEmployeeMaster objClientEmploeeMaster = new ClientEmployeeMaster();
         ClientAdminUserAppsRel objClientAdminAppRel = new ClientAdminUserAppsRel();
         ClientStockSelection objClientStockSelection = new ClientStockSelection();
+        ClientRegional objClientRegional = new ClientRegional();
         BusinessAccountdbDetail objBusinessAccountDbDetail = new BusinessAccountdbDetail();
         BusinessAccountMaster objBusinessAccountMaster = new BusinessAccountMaster();
         JSONObject objJSON = new JSONObject(JSONString);
@@ -27,9 +29,10 @@ public class parsUserData {
         objClientAdminAppRel.parseJSON(objJSON);
         objClientEmploeeMaster.parseJSON(objJSON);
         objClientStockSelection.parseJSON(objJSON);
+        objClientRegional.parseJSON(objJSON);
         objBusinessAccountDbDetail.parseJSON(objJSON);
         objBusinessAccountMaster.parseJSON(objJSON);
-        UserData objUserData = new UserData(objBusinessAccountDbDetail, objBusinessAccountMaster, objClientAdminUser, objClientAdminAppRel, objClientEmploeeMaster, objClientStockSelection);
+        UserData objUserData = new UserData(objBusinessAccountDbDetail, objBusinessAccountMaster, objClientAdminUser, objClientAdminAppRel, objClientEmploeeMaster, objClientStockSelection, objClientRegional);
         return objUserData;
     }
 }

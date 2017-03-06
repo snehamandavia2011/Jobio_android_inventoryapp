@@ -53,6 +53,7 @@ public class asyncUserData extends Thread {
                 objUserData.getObjClientAdminUserAppsRel().saveFiledsToPreferences(ctx);
                 objUserData.getObjClientEmployeeMaster().saveFiledsToPreferences(ctx);
                 objUserData.getObjClientStockSelection().saveFiledsToPreferences(ctx);
+                objUserData.getObjClientRegional().saveFiledsToPreferences(ctx);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

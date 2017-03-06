@@ -10,17 +10,19 @@ public class UserData {
     private ClientAdminUserAppsRel objClientAdminUserAppsRel;
     private ClientEmployeeMaster objClientEmployeeMaster;
     private ClientStockSelection objClientStockSelection;
+    private ClientRegional objClientRegional;
 
     public UserData() {
     }
 
-    public UserData(BusinessAccountdbDetail objBusinessAccountdbDetail, BusinessAccountMaster objBusinessAccountMaster, ClientAdminUser objClientAdminUser, ClientAdminUserAppsRel objClientAdminUserAppsRel, ClientEmployeeMaster objClientEmployeeMaster, ClientStockSelection objClientStockSelection) {
+    public UserData(BusinessAccountdbDetail objBusinessAccountdbDetail, BusinessAccountMaster objBusinessAccountMaster, ClientAdminUser objClientAdminUser, ClientAdminUserAppsRel objClientAdminUserAppsRel, ClientEmployeeMaster objClientEmployeeMaster, ClientStockSelection objClientStockSelection, ClientRegional objClientRegional) {
         this.objBusinessAccountdbDetail = objBusinessAccountdbDetail;
         this.objBusinessAccountMaster = objBusinessAccountMaster;
         this.objClientAdminUser = objClientAdminUser;
         this.objClientAdminUserAppsRel = objClientAdminUserAppsRel;
         this.objClientEmployeeMaster = objClientEmployeeMaster;
         this.objClientStockSelection = objClientStockSelection;
+        this.objClientRegional = objClientRegional;
     }
 
     public BusinessAccountdbDetail getObjBusinessAccountdbDetail() {
@@ -69,5 +71,13 @@ public class UserData {
 
     public void setObjClientStockSelection(ClientStockSelection objClientStockSelection) {
         this.objClientStockSelection = objClientStockSelection;
+    }
+
+    public ClientRegional getObjClientRegional() {
+        return objClientRegional;
+    }
+
+    public void setObjClientRegional(ClientRegional objClientRegional) {
+        this.objClientRegional = objClientRegional;
     }
 }

@@ -24,6 +24,7 @@ import com.xwray.fontbinding.FontCache;
 import asyncmanager.asyncLoadCommonData;
 import entity.ClientAsset;
 import entity.ClientAssetOwner;
+import entity.ClientRegional;
 import utility.CircleImageView;
 import utility.ConstantVal;
 import utility.DataBase;
@@ -111,7 +112,8 @@ public class acAssetDetail extends AppCompatActivity {
                     txtCost.setText(objClientAsset.getAmPurchase_cost());
                     txtCurrentValue.setText(objClientAsset.getAmCurrent_value());
                     txtPurchaseFrom.setText(objClientAsset.getAmPurchase_from());
-                    txtExpireDate.setText(Helper.convertDateToString(objClientAsset.getAmDate_expired(), ConstantVal.DATE_FORMAT));
+                    txtExpireDate.setText(Helper.convertDateToString(objClientAsset.getAmDate_expired(),
+                            Helper.getStringPreference(mContext, ClientRegional.Fields.DATE_FORMAT, ConstantVal.DATE_FORMAT)));
                     txtStatus.setText(objClientAsset.getAmAsset_status());
                     for (ClientAssetOwner obj : objClientAsset.getArrOwner()) {
                         View v = addItemToLayout(obj);
@@ -156,7 +158,7 @@ public class acAssetDetail extends AppCompatActivity {
                 txtInOut.setTextAppearance(mContext, R.style.styDescWhite);
                 imgInOut.setImageResource(R.drawable.ic_checkout_small);
             }
-            String strDate = Helper.convertDateToString(Helper.convertStringToDate(obj.getAoDate(), ConstantVal.DATE_FORMAT), ConstantVal.DATE_FORMAT);
+            String strDate = Helper.convertDateToString(Helper.convertStringToDate(obj.getAoDate(), ConstantVal.DATE_FORMAT), Helper.getStringPreference(mContext, ClientRegional.Fields.DATE_FORMAT, ConstantVal.DATE_FORMAT));
             txtDate.setText(": " + (strDate.equals("") ? getString(R.string.strNA) : strDate));
         }
         curEmp.close();
