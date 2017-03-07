@@ -42,7 +42,7 @@ public class asyncEmployeeList extends Thread {
         for (ClientAdminUserEmployee obj : arrServerdata) {
             String data[] = {String.valueOf(obj.getAuId()), String.valueOf(obj.getEmpId()), obj.getFirst_name(),
                     obj.getLast_name(), obj.getEmployee_status(), obj.getContact_no(), obj.getUser_type_name(),
-                    obj.getIsOnLine()};
+                    obj.getIsOnLine(),obj.getDesignation_name()};
             db.insert(DataBase.adminuser_employee_table, DataBase.adminuser_employee_int, data);
         }
         db.close();

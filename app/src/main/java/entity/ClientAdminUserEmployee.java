@@ -7,11 +7,11 @@ import java.util.Date;
  */
 public class ClientAdminUserEmployee {
     private String auId, empId;
-    private String first_name, last_name, employee_status, contact_no, photo, user_type_name, isOnLine;
+    private String first_name, last_name, employee_status, contact_no, photo, user_type_name, isOnLine,designation_name;
     private int unreadMessageCount;
     private boolean isImageLoaded = false;
 
-    public ClientAdminUserEmployee(String auId, String empId, String first_name, String last_name, String employee_status, String contact_no, String photo, String user_type_name, String isOnLine) {
+    public ClientAdminUserEmployee(String auId, String empId, String first_name, String last_name, String employee_status, String contact_no, String photo, String user_type_name, String isOnLine,String designation_name) {
         this.auId = auId;
         this.empId = empId;
         this.first_name = first_name;
@@ -21,9 +21,10 @@ public class ClientAdminUserEmployee {
         this.photo = photo;
         this.user_type_name = user_type_name;
         this.isOnLine = isOnLine;
+        this.designation_name=designation_name;
     }
 
-    public ClientAdminUserEmployee(String auId, String empId, String first_name, String last_name, String employee_status, String contact_no, String photo, String user_type_name, String isOnLine, int unreadMessageCount) {
+    public ClientAdminUserEmployee(String auId, String empId, String first_name, String last_name, String employee_status, String contact_no, String photo, String user_type_name, String isOnLine, int unreadMessageCount,String designation_name) {
         this.auId = auId;
         this.empId = empId;
         this.first_name = first_name;
@@ -34,6 +35,7 @@ public class ClientAdminUserEmployee {
         this.user_type_name = user_type_name;
         this.isOnLine = isOnLine;
         this.unreadMessageCount = unreadMessageCount;
+        this.designation_name=designation_name;
     }
 
     public String getAuId() {
@@ -127,5 +129,13 @@ public class ClientAdminUserEmployee {
     @Override
     public String toString() {
         return first_name+" "+last_name;
+    }
+
+    public String getDesignation_name() {
+        return designation_name;
+    }
+
+    public void setDesignation_name(String designation_name) {
+        this.designation_name = designation_name;
     }
 }

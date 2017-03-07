@@ -89,7 +89,7 @@ public class DataBase {
 
     String[][] tables = new String[][]{{"_ID", "URL", "data", "isSync", "last_result_code", "admin_user_id", "account_id"},
             {"_ID", "id", "message", "from_id", "to_id", "is_viewed", "datetime", "timestamp"},
-            {"_ID", "auId", "empId", "first_name", "last_name", "employee_status", "contact_no", "user_type_name", "isOnLine"},
+            {"_ID", "auId", "empId", "first_name", "last_name", "employee_status", "contact_no", "user_type_name", "isOnLine","designation_name"},
             {"_ID", "aoAsset_id", "actmCategory_name",
                     "amAsset_name", "amDescription", "amModel_name", "amManufacturer_name", "amSerial_no", "amBarcode_no",
                     "amDate_acquired", "amDate_soon", "amPurchase_cost", "amPurchase_from", "amCurrent_value", "amDate_expired"
@@ -135,7 +135,8 @@ public class DataBase {
             + adminuser_employee_table
             + "(_ID integer primary key autoincrement,auId text not null,empId text not null," +
             "first_name text not null,last_name text not null,employee_status text not null," +
-            "contact_no text not null,photo text null,user_type_name text not null,isOnLine text not null);";
+            "contact_no text not null,photo text null,user_type_name text not null,isOnLine text not null," +
+            "designation_name text not null);";
 
     private static final String TABLE_3_CREATE = "create table "
             + asset_table

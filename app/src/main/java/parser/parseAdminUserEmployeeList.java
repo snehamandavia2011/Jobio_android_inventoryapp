@@ -27,9 +27,10 @@ public class parseAdminUserEmployeeList {
             String contact_no = (obj.getString("contact_no").equals("null") ? "" : obj.getString("contact_no"));
             String user_type_name = (obj.getString("user_type_name").equals("null") ? "" : obj.getString("user_type_name"));
             String isOnLine = (obj.getString("isOnLine").equals("null") ? "" : obj.getString("isOnLine"));
+            String designation_name = (obj.getString("designation_name").equals("null") ? "" : obj.getString("designation_name"));
             //Date start_datetime = Helper.convertStringToDate(obj.getString("start_datetime"), "yyyy-MM-dd HH:mm:ss");
             //Date end_datetime = Helper.convertStringToDate(obj.getString("end_datetime"), "yyyy-MM-dd HH:mm:ss");
-            ClientAdminUserEmployee obj1 = new ClientAdminUserEmployee(adminUserId, empId, firstName, lastName, employee_status, contact_no, null, user_type_name, isOnLine);
+            ClientAdminUserEmployee obj1 = new ClientAdminUserEmployee(adminUserId, empId, firstName, lastName, employee_status, contact_no, null, user_type_name, isOnLine, designation_name);
             arr.add(obj1);
         }
         return arr;

@@ -130,7 +130,7 @@ public class acServiceTransaction extends AppCompatActivity {
                     do {
                         ClientAdminUserEmployee objClientAdminUserEmployee = new ClientAdminUserEmployee(curEmp.getString(1), curEmp.getString(2),
                                 curEmp.getString(3), curEmp.getString(4), curEmp.getString(5),
-                                curEmp.getString(6), curEmp.getString(7), curEmp.getString(8), curEmp.getString(9));
+                                curEmp.getString(6), curEmp.getString(7), curEmp.getString(8), curEmp.getString(9), curEmp.getString(10));
                         arrClientAdminUserEmployee.add(objClientAdminUserEmployee);
                         if (objClientAdminUserEmployee.getEmpId().equals(objClientAssetService.getAmService_aasigned_employee())) {
                             assignedT0EmpName = objClientAdminUserEmployee.getFirst_name() + " " + objClientAdminUserEmployee.getLast_name();

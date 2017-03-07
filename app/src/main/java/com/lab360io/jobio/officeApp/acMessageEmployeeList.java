@@ -88,7 +88,7 @@ public class acMessageEmployeeList extends AppCompatActivity {
                         //Logger.debug(where);
                         int count = db.getCounts(DataBase.field_message_table, where);
                         arrClientAdminUserEmployee.add(new ClientAdminUserEmployee(cur.getString(1), cur.getString(2), cur.getString(3), cur.getString(4),
-                                cur.getString(5), cur.getString(6), cur.getString(7), cur.getString(8), cur.getString(9), count));
+                                cur.getString(5), cur.getString(6), cur.getString(7), cur.getString(8), cur.getString(9), count, cur.getString(10)));
                     } while (cur.moveToNext());
                 }
                 cur.close();

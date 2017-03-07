@@ -344,7 +344,7 @@ public class acHome extends AppCompatActivity {
                 Cursor cur = db.fetch(DataBase.adminuser_employee_table, "auId='" + adminUserId + "'");
                 if (cur != null && cur.getCount() > 0) {
                     objClientAdminUserEmployee = new ClientAdminUserEmployee(cur.getString(1), cur.getString(2), cur.getString(3), cur.getString(4),
-                            cur.getString(5), cur.getString(6), cur.getString(7), cur.getString(8), cur.getString(9));
+                            cur.getString(5), cur.getString(6), cur.getString(7), cur.getString(8), cur.getString(9), cur.getString(10));
                 }
                 db.close();
                 return null;
@@ -360,7 +360,7 @@ public class acHome extends AppCompatActivity {
                 }
                 if (objClientAdminUserEmployee != null) {
                     txtUserName.setText(objClientAdminUserEmployee.getFirst_name() + " " + objClientAdminUserEmployee.getLast_name());
-                    txtDesc.setText(objClientAdminUserEmployee.getUser_type_name() + " " + mContext.getString(R.string.strAt) + " " + business_name);
+                    txtDesc.setText(objClientAdminUserEmployee.getDesignation_name() + " " + mContext.getString(R.string.strAt) + " " + business_name);
                     new asyncLoadCommonData(mContext).loadAdminUserEmployeePhotoById(profile_image, objClientAdminUserEmployee, null, R.drawable.ic_field_engineer_grey);
                 }
                 DataBase db = new DataBase(mContext);
