@@ -169,12 +169,14 @@ public class acServiceTransaction extends AppCompatActivity {
                     final Dialog dp = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                            view.setMinDate(dtCurrentDate.getTime());
-                            calServiceDate.set(Calendar.YEAR, year);
-                            calServiceDate.set(Calendar.MONTH, monthOfYear);
-                            calServiceDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                            edServiceDate.setText(dateFormat.format(calServiceDate.getTime()));
-                            objClientAssetService.setAstDateTime(calServiceDate.getTime());
+                            if (view.isShown()) {
+                                view.setMinDate(dtCurrentDate.getTime());
+                                calServiceDate.set(Calendar.YEAR, year);
+                                calServiceDate.set(Calendar.MONTH, monthOfYear);
+                                calServiceDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                                edServiceDate.setText(dateFormat.format(calServiceDate.getTime()));
+                                objClientAssetService.setAstDateTime(calServiceDate.getTime());
+                            }
                         }
                     }, calServiceDate.get(Calendar.YEAR), calServiceDate.get(Calendar.MONTH), calServiceDate.get(Calendar.DAY_OF_MONTH));
                     dp.show();
@@ -185,12 +187,14 @@ public class acServiceTransaction extends AppCompatActivity {
                     final Dialog tp = new TimePickerDialog(mContext, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                            calServiceDate.set(Calendar.HOUR, hourOfDay);
-                            calServiceDate.set(Calendar.MINUTE, minute);
-                            edServiceTime.setText(timeFormate.format(calServiceDate.getTime()));
-                            objClientAssetService.setAstDateTime(calServiceDate.getTime());
+                            if (view.isShown()) {
+                                calServiceDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                calServiceDate.set(Calendar.MINUTE, minute);
+                                edServiceTime.setText(timeFormate.format(calServiceDate.getTime()));
+                                objClientAssetService.setAstDateTime(calServiceDate.getTime());
+                            }
                         }
-                    }, calServiceDate.get(Calendar.HOUR), calServiceDate.get(Calendar.MINUTE), true);
+                    }, calServiceDate.get(Calendar.HOUR_OF_DAY), calServiceDate.get(Calendar.MINUTE), true);
                     tp.show();
                     break;
                 }

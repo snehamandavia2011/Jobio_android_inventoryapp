@@ -156,12 +156,14 @@ public class acInspectTransaction extends AppCompatActivity {
                     final Dialog dp = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                            view.setMinDate(dtCurrentDate.getTime());
-                            calInspectionDate.set(Calendar.YEAR, year);
-                            calInspectionDate.set(Calendar.MONTH, monthOfYear);
-                            calInspectionDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                            edInspectionDate.setText(dateFormat.format(calInspectionDate.getTime()));
-                            objClientAssetInspect.setAitDateTime(calInspectionDate.getTime());
+                            if(view.isShown()) {
+                                view.setMinDate(dtCurrentDate.getTime());
+                                calInspectionDate.set(Calendar.YEAR, year);
+                                calInspectionDate.set(Calendar.MONTH, monthOfYear);
+                                calInspectionDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                                edInspectionDate.setText(dateFormat.format(calInspectionDate.getTime()));
+                                objClientAssetInspect.setAitDateTime(calInspectionDate.getTime());
+                            }
                         }
                     }, calInspectionDate.get(Calendar.YEAR), calInspectionDate.get(Calendar.MONTH), calInspectionDate.get(Calendar.DAY_OF_MONTH));
                     dp.show();

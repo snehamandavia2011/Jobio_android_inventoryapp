@@ -181,11 +181,13 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
                     final Dialog dp = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                            view.setMinDate(dtCurrentDate.getTime());
-                            calExpiryDate.set(Calendar.YEAR, year);
-                            calExpiryDate.set(Calendar.MONTH, monthOfYear);
-                            calExpiryDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                            edExpiry.setText(dateFormat.format(calExpiryDate.getTime()));
+                            if(view.isShown()) {
+                                view.setMinDate(dtCurrentDate.getTime());
+                                calExpiryDate.set(Calendar.YEAR, year);
+                                calExpiryDate.set(Calendar.MONTH, monthOfYear);
+                                calExpiryDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                                edExpiry.setText(dateFormat.format(calExpiryDate.getTime()));
+                            }
                         }
                     }, calExpiryDate.get(Calendar.YEAR), calExpiryDate.get(Calendar.MONTH), calExpiryDate.get(Calendar.DAY_OF_MONTH));
                     dp.show();
