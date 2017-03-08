@@ -37,7 +37,7 @@ public class asyncModuleFlag extends Thread {
 
     public void getData() {
         ArrayList<ModuleFlag> arrServerdata = this.getDataFromServer();
-        if (arrServerdata == null)
+        if (arrServerdata == null || arrServerdata.size() <= 0)
             return;
         DataBase db = new DataBase(ctx);
         db.open();
@@ -77,7 +77,7 @@ public class asyncModuleFlag extends Thread {
             } else {
                 return false;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

@@ -28,6 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.androidadvance.topsnackbar.TSnackbar;
 import com.xwray.fontbinding.FontCache;
 
 import java.text.DateFormat;
@@ -250,6 +251,18 @@ public class acInspectTransaction extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
+                if(!new HttpEngine().isNetworkAvailable(mContext)){
+                    Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet),ConstantVal.ToastBGColor.INFO).setCallback(new TSnackbar.Callback() {
+                        @Override
+                        public void onDismissed(TSnackbar snackbar, int event) {
+                            super.onDismissed(snackbar, event);
+                            setResult(ConstantVal.INSPECTION_TRANSACTION_RESPONSE_CODE);
+                            ((AppCompatActivity) mContext).finish();
+                        }
+                    });
+                }else{
+                    ((AppCompatActivity) mContext).finish();
+                }
             }
 
             @Override
@@ -289,10 +302,10 @@ public class acInspectTransaction extends AppCompatActivity {
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
-                if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.NO_INTERNET)) {
-                    Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet)).setCallback(new Snackbar.Callback() {
+                /*if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.NO_INTERNET)) {
+                    Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet),ConstantVal.ToastBGColor.INFO).setCallback(new TSnackbar.Callback() {
                         @Override
-                        public void onDismissed(Snackbar snackbar, int event) {
+                        public void onDismissed(TSnackbar snackbar, int event) {
                             super.onDismissed(snackbar, event);
                             setResult(ConstantVal.INSPECTION_TRANSACTION_RESPONSE_CODE);
                             finish();
@@ -301,15 +314,15 @@ public class acInspectTransaction extends AppCompatActivity {
                 } else if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
                     finish();
                 } else if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED)) {
-                    Helper.displaySnackbar(ac, sr.getResponseCode()).setCallback(new Snackbar.Callback() {
+                    Helper.displaySnackbar(ac, sr.getResponseCode(),ConstantVal.ToastBGColor.DANGER).setCallback(new TSnackbar.Callback() {
                         @Override
-                        public void onDismissed(Snackbar snackbar, int event) {
+                        public void onDismissed(TSnackbar snackbar, int event) {
                             super.onDismissed(snackbar, event);
                             setResult(ConstantVal.INSPECTION_TRANSACTION_RESPONSE_CODE);
                             finish();
                         }
                     });
-                }
+                }*/
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

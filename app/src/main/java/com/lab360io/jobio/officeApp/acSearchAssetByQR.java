@@ -74,7 +74,7 @@ public class acSearchAssetByQR extends AppCompatActivity implements QRCodeReader
                         startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
                         finish();
                     } else {
-                        objHelper.displaySnackbar(ac, getString(R.string.msgAssetDetailNotAvail));
+                        objHelper.displaySnackbar(ac, getString(R.string.msgAssetDetailNotAvail),ConstantVal.ToastBGColor.DANGER);
                         setData();
                     }
                 }

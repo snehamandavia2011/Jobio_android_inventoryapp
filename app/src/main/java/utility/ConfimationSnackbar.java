@@ -9,20 +9,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.androidadvance.topsnackbar.TSnackbar;
 import com.lab360io.jobio.officeApp.R;
 
 /**
  * Created by SNEHA MANDAVIA on 5/18/2016.
  */
-public class ConfimationSnackbar{
+public class ConfimationSnackbar {
     AppCompatActivity ac;
-    Snackbar snackbar;
-    public ConfimationSnackbar(AppCompatActivity ac) {
+    TSnackbar snackbar;
+    int toastType;
+
+    public ConfimationSnackbar(AppCompatActivity ac, int toastType) {
+        this.toastType = toastType;
         this.ac = ac;
-        snackbar = Snackbar.make(ac.findViewById(android.R.id.content), "", Snackbar.LENGTH_INDEFINITE);
+        snackbar = TSnackbar.make(ac.findViewById(android.R.id.content), "", TSnackbar.LENGTH_INDEFINITE);
     }
-    public void showSnackBar(String message, String positiveText, String negativeText, View.OnClickListener clkPosititive, View.OnClickListener clkNegative){
-        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+
+    public void showSnackBar(String message, String positiveText, String negativeText, View.OnClickListener clkPosititive, View.OnClickListener clkNegative) {
+        TSnackbar.SnackbarLayout layout = (TSnackbar.SnackbarLayout) snackbar.getView();
+        layout.setBackgroundResource(toastType);
         LayoutInflater mInflater = (LayoutInflater) ac.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View snackView = DataBindingUtil.inflate(mInflater, R.layout.custom_snackbar_confirmation, null, true).getRoot();
         TextView imageView = (TextView) snackView.findViewById(R.id.txtText);
@@ -48,8 +54,9 @@ public class ConfimationSnackbar{
 // Show the Snackbar
         snackbar.show();
     }
-    public void dismissSnackBar(){
-        if(snackbar!=null && snackbar.isShown()) {
+
+    public void dismissSnackBar() {
+        if (snackbar != null && snackbar.isShown()) {
             snackbar.dismiss();
         }
     }

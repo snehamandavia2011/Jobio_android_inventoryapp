@@ -164,7 +164,7 @@ public class GPSTracker implements LocationListener {
      * On pressing Settings button will lauch Settings Options
      */
     public void showSettingsAlert() {
-        final ConfimationSnackbar snackbar = new ConfimationSnackbar((AppCompatActivity) mContext);
+        final ConfimationSnackbar snackbar = new ConfimationSnackbar((AppCompatActivity) mContext,ConstantVal.ToastBGColor.WARNING);
         snackbar.showSnackBar(mContext.getString(R.string.msgGPSNotAvailable), mContext.getString(R.string.strYes), mContext.getString(R.string.strNo), new View.OnClickListener() {
             @Override
             public void onClick(View v) {

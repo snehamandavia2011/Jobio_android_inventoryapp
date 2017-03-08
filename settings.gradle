@@ -1,2 +1,2 @@
-include ':app', ':libFontBinding', ':libMaterialEditText', ':libQECodeReaderView', ':libRippleDecoratorView', ':libFloatingActionButton'
+include ':app', ':libFontBinding', ':libMaterialEditText', ':libQECodeReaderView', ':libRippleDecoratorView', ':libFloatingActionButton', ':libTopSnackbar'
 include ':libzBarScanner'

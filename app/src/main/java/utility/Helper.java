@@ -15,6 +15,7 @@ import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -56,6 +57,7 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.androidadvance.topsnackbar.TSnackbar;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.lab360io.jobio.officeApp.R;
@@ -274,13 +276,13 @@ public class Helper {
                             public void run() {
                                 dtDialog.setVisibility(View.GONE);
                                 if (result.equals(ConstantVal.ServerResponseCode.BLANK_RESPONSE)) {
-                                    displaySnackbar(ac, ac.getString(R.string.msgItemDetailNotAvailAtServer));
+                                    displaySnackbar(ac, ac.getString(R.string.msgItemDetailNotAvailAtServer), ConstantVal.ToastBGColor.DANGER);
                                     if (fr != null && isActivityRunning) {
                                         FragmentTransaction ft = fr.getActivity().getFragmentManager().beginTransaction();
                                         ft.detach(fr).attach(fr).commit();
                                     }
                                 } else if (!result.equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED)) {
-                                    displaySnackbar(ac, result);
+                                    displaySnackbar(ac, result, ConstantVal.ToastBGColor.INFO);
                                     if (fr != null && isActivityRunning) {
                                         FragmentTransaction ft = fr.getActivity().getFragmentManager().beginTransaction();
                                         ft.detach(fr).attach(fr).commit();
@@ -341,7 +343,7 @@ public class Helper {
                         public void run() {
                             dtDialog.clearAnimation();
                             dtDialog.setVisibility(View.GONE);
-                            displaySnackbar(ac, ctx.getString(R.string.strQRNotExist));
+                            displaySnackbar(ac, ctx.getString(R.string.strQRNotExist), ConstantVal.ToastBGColor.DANGER);
                             for (View v : view) {
                                 v.setEnabled(true);
                                 v.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
@@ -379,7 +381,7 @@ public class Helper {
                                 public void run() {
                                     dtDialog.clearAnimation();
                                     dtDialog.setVisibility(View.GONE);
-                                    displaySnackbar(ac, result);
+                                    displaySnackbar(ac, result, ConstantVal.ToastBGColor.DANGER);
                                     for (View v : view) {
                                         v.setEnabled(true);
                                         v.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
@@ -393,14 +395,19 @@ public class Helper {
         }.start();
     }
 
-    public static Snackbar displaySnackbar(final AppCompatActivity ac, final String result) {
+    public static TSnackbar displaySnackbar(final AppCompatActivity ac, final String result, int toastType) {
         final Context ctx = ac;
         if (result.equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED)) {
-            Snackbar snackbar = Snackbar
-                    .make(ac.findViewById(android.R.id.content), ConstantVal.ServerResponseCode.getMessage(ctx, result), Snackbar.LENGTH_LONG);
-            snackbar.setCallback(new Snackbar.Callback() {
+            TSnackbar snackbar = TSnackbar
+                    .make(ac.findViewById(android.R.id.content), ConstantVal.ServerResponseCode.getMessage(ctx, result), TSnackbar.LENGTH_LONG);
+            View snackbarView = snackbar.getView();
+            snackbarView.setBackgroundResource(toastType);
+            TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+            textView.setTextColor(Color.WHITE);
+            textView.setTypeface(Helper.getUbuntuL(ctx));
+            snackbar.setCallback(new TSnackbar.Callback() {
                 @Override
-                public void onDismissed(Snackbar snackbar, int event) {
+                public void onDismissed(TSnackbar snackbar, int event) {
                     super.onDismissed(snackbar, event);
                     Intent i = new Intent(ac, acLogin.class);
                     ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
@@ -411,11 +418,14 @@ public class Helper {
             snackbar.show();
             return snackbar;
         } else {
-            Snackbar snackbar = Snackbar
-                    .make(ac.findViewById(android.R.id.content), ConstantVal.ServerResponseCode.getMessage(ctx, result), Snackbar.LENGTH_LONG);
-            TextView txt = ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text));
-            txt.setMaxLines(3);
-            txt.setTypeface(Helper.getUbuntuL(ctx));
+            TSnackbar snackbar = TSnackbar
+                    .make(ac.findViewById(android.R.id.content), ConstantVal.ServerResponseCode.getMessage(ctx, result), TSnackbar.LENGTH_LONG);
+            View snackbarView = snackbar.getView();
+            snackbarView.setBackgroundResource(toastType);
+            TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+            textView.setTextColor(Color.WHITE);
+            textView.setMaxLines(3);
+            textView.setTypeface(Helper.getUbuntuL(ctx));
             snackbar.show();
             return snackbar;
         }
@@ -426,7 +436,7 @@ public class Helper {
         @Override
         public void onReceive(Context context, Intent intent) {
             Logger.debug("brdSessionTimeOut1:" + objAppCompatActivity.getLocalClassName());
-            Helper.displaySnackbar(objAppCompatActivity, ConstantVal.ServerResponseCode.SESSION_EXPIRED);
+            Helper.displaySnackbar(objAppCompatActivity, ConstantVal.ServerResponseCode.SESSION_EXPIRED, ConstantVal.ToastBGColor.INFO);
         }
     };
 
@@ -990,7 +1000,7 @@ public class Helper {
                 btnLogout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final ConfimationSnackbar snackbar = new ConfimationSnackbar(ac);
+                        final ConfimationSnackbar snackbar = new ConfimationSnackbar(ac, ConstantVal.ToastBGColor.WARNING);
                         snackbar.showSnackBar(ac.getString(R.string.msgLogoutConfirmation), ac.getString(R.string.strLogout), ac.getString(R.string.strCancel), new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

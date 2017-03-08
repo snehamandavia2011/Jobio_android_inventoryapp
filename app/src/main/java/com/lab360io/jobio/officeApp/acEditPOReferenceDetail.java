@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.androidadvance.topsnackbar.TSnackbar;
 import com.dm.zbar.android.scanner.ZBarConstants;
 import com.dm.zbar.android.scanner.ZBarScannerActivity;
 import com.xwray.fontbinding.FontCache;
@@ -181,7 +182,7 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
                     final Dialog dp = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                            if(view.isShown()) {
+                            if (view.isShown()) {
                                 view.setMinDate(dtCurrentDate.getTime());
                                 calExpiryDate.set(Calendar.YEAR, year);
                                 calExpiryDate.set(Calendar.MONTH, monthOfYear);
@@ -205,7 +206,7 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
                     if (new HttpEngine().isNetworkAvailable(mContext))
                         saveData();
                     else {
-                        Helper.displaySnackbar(ac, mContext.getString(R.string.strInternetNotAvaiable));
+                        Helper.displaySnackbar(ac, mContext.getString(R.string.strInternetNotAvaiable), ConstantVal.ToastBGColor.DANGER);
                     }
                     break;
             }
@@ -278,27 +279,27 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
                 dot_progress_bar.setVisibility(View.GONE);
                 if (isDataEntered) {
                     if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.NO_INTERNET)) {
-                        Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet)).setCallback(new Snackbar.Callback() {
+                        Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet), ConstantVal.ToastBGColor.INFO).setCallback(new TSnackbar.Callback() {
                             @Override
-                            public void onDismissed(Snackbar snackbar, int event) {
+                            public void onDismissed(TSnackbar snackbar, int event) {
                                 super.onDismissed(snackbar, event);
                                 ac.setResult(ConstantVal.EDIT_PO_REFERENCE_RESPONSE);
                                 finish();
                             }
                         });
                     } else if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
-                        Helper.displaySnackbar(ac, objJobPOInvoiceTransactionResult.getMessage()).setCallback(new Snackbar.Callback() {
+                        Helper.displaySnackbar(ac, objJobPOInvoiceTransactionResult.getMessage(), ConstantVal.ToastBGColor.SUCCESS).setCallback(new TSnackbar.Callback() {
                             @Override
-                            public void onDismissed(Snackbar snackbar, int event) {
+                            public void onDismissed(TSnackbar snackbar, int event) {
                                 super.onDismissed(snackbar, event);
                                 ac.setResult(ConstantVal.EDIT_JOB_INVOICE_REFERENCE_RESPONSE);
                                 finish();
                             }
                         });
                     } else if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED)) {
-                        Helper.displaySnackbar(ac, sr.getResponseCode()).setCallback(new Snackbar.Callback() {
+                        Helper.displaySnackbar(ac, sr.getResponseCode(), ConstantVal.ToastBGColor.INFO).setCallback(new TSnackbar.Callback() {
                             @Override
-                            public void onDismissed(Snackbar snackbar, int event) {
+                            public void onDismissed(TSnackbar snackbar, int event) {
                                 super.onDismissed(snackbar, event);
                                 finish();
                             }

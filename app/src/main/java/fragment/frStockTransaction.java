@@ -326,7 +326,7 @@ public class frStockTransaction extends Fragment {
                     txtNoReferenceFound.setVisibility(View.VISIBLE);
                     refView.setVisibility(View.GONE);
                     if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS) && !sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED))
-                        Helper.displaySnackbar((AppCompatActivity) getActivity(), sr.getResponseCode());
+                        Helper.displaySnackbar((AppCompatActivity) getActivity(), sr.getResponseCode(),ConstantVal.ToastBGColor.SUCCESS);
                 }
                 dot_progress_bar.clearAnimation();
                 dot_progress_bar.setVisibility(View.GONE);
@@ -431,7 +431,7 @@ public class frStockTransaction extends Fragment {
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
                 if (arrClientCustEmpSupplier == null || arrClientCustEmpSupplier.size() <= 0)
-                    Helper.displaySnackbar((AppCompatActivity) getActivity(), ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseString()));
+                    Helper.displaySnackbar((AppCompatActivity) getActivity(), ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseString()),ConstantVal.ToastBGColor.INFO);
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

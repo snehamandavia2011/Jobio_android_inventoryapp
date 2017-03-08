@@ -243,7 +243,7 @@ public class acMessageList extends AppCompatActivity {
                 protected void onPostExecute(Object o) {
                     super.onPostExecute(o);
                     if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.NO_INTERNET)) {
-                        Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet));
+                        Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet),ConstantVal.ToastBGColor.INFO);
                     }
                 }
             }.execute();

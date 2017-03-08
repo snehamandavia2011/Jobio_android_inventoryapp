@@ -421,7 +421,7 @@ public class acHome extends AppCompatActivity {
     private boolean checkTokenExistance() {
         boolean isSessionExists = Helper.getBooleanPreference(mContext, ConstantVal.IS_SESSION_EXISTS, false);
         if (!isSessionExists) {
-            Helper.displaySnackbar(ac, ConstantVal.ServerResponseCode.SESSION_EXPIRED);
+            Helper.displaySnackbar(ac, ConstantVal.ServerResponseCode.SESSION_EXPIRED,ConstantVal.ToastBGColor.INFO);
             return false;
         } else {
             setDashboardData();

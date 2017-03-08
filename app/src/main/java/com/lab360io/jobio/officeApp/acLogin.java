@@ -266,7 +266,7 @@ public class acLogin extends AppCompatActivity {
                                             startActivity(i);
                                             finish();
                                         } else {
-                                            Helper.displaySnackbar(ac, getString(R.string.strUnableToLoadData));
+                                            Helper.displaySnackbar(ac, getString(R.string.strUnableToLoadData),ConstantVal.ToastBGColor.DANGER);
                                             handler.post(new Runnable() {
                                                 @Override
                                                 public void run() {
@@ -279,7 +279,7 @@ public class acLogin extends AppCompatActivity {
                                         }
                                     }
                                 } catch (JSONException e) {
-                                    Helper.displaySnackbar(ac, result);
+                                    Helper.displaySnackbar(ac, result,ConstantVal.ToastBGColor.DANGER);
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {

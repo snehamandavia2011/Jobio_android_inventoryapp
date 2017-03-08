@@ -45,7 +45,7 @@ public class OptionMenu {
             case R.id.menuMasterClear:
                 Logger.debug("Master clear");
                 // Create the Snackbar
-                final ConfimationSnackbar snackbar = new ConfimationSnackbar(ac);
+                final ConfimationSnackbar snackbar = new ConfimationSnackbar(ac,ConstantVal.ToastBGColor.WARNING);
                 snackbar.showSnackBar(ac.getString(R.string.strMastercleanMessage), ac.getString(R.string.strConfirm), ac.getString(R.string.strCancel), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

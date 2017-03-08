@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.androidadvance.topsnackbar.TSnackbar;
 import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;
@@ -114,9 +115,9 @@ public class acJobPOInvoicReferenceList extends AppCompatActivity {
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
                 if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS))
-                    Helper.displaySnackbar(ac, ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseCode())).setCallback(new Snackbar.Callback() {
+                    Helper.displaySnackbar(ac, ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseCode()),ConstantVal.ToastBGColor.SUCCESS).setCallback(new TSnackbar.Callback() {
                         @Override
-                        public void onDismissed(Snackbar snackbar, int event) {
+                        public void onDismissed(TSnackbar snackbar, int event) {
                             super.onDismissed(snackbar, event);
                             finish();
                         }

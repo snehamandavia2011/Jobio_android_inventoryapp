@@ -12,6 +12,14 @@ import entity.ClientAssetInspectServiceStatus;
  * Created by SAI on 9/1/2016.
  */
 public class ConstantVal {
+
+    public static class ToastBGColor {
+        public static final int SUCCESS = R.color.Success;
+        public static final int INFO = R.color.info;
+        public static final int WARNING = R.color.warning;
+        public static final int DANGER = R.color.danger;
+    }
+
     public static final String APP_REF_TYPE = "S";
     public static final String IS_QRCODE_CONFIGURE = "isQrConfigure";
     public static final String QRCODE_VALUE = "qrCodeValue";
