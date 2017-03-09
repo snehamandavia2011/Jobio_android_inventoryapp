@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/actionbar_btn_click_disable"
+            android:src="?attr/homeAsUpIndicator" />
+
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/switchSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/ViewMargin"
+            android:layout_marginRight="@dimen/ViewMargin"
+            android:layout_toLeftOf="@id/switchSearch"
+            android:layout_toRightOf="@id/btnBack">
+
+            <TextView
+                android:id="@+id/txtName"
+                style="@style/styTitleWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                app:font="@{`Ubuntu-M`}" />
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

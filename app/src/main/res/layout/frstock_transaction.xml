@@ -142,12 +142,12 @@
                         </RadioGroup>
 
                         <LinearLayout
-                            android:visibility="gone"
                             android:id="@+id/lyTransactionReason"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/ViewMarginBig"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <TextView
                                 style="@style/stySubTitleTile"
@@ -194,12 +194,12 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:visibility="gone"
                             android:id="@+id/lyReferenceType"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/ViewMarginBig"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <TextView
                                 style="@style/stySubTitleTile"
@@ -355,15 +355,16 @@
                                         android:layout_alignParentRight="true"
                                         android:layout_centerVertical="true"
                                         android:layout_marginRight="@dimen/ViewMargin"
-                                        android:background="@drawable/ic_drop_down" />
+                                        android:background="@drawable/ic_arrow_right" />
 
-                                    <Spinner
-                                        android:id="@+id/spnFrom"
+                                    <Button
+                                        android:id="@+id/btnFrom"
+                                        style="@style/btnWhiteBorderLess"
                                         android:layout_width="match_parent"
-                                        android:layout_height="@dimen/spinnerHeight"
-                                        android:background="@null"
-                                        android:prompt="@string/strFrom"
-                                        android:spinnerMode="dialog" />
+                                        android:layout_height="match_parent"
+                                        android:gravity="left|center_vertical"
+                                        android:paddingLeft="@dimen/ViewPadding"
+                                        android:text="@string/strFrom" />
                                 </RelativeLayout>
                             </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
 
@@ -411,15 +412,16 @@
                                         android:layout_alignParentRight="true"
                                         android:layout_centerVertical="true"
                                         android:layout_marginRight="@dimen/ViewMargin"
-                                        android:background="@drawable/ic_drop_down" />
+                                        android:background="@drawable/ic_arrow_right" />
 
-                                    <Spinner
-                                        android:id="@+id/spnTo"
+                                    <Button
+                                        android:id="@+id/btnTo"
+                                        style="@style/btnWhiteBorderLess"
                                         android:layout_width="match_parent"
-                                        android:layout_height="@dimen/spinnerHeight"
-                                        android:background="@null"
-                                        android:prompt="@string/strTo"
-                                        android:spinnerMode="dialog" />
+                                        android:layout_height="match_parent"
+                                        android:gravity="left|center_vertical"
+                                        android:paddingLeft="@dimen/ViewPadding"
+                                        android:text="@string/strTo" />
                                 </RelativeLayout>
                             </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
                         </LinearLayout>

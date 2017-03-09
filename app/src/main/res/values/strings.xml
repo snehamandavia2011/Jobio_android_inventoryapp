@@ -271,5 +271,14 @@
     <string name="strDisplayNotificationForIncomingMessage">Display notification for incoming Msg in notification bar.</string>
     <string name="strReportAnIssue">REPORT AN ISSUE</string>
     <string name="strSendFeedback">SEND FEEDBACK</string>
+    <string name="title_activity_ac_emp_customer_supplier_selection">
+        acEmpCustomerSupplierSelection
+    </string>
+    <string name="strAll">All</string>
+    <string name="strCustomer">Customer</string>
+    <string name="strEmployee">Employee</string>
+    <string name="strSupplier">Supplier</string>
+    <string name="strSelectFromType">Select From Type</string>
+    <string name="strSelectToType">Select To Type</string>
 </resources>
 

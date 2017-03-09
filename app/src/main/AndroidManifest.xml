@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lab360io.jobio.officeApp">
-    <!-- one signal Server API Key: AIzaSyDZJjB-dkWvHph_vBOr-nDZCcJApnOsPVM
-    Sender id: 636235551686 -->
+
+    <!--
+    one signal Server API Key: AIzaSyDZJjB-dkWvHph_vBOr-nDZCcJApnOsPVM
+    Sender id: 636235551686
+    -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,7 +17,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name">
-        <meta-data android:name="com.onesignal.NotificationOpened.DEFAULT" android:value="DISABLE" />
+        <meta-data
+            android:name="com.onesignal.NotificationOpened.DEFAULT"
+            android:value="DISABLE" />
+
         <activity
             android:name=".acSplash"
             android:screenOrientation="portrait"
@@ -133,7 +139,8 @@
         <activity
             android:name=".acEditJobInvoiceReferenceDetail"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+
         <service
             android:name="notification.NotificationExtender"
             android:exported="false">
@@ -141,6 +148,11 @@
                 <action android:name="com.onesignal.NotificationExtender" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".acEmpCustomerSupplierSelection"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

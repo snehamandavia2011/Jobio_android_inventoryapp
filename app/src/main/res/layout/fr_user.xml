@@ -1,0 +1,75 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/tilt">
+
+        <LinearLayout
+            android:id="@+id/lyMainContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/ViewPadding">
+
+            <TextView
+                android:id="@+id/txtTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white" />
+
+            <ListView
+                android:id="@+id/lvlUser"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/tilt"
+                android:dividerHeight="@dimen/listViewDividerHeight" />
+        </LinearLayout>
+
+        <utility.DotProgressBar
+            android:id="@+id/dot_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dorProgressBarheight"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            custom:amount="5"
+            custom:duration="@android:integer/config_shortAnimTime"
+            custom:endColor="@color/white"
+            custom:startColor="@color/white" />
+
+        <RelativeLayout
+            android:id="@+id/lyNoContent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@color/tilt"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/ViewMargin" />
+
+                <TextView
+                    style="@style/styBigWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/ViewMargin"
+                    android:gravity="center"
+                    app:font="@{`Ubuntu-M`}" />
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

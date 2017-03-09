@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acEmpCustomerSupplierSelection;
 import com.lab360io.jobio.officeApp.acJobPOInvoicReferenceList;
 import com.thomsonreuters.rippledecoratorview.RippleDecoratorView;
 import com.xwray.fontbinding.FontCache;
@@ -46,13 +47,17 @@ import utility.URLMapping;
  * Created by SAI on 10/5/2016.
  */
 public class frStockTransaction extends Fragment {
+    public static final String PARTY_TYPE = "party_type";
+    public static final String FROM = "from";
+    public static final String TO = "to";
     Button btnCancel, btnNext;
     RelativeLayout lyNoNetwork, lyMainContent;
     LinearLayout lyFromTo, lyRefList, lyTransactionReason, lyReferenceType;
     DotProgressBar dot_progress_bar;
-    Spinner spnTransactionReason, spnRef, spnFrom, spnTo;// spnStockTransactionStatus;
+    Spinner spnTransactionReason, spnRef;
     RadioGroup rgStockType;
     RadioButton rd1, rd2, rd3, rd4;
+    Button btnFrom, btnTo;
     TextView txtReference, txtNoReferenceFound;
     Context mContext;
     int selStockTransactionStatus, selStockTransactionReason;
@@ -93,8 +98,8 @@ public class frStockTransaction extends Fragment {
         //spnStockTransactionStatus = (Spinner) view.findViewById(R.id.spnStockType);
         spnTransactionReason = (Spinner) view.findViewById(R.id.spnTransactionReason);
         spnRef = (Spinner) view.findViewById(R.id.spnRef);
-        spnFrom = (Spinner) view.findViewById(R.id.spnFrom);
-        spnTo = (Spinner) view.findViewById(R.id.spnTo);
+        btnFrom = (Button) view.findViewById(R.id.btnFrom);
+        btnTo = (Button) view.findViewById(R.id.btnTo);
         lyFromTo = (LinearLayout) view.findViewById(R.id.lyFromTo);
         lyRefList = (LinearLayout) view.findViewById(R.id.lyRefList);
         lyTransactionReason = (LinearLayout) view.findViewById(R.id.lyTransactionReason);
@@ -326,7 +331,7 @@ public class frStockTransaction extends Fragment {
                     txtNoReferenceFound.setVisibility(View.VISIBLE);
                     refView.setVisibility(View.GONE);
                     if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS) && !sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED))
-                        Helper.displaySnackbar((AppCompatActivity) getActivity(), sr.getResponseCode(),ConstantVal.ToastBGColor.SUCCESS);
+                        Helper.displaySnackbar((AppCompatActivity) getActivity(), sr.getResponseCode(), ConstantVal.ToastBGColor.DANGER);
                 }
                 dot_progress_bar.clearAnimation();
                 dot_progress_bar.setVisibility(View.GONE);
@@ -353,7 +358,24 @@ public class frStockTransaction extends Fragment {
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
                 if (arrClientCustEmpSupplier != null) {
-                    //adpClientCustEmpSupplier = new ArrayAdapter<ClientCustEmpSupplier>(mContext, R.layout.spinner_item, arrClientCustEmpSupplier);
+                    btnFrom.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(mContext, acEmpCustomerSupplierSelection.class);
+                            i.putExtra(PARTY_TYPE, FROM);
+                            startActivityForResult(i, ConstantVal.FROM_USER_SELECTION_REQUEST);
+                        }
+                    });
+
+                    btnTo.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(mContext, acEmpCustomerSupplierSelection.class);
+                            i.putExtra(PARTY_TYPE, TO);
+                            startActivityForResult(i, ConstantVal.TO_USER_SELECTION_REQUEST);
+                        }
+                    });
+                    /*adpClientCustEmpSupplier = new ArrayAdapter<ClientCustEmpSupplier>(mContext, R.layout.spinner_item, arrClientCustEmpSupplier);
                     adpClientCustEmpSupplier = new ClientCustomerEmployeeSupplierAdapter(mContext, arrClientCustEmpSupplier);
                     spnFrom.setAdapter(adpClientCustEmpSupplier);
                     spnTo.setAdapter(adpClientCustEmpSupplier);
@@ -381,7 +403,7 @@ public class frStockTransaction extends Fragment {
                         public void onNothingSelected(AdapterView<?> parent) {
 
                         }
-                    });
+                    });*/
                     lyFromTo.setVisibility(View.VISIBLE);
                     btnNext.setEnabled(true);
                 } else {
@@ -396,9 +418,14 @@ public class frStockTransaction extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Logger.debug("in frtockTransaction on activity result:" + requestCode + " " + resultCode);
         if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
             getActivity().setResult(ConstantVal.EXIT_RESPONSE_CODE);
             getActivity().finish();
+        } else if (requestCode == ConstantVal.FROM_USER_SELECTION_REQUEST) {
+
+        } else if (requestCode == ConstantVal.TO_USER_SELECTION_REQUEST) {
+
         }
     }
 
@@ -431,7 +458,7 @@ public class frStockTransaction extends Fragment {
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
                 if (arrClientCustEmpSupplier == null || arrClientCustEmpSupplier.size() <= 0)
-                    Helper.displaySnackbar((AppCompatActivity) getActivity(), ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseString()),ConstantVal.ToastBGColor.INFO);
+                    Helper.displaySnackbar((AppCompatActivity) getActivity(), ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseString()), ConstantVal.ToastBGColor.INFO);
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
