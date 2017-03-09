@@ -280,5 +280,6 @@
     <string name="strSupplier">Supplier</string>
     <string name="strSelectFromType">Select From Type</string>
     <string name="strSelectToType">Select To Type</string>
+    <string name="strSearchParty">Search party by</string>
 </resources>
 

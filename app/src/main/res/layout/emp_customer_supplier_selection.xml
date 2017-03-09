@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data />
@@ -10,80 +11,101 @@
         android:layout_height="fill_parent"
         android:background="@color/tilt">
 
-        <RelativeLayout
-            android:id="@+id/rlSearchBox"
+        <LinearLayout
+            android:id="@+id/lyMainContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/ViewMarginBig"
-            android:background="@drawable/bg_searchbox"
-            android:padding="@dimen/ViewPaddingBig"
-            android:visibility="gone">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/edSearchBox"
-                style="@style/singlelineeditTextWhite"
+            <RelativeLayout
+                android:id="@+id/rlSearchBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/btn_search"
-                android:paddingRight="40dp"
-                android:singleLine="true"
-                android:textColorHint="@color/white" />
+                android:layout_margin="@dimen/ViewMarginBig"
+                android:background="@drawable/bg_searchbox"
+                android:padding="@dimen/ViewPaddingBig"
+                android:visibility="gone">
 
-            <ImageButton
-                android:id="@+id/btnSearchClear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:background="@android:color/transparent"
-                android:src="@drawable/btn_close" />
-        </RelativeLayout>
+                <EditText
+                    android:id="@+id/edSearchBox"
+                    style="@style/singlelineeditTextWhite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/btn_search"
+                    android:paddingRight="40dp"
+                    android:singleLine="true"
+                    android:textColorHint="@color/white" />
 
+                <ImageButton
+                    android:id="@+id/btnSearchClear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/btn_close" />
+            </RelativeLayout>
 
-        <FrameLayout
-            android:id="@+id/lyMainContent"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@id/rlSearchBox"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <TabHost
-                android:id="@android:id/tabhost"
+            <FrameLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_below="@id/rlSearchBox"
+                android:orientation="vertical"
+                android:visibility="visible">
 
-                <LinearLayout
+                <TabHost
+                    android:id="@android:id/tabhost"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical">
+                    android:layout_height="fill_parent">
 
-                    <TabWidget
-                        android:id="@android:id/tabs"
+                    <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:orientation="horizontal" />
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/white" />
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/white" />
 
-                    <FrameLayout
-                        android:id="@android:id/tabcontent"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="0" />
+                        <TabWidget
+                            android:id="@android:id/tabs"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:orientation="horizontal" />
 
-                    <android.support.v4.view.ViewPager
-                        android:id="@+id/viewpager"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-                </LinearLayout>
-            </TabHost>
-        </FrameLayout>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/white" />
+
+                        <FrameLayout
+                            android:id="@android:id/tabcontent"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="0" />
+
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/viewpager"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+                </TabHost>
+            </FrameLayout>
+        </LinearLayout>
+
+        <utility.DotProgressBar
+            android:id="@+id/dot_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dorProgressBarheight"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            custom:amount="5"
+            custom:duration="@android:integer/config_shortAnimTime"
+            custom:endColor="@color/white"
+            custom:startColor="@color/white" />
 
         <RelativeLayout
             android:id="@+id/lyNoContent"
@@ -105,13 +127,13 @@
                     android:layout_margin="@dimen/ViewMargin" />
 
                 <TextView
-                    android:gravity="center"
                     android:id="@+id/txtMessage"
                     style="@style/styBigWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/ViewMargin"
+                    android:gravity="center"
                     app:font="@{`Ubuntu-M`}" />
             </LinearLayout>
         </RelativeLayout>

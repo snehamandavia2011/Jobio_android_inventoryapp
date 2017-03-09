@@ -31,17 +31,6 @@
                 android:dividerHeight="@dimen/listViewDividerHeight" />
         </LinearLayout>
 
-        <utility.DotProgressBar
-            android:id="@+id/dot_progress_bar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dorProgressBarheight"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            custom:amount="5"
-            custom:duration="@android:integer/config_shortAnimTime"
-            custom:endColor="@color/white"
-            custom:startColor="@color/white" />
-
         <RelativeLayout
             android:id="@+id/lyNoContent"
             android:layout_width="fill_parent"

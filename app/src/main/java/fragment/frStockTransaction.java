@@ -64,12 +64,9 @@ public class frStockTransaction extends Fragment {
     String referenceType, refId, fromId, toId, fromType, toType;
     ArrayAdapter<ClientStockTransactionStatusMaster> adpStockTransactionStatus;
     ArrayAdapter<ClientStockTransactionReason> adpStockTransactionReason;
-    //ArrayAdapter<ClientCustEmpSupplier> adpClientCustEmpSupplier;
-    ClientCustomerEmployeeSupplierAdapter adpClientCustEmpSupplier;
     ArrayAdapter<ClientJobPOInvoiceReference> adpClientJobPOInvoiceReference;
     ArrayList<ClientStockTransactionReason> arrClientStockTransactionReason = null;
     ArrayList<ClientStockTransactionStatusMaster> arrClientStockTransactionStatusMaster = null;
-    ArrayList<ClientCustEmpSupplier> arrClientCustEmpSupplier = null;
     ArrayList<ClientJobPOInvoiceReference> arrClientJobPOInvoiceReference = null;
     RippleDecoratorView refView;
 
@@ -142,7 +139,6 @@ public class frStockTransaction extends Fragment {
             lyMainContent.setVisibility(View.VISIBLE);
             lyNoNetwork.setVisibility(View.GONE);
             setSpnStockType();
-            getFromToList();
         } else {
             lyMainContent.setVisibility(View.GONE);
             lyNoNetwork.setVisibility(View.VISIBLE);
@@ -154,16 +150,6 @@ public class frStockTransaction extends Fragment {
             @Override
             protected Object doInBackground(Object[] params) {
                 arrClientStockTransactionStatusMaster = ClientStockTransactionStatusMaster.getDataFromDatabaseIn(mContext);
-                //arr.add(0, new ClientStockTransactionStatusMaster(0, getString(R.string.strSelectStockType)));
-                /*{
-                    @Override
-                    public boolean isEnabled(int position) {
-                        if (position == 0)
-                            return false;
-                        else
-                            return true;
-                    }
-                }*/
                 return null;
             }
 
@@ -200,31 +186,6 @@ public class frStockTransaction extends Fragment {
                         }
                     });
                     rgStockType.check(R.id.rd1);
-                    /*adpStockTransactionStatus = new ArrayAdapter<ClientStockTransactionStatusMaster>(mContext, R.layout.spinner_item, arrClientStockTransactionStatusMaster);
-                    spnStockTransactionStatus.setAdapter(adpStockTransactionStatus);
-                    spnStockTransactionStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            selStockTransactionStatus = arrClientStockTransactionStatusMaster.get(position).getId();
-                            referenceType = StockTransactionReferenceType.getReferenceID(selStockTransactionStatus);
-                            if (selStockTransactionStatus == 2) {//STOCK RETURN
-                                txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
-                            } else if (selStockTransactionStatus == 3) {//STOCK RECEIVED
-                                txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
-                            } else if (selStockTransactionStatus == 4) {//STOCK DAMAGE
-                                txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
-                            } else if (selStockTransactionStatus == 7) {//STOCK RELEASE
-                                txtReference.setText(StockTransactionReferenceType.getReferenceType(mContext, referenceType));
-                            }
-                            setSpnTrasactionReason();
-                            setSpnRefList();
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-                    });*/
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -324,7 +285,7 @@ public class frStockTransaction extends Fragment {
                         btnNext.setEnabled(true);
                     txtNoReferenceFound.setVisibility(View.GONE);
                     refView.setVisibility(View.VISIBLE);
-                    setSpnFromTo();
+                    getFromTo();
                 } else {
                     if (btnNext.isEnabled())
                         btnNext.setEnabled(false);
@@ -340,79 +301,26 @@ public class frStockTransaction extends Fragment {
     }
 
 
-    private void setSpnFromTo() {
-        new AsyncTask() {
-
+    private void getFromTo() {
+        btnFrom.setOnClickListener(new View.OnClickListener() {
             @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                dot_progress_bar.setVisibility(View.VISIBLE);
+            public void onClick(View v) {
+                Intent i = new Intent(mContext, acEmpCustomerSupplierSelection.class);
+                i.putExtra(PARTY_TYPE, FROM);
+                startActivityForResult(i, ConstantVal.FROM_USER_SELECTION_REQUEST);
             }
+        });
 
+        btnTo.setOnClickListener(new View.OnClickListener() {
             @Override
-            protected Object doInBackground(Object[] params) {
-                return null;
+            public void onClick(View v) {
+                Intent i = new Intent(mContext, acEmpCustomerSupplierSelection.class);
+                i.putExtra(PARTY_TYPE, TO);
+                startActivityForResult(i, ConstantVal.TO_USER_SELECTION_REQUEST);
             }
-
-            @Override
-            protected void onPostExecute(Object o) {
-                super.onPostExecute(o);
-                if (arrClientCustEmpSupplier != null) {
-                    btnFrom.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent i = new Intent(mContext, acEmpCustomerSupplierSelection.class);
-                            i.putExtra(PARTY_TYPE, FROM);
-                            startActivityForResult(i, ConstantVal.FROM_USER_SELECTION_REQUEST);
-                        }
-                    });
-
-                    btnTo.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent i = new Intent(mContext, acEmpCustomerSupplierSelection.class);
-                            i.putExtra(PARTY_TYPE, TO);
-                            startActivityForResult(i, ConstantVal.TO_USER_SELECTION_REQUEST);
-                        }
-                    });
-                    /*adpClientCustEmpSupplier = new ArrayAdapter<ClientCustEmpSupplier>(mContext, R.layout.spinner_item, arrClientCustEmpSupplier);
-                    adpClientCustEmpSupplier = new ClientCustomerEmployeeSupplierAdapter(mContext, arrClientCustEmpSupplier);
-                    spnFrom.setAdapter(adpClientCustEmpSupplier);
-                    spnTo.setAdapter(adpClientCustEmpSupplier);
-                    spnFrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            fromId = arrClientCustEmpSupplier.get(position).getUuid();
-                            fromType = arrClientCustEmpSupplier.get(position).getType();
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-                    });
-
-                    spnTo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            toId = arrClientCustEmpSupplier.get(position).getUuid();
-                            toType = arrClientCustEmpSupplier.get(position).getType();
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-                    });*/
-                    lyFromTo.setVisibility(View.VISIBLE);
-                    btnNext.setEnabled(true);
-                } else {
-
-                }
-                dot_progress_bar.clearAnimation();
-                dot_progress_bar.setVisibility(View.GONE);
-            }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        });
+        lyFromTo.setVisibility(View.VISIBLE);
+        btnNext.setEnabled(true);
     }
 
     @Override
@@ -435,43 +343,4 @@ public class frStockTransaction extends Fragment {
         lyRefList.setVisibility(View.GONE);
         lyFromTo.setVisibility(View.GONE);
     }
-
-    private void getFromToList() {
-        new AsyncTask() {
-            ServerResponse sr;
-
-            @Override
-            protected Object doInBackground(Object[] params) {
-                final HttpEngine objHttpEngine = new HttpEngine();
-                final String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
-                String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
-                final URLMapping um = ConstantVal.getCustomerEmployeeSupplierList(mContext);
-                sr = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), new String[]{tokenId, account_id}, um.getParamNames(), um.isNeedToSync());
-                String result = sr.getResponseString();
-                if (result != null && result.length() > 0) {
-                    arrClientCustEmpSupplier = ClientCustEmpSupplier.parseData(result);
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Object o) {
-                super.onPostExecute(o);
-                if (arrClientCustEmpSupplier == null || arrClientCustEmpSupplier.size() <= 0)
-                    Helper.displaySnackbar((AppCompatActivity) getActivity(), ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseString()), ConstantVal.ToastBGColor.INFO);
-            }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
-    /*@Override
-    public void onStart() {
-        super.onStart();
-        objHelper.registerSessionTimeoutBroadcast((AppCompatActivity) getActivity());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        objHelper.unRegisterSesionTimeOutBroadcast((AppCompatActivity) getActivity());
-    }*/
 }

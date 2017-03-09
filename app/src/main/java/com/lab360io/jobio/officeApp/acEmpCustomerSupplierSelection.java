@@ -11,6 +11,7 @@ import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -25,6 +26,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -32,46 +34,62 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.xwray.fontbinding.FontCache;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
 import adapter.TabsPagerAdapter;
+import entity.BusinessAccountdbDetail;
+import entity.ClientCustEmpSupplier;
 import fragment.frAllUsers;
 import fragment.frAssetsAsset;
 import fragment.frAssetsInspect;
 import fragment.frAssetsService;
 import fragment.frStockTransaction;
 import utility.ConstantVal;
+import utility.DotProgressBar;
 import utility.Helper;
+import utility.HttpEngine;
+import utility.Logger;
+import utility.ServerResponse;
+import utility.URLMapping;
 
-public class acEmpCustomerSupplierSelection extends ActionBarActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
+public class acEmpCustomerSupplierSelection extends AppCompatActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
     public static final String ALL = "0";
-    public static final String EMPLOYEE = "1";
-    public static final String CUSTOMER = "2";
+    public static final String CUSTOMER = "1";
+    public static final String EMPLOYEE = "2";
     public static final String SUPPLIER = "3";
     public static final String USER_TYPE = "user_type";
 
     String current_tab = ALL;
-    ActionBarActivity ac;
+    AppCompatActivity ac;
     Context mContext;
     Helper objHelper = new Helper();
     private TabHost mTabHost;
     private ViewPager mViewPager;
     private HashMap<String, TabInfo> mapTabInfo = new HashMap<String, TabInfo>();
     private PagerAdapter mPagerAdapter;
-    FrameLayout lyMainContent;
     String strPartyType;
     int actionBarHeight = 0;
     EditText edSearchBox;
     RelativeLayout rlSearchBox;
     ImageButton btnSearchClear;
+    ArrayList<ClientCustEmpSupplier> arrClientCustEmpSupplier = null;
+    LinearLayout lyMainContent;
+    DotProgressBar dot_progress_bar;
+    RelativeLayout lyNoContent;
+    ImageView imgIcon;
+    TextView txtMessage;
+    String actionbarText;
 
     private class TabInfo {
         private String tag;
@@ -120,21 +138,46 @@ public class acEmpCustomerSupplierSelection extends ActionBarActivity implements
         btnSearchClear = (ImageButton) findViewById(R.id.btnSearchClear);
         edSearchBox = (EditText) findViewById(R.id.edSearchBox);
         mViewPager = (ViewPager) super.findViewById(R.id.viewpager);
-        lyMainContent = (FrameLayout) findViewById(R.id.lyMainContent);
+        mTabHost = (TabHost) findViewById(android.R.id.tabhost);
+        lyMainContent = (LinearLayout) findViewById(R.id.lyMainContent);
+        lyNoContent = (RelativeLayout) findViewById(R.id.lyNoContent);
+        dot_progress_bar = (DotProgressBar) findViewById(R.id.dot_progress_bar);
+        imgIcon = (ImageView) findViewById(R.id.imgIcon);
+        txtMessage = (TextView) findViewById(R.id.txtMessage);
+
         if (this.getIntent().getExtras() != null) {
             strPartyType = this.getIntent().getStringExtra(frStockTransaction.PARTY_TYPE);
         }
         if (strPartyType.equals(frStockTransaction.FROM)) {
-            setActionBar(ac, getString(R.string.strSelectFromType));
+            actionbarText = getString(R.string.strSelectFromType);
         } else if (strPartyType.equals(frStockTransaction.TO)) {
-            setActionBar(ac, getString(R.string.strSelectToType));
+            actionbarText = getString(R.string.strSelectToType);
         }
+        setActionBar(ac, actionbarText, false);
+
+        if (strPartyType.equals(ALL))
+            edSearchBox.setHint(getString(R.string.strSearchParty) + " " + getString(R.string.strAll));
+        else if (strPartyType.equals(EMPLOYEE))
+            edSearchBox.setHint(getString(R.string.strSearchParty) + " " + getString(R.string.strEmployee));
+        else if (strPartyType.equals(CUSTOMER))
+            edSearchBox.setHint(getString(R.string.strSearchParty) + " " + getString(R.string.strCustomer));
+        else if (strPartyType.equals(SUPPLIER))
+            edSearchBox.setHint(getString(R.string.strSearchParty) + " " + getString(R.string.strSupplier));
 
         this.initialiseTabHost(savedInstanceState);
         if (savedInstanceState != null) {
             mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab")); //set the tab as per the saved state
         }
         this.intialiseViewPager();
+
+
+        edSearchBox.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                edSearchBox.requestFocusFromTouch();
+                return true;
+            }
+        });
 
         btnSearchClear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,25 +200,10 @@ public class acEmpCustomerSupplierSelection extends ActionBarActivity implements
             @Override
             public void afterTextChanged(Editable s) {
                 final String str = s.toString();
-                new AsyncTask() {
-                    @Override
-                    protected void onPreExecute() {
-                        filterDataFromArray(str);
-                        super.onPreExecute();
-                    }
-
-                    @Override
-                    protected Object doInBackground(Object[] params) {
-                        return null;
-                    }
-                }.execute();
+                filterDataFromArray(str);
             }
         });
-
-    }
-
-    private void filterDataFromArray(String str) {
-
+        getFromToList();
     }
 
     private void intialiseViewPager() {
@@ -222,7 +250,6 @@ public class acEmpCustomerSupplierSelection extends ActionBarActivity implements
     }
 
     private void initialiseTabHost(Bundle args) {
-        mTabHost = (TabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup();
         TabInfo tabInfo = null;
         LayoutInflater mInflater = (LayoutInflater) mContext
@@ -326,7 +353,7 @@ public class acEmpCustomerSupplierSelection extends ActionBarActivity implements
         }
     }
 
-    public void setActionBar(final AppCompatActivity ac, final String strText) {
+    public void setActionBar(final AppCompatActivity ac, final String strText, final boolean needToShowSwitch) {
         new AsyncTask() {
             @Override
             protected void onPreExecute() {
@@ -377,6 +404,10 @@ public class acEmpCustomerSupplierSelection extends ActionBarActivity implements
                 });
 
                 SwitchCompat switchCompat = (SwitchCompat) v.findViewById(R.id.switchSearch);
+                if (needToShowSwitch)
+                    switchCompat.setVisibility(View.VISIBLE);
+                else
+                    switchCompat.setVisibility(View.GONE);
                 switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -393,4 +424,79 @@ public class acEmpCustomerSupplierSelection extends ActionBarActivity implements
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
+    private void getFromToList() {
+        new AsyncTask() {
+            ServerResponse sr;
+            boolean isNetworkAvail;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                dot_progress_bar.setVisibility(View.VISIBLE);
+                isNetworkAvail = new HttpEngine().isNetworkAvailable(mContext);
+                if (!isNetworkAvail) {
+                    dot_progress_bar.setVisibility(View.GONE);
+                    lyNoContent.setVisibility(View.VISIBLE);
+                    lyMainContent.setVisibility(View.GONE);
+                    txtMessage.setText(getString(R.string.strInternetNotAvaiable));
+                    imgIcon.setImageResource(R.drawable.ic_field_engineer_grey);
+                    setActionBar(ac, actionbarText, false);
+                } else {
+                    lyNoContent.setVisibility(View.GONE);
+                    lyMainContent.setVisibility(View.VISIBLE);
+                    setActionBar(ac, actionbarText, true);
+                }
+            }
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                if (isNetworkAvail) {
+                    final HttpEngine objHttpEngine = new HttpEngine();
+                    final String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
+                    String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+                    final URLMapping um = ConstantVal.getCustomerEmployeeSupplierList(mContext);
+                    sr = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), new String[]{tokenId, account_id}, um.getParamNames(), um.isNeedToSync());
+                    String result = sr.getResponseString();
+                    if (result != null && result.length() > 0) {
+                        arrClientCustEmpSupplier = ClientCustEmpSupplier.parseData(result);
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                dot_progress_bar.clearAnimation();
+                dot_progress_bar.setVisibility(View.GONE);
+                if (arrClientCustEmpSupplier == null && isNetworkAvail) {
+                    setActionBar(ac, actionbarText, false);
+                    Helper.displaySnackbar(ac, ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseString()), ConstantVal.ToastBGColor.INFO);
+                    lyNoContent.setVisibility(View.VISIBLE);
+                    lyMainContent.setVisibility(View.GONE);
+                    txtMessage.setText(ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseCode()));
+                    imgIcon.setImageResource(R.drawable.ic_field_engineer_grey);
+                } else if (arrClientCustEmpSupplier != null) {
+                    setActionBar(ac, actionbarText, true);
+                    lyNoContent.setVisibility(View.GONE);
+                    lyMainContent.setVisibility(View.VISIBLE);
+                    filterDataFromArray("");
+                }
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    public void filterDataFromArray(String str) {
+        Logger.debug("in filterDataFromArray:" + str + " " + mTabHost.getCurrentTabTag());
+        String strCurrentTag = mTabHost.getCurrentTabTag();
+        //FragmentManager fm = getSupportFragmentManager();
+        //Fragment frCurrent = fm.findFragmentByTag(strCurrentTag);
+        Fragment frCurrent = (Fragment) mViewPager.getAdapter().instantiateItem(mViewPager, (mTabHost.getCurrentTab()));
+        View view = frCurrent.getView();
+        LinearLayout lyMainContent = (LinearLayout) view.findViewById(R.id.lyMainContent);
+        RelativeLayout lyNoContent = (RelativeLayout) view.findViewById(R.id.lyNoContent);
+        ListView lvlUser = (ListView) view.findViewById(R.id.lvlUser);
+        TextView txt = (TextView) view.findViewById(R.id.txtTest);
+        txt.setText(str + " " + strCurrentTag);
+    }
 }
