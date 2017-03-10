@@ -17,12 +17,6 @@
             android:orientation="vertical"
             android:padding="@dimen/ViewPadding">
 
-            <TextView
-                android:id="@+id/txtTest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white" />
-
             <ListView
                 android:id="@+id/lvlUser"
                 android:layout_width="match_parent"
@@ -45,12 +39,14 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/imgNoUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/ViewMargin" />
 
                 <TextView
+                    android:id="@+id/txtMessage"
                     style="@style/styBigWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

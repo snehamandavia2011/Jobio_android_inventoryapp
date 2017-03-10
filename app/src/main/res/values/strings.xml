@@ -274,6 +274,7 @@
     <string name="title_activity_ac_emp_customer_supplier_selection">
         acEmpCustomerSupplierSelection
     </string>
+    <string name="strUSer">User</string>
     <string name="strAll">All</string>
     <string name="strCustomer">Customer</string>
     <string name="strEmployee">Employee</string>
@@ -281,5 +282,6 @@
     <string name="strSelectFromType">Select From Type</string>
     <string name="strSelectToType">Select To Type</string>
     <string name="strSearchParty">Search party by</string>
+    <string name="strFoundWith">found with</string>
 </resources>
 

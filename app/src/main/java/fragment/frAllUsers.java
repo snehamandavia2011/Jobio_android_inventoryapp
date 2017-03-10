@@ -40,9 +40,6 @@ public class frAllUsers extends Fragment {
     Fragment contextFragment;
     FragmentActivity frActivity;
     Context mContext;
-    ListView lvlUser;
-    RelativeLayout lyNoContent;
-    LinearLayout lyMainContent;
     String userType;
     DotProgressBar dot_progress_bar;
 

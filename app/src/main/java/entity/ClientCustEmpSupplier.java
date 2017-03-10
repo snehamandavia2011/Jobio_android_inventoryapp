@@ -3,12 +3,13 @@ package entity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by SAI on 10/19/2016.
  */
-public class ClientCustEmpSupplier {
+public class ClientCustEmpSupplier implements Serializable{
     String uuid, name, type;
 
     public ClientCustEmpSupplier(String uuid, String name, String type) {

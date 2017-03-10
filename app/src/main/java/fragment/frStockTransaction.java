@@ -1,5 +1,6 @@
 package fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -36,7 +37,6 @@ import entity.ClientJobPOInvoiceReference;
 import entity.ClientStockTransactionReason;
 import entity.ClientStockTransactionStatusMaster;
 import utility.ConstantVal;
-import utility.DotProgressBar;
 import utility.Helper;
 import utility.HttpEngine;
 import utility.Logger;
@@ -53,7 +53,6 @@ public class frStockTransaction extends Fragment {
     Button btnCancel, btnNext;
     RelativeLayout lyNoNetwork, lyMainContent;
     LinearLayout lyFromTo, lyRefList, lyTransactionReason, lyReferenceType;
-    DotProgressBar dot_progress_bar;
     Spinner spnTransactionReason, spnRef;
     RadioGroup rgStockType;
     RadioButton rd1, rd2, rd3, rd4;
@@ -69,6 +68,8 @@ public class frStockTransaction extends Fragment {
     ArrayList<ClientStockTransactionStatusMaster> arrClientStockTransactionStatusMaster = null;
     ArrayList<ClientJobPOInvoiceReference> arrClientJobPOInvoiceReference = null;
     RippleDecoratorView refView;
+    ClientCustEmpSupplier objClientCustEmpSupplierFrom, objClientCustEmpSupplierTo;
+    LinearLayout dot_progress_bar_container;
 
     @Nullable
     @Override
@@ -89,7 +90,7 @@ public class frStockTransaction extends Fragment {
         lyNoNetwork = (RelativeLayout) view.findViewById(R.id.lyNoNetwork);
         btnCancel = (Button) view.findViewById(R.id.btnCancel);
         btnNext = (Button) view.findViewById(R.id.btnNext);
-        dot_progress_bar = (DotProgressBar) view.findViewById(R.id.dot_progress_bar);
+        dot_progress_bar_container = (LinearLayout) view.findViewById(R.id.dot_progress_bar_container);
         txtReference = (TextView) view.findViewById(R.id.txtReference);
         txtNoReferenceFound = (TextView) view.findViewById(R.id.txtNoReferenceFound);
         //spnStockTransactionStatus = (Spinner) view.findViewById(R.id.spnStockType);
@@ -113,7 +114,7 @@ public class frStockTransaction extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
+                    hideDotProgressBar();
                 } catch (Exception e) {
                 }
                 Intent i = new Intent(mContext, acJobPOInvoicReferenceList.class);
@@ -244,7 +245,7 @@ public class frStockTransaction extends Fragment {
                 super.onPreExecute();
                 if (btnNext.isEnabled())
                     btnNext.setEnabled(false);
-                dot_progress_bar.setVisibility(View.VISIBLE);
+                showDotProgressBar();
                 lyRefList.setVisibility(View.GONE);
             }
 
@@ -294,8 +295,7 @@ public class frStockTransaction extends Fragment {
                     if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS) && !sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED))
                         Helper.displaySnackbar((AppCompatActivity) getActivity(), sr.getResponseCode(), ConstantVal.ToastBGColor.DANGER);
                 }
-                dot_progress_bar.clearAnimation();
-                dot_progress_bar.setVisibility(View.GONE);
+                hideDotProgressBar();
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -305,7 +305,20 @@ public class frStockTransaction extends Fragment {
         btnFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ClientCustEmpSupplier objClientCustEmpSupplier = (ClientCustEmpSupplier) btnFrom.getTag();
                 Intent i = new Intent(mContext, acEmpCustomerSupplierSelection.class);
+                if (objClientCustEmpSupplier != null) {
+                    if (objClientCustEmpSupplier.getType().equals(getString(R.string.strSupplier)))
+                        i.putExtra(acEmpCustomerSupplierSelection.CURRENT_TAB, acEmpCustomerSupplierSelection.SUPPLIER);
+                    else if (objClientCustEmpSupplier.getType().equals(getString(R.string.strEmployee)))
+                        i.putExtra(acEmpCustomerSupplierSelection.CURRENT_TAB, acEmpCustomerSupplierSelection.EMPLOYEE);
+                    else if (objClientCustEmpSupplier.getType().equals(getString(R.string.strCustomer)))
+                        i.putExtra(acEmpCustomerSupplierSelection.CURRENT_TAB, acEmpCustomerSupplierSelection.CUSTOMER);
+                    else
+                        i.putExtra(acEmpCustomerSupplierSelection.CURRENT_TAB, acEmpCustomerSupplierSelection.ALL);
+                } else {
+                    i.putExtra(acEmpCustomerSupplierSelection.CURRENT_TAB, acEmpCustomerSupplierSelection.ALL);
+                }
                 i.putExtra(PARTY_TYPE, FROM);
                 startActivityForResult(i, ConstantVal.FROM_USER_SELECTION_REQUEST);
             }
@@ -314,13 +327,25 @@ public class frStockTransaction extends Fragment {
         btnTo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ClientCustEmpSupplier objClientCustEmpSupplier = (ClientCustEmpSupplier) btnTo.getTag();
                 Intent i = new Intent(mContext, acEmpCustomerSupplierSelection.class);
                 i.putExtra(PARTY_TYPE, TO);
+                if (objClientCustEmpSupplier != null) {
+                    if (objClientCustEmpSupplier.getType().equals(getString(R.string.strSupplier)))
+                        i.putExtra(acEmpCustomerSupplierSelection.CURRENT_TAB, acEmpCustomerSupplierSelection.SUPPLIER);
+                    else if (objClientCustEmpSupplier.getType().equals(getString(R.string.strEmployee)))
+                        i.putExtra(acEmpCustomerSupplierSelection.CURRENT_TAB, acEmpCustomerSupplierSelection.EMPLOYEE);
+                    else if (objClientCustEmpSupplier.getType().equals(getString(R.string.strCustomer)))
+                        i.putExtra(acEmpCustomerSupplierSelection.CURRENT_TAB, acEmpCustomerSupplierSelection.CUSTOMER);
+                    else
+                        i.putExtra(acEmpCustomerSupplierSelection.CURRENT_TAB, acEmpCustomerSupplierSelection.ALL);
+                } else {
+                    i.putExtra(acEmpCustomerSupplierSelection.CURRENT_TAB, acEmpCustomerSupplierSelection.ALL);
+                }
                 startActivityForResult(i, ConstantVal.TO_USER_SELECTION_REQUEST);
             }
         });
         lyFromTo.setVisibility(View.VISIBLE);
-        btnNext.setEnabled(true);
     }
 
     @Override
@@ -330,10 +355,22 @@ public class frStockTransaction extends Fragment {
         if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
             getActivity().setResult(ConstantVal.EXIT_RESPONSE_CODE);
             getActivity().finish();
-        } else if (requestCode == ConstantVal.FROM_USER_SELECTION_REQUEST) {
-
-        } else if (requestCode == ConstantVal.TO_USER_SELECTION_REQUEST) {
-
+        } else if (requestCode == ConstantVal.FROM_USER_SELECTION_REQUEST && resultCode == ConstantVal.FROM_TO_USER_SELECTION_RESPONSE) {
+            if (data.getExtras() != null) {
+                objClientCustEmpSupplierFrom = (ClientCustEmpSupplier) data.getSerializableExtra("selectedUser");
+                fromId = objClientCustEmpSupplierFrom.getUuid();
+                fromType=objClientCustEmpSupplierFrom.getType();
+                btnFrom.setText(objClientCustEmpSupplierFrom.toString());
+                btnFrom.setTag(objClientCustEmpSupplierFrom);
+            }
+        } else if (requestCode == ConstantVal.TO_USER_SELECTION_REQUEST && resultCode == ConstantVal.FROM_TO_USER_SELECTION_RESPONSE) {
+            if (data.getExtras() != null) {
+                objClientCustEmpSupplierTo = (ClientCustEmpSupplier) data.getSerializableExtra("selectedUser");
+                toId = objClientCustEmpSupplierTo.getUuid();
+                toType=objClientCustEmpSupplierTo.getType();
+                btnTo.setText(objClientCustEmpSupplierTo.toString());
+                btnTo.setTag(objClientCustEmpSupplierTo);
+            }
         }
     }
 
@@ -342,5 +379,19 @@ public class frStockTransaction extends Fragment {
         lyReferenceType.setVisibility(View.GONE);
         lyRefList.setVisibility(View.GONE);
         lyFromTo.setVisibility(View.GONE);
+    }
+
+    private void showDotProgressBar() {
+        LayoutInflater mInflater = (LayoutInflater) mContext
+                .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        final View view = mInflater.inflate(R.layout.ly_dot_progress_bar, null);
+        view.setVisibility(View.VISIBLE);
+        dot_progress_bar_container.addView(view);
+        dot_progress_bar_container.setVisibility(View.VISIBLE);
+    }
+
+    private void hideDotProgressBar() {
+        dot_progress_bar_container.removeViewAt(0);
+        dot_progress_bar_container.setVisibility(View.GONE);
     }
 }

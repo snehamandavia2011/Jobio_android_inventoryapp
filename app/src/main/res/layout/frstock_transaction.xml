@@ -292,17 +292,13 @@
                             </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
                         </LinearLayout>
 
-                        <utility.DotProgressBar
-
-                            android:id="@+id/dot_progress_bar"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dorProgressBarheight"
-                            android:layout_centerInParent="true"
-                            android:visibility="gone"
-                            custom:amount="5"
-                            custom:duration="@android:integer/config_shortAnimTime"
-                            custom:endColor="@color/tilt"
-                            custom:startColor="@color/tilt" />
+                            android:id="@+id/dot_progress_bar_container"
+                            android:orientation="vertical">
+
+                        </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/lyFromTo"

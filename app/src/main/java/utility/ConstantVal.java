@@ -52,6 +52,7 @@ public class ConstantVal {
     public static final int ZBAR_QR_SCANNER_REQUEST = 15;
     public static final int FROM_USER_SELECTION_REQUEST = 16;
     public static final int TO_USER_SELECTION_REQUEST = 17;
+    public static final int FROM_TO_USER_SELECTION_RESPONSE = 18;
 
     public static class NotificationType {
         public static final String ADD_SERVICE_TRANSACTION = "ADD_SERVICE_TRANSACTION";

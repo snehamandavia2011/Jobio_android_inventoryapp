@@ -47,13 +47,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
+import adapter.EmpCustomerSupplierAdapter;
 import adapter.TabsPagerAdapter;
 import entity.BusinessAccountdbDetail;
 import entity.ClientCustEmpSupplier;
 import fragment.frAllUsers;
-import fragment.frAssetsAsset;
-import fragment.frAssetsInspect;
-import fragment.frAssetsService;
 import fragment.frStockTransaction;
 import utility.ConstantVal;
 import utility.DotProgressBar;
@@ -69,8 +67,7 @@ public class acEmpCustomerSupplierSelection extends AppCompatActivity implements
     public static final String EMPLOYEE = "2";
     public static final String SUPPLIER = "3";
     public static final String USER_TYPE = "user_type";
-
-    String current_tab = ALL;
+    public static final String CURRENT_TAB = "current_tab";
     AppCompatActivity ac;
     Context mContext;
     Helper objHelper = new Helper();
@@ -78,12 +75,15 @@ public class acEmpCustomerSupplierSelection extends AppCompatActivity implements
     private ViewPager mViewPager;
     private HashMap<String, TabInfo> mapTabInfo = new HashMap<String, TabInfo>();
     private PagerAdapter mPagerAdapter;
-    String strPartyType;
+    String strPartyType, current_tab;
     int actionBarHeight = 0;
     EditText edSearchBox;
     RelativeLayout rlSearchBox;
     ImageButton btnSearchClear;
-    ArrayList<ClientCustEmpSupplier> arrClientCustEmpSupplier = null;
+    ArrayList<ClientCustEmpSupplier> arrAllUser = null;
+    ArrayList<ClientCustEmpSupplier> arrEmployee = null;
+    ArrayList<ClientCustEmpSupplier> arrCustomer = null;
+    ArrayList<ClientCustEmpSupplier> arrSupplier = null;
     LinearLayout lyMainContent;
     DotProgressBar dot_progress_bar;
     RelativeLayout lyNoContent;
@@ -146,7 +146,8 @@ public class acEmpCustomerSupplierSelection extends AppCompatActivity implements
         txtMessage = (TextView) findViewById(R.id.txtMessage);
 
         if (this.getIntent().getExtras() != null) {
-            strPartyType = this.getIntent().getStringExtra(frStockTransaction.PARTY_TYPE);
+            strPartyType = this.getIntent().getStringExtra(frStockTransaction.PARTY_TYPE);//either from or to
+            current_tab = this.getIntent().getStringExtra(CURRENT_TAB);
         }
         if (strPartyType.equals(frStockTransaction.FROM)) {
             actionbarText = getString(R.string.strSelectFromType);
@@ -200,7 +201,7 @@ public class acEmpCustomerSupplierSelection extends AppCompatActivity implements
             @Override
             public void afterTextChanged(Editable s) {
                 final String str = s.toString();
-                filterDataFromArray(str);
+                fillListView(str);
             }
         });
         getFromToList();
@@ -322,6 +323,8 @@ public class acEmpCustomerSupplierSelection extends AppCompatActivity implements
         }
         View viewCurrent = mTabHost.getTabWidget().getChildAt(mTabHost.getCurrentTab());
         viewCurrent.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.lightGrey)));
+
+        fillListView(edSearchBox.getText().toString());
     }
 
     @Override
@@ -458,7 +461,20 @@ public class acEmpCustomerSupplierSelection extends AppCompatActivity implements
                     sr = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), new String[]{tokenId, account_id}, um.getParamNames(), um.isNeedToSync());
                     String result = sr.getResponseString();
                     if (result != null && result.length() > 0) {
-                        arrClientCustEmpSupplier = ClientCustEmpSupplier.parseData(result);
+                        arrAllUser = ClientCustEmpSupplier.parseData(result);
+                        if (arrAllUser != null) {
+                            arrCustomer = new ArrayList<ClientCustEmpSupplier>();
+                            arrEmployee = new ArrayList<ClientCustEmpSupplier>();
+                            arrSupplier = new ArrayList<ClientCustEmpSupplier>();
+                            for (ClientCustEmpSupplier objClientCustEmpSupplier : arrAllUser) {
+                                if (objClientCustEmpSupplier.getType().equals(getString(R.string.strCustomer)))
+                                    arrCustomer.add(objClientCustEmpSupplier);
+                                else if (objClientCustEmpSupplier.getType().equals(getString(R.string.strEmployee)))
+                                    arrEmployee.add(objClientCustEmpSupplier);
+                                else if (objClientCustEmpSupplier.getType().equals(getString(R.string.strSupplier)))
+                                    arrSupplier.add(objClientCustEmpSupplier);
+                            }
+                        }
                     }
                 }
                 return null;
@@ -469,34 +485,118 @@ public class acEmpCustomerSupplierSelection extends AppCompatActivity implements
                 super.onPostExecute(o);
                 dot_progress_bar.clearAnimation();
                 dot_progress_bar.setVisibility(View.GONE);
-                if (arrClientCustEmpSupplier == null && isNetworkAvail) {
+                if (arrAllUser == null && isNetworkAvail) {
                     setActionBar(ac, actionbarText, false);
                     Helper.displaySnackbar(ac, ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseString()), ConstantVal.ToastBGColor.INFO);
                     lyNoContent.setVisibility(View.VISIBLE);
                     lyMainContent.setVisibility(View.GONE);
                     txtMessage.setText(ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseCode()));
                     imgIcon.setImageResource(R.drawable.ic_field_engineer_grey);
-                } else if (arrClientCustEmpSupplier != null) {
+                } else if (arrAllUser != null) {
                     setActionBar(ac, actionbarText, true);
                     lyNoContent.setVisibility(View.GONE);
                     lyMainContent.setVisibility(View.VISIBLE);
-                    filterDataFromArray("");
+                    fillListView("");
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    public void filterDataFromArray(String str) {
-        Logger.debug("in filterDataFromArray:" + str + " " + mTabHost.getCurrentTabTag());
-        String strCurrentTag = mTabHost.getCurrentTabTag();
-        //FragmentManager fm = getSupportFragmentManager();
-        //Fragment frCurrent = fm.findFragmentByTag(strCurrentTag);
-        Fragment frCurrent = (Fragment) mViewPager.getAdapter().instantiateItem(mViewPager, (mTabHost.getCurrentTab()));
-        View view = frCurrent.getView();
-        LinearLayout lyMainContent = (LinearLayout) view.findViewById(R.id.lyMainContent);
-        RelativeLayout lyNoContent = (RelativeLayout) view.findViewById(R.id.lyNoContent);
-        ListView lvlUser = (ListView) view.findViewById(R.id.lvlUser);
-        TextView txt = (TextView) view.findViewById(R.id.txtTest);
-        txt.setText(str + " " + strCurrentTag);
+    public void fillListView(final String strFilteredText) {
+        if (arrAllUser == null)
+            return;
+        new AsyncTask() {
+            ImageView imgNoUser;
+            TextView txtMessage;
+            LinearLayout lyMainContent;
+            RelativeLayout lyNoContent;
+            ListView lvlUser;
+            String strCurrentTag;
+            ArrayList<ClientCustEmpSupplier> filteredUsers = new ArrayList<ClientCustEmpSupplier>();
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                Logger.debug(mTabHost.getCurrentTabTag() + " " + mTabHost.getCurrentTab());
+                strCurrentTag = mTabHost.getCurrentTabTag();
+                Fragment frCurrent = (Fragment) mViewPager.getAdapter().instantiateItem(mViewPager, (mTabHost.getCurrentTab()));
+                View view = frCurrent.getView();
+                lyMainContent = (LinearLayout) view.findViewById(R.id.lyMainContent);
+                lyNoContent = (RelativeLayout) view.findViewById(R.id.lyNoContent);
+                lvlUser = (ListView) view.findViewById(R.id.lvlUser);
+                imgNoUser = (ImageView) view.findViewById(R.id.imgNoUser);
+                txtMessage = (TextView) view.findViewById(R.id.txtMessage);
+            }
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                if (strCurrentTag.equals(ALL)) {
+                    if (strFilteredText.trim().equals("")) {
+                        filteredUsers = arrAllUser;
+                    } else {
+                        for (ClientCustEmpSupplier objClientCustEmpSupplier : arrAllUser) {
+                            if (objClientCustEmpSupplier.getName().toLowerCase().contains(strFilteredText.toLowerCase()))
+                                filteredUsers.add(objClientCustEmpSupplier);
+                        }
+                    }
+                } else if (strCurrentTag.equals(CUSTOMER)) {
+                    if (strFilteredText.trim().equals("")) {
+                        filteredUsers = arrCustomer;
+                    } else {
+                        for (ClientCustEmpSupplier objClientCustEmpSupplier : arrCustomer) {
+                            if (objClientCustEmpSupplier.getName().toLowerCase().contains(strFilteredText.toLowerCase()))
+                                filteredUsers.add(objClientCustEmpSupplier);
+                        }
+                    }
+                } else if (strCurrentTag.equals(EMPLOYEE)) {
+                    if (strFilteredText.trim().equals("")) {
+                        filteredUsers = arrEmployee;
+                    } else {
+                        for (ClientCustEmpSupplier objClientCustEmpSupplier : arrEmployee) {
+                            if (objClientCustEmpSupplier.getName().toLowerCase().contains(strFilteredText.toLowerCase()))
+                                filteredUsers.add(objClientCustEmpSupplier);
+                        }
+                    }
+                } else if (strCurrentTag.equals(SUPPLIER)) {
+                    if (strFilteredText.trim().equals("")) {
+                        filteredUsers = arrSupplier;
+                    } else {
+                        for (ClientCustEmpSupplier objClientCustEmpSupplier : arrSupplier) {
+                            if (objClientCustEmpSupplier.getName().toLowerCase().contains(strFilteredText.toLowerCase()))
+                                filteredUsers.add(objClientCustEmpSupplier);
+                        }
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                if (filteredUsers.size() >= 1) {
+                    lyMainContent.setVisibility(View.VISIBLE);
+                    lyNoContent.setVisibility(View.GONE);
+                    lvlUser.setAdapter(new EmpCustomerSupplierAdapter(mContext, filteredUsers));
+                } else {
+                    lyMainContent.setVisibility(View.GONE);
+                    lyNoContent.setVisibility(View.VISIBLE);
+                    imgNoUser.setImageResource(R.drawable.ic_field_engineer_grey);
+                    txtMessage.setText(getString(R.string.strNo) + " " + getUserName(current_tab).toString() + " " + getString(R.string.strFoundWith) + " '" + strFilteredText + "'");
+                }
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    public String getUserName(String type) {
+        if (type.equals(ALL)) {
+            return getString(R.string.strUSer);
+        } else if (type.equals(EMPLOYEE)) {
+            return getString(R.string.strEmployee);
+        } else if (type.equals(CUSTOMER)) {
+            return getString(R.string.strCustomer);
+        } else if (type.equals(SUPPLIER)) {
+            return getString(R.string.strSupplier);
+        }
+        return "";
     }
 }
