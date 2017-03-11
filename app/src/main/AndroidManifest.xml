@@ -79,7 +79,7 @@
         <activity
             android:name=".acManualQRCode"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme1" />
+            android:theme="@style/AppThemeWhiteNoActionBar" />
 
         <service
             android:name="service.serServerToDeviceSync"

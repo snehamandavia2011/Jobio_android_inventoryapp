@@ -330,7 +330,7 @@ public class Helper {
                     public void run() {
                         for (View v : view) {
                             v.setEnabled(false);
-                            v.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.darkgrey)));
+                            //v.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.darkgrey)));
                         }
                     }
                 });
@@ -346,7 +346,7 @@ public class Helper {
                             displaySnackbar(ac, ctx.getString(R.string.strQRNotExist), ConstantVal.ToastBGColor.DANGER);
                             for (View v : view) {
                                 v.setEnabled(true);
-                                v.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
+                                //v.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
                             }
                         }
                     });
@@ -384,7 +384,7 @@ public class Helper {
                                     displaySnackbar(ac, result, ConstantVal.ToastBGColor.DANGER);
                                     for (View v : view) {
                                         v.setEnabled(true);
-                                        v.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
+                                        //v.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
                                     }
                                 }
                             });

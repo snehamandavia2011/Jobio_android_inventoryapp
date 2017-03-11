@@ -87,7 +87,7 @@ public class acSplash extends Activity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            Intent i = new Intent(mContext, acQRCodeScanner.class);
+                            Intent i = new Intent(mContext, acManualQRCode.class);
                             startActivity(i);
                             finish();
                         }

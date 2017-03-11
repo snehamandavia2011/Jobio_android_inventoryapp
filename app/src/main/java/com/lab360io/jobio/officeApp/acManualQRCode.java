@@ -9,7 +9,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.xwray.fontbinding.FontCache;
 
 import me.zhanghai.android.materialedittext.MaterialEditText;
@@ -18,8 +21,9 @@ import utility.Helper;
 
 
 public class acManualQRCode extends AppCompatActivity {
-    Button btnOk, btnCancel;
-    MaterialEditText edQRCode;
+    ImageButton btnScanQR;
+    FloatingActionButton btnNext;
+    EditText edQRCode;
     AppCompatActivity ac;
     Handler handler = new Handler();
     Helper objHelper = new Helper();
@@ -32,24 +36,25 @@ public class acManualQRCode extends AppCompatActivity {
         DataBindingUtil.setContentView(this, R.layout.manual_qr_code);
         ac = this;
 
-        edQRCode = (MaterialEditText) findViewById(R.id.edQRCode);
-        btnOk = (Button) findViewById(R.id.btnOK);
-        btnCancel = (Button) findViewById(R.id.btnCancel);
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        btnOk.setOnClickListener(new View.OnClickListener() {
+        btnScanQR = (ImageButton) findViewById(R.id.btnScanQR);
+        edQRCode = (EditText) findViewById(R.id.edQRCode);
+        btnNext = (FloatingActionButton) findViewById(R.id.btnNext);
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Helper.isFieldBlank(edQRCode.getText().toString())) {
                     edQRCode.setError(getString(R.string.strEnterQRCode));
                     requestFocus(edQRCode);
                 } else {
-                    objHelper.verifyingQRcode(ac, handler, edQRCode.getText().toString(),new View[]{btnOk,btnCancel});
+                    objHelper.verifyingQRcode(ac, handler, edQRCode.getText().toString(), new View[]{btnNext});
                 }
+            }
+        });
+        btnScanQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), acQRCodeScanner.class);
+                startActivity(i);
             }
         });
     }
@@ -67,10 +72,11 @@ public class acManualQRCode extends AppCompatActivity {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (objHelper.dtDialog != null && objHelper.dtDialog.getVisibility()==View.VISIBLE)
+        if (objHelper.dtDialog != null && objHelper.dtDialog.getVisibility() == View.VISIBLE)
             objHelper.dtDialog.setVisibility(View.GONE);
     }
 

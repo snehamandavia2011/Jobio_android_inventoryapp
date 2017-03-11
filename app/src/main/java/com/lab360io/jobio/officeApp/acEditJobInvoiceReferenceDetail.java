@@ -334,11 +334,7 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
                     }
                 }
             }
-        }
-
-                .
-
-                        executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void requestFocus(View view) {

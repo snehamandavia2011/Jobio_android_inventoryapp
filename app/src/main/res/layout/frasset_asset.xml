@@ -47,7 +47,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_margin="@dimen/ViewMargin"
-                android:src="@drawable/ic_search_by_qr_tilt"
+                android:src="@drawable/ic_search_by_qr_tilt_small"
                 fab:fab_colorNormal="@color/white"
                 fab:fab_colorPressed="@color/white_pressed"
                 fab:fab_plusIconColor="@color/half_black" />

@@ -55,8 +55,9 @@ public class acQRCodeScanner extends AppCompatActivity implements QRCodeReaderVi
         txtEnterManualCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), acManualQRCode.class);
-                startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
+                finish();
+                //Intent i = new Intent(getApplicationContext(), acManualQRCode.class);
+                //startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
             }
         });
     }
