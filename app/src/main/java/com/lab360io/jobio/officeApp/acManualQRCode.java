@@ -16,6 +16,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.xwray.fontbinding.FontCache;
 
 import me.zhanghai.android.materialedittext.MaterialEditText;
+import me.zhanghai.android.materialedittext.MaterialTextInputLayout;
 import utility.ConstantVal;
 import utility.Helper;
 
@@ -24,6 +25,7 @@ public class acManualQRCode extends AppCompatActivity {
     ImageButton btnScanQR;
     FloatingActionButton btnNext;
     EditText edQRCode;
+    MaterialTextInputLayout lyQRCode;
     AppCompatActivity ac;
     Handler handler = new Handler();
     Helper objHelper = new Helper();
@@ -36,6 +38,8 @@ public class acManualQRCode extends AppCompatActivity {
         DataBindingUtil.setContentView(this, R.layout.manual_qr_code);
         ac = this;
 
+        lyQRCode = (MaterialTextInputLayout)findViewById(R.id.lyQRCode);
+        lyQRCode.setHintTextAppearance(R.style.stySubTitleWhite);
         btnScanQR = (ImageButton) findViewById(R.id.btnScanQR);
         edQRCode = (EditText) findViewById(R.id.edQRCode);
         btnNext = (FloatingActionButton) findViewById(R.id.btnNext);

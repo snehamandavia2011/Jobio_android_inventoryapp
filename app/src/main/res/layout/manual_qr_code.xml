@@ -25,6 +25,7 @@
             android:orientation="horizontal">
 
             <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                android:id="@+id/lyQRCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/ViewMargin">
@@ -44,7 +45,10 @@
                 android:id="@+id/btnScanQR"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="@dimen/ViewMargin"
                 android:background="@android:color/transparent"
                 android:src="@drawable/btn_scan_qr_code" />
         </RelativeLayout>
