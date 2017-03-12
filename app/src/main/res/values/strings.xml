@@ -12,13 +12,18 @@
     <string name="strLogin">Login</string>
     <string name="strCopyRight">Copyright © 2017 Jobio. All rights reserved.</string>
     <string name="strJobio">Jobio</string>
-    <string name="strEnterManuallyQRCode">Enter manually company QR code</string>
     <string name="strEnterManuallyBarCode">Enter manually item bar code</string>
     <string name="strCancel">Cancel</string>
     <string name="strOK">OK</string>
     <string name="strPoweredby">Poweredby:</string>
     <string name="strEnterBarCode">Enter Bar code</string>
-    <string name="strEnterQRCode">Enter QR code</string>
+
+    <!-- QR code replace with company domain name-->
+    <string name="strQRNotExist">Company domain does not exits.</string>
+    <string name="strScanCompanyQR">Scan Company domain name</string>
+    <string name="strEnterManuallyQRCode">Enter manually company domain name</string>
+    <string name="strEnterQRCode">Enter company domain name</string>
+
     <string name="msgScanQRCode">Scan QR code to setup company.</string>
     <string name="strCheckmailQRCode">Check email for QR code picture.</string>
     <string name="strOR">OR</string>
@@ -32,7 +37,6 @@
     <string name="strDatacannotReceive">Unable to receive data from network</string>
     <string name="strServerError">Server error</string>
     <string name="strClientError">Invalid URL request</string>
-    <string name="strQRNotExist">QR Code does not exits.</string>
     <string name="msgInvalidCreditialsAsNotStaffMember">Invalid credentials, unfortunately you are not subscribed as staff member</string>
     <string name="title_activity_ac_login">acLogin</string>
     <string name="msgSyncNoInternet">Internet not available, data will be sync later</string>
