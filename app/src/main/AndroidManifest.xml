@@ -152,7 +152,11 @@
         <activity
             android:name=".acEmpCustomerSupplierSelection"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".acFormFields"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeDarkGrey" />
     </application>
 
 </manifest>

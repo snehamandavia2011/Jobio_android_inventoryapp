@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.io.File;
+
 public class DataBase {
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -31,6 +33,14 @@ public class DataBase {
             db.execSQL(TABLE_11_CREATE);
             db.execSQL(TABLE_12_CREATE);
             db.execSQL(TABLE_13_CREATE);
+            db.execSQL(TABLE_14_CREATE);
+            db.execSQL(TABLE_15_CREATE);
+            db.execSQL(TABLE_16_CREATE);
+            db.execSQL(TABLE_17_CREATE);
+            db.execSQL(TABLE_18_CREATE);
+            db.execSQL(TABLE_19_CREATE);
+            db.execSQL(TABLE_20_CREATE);
+            db.execSQL(TABLE_21_CREATE);
         }
 
         @Override
@@ -47,6 +57,14 @@ public class DataBase {
             db.execSQL("DROP TABLE IF EXISTS " + stock_transaction_status_table);
             db.execSQL("DROP TABLE IF EXISTS " + stock_transaction_reason_table);
             db.execSQL("DROP TABLE IF EXISTS " + module_flag_table);
+            db.execSQL("DROP TABLE IF EXISTS " + UI_form_status);
+            db.execSQL("DROP TABLE IF EXISTS " + UI_Control);
+            db.execSQL("DROP TABLE IF EXISTS " + UI_Control_Type);
+            db.execSQL("DROP TABLE IF EXISTS " + custom_form_table);
+            db.execSQL("DROP TABLE IF EXISTS " + custom_form_fields_table);
+            db.execSQL("DROP TABLE IF EXISTS " + custom_form_view_table);
+            db.execSQL("DROP TABLE IF EXISTS " + custom_form_fields_data_table);
+            db.execSQL("DROP TABLE IF EXISTS " + custom_form_photo_data_table);
             onCreate(db);
         }
     }
@@ -85,11 +103,27 @@ public class DataBase {
     public static final int stock_transaction_reason_int = 12;
     public static final String module_flag_table = "ModuleFlag";
     public static final int module_Flag_int = 13;
+    public static final String UI_form_status = "UIFormStatus";
+    public static final int UI_form_status_int = 14;
+    public static final String UI_Control = "UIControl";
+    public static final int UI_control_int = 15;
+    public static final String UI_Control_Type = "UIControlType";
+    public static final int UI_control_type_int = 16;
+    public static final String custom_form_table = "jobForm";
+    public static final int custom_form_int = 17;
+    public static final String custom_form_fields_table = "jobFormFields";
+    public static final int custom_form_fields_int = 18;
+    public static final String custom_form_view_table = "jobFormView";
+    public static final int custom_form_view_int = 19;
+    public static final String custom_form_fields_data_table = "jobFormFieldsData";
+    public static final int custom_form_fields_data_int = 20;
+    public static final String custom_form_photo_data_table = "jobFormPhotoData";
+    public static final int custom_form_photo_data_int = 21;
 
 
     String[][] tables = new String[][]{{"_ID", "URL", "data", "isSync", "last_result_code", "admin_user_id", "account_id"},
             {"_ID", "id", "message", "from_id", "to_id", "is_viewed", "datetime", "timestamp"},
-            {"_ID", "auId", "empId", "first_name", "last_name", "employee_status", "contact_no", "user_type_name", "isOnLine","designation_name"},
+            {"_ID", "auId", "empId", "first_name", "last_name", "employee_status", "contact_no", "user_type_name", "isOnLine", "designation_name"},
             {"_ID", "aoAsset_id", "actmCategory_name",
                     "amAsset_name", "amDescription", "amModel_name", "amManufacturer_name", "amSerial_no", "amBarcode_no",
                     "amDate_acquired", "amDate_soon", "amPurchase_cost", "amPurchase_from", "amCurrent_value", "amDate_expired"
@@ -120,7 +154,15 @@ public class DataBase {
                     "custom_field_4", "custom_field_5", "last_update_date_time"},
             {"_ID", "imUUID", "itUUID", "available_qty", "cost", "price", "barcode", "spplierName"},
             {"_ID", "id", "action_name"}, {"_ID", "id", "stock_transaction_status_id", "reason"},
-            {"localPKModuleId", "serverPKModuleId", "moduleName", "access"}};
+            {"localPKModuleId", "serverPKModuleId", "moduleName", "access"}, {"_ID", "id", "status_name"},
+            {"_ID", "id", "control_name", "parent"}, {"_ID", "id", "ui_control_id", "type_name", "ui_size", "ui_data_default_input"},
+            {"_ID", "ftForm_transaction_uuid", "ftForm_id", "ftIs_mandatory", "ftRef_id", "ftIs_submitted",
+                    "ftIs_showing_to_cust", "fpForm_name", "fpForm_description", "fpForm_category", "fbBiz_name", "fpForm_status","ftRefType"},
+            {"_ID", "ftForm_transaction_uuid", "ffpForm_id", "ffpUI_control_id", "ffpUI_control_type", "ffpUI_control_validation", "ffpUI_control_style", "ffpUI_control_given_name",
+                    "ffpUI_control_default_data_1", "ffpUI_control_default_data_2", "ffpPosition", "ffpScreen_no", "form_prototype_uuid"},
+            {"_ID", "ftForm_transaction_uuid", "ffpForm_id", "status"},
+            {"_ID", "ftForm_transaction_uuid", "ffpForm_id", "ffpUI_control_id", "ffpUI_control_type", "ffpPosition", "ffpScreen_no", "fftData", "form_prototype_uuid"},
+            {"_ID", "ftForm_transaction_uuid", "ffpForm_id", "ffpUI_control_id", "ffpUI_control_type", "ffpPosition", "ffpScreen_no", "photoUUID", "localPath"}};
     private static final String TABLE_0_CREATE = "create table "
             + device_to_db_sync_table
             + "(_ID integer primary key autoincrement,URL text not null,data text not null,isSync text not null,last_result_code text not null,admin_user_id text not null, account_id text not null);";
@@ -217,6 +259,50 @@ public class DataBase {
             + "(localPKModuleId integer primary key autoincrement,"
             + "serverPKModuleId text not null,moduleName text not null, access text not null);";
 
+    private static final String TABLE_14_CREATE = "create table "
+            + UI_form_status
+            + "(_ID integer primary key autoincrement,id text not null,status_name text not null);";
+
+    private static final String TABLE_15_CREATE = "create table "
+            + UI_Control
+            + "(_ID integer primary key autoincrement,id text not null,control_name text not null,parent text not null);";
+
+    private static final String TABLE_16_CREATE = "create table "
+            + UI_Control_Type
+            + "(_ID integer primary key autoincrement,id text not null,ui_control_id text not null," +
+            "type_name text not null,ui_size text not null,ui_data_default_input text not null);";
+
+    private static final String TABLE_17_CREATE = "create table "
+            + custom_form_table
+            + "(_ID integer primary key autoincrement,ftForm_transaction_uuid text not null,ftForm_id text not null,ftIs_mandatory text not null" +
+            ",ftRef_id text not null,ftIs_submitted text not null,ftIs_showing_to_cust text not null,fpForm_name text not null,fpForm_description text not null," +
+            "fpForm_category text not null,fbBiz_name text not null,fpForm_status text not null,ftRefType text not null);";
+
+    private static final String TABLE_18_CREATE = "create table "
+            + custom_form_fields_table
+            + "(_ID integer primary key autoincrement,ftForm_transaction_uuid text not null,ffpForm_id text not null,ffpUI_control_id text not null" +
+            ",ffpUI_control_type text not null,ffpUI_control_validation text not null,ffpUI_control_style text not null,ffpUI_control_given_name text not null," +
+            "ffpUI_control_default_data_1 text not null," +
+            "ffpUI_control_default_data_2 text not null,ffpPosition text not null,ffpScreen_no text not null,form_prototype_uuid text not null);";
+
+    private static final String TABLE_19_CREATE = "create table "
+            + custom_form_view_table
+            + "(_ID integer primary key autoincrement,ftForm_transaction_uuid text not null," +
+            "ffpForm_id text not null,status text not null);";
+
+    private static final String TABLE_20_CREATE = "create table "
+            + custom_form_fields_data_table
+            + "(_ID integer primary key autoincrement,ftForm_transaction_uuid text not null," +
+            "ffpForm_id text not null,ffpUI_control_id text not null,ffpUI_control_type text not null," +
+            " ffpPosition text not null,ffpScreen_no text not null,fftData text not null,form_prototype_uuid text not null);";
+
+    private static final String TABLE_21_CREATE = "create table "
+            + custom_form_photo_data_table
+            + "(_ID integer primary key autoincrement,ftForm_transaction_uuid text not null," +
+            "ffpForm_id text not null,ffpUI_control_id text not null,ffpUI_control_type text not null,ffpPosition text not null," +
+            "ffpScreen_no text not null,photoUUID text not null,localPath text not null);";
+
+
     public DataBase(Context ctx) {
         HCtx = ctx;
     }
@@ -242,11 +328,37 @@ public class DataBase {
         sqLiteDb.delete(stock_transaction_status_table, null, null);
         sqLiteDb.delete(stock_transaction_reason_table, null, null);
         sqLiteDb.delete(module_flag_table, null, null);
+        sqLiteDb.delete(UI_form_status, null, null);
+        sqLiteDb.delete(UI_Control, null, null);
+        sqLiteDb.delete(UI_Control_Type, null, null);
+        sqLiteDb.delete(custom_form_table, null, null);
+        sqLiteDb.delete(custom_form_fields_table, null, null);
+        sqLiteDb.delete(custom_form_view_table, null, null);
+        sqLiteDb.delete(custom_form_fields_data_table, null, null);
+        sqLiteDb.delete(custom_form_photo_data_table, null, null);
+        cleanDataFromImageFolder();
+
     }
 
     public void cleanNotUserTable() {
         sqLiteDb.delete(inspect_view_table, null, null);
         sqLiteDb.delete(service_view_table, null, null);
+        sqLiteDb.delete(custom_form_view_table, null, null);
+        sqLiteDb.delete(custom_form_fields_data_table, null, null);
+        sqLiteDb.delete(custom_form_photo_data_table, null, null);
+        cleanDataFromImageFolder();
+    }
+
+    public void cleanDataFromImageFolder() {
+        Cursor cur = fetchAll(DataBase.custom_form_photo_data_table, DataBase.custom_form_photo_data_int);
+        if (cur != null && cur.getCount() > 0) {
+            String localPath = cur.getString(8);
+            File file = new File(localPath);
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+        cur.close();
     }
 
     public void cleanLogoutTable() {
@@ -260,6 +372,11 @@ public class DataBase {
         sqLiteDb.delete(stock_transaction_status_table, null, null);
         sqLiteDb.delete(stock_transaction_reason_table, null, null);
         sqLiteDb.delete(module_flag_table, null, null);
+        sqLiteDb.delete(UI_form_status, null, null);
+        sqLiteDb.delete(UI_Control, null, null);
+        sqLiteDb.delete(UI_Control_Type, null, null);
+        sqLiteDb.delete(custom_form_table, null, null);
+        sqLiteDb.delete(custom_form_fields_table, null, null);
     }
 
     public void cleanTable(int tableNo) {
@@ -299,6 +416,30 @@ public class DataBase {
                 break;
             case module_Flag_int:
                 sqLiteDb.delete(module_flag_table, null, null);
+                break;
+            case UI_form_status_int:
+                sqLiteDb.delete(UI_form_status, null, null);
+                break;
+            case UI_control_int:
+                sqLiteDb.delete(UI_Control, null, null);
+                break;
+            case UI_control_type_int:
+                sqLiteDb.delete(UI_Control_Type, null, null);
+                break;
+            case custom_form_int:
+                sqLiteDb.delete(custom_form_table, null, null);
+                break;
+            case custom_form_fields_int:
+                sqLiteDb.delete(custom_form_fields_table, null, null);
+                break;
+            case custom_form_view_int:
+                sqLiteDb.delete(custom_form_view_table, null, null);
+                break;
+            case custom_form_fields_data_int:
+                sqLiteDb.delete(custom_form_fields_data_table, null, null);
+                break;
+            case custom_form_photo_data_int:
+                sqLiteDb.delete(custom_form_photo_data_table, null, null);
                 break;
             default:
                 break;

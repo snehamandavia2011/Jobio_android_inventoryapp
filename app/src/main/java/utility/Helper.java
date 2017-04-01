@@ -23,21 +23,23 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.media.ExifInterface;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.ColorInt;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.graphics.drawable.DrawableWrapper;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.InputFilter;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.format.DateUtils;
@@ -48,8 +50,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -75,13 +79,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -89,11 +97,16 @@ import entity.BusinessAccountMaster;
 import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUser;
 import entity.ClientAdminUserAppsRel;
+import entity.ClientCustomForm;
+import entity.ClientCustomFormField;
 import entity.ClientEmployeeMaster;
 import entity.ClientItemMaster;
 import entity.ClientRegional;
 import entity.ClientStockSelection;
+import entity.FormPhotoDetail;
+import formControls.formSignature;
 import io.fabric.sdk.android.Fabric;
+import me.zhanghai.android.materialedittext.MaterialEditText;
 import parser.parseItemMaster;
 import service.serDeviceToServerSync;
 import service.serLocationTracker;
@@ -1227,5 +1240,352 @@ public class Helper {
         cur.close();
         db.close();
         return isAllow;
+    }
+
+    public static void requestFocus(View view, AppCompatActivity ac) {
+        if (view.requestFocus()) {
+            ac.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+    public static String getPathOfMediaStoreDir(Context ctx, String fileName, String extension) {
+        String path = "";
+        if (Environment.getExternalStorageState().equals("mounted")) {
+            File mediaStorageDir = ctx.getExternalFilesDir(null);
+            path = mediaStorageDir.getPath() + File.separator + "images" + File.separator + fileName + extension;
+            File f = new File(path);
+            if (f.exists())
+                return path;
+            else
+                return "";
+        }
+        return "";
+    }
+
+    public static File getOutputMediaFile(String fileName, boolean storeAsPng, Context ctx) {
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+        try {
+            if (Environment.getExternalStorageState().equals("mounted")) {
+                File mediaStorageDir = ctx.getExternalFilesDir(null);
+                File imageDir = new File(mediaStorageDir.getPath() + File.separator + "images");
+
+                // Create the storage directory if it does not exist
+                if (!mediaStorageDir.exists()) {
+                    if (!mediaStorageDir.mkdirs()) {
+                        Logger.debug("failed to create directory at " + mediaStorageDir.getAbsolutePath());
+                        return null;
+                    }
+                }
+                if (!imageDir.exists()) {
+                    if (!imageDir.mkdirs()) {
+                        Logger.debug("failed to create image storage directory at " + imageDir.getAbsolutePath());
+                        return null;
+                    }
+                }
+
+                String extension = storeAsPng ? ".png" : ".jpg";
+                return new File(imageDir.getPath() + File.separator + fileName + extension);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Bitmap getBitmapFromURIWithoutScaling(File path) {
+        if (path.exists()) {
+            Bitmap myBitmap = BitmapFactory.decodeFile(path.getAbsolutePath());
+            return myBitmap;
+        }
+        return null;
+    }
+
+    public static Bitmap getBitmapFromURI(File path) {
+        Uri photoFileUri = Uri.fromFile(path);
+        Bitmap bitmap = null;
+        if (photoFileUri == null)
+            return bitmap;
+        try {
+            bitmap = decodeFile(photoFileUri.getPath(), -1);
+            if (bitmap != null) {
+                FileOutputStream fOut = null;
+                try {
+                    fOut = new FileOutputStream(photoFileUri.getPath());
+                    bitmap = scalePhoto(bitmap, fOut);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 90, fOut);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        fOut.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
+    private static Bitmap scalePhoto(Bitmap bitmap, FileOutputStream fos) {
+        try {
+            bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() * 600 / bitmap.getHeight(), 600, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
+    public static Bitmap decodeFile(String path, int orientation) {
+        try {
+            if (path == null)
+                return null;
+            // decode with inSampleSize
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = 6;
+            Bitmap bitmap = BitmapFactory.decodeFile(path, o2);
+            ExifInterface exif = new ExifInterface(path);
+            orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+            exif.setAttribute("CAMERA", "EXTERNAL");
+            Matrix m = new Matrix();
+            if ((orientation == 3)) {
+                m.postRotate(180);
+                return bitmap;
+            } else if (orientation == 6) {
+                m.postRotate(90);
+                return bitmap;
+            } else if (orientation == 8) {
+                m.postRotate(270);
+                return bitmap;
+            }
+            return bitmap;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void deleteFile(String path) {
+        File file = new File(path);
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
+    public static void openSignDialog(final Context mContext, final FormPhotoDetail objFormPhotoDetail, final formSignature objFormSignature) {
+        final Dialog dialog = new Dialog(mContext);
+        LayoutInflater infalInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view1 = DataBindingUtil.inflate(infalInflater, R.layout.sign_board_dark_greyx, null, true).getRoot();
+        final MaterialEditText edSigntoryName = (MaterialEditText) view1.findViewById(R.id.edSignatoryName);
+        AvoidSpecialCharInputFilter filter = new AvoidSpecialCharInputFilter();
+        edSigntoryName.setFilters(new InputFilter[]{filter});
+        ImageButton btnClear = (ImageButton) view1.findViewById(R.id.btnClear);
+        final ImageView imgOldImage = (ImageView) view1.findViewById(R.id.imgOldImage);
+        final TextView txtEnterSignature = (TextView) view1.findViewById(R.id.txtEnterSignature);
+        Button btnOk = (Button) view1.findViewById(R.id.btnOK);
+        final LinearLayout mContent = (LinearLayout) view1.findViewById(R.id.lySignView);
+        ImageButton btnClose = (ImageButton) view1.findViewById(R.id.btnClose);
+        dialog.setCancelable(false);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
+        dialog.setContentView(view1);
+        dialog.show();
+
+        edSigntoryName.setText(objFormPhotoDetail.getCaptionName());
+        Bitmap mBitmap = null;
+        if (objFormPhotoDetail.getLocalPath().length() > 0) {
+            try {
+                Bitmap bmpOldSign = Helper.getBitmapFromURIWithoutScaling(new File(objFormPhotoDetail.getLocalPath()));
+                imgOldImage.setVisibility(View.VISIBLE);
+                imgOldImage.setImageBitmap(bmpOldSign);
+                edSigntoryName.setEnabled(false);
+            } catch (Exception e) {
+
+            }
+        }
+        final signature mSignature = new signature(mContext, null, mBitmap, mContent, txtEnterSignature);
+        mSignature.setBackgroundColor(Color.WHITE);
+        mContent.addView(mSignature, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
+        final View mView = mContent;
+        mView.setDrawingCacheEnabled(true);
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (imgOldImage.getVisibility() == View.VISIBLE) {
+                    imgOldImage.setVisibility(View.GONE);
+                    edSigntoryName.setEnabled(true);
+                } else {
+                    mSignature.clear();
+                }
+            }
+        });
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isAllDataEnters = true;
+                if (Helper.isFieldBlank(edSigntoryName.getText().toString())) {
+                    edSigntoryName.setError(mContext.getString(R.string.strSignatoryName));
+                    requestFocus(edSigntoryName, (AppCompatActivity) mContext);
+                    isAllDataEnters = false;
+                }
+
+                mView.setDrawingCacheEnabled(true);
+                String base64Sign = mSignature.getBase64Image(mView);
+                if (!isBlackPixelFound(base64Sign)) {
+                    isAllDataEnters = false;
+                    txtEnterSignature.setVisibility(View.VISIBLE);
+                } else {
+                    txtEnterSignature.setVisibility(View.GONE);
+                }
+                if (isAllDataEnters) {
+                    objFormPhotoDetail.setCaptionName(edSigntoryName.getText().toString());
+                    String uuid = UUID.randomUUID().toString();
+                    String signPath = Helper.writeBase64ToFile(base64Sign, mContext, uuid, true);
+
+                    objFormPhotoDetail.setLocalPath(signPath);
+                    objFormPhotoDetail.setPhotoUUID(uuid);
+                    objFormSignature.setSignDetail(objFormPhotoDetail);
+                    dialog.dismiss();
+                }
+            }
+        });
+    }
+
+    public static int getScreenWidth(Context ctx) {
+        Display display = ((AppCompatActivity) ctx).getWindowManager().getDefaultDisplay();
+        return display.getWidth();
+    }
+
+    public static int getScreenHeight(Context ctx) {
+        Display display = ((AppCompatActivity) ctx).getWindowManager().getDefaultDisplay();
+        return display.getHeight();
+    }
+
+    public static int getStatusBarHeight(Context ctx) {
+        int result = 0;
+        int resourceId = ctx.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = ctx.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    private static boolean isBlackPixelFound(String base64Sign) {
+        Bitmap bitmap = Helper.convertBase64ImageToBitmap(base64Sign);
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                int pixel = bitmap.getPixel(i, j);
+                if (pixel == Color.BLACK) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static String writeBase64ToFile(String strBase64, Context ctx, String strFileName, boolean isStoreAsPNg) {
+        FileOutputStream fos = null;
+        File f = getOutputMediaFile(strFileName, isStoreAsPNg, ctx);
+        try {
+            if (strBase64 != null) {
+                fos = new FileOutputStream(f);
+                byte[] decodedString = android.util.Base64.decode(strBase64, android.util.Base64.DEFAULT);
+                fos.write(decodedString);
+                fos.flush();
+                fos.close();
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                fos = null;
+            }
+        }
+        return f.getAbsolutePath();
+    }
+
+    public ArrayList<ClientCustomForm> getFormFromDatabase(String strAssetID, String ref_type, Context mContext) {
+        ArrayList<ClientCustomForm> arrClientCustomForm = new ArrayList<>();
+        try {
+            DataBase db = new DataBase(mContext);
+            db.open();
+            Cursor curForms = db.fetch(DataBase.custom_form_table, DataBase.custom_form_int, "ftRef_id='" + strAssetID + "'");
+            if (curForms != null && curForms.getCount() > 0) {
+                curForms.moveToFirst();
+                do {
+                    String ftForm_transaction_uuid = curForms.getString(1);
+                    String ftForm_id = curForms.getString(2);
+                    String ftIs_mandatory = curForms.getString(3);
+                    String ftRef_id = curForms.getString(4);
+                    String ftIs_submitted = curForms.getString(5);
+                    String ftIs_showing_to_cust = curForms.getString(6);
+                    String fpForm_name = curForms.getString(7);
+                    String fpForm_description = curForms.getString(8);
+                    String fpForm_category = curForms.getString(9);
+                    String fbBiz_name = curForms.getString(10);
+                    String fpForm_status = curForms.getString(11);
+                    String ftRefType = curForms.getString(12);
+                    int formLocalStatus = 1;
+                    Cursor curFormView = db.fetch(DataBase.custom_form_view_table, "ftForm_transaction_uuid='" + ftForm_transaction_uuid + "' and ffpForm_id='" + ftForm_id + "' and ftRefType='" + ref_type + "'");
+                    if (curFormView != null && curFormView.getCount() > 0) {
+                        curFormView.moveToFirst();
+                        formLocalStatus = curFormView.getInt(3);
+                    }
+                    curFormView.close();
+                    ArrayList<ClientCustomFormField> arrClientCustomFormField = null;
+                    Cursor curField = db.fetch(DataBase.custom_form_fields_table, DataBase.custom_form_fields_int, "ftForm_transaction_uuid='" + ftForm_transaction_uuid + "' and ffpForm_id='" + ftForm_id + "'");
+                    if (curField != null && curField.getCount() > 0) {
+                        curField.moveToFirst();
+                        arrClientCustomFormField = new ArrayList<>();
+                        do {
+                            String ftuuid = curField.getString(1);
+                            String ffpForm_id = curField.getString(2);
+                            int ffpUI_control_id = curField.getInt(3);
+                            int ffpUI_control_type = curField.getInt(4);
+                            String ffpUI_control_validation = curField.getString(5);
+                            String ffpUI_control_style = curField.getString(6);
+                            String ffpUI_control_given_name = curField.getString(7);
+                            String ffpUI_control_default_data_1 = curField.getString(8);
+                            String ffpUI_control_default_data_2 = curField.getString(9);
+                            int ffpPosition = curField.getInt(10);
+                            int ffpScreen_no = curField.getInt(11);
+                            String form_prototype_id = curField.getString(12);
+                            String fftData = "";
+                            String where = "ftForm_transaction_uuid='" + ftuuid + "' and ffpForm_id='" + ffpForm_id + "' and ffpUI_control_id=" + ffpUI_control_id + " and ffpUI_control_type=" + ffpUI_control_type + " and ffpPosition=" + ffpPosition + " and ffpScreen_no=" + ffpScreen_no;
+                            Cursor curData = db.fetch(DataBase.custom_form_fields_data_table, DataBase.custom_form_fields_data_int, where);
+                            if (curData != null && curData.getCount() > 0) {
+                                curData.moveToFirst();
+                                fftData = curData.getString(7);
+                            }
+                            curData.close();
+                            arrClientCustomFormField.add(new ClientCustomFormField(ffpUI_control_id, ffpUI_control_type, ffpPosition, ffpScreen_no, ffpForm_id, ffpUI_control_validation, ffpUI_control_style, ffpUI_control_given_name, ffpUI_control_default_data_1, ffpUI_control_default_data_2, fftData, form_prototype_id));
+                        } while (curField.moveToNext());
+                    }
+                    curField.close();
+                    arrClientCustomForm.add(new ClientCustomForm(ftForm_transaction_uuid, ftForm_id, ftIs_mandatory, ftRef_id, ftIs_submitted, ftIs_showing_to_cust, fpForm_name, fpForm_description, fpForm_category, fbBiz_name, fpForm_status, formLocalStatus, arrClientCustomFormField, ftRefType));
+                } while (curForms.moveToNext());
+            }
+            curForms.close();
+            db.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return arrClientCustomForm;
     }
 }

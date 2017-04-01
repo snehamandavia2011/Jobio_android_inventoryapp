@@ -71,7 +71,7 @@
     <string name="strIssueDescription">Issue Description</string>
     <string name="strSuggestionDescription">Suggestion Description</string>
     <string name="strLogFileReady">LOGS FILE READY</string>
-    <string name="strMastercleanMessage">Master clean shall remove all your personal and transactional data. Are you sure to clean data?</string>
+    <string name="strMastercleanMessage">You are about to delete all data from this app, Are you sure want to do this?</string>
     <string name="strConfirm">Confirm</string>
     <string name="msgNoCrewMember">NO CREW MEMBER</string>
     <string name="msgTypeMessage">Type a messsage</string>
@@ -95,7 +95,7 @@
     <string name="title_activity_ac_asset">acAsset</string>
     <string name="title_activity_ac_setting">acSetting</string>
     <string name="title_activity_ac_sync">acSync</string>
-    <string name="msgLogoutConfirmation">Are you sure, you want to logout from an application?</string>
+    <string name="msgLogoutConfirmation">Are you sure you want to logout?</string>
     <string name="title_activity_ac_qrcode_scanner">acQRCodeScanner</string>
     <string name="title_activity_ac_manual_qrcode">acManualQRCode</string>
     <string name="strVersion">Version</string>
@@ -287,5 +287,29 @@
     <string name="strSelectToType">Select To Type</string>
     <string name="strSearchParty">Search party by</string>
     <string name="strFoundWith">found with</string>
+
+    <string name="msgEnterCaptionName">Add photo caption</string>
+    <string name="msgCaptureImage">Capture Image</string>
+    <string name="strSkip">Skip</string>
+    <string name="strSubmit">Submit</string>
+    <string name="msgNoForm">NO FORM</string>
+    <string name="msgFormNotSubmitted">forms not submitted.</string>
+    <string name="msgYouCanNotAddMoreThanFiveImage">You can not add more than five image.</string>
+    <string name="msgTakeMultiplePhoto">Take multiple photos.</string>
+    <string name="msgEnterMultipleRecords">Enter multiple records.</string>
+    <string name="msgAddPhoto">Add photo for </string>
+    <string name="msgAddRecord">Add record for </string>
+    <string name="msgNoPhoto">No Photo</string>
+    <string name="msgNoRecord">NO RECORD</string>
+    <string name="strNoSignature">No Signature</string>
+    <string name="strUnableToFetchLocation">Unable to fetch location.</string>
+    <string name="msgDelete">Are you sure you want to delete this item?</string>
+    <string name="msgEnterAtleastOneRecord">Enter atleast one record.</string>
+    <string name="strSignatoryName">Signatory Name</string>
+    <string name="strEnterSignatoryDetail">Enter Signatory Detail</string>
+    <string name="strEnterSignature">Enter Signature</string>
+    <string name="strDraft">Draft</string>
+    <string name="strContactNumberLength">Please enter at least 10 characters.</string>
+    <string name="msgGiveSignature">Please give a signature.</string>
 </resources>
 

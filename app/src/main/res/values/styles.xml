@@ -3,6 +3,11 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"></style>
 
+    <style name="AppThemeDarkGrey" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/darkgreyX</item>
+        <item name="colorAccent">@color/darkgreyX</item>
+    </style>
+
     <style name="AppThemeWhiteNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorControlNormal">@color/white</item>
         <item name="colorAccent">@color/white</item>
@@ -321,6 +326,28 @@
     <style name="fab_menu_labels_style">
         <item name="android:background">@drawable/fab_label_background</item>
         <item name="android:textColor">@color/fab_white</item>
+    </style>
+
+    <style name="singlelineeditTextDarkGrey">
+        <item name="android:textColor">@color/darkgreyX</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="stySpinnerDialogStyle" parent="android:Widget.ListView.DropDown">
+        <item name="android:divider">@color/tilt</item>
+        <item name="android:dividerHeight">1dp</item>
+    </style>
+
+    <style name="stySpnDialogStyle">
+        <item name="android:dropDownListViewStyle">@style/stySpinnerDialogStyle</item>
+    </style>
+
+    <style name="stySpinnerStyleDatkGreyX">
+        <item name="android:textColor">@color/darkgreyX</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

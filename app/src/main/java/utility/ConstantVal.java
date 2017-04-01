@@ -53,6 +53,8 @@ public class ConstantVal {
     public static final int FROM_USER_SELECTION_REQUEST = 16;
     public static final int TO_USER_SELECTION_REQUEST = 17;
     public static final int FROM_TO_USER_SELECTION_RESPONSE = 18;
+    public static final int REQUEST_TO_START_CAMERA_ACTIVITY_FOR_PHOTO_SINGLE_FIELD = 101;
+    public static final int REQUEST_TO_START_CAMERA_ACTIVITY_FOR_PHOTO_MULTIPLE_FIELD = 102;
 
     public static class NotificationType {
         public static final String ADD_SERVICE_TRANSACTION = "ADD_SERVICE_TRANSACTION";
@@ -163,6 +165,24 @@ public class ConstantVal {
                     return ctx.getString(R.string.strPending);
                 case DONE:
                     return ctx.getString(R.string.strDone);
+            }
+            return "";
+        }
+    }
+
+    public static class FormStatus {
+        public static final int PENGING = 0;
+        public static final int DRAFT = 1;
+        public static final int SUBMIT = 2;
+
+        public static String getStatusName(Context ctx, int status) {
+            switch (status) {
+                case PENGING:
+                    return ctx.getString(R.string.strPending);
+                case DRAFT:
+                    return ctx.getString(R.string.strDraft);
+                case SUBMIT:
+                    return ctx.getString(R.string.strSubmit);
             }
             return "";
         }
@@ -472,4 +492,19 @@ public class ConstantVal {
         String URL = getWebURLPrefix(QRCode) + "managemessage/updateChatWindowUser";
         return new URLMapping(paramName, URL, true);
     }
+
+    public static URLMapping submitForm(Context c) {
+        String[] paramName = {"data", "token_id", "form_transaction_uuid", "form_id", "account_id", "user_id", "date", "time"};
+        String QRCode = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(QRCode) + "getjoblist/submitForm";
+        return new URLMapping(paramName, URL, true);
+    }
+
+    public static URLMapping uploadFormImage(Context c) {
+        String[] paramName = {"token_id", "form_transaction_uuid", "form_id", "account_id", "uuid", "img_base64", "user_id", "date", "time"};
+        String QRCode = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(QRCode) + "getjoblist/uploadFormImage";
+        return new URLMapping(paramName, URL, true);
+    }
+
 }
