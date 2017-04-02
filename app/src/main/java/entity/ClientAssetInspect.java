@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import utility.DataBase;
+import utility.Helper;
 import utility.Logger;
 
 /**
@@ -21,6 +22,7 @@ public class ClientAssetInspect {
             amAsset_status, amCustom_field_1, amCustom_field_2, amCustom_field_3, amCustom_field_4, amCustom_field_5;
     Date aitAssignedDate, aitDateTime, amDate_acquired, amDate_soon, amDate_expired, amNext_service_date, amNext_inspection_date;
     int viewStatus;
+    ArrayList<ClientCustomForm> arrClientCustomForm;
 
     public void display() {
         Logger.debug(aitName);
@@ -75,7 +77,7 @@ public class ClientAssetInspect {
                               Date amDate_expired, String amAsset_location, String amService_period, String amIs_schedule_service_on,
                               String amService_aasigned_employee, String amInspection_period, String amIs_schedule_inspection_on,
                               String amInspection_aasigned_employee, Date amNext_service_date, Date amNext_inspection_date, String amAsset_status, String amCustom_field_1,
-                              String amCustom_field_2, String amCustom_field_3, String amCustom_field_4, String amCustom_field_5, int viewStatus) {
+                              String amCustom_field_2, String amCustom_field_3, String amCustom_field_4, String amCustom_field_5, int viewStatus, ArrayList<ClientCustomForm> arrClientCustomForm) {
         this.aitId = aitId;
         this.aitName = aitName;
         this.aitAssetId = aitAssetId;
@@ -117,6 +119,7 @@ public class ClientAssetInspect {
         this.amNext_service_date = amNext_service_date;
         this.amNext_inspection_date = amNext_inspection_date;
         this.viewStatus = viewStatus;
+        this.arrClientCustomForm = arrClientCustomForm;
     }
 
     public String getAitName() {
@@ -448,6 +451,14 @@ public class ClientAssetInspect {
         this.aitId = aitId;
     }
 
+    public ArrayList<ClientCustomForm> getArrClientCustomForm() {
+        return arrClientCustomForm;
+    }
+
+    public void setArrClientCustomForm(ArrayList<ClientCustomForm> arrClientCustomForm) {
+        this.arrClientCustomForm = arrClientCustomForm;
+    }
+
     public static ArrayList<ClientAssetInspect> getDataFromDatabase(Context mContext, String aitID) {
         ArrayList<ClientAssetInspect> arrClientAsset = null;
         DataBase db = new DataBase(mContext);
@@ -476,7 +487,7 @@ public class ClientAssetInspect {
                         new Date(cur.getLong(25)), cur.getString(26), cur.getString(27), cur.getString(28),
                         cur.getString(29), cur.getString(30), cur.getString(31),
                         cur.getString(32), new Date(cur.getLong(33)), new Date(cur.getLong(34)), cur.getString(35), cur.getString(36),
-                        cur.getString(37), cur.getString(38), cur.getString(39), cur.getString(40), viewStatus));
+                        cur.getString(37), cur.getString(38), cur.getString(39), cur.getString(40), viewStatus, new Helper().getFormFromDatabase(cur.getString(3), "I", mContext)));
             } while (cur.moveToNext());
         }
         cur.close();

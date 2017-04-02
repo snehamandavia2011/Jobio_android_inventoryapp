@@ -1,5 +1,6 @@
 package com.lab360io.jobio.officeApp;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -15,6 +16,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +26,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -40,9 +44,11 @@ import java.util.Date;
 import entity.BusinessAccountdbDetail;
 import entity.ClientAssetInspect;
 import entity.ClientAssetInspectServiceStatus;
+import entity.ClientCustomForm;
 import entity.ClientRegional;
 import io.fabric.sdk.android.services.concurrency.AsyncTask;
 import me.zhanghai.android.materialedittext.MaterialEditText;
+import permission.CameraPermission;
 import utility.ConstantVal;
 import utility.DataBase;
 import utility.Helper;
@@ -52,6 +58,7 @@ import utility.ServerResponse;
 import utility.URLMapping;
 
 public class acInspectTransaction extends AppCompatActivity {
+    LinearLayout lyForm;
     ArrayList<ClientAssetInspectServiceStatus> arrClientAssetInspectServiceStatus = new ArrayList<>();
     ClientAssetInspect objClientAssetInspect = new ClientAssetInspect();
     boolean isDataEntedProperly = true;
@@ -81,9 +88,13 @@ public class acInspectTransaction extends AppCompatActivity {
         dateFormat = new SimpleDateFormat(Helper.getStringPreference(mContext, ClientRegional.Fields.DATE_FORMAT, ConstantVal.DEVICE_DEFAULT_DATE_FORMAT));
         timeFormate = new SimpleDateFormat(Helper.getStringPreference(mContext, ClientRegional.Fields.TIME_FORMAT, ConstantVal.DEVICE_DEFAULT_TIME_FORMAT));
         Logger.debug(Helper.getStringPreference(mContext, ClientRegional.Fields.TIME_FORMAT, ConstantVal.DEVICE_DEFAULT_TIME_FORMAT));
-        setData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setData();
+    }
 
     private void setData() {
         new AsyncTask() {
@@ -103,6 +114,7 @@ public class acInspectTransaction extends AppCompatActivity {
                 spnStatus = (Spinner) findViewById(R.id.spnStatus);
                 btnSave = (Button) findViewById(R.id.btnSave);
                 btnCancel = (Button) findViewById(R.id.btnCancel);
+                lyForm = (LinearLayout) findViewById(R.id.lyForm);
                 btnCancel.setOnClickListener(handleClick);
                 btnSave.setOnClickListener(handleClick);
                 edInspectionDate.setOnClickListener(handleClick);
@@ -145,8 +157,86 @@ public class acInspectTransaction extends AppCompatActivity {
                 txtAssignedTo.setText(assignedT0EmpName);
                 edInspectionDate.setText(dateFormat.format(calInspectionDate.getTime()));
                 edInspectionTime.setText(timeFormate.format(calInspectionDate.getTime()));
+                lyForm.removeAllViews();
+                for (ClientCustomForm obj : objClientAssetInspect.getArrClientCustomForm()) {
+                    lyForm.addView(addFormItemToLayout(obj));
+                }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private View addFormItemToLayout(final ClientCustomForm objClientCustomForm) {
+        LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        View convertView = DataBindingUtil.inflate(mInflater, R.layout.form_list_item, null, true).getRoot();
+        TextView txtFormName = (TextView) convertView.findViewById(R.id.txtFormName);
+        TextView txtFormDesc = (TextView) convertView.findViewById(R.id.txtFormDesc);
+        TextView txtIsMandatory = (TextView) convertView.findViewById(R.id.txtIsMandatory);
+        TextView txtBusinessName = (TextView) convertView.findViewById(R.id.txtBusinessName);
+        TextView txtStatus = (TextView) convertView.findViewById(R.id.txtStatus);
+        RelativeLayout ly = (RelativeLayout) convertView.findViewById(R.id.lyNext);
+        txtFormDesc.setSelected(true);
+        txtFormName.setText(objClientCustomForm.getFpForm_name());
+        txtBusinessName.setText(objClientCustomForm.getFbBiz_name());
+        txtFormDesc.setText(objClientCustomForm.getFpForm_description());
+        txtStatus.setText(ConstantVal.FormStatus.getStatusName(mContext, objClientCustomForm.getFormLocalStatus()).toUpperCase());
+        if (objClientCustomForm.getFormLocalStatus() == ConstantVal.FormStatus.PENGING) {
+            txtStatus.setTextAppearance(mContext, R.style.styDescSmallRed);
+        }
+        if (objClientCustomForm.getFtIs_mandatory().equals("Y")) {
+            txtIsMandatory.setText(" *");
+            txtIsMandatory.setVisibility(View.VISIBLE);
+        } else {
+            txtIsMandatory.setVisibility(View.GONE);
+        }
+        ly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                new android.os.AsyncTask() {
+
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                        CameraPermission objCameraPermission = new CameraPermission((AppCompatActivity) mContext);
+                        if (!objCameraPermission.isHavePermission()) {
+                            objCameraPermission.askForPermission();
+                            return;
+                        }
+                        String whereFormView = "ftForm_transaction_uuid='" + objClientCustomForm.getForm_transaction_uuid() + "' and ffpForm_id='" + objClientCustomForm.getFtForm_id() + "'";
+                        DataBase db = new DataBase(mContext);
+                        db.open();
+                        Cursor curIsFormView = db.fetch(DataBase.custom_form_view_table, DataBase.custom_form_view_int, whereFormView);
+                        String status = "N";
+                        if (curIsFormView != null && curIsFormView.getCount() != 0) {
+                            if (curIsFormView.getInt(3) == ConstantVal.FormStatus.SUBMIT) {
+                                status = "Y";
+                            } else {
+                                status = "N";
+                            }
+                        }
+                        curIsFormView.close();
+                        db.close();
+                        Intent i = new Intent(mContext, acFormFields.class);
+                        i.putExtra("ref_id", objClientCustomForm.getFtRef_id());//job_id
+                        i.putExtra("isFormSubmitted", status);
+                        i.putExtra("formId", objClientCustomForm.getFtForm_id());
+                        i.putExtra("formName", objClientCustomForm.getFpForm_name());
+                        i.putExtra("form_transaction_id", objClientCustomForm.getForm_transaction_uuid());
+                        ((AppCompatActivity) mContext).startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
+                    }
+
+                    @Override
+                    protected Object doInBackground(Object[] params) {
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Object o) {
+                        super.onPostExecute(o);
+                    }
+                }.executeOnExecutor(android.os.AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+        });
+        return convertView;
     }
 
     View.OnClickListener handleClick = new View.OnClickListener() {
@@ -157,7 +247,7 @@ public class acInspectTransaction extends AppCompatActivity {
                     final Dialog dp = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                            if(view.isShown()) {
+                            if (view.isShown()) {
                                 view.setMinDate(dtCurrentDate.getTime());
                                 calInspectionDate.set(Calendar.YEAR, year);
                                 calInspectionDate.set(Calendar.MONTH, monthOfYear);
@@ -251,8 +341,8 @@ public class acInspectTransaction extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                if(!new HttpEngine().isNetworkAvailable(mContext)){
-                    Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet),ConstantVal.ToastBGColor.INFO).setCallback(new TSnackbar.Callback() {
+                if (!new HttpEngine().isNetworkAvailable(mContext)) {
+                    Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet), ConstantVal.ToastBGColor.INFO).setCallback(new TSnackbar.Callback() {
                         @Override
                         public void onDismissed(TSnackbar snackbar, int event) {
                             super.onDismissed(snackbar, event);
@@ -260,7 +350,7 @@ public class acInspectTransaction extends AppCompatActivity {
                             ((AppCompatActivity) mContext).finish();
                         }
                     });
-                }else{
+                } else {
                     ((AppCompatActivity) mContext).finish();
                 }
             }

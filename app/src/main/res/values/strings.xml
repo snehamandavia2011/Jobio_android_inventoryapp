@@ -291,6 +291,7 @@
     <string name="msgEnterCaptionName">Add photo caption</string>
     <string name="msgCaptureImage">Capture Image</string>
     <string name="strSkip">Skip</string>
+    <string name="strForm">Form(s)</string>
     <string name="strSubmit">Submit</string>
     <string name="msgNoForm">NO FORM</string>
     <string name="msgFormNotSubmitted">forms not submitted.</string>

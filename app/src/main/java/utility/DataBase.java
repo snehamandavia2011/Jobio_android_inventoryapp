@@ -109,15 +109,15 @@ public class DataBase {
     public static final int UI_control_int = 15;
     public static final String UI_Control_Type = "UIControlType";
     public static final int UI_control_type_int = 16;
-    public static final String custom_form_table = "jobForm";
+    public static final String custom_form_table = "CustomForm";
     public static final int custom_form_int = 17;
-    public static final String custom_form_fields_table = "jobFormFields";
+    public static final String custom_form_fields_table = "CustomFormFields";
     public static final int custom_form_fields_int = 18;
-    public static final String custom_form_view_table = "jobFormView";
+    public static final String custom_form_view_table = "CustomFormView";
     public static final int custom_form_view_int = 19;
-    public static final String custom_form_fields_data_table = "jobFormFieldsData";
+    public static final String custom_form_fields_data_table = "CustomFormFieldsData";
     public static final int custom_form_fields_data_int = 20;
-    public static final String custom_form_photo_data_table = "jobFormPhotoData";
+    public static final String custom_form_photo_data_table = "CustomFormPhotoData";
     public static final int custom_form_photo_data_int = 21;
 
 
@@ -157,7 +157,7 @@ public class DataBase {
             {"localPKModuleId", "serverPKModuleId", "moduleName", "access"}, {"_ID", "id", "status_name"},
             {"_ID", "id", "control_name", "parent"}, {"_ID", "id", "ui_control_id", "type_name", "ui_size", "ui_data_default_input"},
             {"_ID", "ftForm_transaction_uuid", "ftForm_id", "ftIs_mandatory", "ftRef_id", "ftIs_submitted",
-                    "ftIs_showing_to_cust", "fpForm_name", "fpForm_description", "fpForm_category", "fbBiz_name", "fpForm_status","ftRefType"},
+                    "ftIs_showing_to_cust", "fpForm_name", "fpForm_description", "fpForm_category", "fbBiz_name", "fpForm_status", "ftRefType"},
             {"_ID", "ftForm_transaction_uuid", "ffpForm_id", "ffpUI_control_id", "ffpUI_control_type", "ffpUI_control_validation", "ffpUI_control_style", "ffpUI_control_given_name",
                     "ffpUI_control_default_data_1", "ffpUI_control_default_data_2", "ffpPosition", "ffpScreen_no", "form_prototype_uuid"},
             {"_ID", "ftForm_transaction_uuid", "ffpForm_id", "status"},
@@ -377,6 +377,17 @@ public class DataBase {
         sqLiteDb.delete(UI_Control_Type, null, null);
         sqLiteDb.delete(custom_form_table, null, null);
         sqLiteDb.delete(custom_form_fields_table, null, null);
+    }
+
+    public void cleanTable(int tableNo, String where) {
+        switch (tableNo) {
+            case custom_form_int:
+                sqLiteDb.delete(custom_form_table, where, null);
+                break;
+            case custom_form_fields_int:
+                sqLiteDb.delete(custom_form_fields_table, where, null);
+                break;
+        }
     }
 
     public void cleanTable(int tableNo) {

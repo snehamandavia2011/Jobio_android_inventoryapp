@@ -295,6 +295,7 @@ public class RippleDecoratorView extends RelativeLayout {
             if (mRippleAnimationDuration <= deltaMilliseconds) {
                 mIsAnimationRunning = false;
                 mCurrentFrame = 0;
+                canvas.save();
                 canvas.restore();
                 mAnimationStartNanoTime = 0;
                 invalidate();

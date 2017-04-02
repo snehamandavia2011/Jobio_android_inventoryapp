@@ -10,6 +10,7 @@ import java.util.Date;
 import entity.ClientAsset;
 import entity.ClientAssetInspect;
 import entity.ClientAssetOwner;
+import entity.ClientCustomForm;
 import utility.ConstantVal;
 import utility.Helper;
 
@@ -61,13 +62,14 @@ public class parseInspect {
                 String custom_field_3 = (obj.getString("custom_field_3").equals("null") ? "" : obj.getString("custom_field_3"));
                 String custom_field_4 = (obj.getString("custom_field_4").equals("null") ? "" : obj.getString("custom_field_4"));
                 String custom_field_5 = (obj.getString("custom_field_5").equals("null") ? "" : obj.getString("custom_field_5"));
+                ArrayList<ClientCustomForm> arrClientCustomForm = new ClientCustomForm().parseJSON(jArray.getJSONObject(i));
                 ClientAssetInspect objClientAssetInspect = new ClientAssetInspect(id, name, asset_id, asset_name, asset_barcode, assigned_to,
                         assigned_date, is_present, date_time, note, null,
                         status_id, category_name, asset_name, description, model_name, manufacturer_name, serial_no, barcode_no,
                         date_acquired, date_soon, purchase_cost, purchase_from, current_value, date_expired, asset_location,
                         service_period, is_schedule_service_on, service_aasigned_employee, inspection_period, is_schedule_inspection_on,
                         inspection_aasigned_employee, next_service_date, next_inspection_date, asset_status, custom_field_1, custom_field_2,
-                        custom_field_3, custom_field_4, custom_field_5, -1);
+                        custom_field_3, custom_field_4, custom_field_5, -1, arrClientCustomForm);
                 arr.add(objClientAssetInspect);
             } catch (Exception e) {
             }

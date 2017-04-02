@@ -23,6 +23,7 @@ import utility.ConstantVal;
 import utility.DataBase;
 import utility.Helper;
 import utility.HttpEngine;
+import utility.Logger;
 import utility.ServerResponse;
 import utility.URLMapping;
 
@@ -58,8 +59,6 @@ public class asyncAsset {
                 DataBase db = new DataBase(ctx);
                 db.open();
                 db.cleanTable(DataBase.service_int);
-                db.cleanTable(DataBase.custom_form_int);
-                db.cleanTable(DataBase.custom_form_fields_int);
                 for (ClientAssetService obj : arrServerdata) {
                     String data[] = {obj.getAstId(), obj.getAstName(), obj.getAstAssetId(), obj.getAstAsset_name(),
                             obj.getAstAssetBarcode(), obj.getAstServiceFirmName(), obj.getAstAssignedTo(), String.valueOf(obj.getAstAssignedDate().getTime()), obj.getAstPerformedBy(),
@@ -86,36 +85,7 @@ public class asyncAsset {
                         db.insert(DataBase.service_view_table, DataBase.service_view_int, new String[]{obj.getAstId(), status});
                     }
                     curIsVied.close();
-
-                    for (ClientCustomForm obj1 : obj.getArrClientCustomForm()) {
-                        String[] arrClientJobForm = {obj1.getForm_transaction_uuid(), obj1.getFtForm_id(), obj1.getFtIs_mandatory(), obj1.getFtRef_id(),
-                                obj1.getFtIs_submitted(), obj1.getFtIs_showing_to_cust(), obj1.getFpForm_name(), obj1.getFpForm_description(),
-                                obj1.getFpForm_category(), obj1.getFbBiz_name(), obj1.getFpForm_status()};
-                        db.insert(DataBase.custom_form_table, DataBase.custom_form_int, arrClientJobForm);
-
-                        String whereFormView = "ftForm_transaction_uuid='" + obj1.getForm_transaction_uuid() + "' and ffpForm_id='" + obj1.getFtForm_id() + "'";
-                        db.insert(DataBase.custom_form_view_table, DataBase.custom_form_view_int, new String[]{obj1.getForm_transaction_uuid(), obj1.getFtForm_id(), String.valueOf(ConstantVal.FormStatus.PENGING)});
-
-                        ArrayList<ClientCustomFormField> arrClientCustomFormField = obj1.getArrClientCustomFormField();
-                        for (ClientCustomFormField objClientCustomFormField : arrClientCustomFormField) {
-                            String[] fields = {obj1.getForm_transaction_uuid(), objClientCustomFormField.getFrom_Id(),
-                                    String.valueOf(objClientCustomFormField.getUi_control_id()),
-                                    String.valueOf(objClientCustomFormField.getUi_control_type()), objClientCustomFormField.getUi_control_validation(),
-                                    objClientCustomFormField.getUi_control_style(), objClientCustomFormField.getUi_control_given_name(),
-                                    objClientCustomFormField.getUi_control_default_data_1(), objClientCustomFormField.getUi_control_default_data_2(),
-                                    String.valueOf(objClientCustomFormField.getPosition()), String.valueOf(objClientCustomFormField.getScreen_no()), objClientCustomFormField.getForm_prototype_id()};
-                            db.insert(DataBase.custom_form_fields_table, DataBase.custom_form_fields_int, fields);
-                            String whereForm = "ftForm_transaction_uuid='" + obj1.getForm_transaction_uuid() + "' and ffpForm_id='" + objClientCustomFormField.getFrom_Id() + "' and ffpPosition=" + objClientCustomFormField.getPosition() + " and ffpScreen_no=" + objClientCustomFormField.getScreen_no();
-                            Cursor curData = db.fetch(DataBase.custom_form_fields_data_table, DataBase.custom_form_fields_data_int, whereForm);
-                            if (curData != null && curData.getCount() > 0) {
-                            } else {
-                                db.insert(DataBase.custom_form_fields_data_table, DataBase.custom_form_fields_data_int, new String[]{obj1.getForm_transaction_uuid(),
-                                        objClientCustomFormField.getFrom_Id(), String.valueOf(objClientCustomFormField.getUi_control_id()),
-                                        String.valueOf(objClientCustomFormField.getUi_control_type()), String.valueOf(objClientCustomFormField.getPosition()), String.valueOf(objClientCustomFormField.getScreen_no()),
-                                        "", objClientCustomFormField.getForm_prototype_id()});
-                            }
-                        }
-                    }
+                    insertClientJobForm(obj.getArrClientCustomForm(), "S", ctx);
                 }
                 db.close();
                 Intent intent = new Intent();
@@ -159,6 +129,7 @@ public class asyncAsset {
                         db.insert(DataBase.inspect_view_table, DataBase.inspect_view_int, new String[]{obj.getAitId(), status});
                     }
                     curIsVied.close();
+                    insertClientJobForm(obj.getArrClientCustomForm(), "I", ctx);
                 }
                 db.close();
                 Intent intent = new Intent();
@@ -283,5 +254,55 @@ public class asyncAsset {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private void insertClientJobForm(ArrayList<ClientCustomForm> arr, String refType, Context ctx) {
+        DataBase db = new DataBase(ctx);
+        db.open();
+        Cursor curForm = db.fetch(DataBase.custom_form_table, DataBase.custom_form_int, "ftRefType='" + refType + "'");
+        if (curForm != null && curForm.getCount() > 0) {
+            curForm.moveToFirst();
+            do {
+                String ftForm_transaction_uuid = curForm.getString(1);
+                String ftForm_id = curForm.getString(2);
+                db.cleanTable(DataBase.custom_form_int, "ftRefType='" + refType + "'");
+                db.cleanTable(DataBase.custom_form_fields_int, "ftForm_transaction_uuid='" + ftForm_transaction_uuid + "' and ffpForm_id='" + ftForm_id + "'");
+            } while (curForm.moveToNext());
+        }
+        curForm.close();
+        for (ClientCustomForm obj1 : arr) {
+            String[] arrClientJobForm = {obj1.getForm_transaction_uuid(), obj1.getFtForm_id(), obj1.getFtIs_mandatory(), obj1.getFtRef_id(),
+                    obj1.getFtIs_submitted(), obj1.getFtIs_showing_to_cust(), obj1.getFpForm_name(), obj1.getFpForm_description(),
+                    obj1.getFpForm_category(), obj1.getFbBiz_name(), obj1.getFpForm_status(), obj1.getFpRef_type()};
+            db.insert(DataBase.custom_form_table, DataBase.custom_form_int, arrClientJobForm);
+
+            String whereFormView = "ftForm_transaction_uuid='" + obj1.getForm_transaction_uuid() + "' and ffpForm_id='" + obj1.getFtForm_id() + "'";
+            Cursor curIsFormView = db.fetch(DataBase.custom_form_view_table, DataBase.custom_form_view_int, whereFormView);
+            if (curIsFormView != null && curIsFormView.getCount() == 0) {
+                db.insert(DataBase.custom_form_view_table, DataBase.custom_form_view_int, new String[]{obj1.getForm_transaction_uuid(), obj1.getFtForm_id(), String.valueOf(ConstantVal.FormStatus.PENGING)});
+            }
+            curIsFormView.close();
+
+            ArrayList<ClientCustomFormField> arrClientCustomFormField = obj1.getArrClientCustomFormField();
+            for (ClientCustomFormField objClientCustomFormField : arrClientCustomFormField) {
+                String[] fields = {obj1.getForm_transaction_uuid(), objClientCustomFormField.getFrom_Id(),
+                        String.valueOf(objClientCustomFormField.getUi_control_id()),
+                        String.valueOf(objClientCustomFormField.getUi_control_type()), objClientCustomFormField.getUi_control_validation(),
+                        objClientCustomFormField.getUi_control_style(), objClientCustomFormField.getUi_control_given_name(),
+                        objClientCustomFormField.getUi_control_default_data_1(), objClientCustomFormField.getUi_control_default_data_2(),
+                        String.valueOf(objClientCustomFormField.getPosition()), String.valueOf(objClientCustomFormField.getScreen_no()), objClientCustomFormField.getForm_prototype_id()};
+                db.insert(DataBase.custom_form_fields_table, DataBase.custom_form_fields_int, fields);
+                String whereForm = "ftForm_transaction_uuid='" + obj1.getForm_transaction_uuid() + "' and ffpForm_id='" + objClientCustomFormField.getFrom_Id() + "' and ffpPosition=" + objClientCustomFormField.getPosition() + " and ffpScreen_no=" + objClientCustomFormField.getScreen_no();
+                Cursor curData = db.fetch(DataBase.custom_form_fields_data_table, DataBase.custom_form_fields_data_int, whereForm);
+                if (curData != null && curData.getCount() > 0) {
+                } else {
+                    db.insert(DataBase.custom_form_fields_data_table, DataBase.custom_form_fields_data_int, new String[]{obj1.getForm_transaction_uuid(),
+                            objClientCustomFormField.getFrom_Id(), String.valueOf(objClientCustomFormField.getUi_control_id()),
+                            String.valueOf(objClientCustomFormField.getUi_control_type()), String.valueOf(objClientCustomFormField.getPosition()), String.valueOf(objClientCustomFormField.getScreen_no()),
+                            "", objClientCustomFormField.getForm_prototype_id()});
+                }
+            }
+        }
+        db.close();
     }
 }

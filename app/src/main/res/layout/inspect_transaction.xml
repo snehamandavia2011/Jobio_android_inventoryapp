@@ -252,6 +252,30 @@
                             app:font="@{`Ubuntu-L`}" />
                     </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ViewMarginBig"
+                        android:background="@color/tilt"
+                        android:orientation="vertical"
+                        android:padding="@dimen/listViewDividerHeight">
+
+                        <TextView
+                            style="@style/stySubTitleWhite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/ViewMargin"
+                            android:text="@string/strForm"
+                            app:font="@{`Ubuntu-M`}" />
+
+                        <LinearLayout
+                            android:id="@+id/lyForm"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:orientation="vertical"></LinearLayout>
+                    </LinearLayout>
+
                     <TextView
                         style="@style/stySubTitleTile"
                         android:layout_width="match_parent"
@@ -269,8 +293,8 @@
                         <RelativeLayout
                             android:layout_width="@dimen/imageHeightOrWidth"
                             android:layout_height="@dimen/imageHeightOrWidth"
-                            android:background="@color/white"
-                            android:layout_margin="1dp">
+                            android:layout_margin="1dp"
+                            android:background="@color/white">
 
                             <ImageView
                                 android:id="@+id/imgPicture"

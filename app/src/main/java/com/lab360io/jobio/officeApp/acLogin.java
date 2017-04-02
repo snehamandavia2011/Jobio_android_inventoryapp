@@ -51,6 +51,7 @@ import entity.ClientLoginUser;
 import entity.MyLocation;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import parser.parsQRCodeAndLoginDetail;
+import permission.LocationPermission;
 import utility.ConstantVal;
 import utility.DotProgressBar;
 import utility.GPSTracker;
@@ -77,6 +78,7 @@ public class acLogin extends AppCompatActivity {
     Helper objHelper = new Helper();
     DotProgressBar dotProgressBar;
     TextView txtCopyRight;
+    LocationPermission objLocationPermission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,10 @@ public class acLogin extends AppCompatActivity {
         rippleForgotPassword = (RippleDecoratorView) findViewById(R.id.rippleForgotPassword);
         txtCopyRight = (TextView) findViewById(R.id.txtCopyRight);
         txtCopyRight.setText(txtCopyRight.getText() + " [" + getString(R.string.strVersion) + ":" + BuildConfig.VERSION_NAME + "]");
+        objLocationPermission=new LocationPermission(ac);
+        if (!objLocationPermission.isHavePermission()) {
+            objLocationPermission.askForPermission();
+        }
         new Thread() {
             public void run() {
                 handler.post(new Runnable() {
@@ -174,6 +180,10 @@ public class acLogin extends AppCompatActivity {
                 /*Intent i = new Intent(mContext, acHome.class);
                 startActivity(i);
                 finish();*/
+                if (!objLocationPermission.isHavePermission()) {
+                    objLocationPermission.askForPermission();
+                    return;
+                }
                 boolean isDataEntedProperly = true;
                 if (Helper.isFieldBlank(edUserName.getText().toString())) {
                     edUserName.setError(getString(R.string.strEnterEmailId));

@@ -506,5 +506,24 @@ public class ConstantVal {
         String URL = getWebURLPrefix(QRCode) + "getjoblist/uploadFormImage";
         return new URLMapping(paramName, URL, true);
     }
+    public static URLMapping getUIFormStatus(Context c) {
+        String[] paramNames = {"token_id", "account_id"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "getcommondata/getFormStatus";
+        return new URLMapping(paramNames, URL, false);
+    }
 
+    public static URLMapping getUIControl(Context c) {
+        String[] paramNames = {"token_id", "account_id"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "getcommondata/getUIControl";
+        return new URLMapping(paramNames, URL, false);
+    }
+
+    public static URLMapping getUIControlType(Context c) {
+        String[] paramNames = {"token_id", "account_id"};
+        String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
+        String URL = getWebURLPrefix(subDomain) + "getcommondata/getUIControlType";
+        return new URLMapping(paramNames, URL, false);
+    }
 }

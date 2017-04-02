@@ -1525,7 +1525,7 @@ public class Helper {
         try {
             DataBase db = new DataBase(mContext);
             db.open();
-            Cursor curForms = db.fetch(DataBase.custom_form_table, DataBase.custom_form_int, "ftRef_id='" + strAssetID + "'");
+            Cursor curForms = db.fetch(DataBase.custom_form_table, DataBase.custom_form_int, "ftRef_id='" + strAssetID + "' and ftRefType='" + ref_type + "'");
             if (curForms != null && curForms.getCount() > 0) {
                 curForms.moveToFirst();
                 do {
@@ -1542,7 +1542,7 @@ public class Helper {
                     String fpForm_status = curForms.getString(11);
                     String ftRefType = curForms.getString(12);
                     int formLocalStatus = 1;
-                    Cursor curFormView = db.fetch(DataBase.custom_form_view_table, "ftForm_transaction_uuid='" + ftForm_transaction_uuid + "' and ffpForm_id='" + ftForm_id + "' and ftRefType='" + ref_type + "'");
+                    Cursor curFormView = db.fetch(DataBase.custom_form_view_table, "ftForm_transaction_uuid='" + ftForm_transaction_uuid + "' and ffpForm_id='" + ftForm_id + "'");
                     if (curFormView != null && curFormView.getCount() > 0) {
                         curFormView.moveToFirst();
                         formLocalStatus = curFormView.getInt(3);
