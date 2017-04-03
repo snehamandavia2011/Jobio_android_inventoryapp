@@ -8,243 +8,251 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/tilt"
-        android:orientation="vertical"
-        android:padding="@dimen/ViewPadding">
+        android:orientation="vertical">
+
+        <include layout="@layout/my_toolbar"></include>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/ViewMargin"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:padding="@dimen/ViewPaddingBig">
-
-            <TextView
-                style="@style/stySubTitleTile"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:text="@string/strNetwork"
-                app:font="@{`Ubuntu-C`}" />
+            android:layout_height="match_parent"
+            android:background="@color/tilt"
+            android:orientation="vertical"
+            android:padding="@dimen/ViewPadding">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/imgNetworkState"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_network_high_connection" />
+                android:layout_marginBottom="@dimen/ViewMargin"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/ViewPaddingBig">
 
                 <TextView
-                    android:id="@+id/txtNetworkState"
                     style="@style/stySubTitleTile"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/ViewMargin"
+                    android:layout_weight="1"
                     android:gravity="left"
-                    android:text="@string/strConnected"
+                    android:text="@string/strNetwork"
                     app:font="@{`Ubuntu-C`}" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/ViewMargin"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:padding="@dimen/ViewPaddingBig">
-
-            <TextView
-                android:id="@+id/lblSyncser"
-                style="@style/stySubTitleTile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="@string/strSyncService"
-                app:font="@{`Ubuntu-C`}" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/lblSyncser"
-                android:gravity="right|center_vertical"
-                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/lyRestartService"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:orientation="horizontal">
 
-                    <ImageButton
-                        android:id="@+id/btnStartService"
+                    <ImageView
+                        android:id="@+id/imgNetworkState"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/transperant"
-                        android:src="@drawable/ic_start" />
+                        android:src="@drawable/ic_network_high_connection" />
 
                     <TextView
+                        android:id="@+id/txtNetworkState"
                         style="@style/stySubTitleTile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/strRestart"
+                        android:layout_marginLeft="@dimen/ViewMargin"
+                        android:gravity="left"
+                        android:text="@string/strConnected"
                         app:font="@{`Ubuntu-C`}" />
                 </LinearLayout>
+            </LinearLayout>
 
-                <utility.CircleImageView
-                    android:id="@+id/imgServiceState"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="@dimen/ViewMargin"
-                    android:src="@color/lightGrey"
-                    app:civ_border_color="@color/transperant"
-                    app:civ_border_width="2dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/ViewMargin"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="@dimen/ViewPaddingBig">
 
                 <TextView
-                    android:id="@+id/txtSyncServiceState"
+                    android:id="@+id/lblSyncser"
                     style="@style/stySubTitleTile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/ViewMargin"
-                    android:gravity="left"
-                    android:text="@string/strDisconnected"
+                    android:layout_centerVertical="true"
+                    android:text="@string/strSyncService"
                     app:font="@{`Ubuntu-C`}" />
-            </LinearLayout>
-        </RelativeLayout>
 
-        <LinearLayout
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/lblSyncser"
+                    android:gravity="right|center_vertical"
+                    android:orientation="horizontal">
 
-            android:id="@+id/lyUnSyncData"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:padding="@dimen/ViewPaddingBig"
-            android:visibility="visible">
+                    <LinearLayout
+                        android:id="@+id/lyRestartService"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-            <TextView
-                style="@style/stySubTitleTile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/ViewPaddingBig"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:text="@string/strUnsyncList"
-                android:textStyle="bold"
-                app:font="@{`Ubuntu-M`}" />
+                        <ImageButton
+                            android:id="@+id/btnStartService"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transperant"
+                            android:src="@drawable/ic_start" />
+
+                        <TextView
+                            style="@style/stySubTitleTile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/strRestart"
+                            app:font="@{`Ubuntu-C`}" />
+                    </LinearLayout>
+
+                    <utility.CircleImageView
+                        android:id="@+id/imgServiceState"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="@dimen/ViewMargin"
+                        android:src="@color/lightGrey"
+                        app:civ_border_color="@color/transperant"
+                        app:civ_border_width="2dp" />
+
+                    <TextView
+                        android:id="@+id/txtSyncServiceState"
+                        style="@style/stySubTitleTile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/ViewMargin"
+                        android:gravity="left"
+                        android:text="@string/strDisconnected"
+                        app:font="@{`Ubuntu-C`}" />
+                </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
+
+                android:id="@+id/lyUnSyncData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/ViewPaddingBig"
-                android:orientation="horizontal">
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/ViewPaddingBig"
+                android:visibility="visible">
 
                 <TextView
                     style="@style/stySubTitleTile"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/ViewPaddingBig"
                     android:layout_weight="1"
                     android:gravity="left"
-                    android:text="@string/strMessage"
-                    app:font="@{`Ubuntu-C`}" />
+                    android:text="@string/strUnsyncList"
+                    android:textStyle="bold"
+                    app:font="@{`Ubuntu-M`}" />
 
-                <TextView
-                    android:id="@+id/txtMessageCount"
-                    style="@style/stySubTitleTile"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="1"
-                    app:font="@{`Ubuntu-C`}" />
-            </LinearLayout>
+                    android:layout_marginBottom="@dimen/ViewPaddingBig"
+                    android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/ViewPaddingBig"
-                android:orientation="horizontal">
+                    <TextView
+                        style="@style/stySubTitleTile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/strMessage"
+                        app:font="@{`Ubuntu-C`}" />
 
-                <TextView
-                    style="@style/stySubTitleTile"
-                    android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/txtMessageCount"
+                        style="@style/stySubTitleTile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="1"
+                        app:font="@{`Ubuntu-C`}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="@string/strInspect"
-                    app:font="@{`Ubuntu-C`}" />
+                    android:layout_marginBottom="@dimen/ViewPaddingBig"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/txtInspectCount"
-                    style="@style/stySubTitleTile"
-                    android:layout_width="0dp"
+                    <TextView
+                        style="@style/stySubTitleTile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/strInspect"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:id="@+id/txtInspectCount"
+                        style="@style/stySubTitleTile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="1"
+                        app:font="@{`Ubuntu-C`}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="1"
-                    app:font="@{`Ubuntu-C`}" />
-            </LinearLayout>
+                    android:layout_marginBottom="@dimen/ViewPaddingBig"
+                    android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/ViewPaddingBig"
-                android:orientation="horizontal">
+                    <TextView
+                        style="@style/stySubTitleTile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/strService"
+                        app:font="@{`Ubuntu-C`}" />
 
-                <TextView
-                    style="@style/stySubTitleTile"
-                    android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/txtServiceCount"
+                        style="@style/stySubTitleTile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="1"
+                        app:font="@{`Ubuntu-C`}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="@string/strService"
-                    app:font="@{`Ubuntu-C`}" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/txtServiceCount"
-                    style="@style/stySubTitleTile"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="1"
-                    app:font="@{`Ubuntu-C`}" />
-            </LinearLayout>
+                    <TextView
+                        style="@style/stySubTitleTile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/strTransaction"
+                        app:font="@{`Ubuntu-C`}" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/stySubTitleTile"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="@string/strTransaction"
-                    app:font="@{`Ubuntu-C`}" />
-
-                <TextView
-                    android:id="@+id/txtTransactionCount"
-                    style="@style/stySubTitleTile"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="1"
-                    app:font="@{`Ubuntu-C`}" />
+                    <TextView
+                        android:id="@+id/txtTransactionCount"
+                        style="@style/stySubTitleTile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="1"
+                        app:font="@{`Ubuntu-C`}" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

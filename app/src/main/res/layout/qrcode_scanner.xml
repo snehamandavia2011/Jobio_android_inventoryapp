@@ -10,34 +10,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/ly"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/tilt"
-            android:padding="@dimen/ViewPaddingBig">
+            android:orientation="horizontal"
+            android:padding="@dimen/ViewPadding">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@drawable/actionbar_btn_click_disable"
+                android:padding="@dimen/ViewPaddingBig"
+                android:src="@drawable/ic_back" />
 
             <ImageView
                 android:id="@+id/imgQRCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_gravity="bottom"
+
                 android:src="@drawable/ic_qrcode_white" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/ViewMarginBig"
-                android:layout_toRightOf="@id/imgQRCode"
-                android:gravity="center"
+                android:layout_marginLeft="@dimen/ViewMargin"
+                android:gravity="center_horizontal"
                 android:orientation="vertical">
 
                 <utility.DotProgressBar
                     android:id="@+id/dot_progress_bar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dorProgressBarheight"
-                    android:layout_centerInParent="true"
                     android:layout_gravity="center"
                     android:visibility="gone"
                     custom:amount="5"
@@ -46,55 +56,14 @@
                     custom:startColor="@color/white" />
 
                 <TextView
-                    style="@style/styDescSmallWhite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/msgScanQRCode"
-                    app:font="@{`Ubuntu-L`}" />
-
-                <TextView
-                    style="@style/styDescSmallWhite"
+                    style="@style/styDescSmallWhiteMultiLine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/ViewMargin"
                     android:text="@string/strCheckmailQRCode"
                     app:font="@{`Ubuntu-L`}" />
-
-                <TextView
-                    style="@style/styDescSmallWhite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="@dimen/ViewMarginBig"
-                    android:text="@string/strOR"
-                    app:font="@{`Ubuntu-L`}" />
-
-                <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/ViewMarginBig"
-                    rdv:rdv_rippleAnimationDuration="600"
-                    rdv:rdv_rippleAnimationFrames="60"
-                    rdv:rdv_rippleAnimationPeakFrame="15"
-                    rdv:rdv_rippleColor="@color/white"
-                    rdv:rdv_rippleMaxAlpha="0.8"
-                    rdv:rdv_rippleRadius="@dimen/rippleRadius">
-
-                    <TextView
-                        android:id="@+id/txtEnterManuallyQRCode"
-                        style="@style/styDescWhite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/transperant"
-                        android:clickable="true"
-                        android:gravity="top"
-                        android:text="@string/strEnterManuallyQRCode"
-                        android:textColor="@color/white"
-                        app:font="@{`Ubuntu-L`}" />
-                </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
             </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
 
         <com.dlazaro66.qrcodereaderview.QRCodeReaderView
             android:id="@+id/qrdecoderview"

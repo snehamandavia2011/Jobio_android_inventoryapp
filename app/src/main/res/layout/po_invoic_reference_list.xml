@@ -6,75 +6,83 @@
 
     <data />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/tilt">
+        android:orientation="vertical">
+
+        <include layout="@layout/my_toolbar"></include>
 
         <RelativeLayout
-            android:id="@+id/lyMainContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/tilt"
-            android:padding="@dimen/ViewPadding">
+            android:background="@color/tilt">
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/lyMainContent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:background="@color/tilt"
+                android:padding="@dimen/ViewPadding">
 
-
-                <ListView
-                    android:id="@+id/lvlJobPOInvoice"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:divider="@color/tilt"
-                    android:dividerHeight="@dimen/listViewDividerHeight"></ListView>
-            </LinearLayout>
-        </RelativeLayout>
+                    android:orientation="vertical">
 
-        <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/lyNoContent"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                    <ListView
+                        android:id="@+id/lvlJobPOInvoice"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="@color/tilt"
+                        android:dividerHeight="@dimen/listViewDividerHeight"></ListView>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lyNoContent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@color/tilt"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imgNoData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/ViewMargin" />
+
+                    <TextView
+                        android:id="@+id/txtNoData"
+                        style="@style/styBigWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/ViewMargin"
+                        android:gravity="center"
+                        android:text="@string/msgNoAsset"
+                        app:font="@{`Ubuntu-M`}" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <utility.DotProgressBar
+                android:id="@+id/dot_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dorProgressBarheight"
                 android:layout_centerInParent="true"
-                android:background="@color/tilt"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imgNoData"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="@dimen/ViewMargin" />
-
-                <TextView
-                    android:id="@+id/txtNoData"
-                    android:gravity="center"
-                    android:text="@string/msgNoAsset"
-                    style="@style/styBigWhite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/ViewMargin"
-                    app:font="@{`Ubuntu-M`}" />
-            </LinearLayout>
+                android:visibility="gone"
+                custom:amount="5"
+                custom:duration="@android:integer/config_shortAnimTime"
+                custom:endColor="@color/white"
+                custom:startColor="@color/white" />
         </RelativeLayout>
-
-        <utility.DotProgressBar
-            android:id="@+id/dot_progress_bar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dorProgressBarheight"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            custom:amount="5"
-            custom:duration="@android:integer/config_shortAnimTime"
-            custom:endColor="@color/white"
-            custom:startColor="@color/white" />
-    </RelativeLayout>
+    </LinearLayout>
 </layout>

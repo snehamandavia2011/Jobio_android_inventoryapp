@@ -52,4 +52,5 @@ dependencies {
     compile 'com.android.support:design:23.2.0'
     compile project(':libzBarScanner')
     compile project(':libTopSnackbar')
+    compile project(':libMaterialTapTarget')
 }

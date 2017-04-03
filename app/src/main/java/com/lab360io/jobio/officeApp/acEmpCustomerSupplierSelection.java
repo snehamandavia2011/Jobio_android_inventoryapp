@@ -356,11 +356,18 @@ public class acEmpCustomerSupplierSelection extends AppCompatActivity implements
         }
     }
 
+    Toolbar toolbar;
     public void setActionBar(final AppCompatActivity ac, final String strText, final boolean needToShowSwitch) {
         new AsyncTask() {
+            Toolbar toolbar;
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
+                if (toolbar == null) {
+                    toolbar = (Toolbar) ac.findViewById(R.id.toolbar);
+                    ac.setSupportActionBar(toolbar);
+                }
                 ac.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ac.getResources()
                         .getColor(R.color.tilt)));
             }

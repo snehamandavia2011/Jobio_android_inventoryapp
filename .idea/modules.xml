@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/libFloatingActionButton/libFloatingActionButton.iml" filepath="$PROJECT_DIR$/libFloatingActionButton/libFloatingActionButton.iml" />
       <module fileurl="file://$PROJECT_DIR$/libFontBinding/libFontBinding.iml" filepath="$PROJECT_DIR$/libFontBinding/libFontBinding.iml" />
       <module fileurl="file://$PROJECT_DIR$/libMaterialEditText/libMaterialEditText.iml" filepath="$PROJECT_DIR$/libMaterialEditText/libMaterialEditText.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libMaterialTapTarget/libMaterialTapTarget.iml" filepath="$PROJECT_DIR$/libMaterialTapTarget/libMaterialTapTarget.iml" />
       <module fileurl="file://$PROJECT_DIR$/libQECodeReaderView/libQECodeReaderView.iml" filepath="$PROJECT_DIR$/libQECodeReaderView/libQECodeReaderView.iml" />
       <module fileurl="file://$PROJECT_DIR$/libRippleDecoratorView/libRippleDecoratorView.iml" filepath="$PROJECT_DIR$/libRippleDecoratorView/libRippleDecoratorView.iml" />
       <module fileurl="file://$PROJECT_DIR$/libTopSnackbar/libTopSnackbar.iml" filepath="$PROJECT_DIR$/libTopSnackbar/libTopSnackbar.iml" />

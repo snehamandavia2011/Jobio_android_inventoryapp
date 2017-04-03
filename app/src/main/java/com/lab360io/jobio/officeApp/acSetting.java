@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.xwray.fontbinding.FontCache;
 
+import permission.WriteSDPermission;
 import utility.ConstantVal;
 import utility.Helper;
 import utility.OptionMenu;
@@ -57,14 +58,14 @@ public class acSetting extends AppCompatActivity {
                 lyMessageSetting = (LinearLayout) findViewById(R.id.lyMessageSetting);
                 chkConversationTone = (CheckBox) findViewById(R.id.chkConversationTone);
                 chkMessageNotification = (CheckBox) findViewById(R.id.chkMessageNotification);
-                chkInspectionTransactionTone= (CheckBox) findViewById(R.id.chkInspectionTransactionTone);
-                chkInspectionTransactionNotification= (CheckBox) findViewById(R.id.chkInspectionTransactionNotification);
-                chkServiceTransactionTone= (CheckBox) findViewById(R.id.chkServiceTransactionTone);
-                chkServiceTransactionNotification= (CheckBox) findViewById(R.id.chkServiceTransactionNotification);
-                chkAddEditInspectionTone= (CheckBox) findViewById(R.id.chkAddEditInspectionTone);
-                chkAddEditInspectionNotification= (CheckBox) findViewById(R.id.chkAddEditInspectionNotification);
-                chkAddEditServiceTone= (CheckBox) findViewById(R.id.chkAddEditServiceTone);
-                chkAddEditServiceNotification= (CheckBox) findViewById(R.id.chkAddEditServiceNotification);
+                chkInspectionTransactionTone = (CheckBox) findViewById(R.id.chkInspectionTransactionTone);
+                chkInspectionTransactionNotification = (CheckBox) findViewById(R.id.chkInspectionTransactionNotification);
+                chkServiceTransactionTone = (CheckBox) findViewById(R.id.chkServiceTransactionTone);
+                chkServiceTransactionNotification = (CheckBox) findViewById(R.id.chkServiceTransactionNotification);
+                chkAddEditInspectionTone = (CheckBox) findViewById(R.id.chkAddEditInspectionTone);
+                chkAddEditInspectionNotification = (CheckBox) findViewById(R.id.chkAddEditInspectionNotification);
+                chkAddEditServiceTone = (CheckBox) findViewById(R.id.chkAddEditServiceTone);
+                chkAddEditServiceNotification = (CheckBox) findViewById(R.id.chkAddEditServiceNotification);
                 btnReportIssue = (Button) findViewById(R.id.btnReportIssue);
                 btnSendFeedback = (Button) findViewById(R.id.btnSendFeedback);
                 strAppVersion = (TextView) findViewById(R.id.strAppVersion);
@@ -72,6 +73,11 @@ public class acSetting extends AppCompatActivity {
                 btnReportIssue.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        WriteSDPermission objWriteSDPermission = new WriteSDPermission((AppCompatActivity) mContext);
+                        if (!objWriteSDPermission.isHavePermission()) {
+                            objWriteSDPermission.askForPermission();
+                            return;
+                        }
                         Intent i = new Intent(mContext, acReportIssue.class);
                         i.putExtra(acReportIssue.REQUEST_TYPE, acReportIssue.ISSUE);
                         startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);

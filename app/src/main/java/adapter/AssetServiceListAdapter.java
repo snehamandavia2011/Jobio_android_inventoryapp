@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acInspectTransaction;
 import com.lab360io.jobio.officeApp.acServiceTransaction;
 import com.thomsonreuters.rippledecoratorview.RippleDecoratorView;
 
@@ -21,6 +23,7 @@ import java.util.List;
 import entity.ClientAssetService;
 import entity.ClientRegional;
 import fragment.ListHeader;
+import permission.CameraPermission;
 import utility.ConstantVal;
 import utility.Helper;
 import utility.Logger;
@@ -197,9 +200,14 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
         holderChild.btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(mContext, acServiceTransaction.class);
-                i.putExtra("astId", objClientAssetService.getAstId());
-                contextFragment.startActivityForResult(i, ConstantVal.SERVICE_TRANSACTION_REQUEST_CODE);
+                CameraPermission objCameraPermission = new CameraPermission((AppCompatActivity) mContext);
+                if (objCameraPermission.isHavePermission()) {
+                    Intent i = new Intent(mContext, acServiceTransaction.class);
+                    i.putExtra("astId", objClientAssetService.getAstId());
+                    contextFragment.startActivityForResult(i, ConstantVal.SERVICE_TRANSACTION_REQUEST_CODE);
+                } else {
+                    objCameraPermission.askForPermission();
+                }
             }
         });
         return convertView;

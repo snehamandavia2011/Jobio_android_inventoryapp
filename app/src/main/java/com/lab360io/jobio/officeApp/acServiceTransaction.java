@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -37,10 +38,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import adapter.FormListAdapter;
 import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUserEmployee;
 import entity.ClientAssetInspectServiceStatus;
 import entity.ClientAssetService;
+import entity.ClientCustomForm;
 import entity.ClientRegional;
 import io.fabric.sdk.android.services.concurrency.AsyncTask;
 import me.zhanghai.android.materialedittext.MaterialEditText;
@@ -69,6 +72,7 @@ public class acServiceTransaction extends AppCompatActivity {
     Context mContext;
     Helper objHelper = new Helper();
     Calendar calServiceDate = Calendar.getInstance();
+    LinearLayout lyForm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +85,13 @@ public class acServiceTransaction extends AppCompatActivity {
         dateFormat = new SimpleDateFormat(Helper.getStringPreference(mContext, ClientRegional.Fields.DATE_FORMAT, ConstantVal.DEVICE_DEFAULT_DATE_FORMAT));
         timeFormate = new SimpleDateFormat(Helper.getStringPreference(mContext, ClientRegional.Fields.TIME_FORMAT, ConstantVal.DEVICE_DEFAULT_TIME_FORMAT));
         objHelper.setActionBar(ac, mContext.getString(R.string.strService));
-        setData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setData();
+    }
 
     private void setData() {
         new AsyncTask() {
@@ -92,6 +100,7 @@ public class acServiceTransaction extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
+                lyForm = (LinearLayout) findViewById(R.id.lyForm);
                 imgPicture = (ImageView) findViewById(R.id.imgPicture);
                 imgInvoic = (ImageView) findViewById(R.id.imgInvoice);
                 txtAssetName = (TextView) findViewById(R.id.txtAssetName);
@@ -158,6 +167,10 @@ public class acServiceTransaction extends AppCompatActivity {
                 txtAssignedTo.setText(assignedT0EmpName);
                 edServiceDate.setText(dateFormat.format(calServiceDate.getTime()));
                 edServiceTime.setText(timeFormate.format(calServiceDate.getTime()));
+                lyForm.removeAllViews();
+                for (ClientCustomForm obj : objClientAssetService.getArrClientCustomForm()) {
+                    lyForm.addView(new FormListAdapter().addFormItemToLayout(obj, mContext));
+                }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -217,7 +230,11 @@ public class acServiceTransaction extends AppCompatActivity {
                         protected void onPreExecute() {
                             super.onPreExecute();
                             isDataEntedProperly = true;
-                            if (Helper.isFieldBlank(edServiceName.getText().toString())) {
+                            FormListAdapter.FormSubmitted objFormSubmitted = new FormListAdapter().isAllMandatoryFormSubmitted(mContext, objClientAssetService.getAstAssetId(), "S");
+                            if (!objFormSubmitted.isAllFormSubmitted()) {
+                                isDataEntedProperly = false;
+                                Helper.displaySnackbar((AppCompatActivity) mContext, objFormSubmitted.getFormNAme() + " " + mContext.getString(R.string.msgFormNotSubmitted), ConstantVal.ToastBGColor.INFO);
+                            } else if (Helper.isFieldBlank(edServiceName.getText().toString())) {
                                 edServiceName.setError(getString(R.string.msgEnterInspectionName));
                                 requestFocus(edServiceName);
                                 isDataEntedProperly = false;
@@ -268,8 +285,8 @@ public class acServiceTransaction extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                if(!new HttpEngine().isNetworkAvailable(mContext)){
-                    Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet),ConstantVal.ToastBGColor.INFO).setCallback(new TSnackbar.Callback() {
+                if (!new HttpEngine().isNetworkAvailable(mContext)) {
+                    Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet), ConstantVal.ToastBGColor.INFO).setCallback(new TSnackbar.Callback() {
                         @Override
                         public void onDismissed(TSnackbar snackbar, int event) {
                             super.onDismissed(snackbar, event);
@@ -277,7 +294,7 @@ public class acServiceTransaction extends AppCompatActivity {
                             ((AppCompatActivity) mContext).finish();
                         }
                     });
-                }else{
+                } else {
                     ((AppCompatActivity) mContext).finish();
                 }
             }

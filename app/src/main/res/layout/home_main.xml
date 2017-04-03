@@ -5,271 +5,279 @@
 
     <data />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_home">
+        android:orientation="vertical">
 
-        <ScrollView
-            android:id="@+id/scrollView"
+        <include layout="@layout/my_toolbar"></include>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/ViewPadding"
-            android:visibility="gone">
+            android:background="@drawable/bg_home">
 
-            <LinearLayout
+            <ScrollView
+                android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/txtWelcomeText"
-                    style="@style/stySubTitleTiltMultiline"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/white_bg"
-                    android:gravity="center"
-                    android:maxLines="4"
-                    android:padding="@dimen/ViewPaddingBig"
-                    android:text="Welcome Text"
-                    app:font="@{`Ubuntu-C`}" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/ViewMarginBig">
-
-                    <LinearLayout
-                        android:id="@+id/lyUserDetail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/white_bg"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/txtUserName"
-                            style="@style/styTitleTilt"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/ViewMarginBig"
-                            android:gravity="center"
-                            android:text="User Name"
-                            android:textStyle="bold"
-                            app:font="@{`Ubuntu-M`}" />
-
-
-                        <TextView
-                            android:id="@+id/txtDesc"
-                            style="@style/stySubTitleTile"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/ViewMarginBig"
-                            android:layout_marginTop="@dimen/ViewMarginBig"
-                            android:gravity="center"
-                            android:text="User Name"
-                            app:font="@{`Ubuntu-C`}" />
-                    </LinearLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/lyProfileImageContaint"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <utility.CircleImageView
-                            android:id="@+id/profile_image"
-                            android:layout_width="@dimen/imageHeightOrWidth"
-                            android:layout_height="@dimen/imageHeightOrWidth"
-                            android:layout_centerHorizontal="true"
-                            android:src="@drawable/ic_awaiting"
-                            app:civ_border_color="@color/white"
-                            app:civ_border_width="3dp" />
-                    </RelativeLayout>
-                </RelativeLayout>
+                android:padding="@dimen/ViewPadding"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingBottom="@dimen/ViewPaddingBig"
-                    android:paddingTop="@dimen/ViewPaddingBig">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/lyInspect"
-                        android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/txtWelcomeText"
+                        style="@style/stySubTitleTiltMultiline"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/ViewMargin"
-                        android:layout_marginRight="@dimen/ViewMargin"
-                        android:layout_weight="1"
-                        android:background="@drawable/white_boarder">
+                        android:background="@drawable/white_bg"
+                        android:gravity="center"
+                        android:maxLines="4"
+                        android:padding="@dimen/ViewPaddingBig"
+                        android:text="Welcome Text"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ViewMarginBig">
 
                         <LinearLayout
+                            android:id="@+id/lyUserDetail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="@drawable/white_bg"
                             android:orientation="vertical">
 
-                            <ImageView
+                            <TextView
+                                android:id="@+id/txtUserName"
+                                style="@style/styTitleTilt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@color/white"
-                                android:padding="@dimen/ViewPaddingBig"
-                                android:src="@drawable/ic_inspect_tilt" />
+                                android:layout_marginTop="@dimen/ViewMarginBig"
+                                android:gravity="center"
+                                android:text="User Name"
+                                android:textStyle="bold"
+                                app:font="@{`Ubuntu-M`}" />
+
+
+                            <TextView
+                                android:id="@+id/txtDesc"
+                                style="@style/stySubTitleTile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/ViewMarginBig"
+                                android:layout_marginTop="@dimen/ViewMarginBig"
+                                android:gravity="center"
+                                android:text="User Name"
+                                app:font="@{`Ubuntu-C`}" />
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/lyProfileImageContaint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <utility.CircleImageView
+                                android:id="@+id/profile_image"
+                                android:layout_width="@dimen/imageHeightOrWidth"
+                                android:layout_height="@dimen/imageHeightOrWidth"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/ic_awaiting"
+                                app:civ_border_color="@color/white"
+                                app:civ_border_width="3dp" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/ViewPaddingBig"
+                        android:paddingTop="@dimen/ViewPaddingBig">
+
+                        <LinearLayout
+                            android:id="@+id/lyInspect"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/ViewMargin"
+                            android:layout_marginRight="@dimen/ViewMargin"
+                            android:layout_weight="1"
+                            android:background="@drawable/white_boarder">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:padding="@dimen/ViewPaddingBig">
+                                android:orientation="vertical">
 
-                                <TextView
-                                    android:id="@+id/inspectDay"
-                                    style="@style/stySubTitleWhite"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="left"
-                                    android:textStyle="bold"
-                                    app:font="@{`Ubuntu-L`}" />
-
-                                <TextView
-                                    android:id="@+id/inspectCount"
-                                    style="@style/styVeryBigWhite"
-                                    android:layout_width="wrap_content"
+                                <ImageView
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:textStyle="bold"
-                                    app:font="@{`Ubuntu-L`}" />
+                                    android:background="@color/white"
+                                    android:padding="@dimen/ViewPaddingBig"
+                                    android:src="@drawable/ic_inspect_tilt" />
 
-                                <TextView
-                                    android:id="@+id/inspectStatus"
-                                    style="@style/stySubTitleWhite"
-                                    android:layout_width="wrap_content"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="right"
-                                    android:textStyle="bold"
-                                    app:font="@{`Ubuntu-L`}" />
+                                    android:orientation="vertical"
+                                    android:padding="@dimen/ViewPaddingBig">
+
+                                    <TextView
+                                        android:id="@+id/inspectDay"
+                                        style="@style/stySubTitleWhite"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="left"
+                                        android:textStyle="bold"
+                                        app:font="@{`Ubuntu-L`}" />
+
+                                    <TextView
+                                        android:id="@+id/inspectCount"
+                                        style="@style/styVeryBigWhite"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:textStyle="bold"
+                                        app:font="@{`Ubuntu-L`}" />
+
+                                    <TextView
+                                        android:id="@+id/inspectStatus"
+                                        style="@style/stySubTitleWhite"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="right"
+                                        android:textStyle="bold"
+                                        app:font="@{`Ubuntu-L`}" />
+                                </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lyService"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/ViewMargin"
-                        android:layout_marginRight="@dimen/ViewMargin"
-                        android:layout_weight="1"
-                        android:background="@drawable/white_boarder">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:id="@+id/lyService"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@color/white"
-                                android:padding="@dimen/ViewMarginBig"
-                                android:src="@drawable/ic_service_tilt" />
+                            android:layout_marginLeft="@dimen/ViewMargin"
+                            android:layout_marginRight="@dimen/ViewMargin"
+                            android:layout_weight="1"
+                            android:background="@drawable/white_boarder">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:padding="@dimen/ViewPaddingBig">
+                                android:orientation="vertical">
 
-                                <TextView
-                                    android:id="@+id/serviceDay"
-                                    style="@style/stySubTitleWhite"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="left"
-                                    android:textStyle="bold"
-                                    app:font="@{`Ubuntu-L`}" />
-
-                                <TextView
-                                    android:id="@+id/serviceCount"
-                                    style="@style/styVeryBigWhite"
-                                    android:layout_width="wrap_content"
+                                <ImageView
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:textStyle="bold"
-                                    app:font="@{`Ubuntu-L`}" />
+                                    android:background="@color/white"
+                                    android:padding="@dimen/ViewMarginBig"
+                                    android:src="@drawable/ic_service_tilt" />
 
-                                <TextView
-                                    android:id="@+id/serviceStatus"
-                                    style="@style/stySubTitleWhite"
-                                    android:layout_width="wrap_content"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="right"
-                                    android:textStyle="bold"
-                                    app:font="@{`Ubuntu-L`}" />
+                                    android:orientation="vertical"
+                                    android:padding="@dimen/ViewPaddingBig">
+
+                                    <TextView
+                                        android:id="@+id/serviceDay"
+                                        style="@style/stySubTitleWhite"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="left"
+                                        android:textStyle="bold"
+                                        app:font="@{`Ubuntu-L`}" />
+
+                                    <TextView
+                                        android:id="@+id/serviceCount"
+                                        style="@style/styVeryBigWhite"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:textStyle="bold"
+                                        app:font="@{`Ubuntu-L`}" />
+
+                                    <TextView
+                                        android:id="@+id/serviceStatus"
+                                        style="@style/stySubTitleWhite"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="right"
+                                        android:textStyle="bold"
+                                        app:font="@{`Ubuntu-L`}" />
+                                </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lyMessage"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/ViewMargin"
-                        android:layout_marginRight="@dimen/ViewMargin"
-                        android:layout_weight="1"
-                        android:background="@drawable/white_boarder">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:id="@+id/lyMessage"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@color/white"
-                                android:padding="@dimen/ViewMarginBig"
-                                android:src="@drawable/ic_message_tilt" />
+                            android:layout_marginLeft="@dimen/ViewMargin"
+                            android:layout_marginRight="@dimen/ViewMargin"
+                            android:layout_weight="1"
+                            android:background="@drawable/white_boarder">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:padding="@dimen/ViewPaddingBig">
+                                android:orientation="vertical">
 
-                                <TextView
-                                    android:id="@+id/messageDay"
-                                    style="@style/stySubTitleWhite"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="left"
-                                    android:textStyle="bold"
-                                    app:font="@{`Ubuntu-L`}" />
-
-                                <TextView
-                                    android:id="@+id/messageCount"
-                                    style="@style/styVeryBigWhite"
-                                    android:layout_width="wrap_content"
+                                <ImageView
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:textStyle="bold"
-                                    app:font="@{`Ubuntu-L`}" />
+                                    android:background="@color/white"
+                                    android:padding="@dimen/ViewMarginBig"
+                                    android:src="@drawable/ic_message_tilt" />
 
-                                <TextView
-                                    android:id="@+id/messageStatus"
-                                    style="@style/stySubTitleWhite"
-                                    android:layout_width="wrap_content"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="right"
-                                    android:textStyle="bold"
-                                    app:font="@{`Ubuntu-L`}" />
+                                    android:orientation="vertical"
+                                    android:padding="@dimen/ViewPaddingBig">
+
+                                    <TextView
+                                        android:id="@+id/messageDay"
+                                        style="@style/stySubTitleWhite"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="left"
+                                        android:textStyle="bold"
+                                        app:font="@{`Ubuntu-L`}" />
+
+                                    <TextView
+                                        android:id="@+id/messageCount"
+                                        style="@style/styVeryBigWhite"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:textStyle="bold"
+                                        app:font="@{`Ubuntu-L`}" />
+
+                                    <TextView
+                                        android:id="@+id/messageStatus"
+                                        style="@style/stySubTitleWhite"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="right"
+                                        android:textStyle="bold"
+                                        app:font="@{`Ubuntu-L`}" />
+                                </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
+            </ScrollView>
 
-        <include layout="@layout/home_menu"></include>
-    </RelativeLayout>
+            <include layout="@layout/home_menu"></include>
+        </RelativeLayout>
+    </LinearLayout>
 </layout>

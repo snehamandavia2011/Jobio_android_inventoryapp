@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import adapter.FormListAdapter;
 import entity.BusinessAccountdbDetail;
 import entity.ClientAssetInspect;
 import entity.ClientAssetInspectServiceStatus;
@@ -159,85 +160,12 @@ public class acInspectTransaction extends AppCompatActivity {
                 edInspectionTime.setText(timeFormate.format(calInspectionDate.getTime()));
                 lyForm.removeAllViews();
                 for (ClientCustomForm obj : objClientAssetInspect.getArrClientCustomForm()) {
-                    lyForm.addView(addFormItemToLayout(obj));
+                    lyForm.addView(new FormListAdapter().addFormItemToLayout(obj, mContext));
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    private View addFormItemToLayout(final ClientCustomForm objClientCustomForm) {
-        LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        View convertView = DataBindingUtil.inflate(mInflater, R.layout.form_list_item, null, true).getRoot();
-        TextView txtFormName = (TextView) convertView.findViewById(R.id.txtFormName);
-        TextView txtFormDesc = (TextView) convertView.findViewById(R.id.txtFormDesc);
-        TextView txtIsMandatory = (TextView) convertView.findViewById(R.id.txtIsMandatory);
-        TextView txtBusinessName = (TextView) convertView.findViewById(R.id.txtBusinessName);
-        TextView txtStatus = (TextView) convertView.findViewById(R.id.txtStatus);
-        RelativeLayout ly = (RelativeLayout) convertView.findViewById(R.id.lyNext);
-        txtFormDesc.setSelected(true);
-        txtFormName.setText(objClientCustomForm.getFpForm_name());
-        txtBusinessName.setText(objClientCustomForm.getFbBiz_name());
-        txtFormDesc.setText(objClientCustomForm.getFpForm_description());
-        txtStatus.setText(ConstantVal.FormStatus.getStatusName(mContext, objClientCustomForm.getFormLocalStatus()).toUpperCase());
-        if (objClientCustomForm.getFormLocalStatus() == ConstantVal.FormStatus.PENGING) {
-            txtStatus.setTextAppearance(mContext, R.style.styDescSmallRed);
-        }
-        if (objClientCustomForm.getFtIs_mandatory().equals("Y")) {
-            txtIsMandatory.setText(" *");
-            txtIsMandatory.setVisibility(View.VISIBLE);
-        } else {
-            txtIsMandatory.setVisibility(View.GONE);
-        }
-        ly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                new android.os.AsyncTask() {
-
-                    @Override
-                    protected void onPreExecute() {
-                        super.onPreExecute();
-                        CameraPermission objCameraPermission = new CameraPermission((AppCompatActivity) mContext);
-                        if (!objCameraPermission.isHavePermission()) {
-                            objCameraPermission.askForPermission();
-                            return;
-                        }
-                        String whereFormView = "ftForm_transaction_uuid='" + objClientCustomForm.getForm_transaction_uuid() + "' and ffpForm_id='" + objClientCustomForm.getFtForm_id() + "'";
-                        DataBase db = new DataBase(mContext);
-                        db.open();
-                        Cursor curIsFormView = db.fetch(DataBase.custom_form_view_table, DataBase.custom_form_view_int, whereFormView);
-                        String status = "N";
-                        if (curIsFormView != null && curIsFormView.getCount() != 0) {
-                            if (curIsFormView.getInt(3) == ConstantVal.FormStatus.SUBMIT) {
-                                status = "Y";
-                            } else {
-                                status = "N";
-                            }
-                        }
-                        curIsFormView.close();
-                        db.close();
-                        Intent i = new Intent(mContext, acFormFields.class);
-                        i.putExtra("ref_id", objClientCustomForm.getFtRef_id());//job_id
-                        i.putExtra("isFormSubmitted", status);
-                        i.putExtra("formId", objClientCustomForm.getFtForm_id());
-                        i.putExtra("formName", objClientCustomForm.getFpForm_name());
-                        i.putExtra("form_transaction_id", objClientCustomForm.getForm_transaction_uuid());
-                        ((AppCompatActivity) mContext).startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
-                    }
-
-                    @Override
-                    protected Object doInBackground(Object[] params) {
-                        return null;
-                    }
-
-                    @Override
-                    protected void onPostExecute(Object o) {
-                        super.onPostExecute(o);
-                    }
-                }.executeOnExecutor(android.os.AsyncTask.THREAD_POOL_EXECUTOR);
-            }
-        });
-        return convertView;
-    }
 
     View.OnClickListener handleClick = new View.OnClickListener() {
         @Override
@@ -289,7 +217,11 @@ public class acInspectTransaction extends AppCompatActivity {
                         protected void onPreExecute() {
                             super.onPreExecute();
                             isDataEntedProperly = true;
-                            if (Helper.isFieldBlank(edInspectionName.getText().toString())) {
+                            FormListAdapter.FormSubmitted objFormSubmitted = new FormListAdapter().isAllMandatoryFormSubmitted(mContext, objClientAssetInspect.getAitAssetId(), "I");
+                            if (!objFormSubmitted.isAllFormSubmitted()) {
+                                isDataEntedProperly = false;
+                                Helper.displaySnackbar((AppCompatActivity) mContext, objFormSubmitted.getFormNAme() + " " + mContext.getString(R.string.msgFormNotSubmitted), ConstantVal.ToastBGColor.INFO);
+                            } else if (Helper.isFieldBlank(edInspectionName.getText().toString())) {
                                 edInspectionName.setError(getString(R.string.msgEnterInspectionName));
                                 requestFocus(edInspectionName);
                                 isDataEntedProperly = false;

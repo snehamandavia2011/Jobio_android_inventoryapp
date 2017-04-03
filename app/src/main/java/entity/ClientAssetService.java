@@ -515,7 +515,7 @@ public class ClientAssetService {
                         new Date(cur.getLong(28)), cur.getString(29), cur.getString(30), cur.getString(31),
                         cur.getString(32), cur.getString(33), cur.getString(34),
                         cur.getString(35), new Date(cur.getLong(36)), new Date(cur.getLong(37)), cur.getString(38), cur.getString(39),
-                        cur.getString(40), cur.getString(41), cur.getString(42), cur.getString(43), viewStatus, new Helper().getFormFromDatabase(cur.getString(2), "S", mContext)));
+                        cur.getString(40), cur.getString(41), cur.getString(42), cur.getString(43), viewStatus, new Helper().getFormFromDatabase(cur.getString(3), "S", mContext)));
             } while (cur.moveToNext());
         }
         cur.close();

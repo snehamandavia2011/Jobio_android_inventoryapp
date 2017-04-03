@@ -14,6 +14,12 @@
         android:background="@color/tilt"
         android:padding="@dimen/ViewPadding">
 
+        <Button
+            android:id="@+id/openPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transperant"></Button>
+
         <RelativeLayout
             android:id="@+id/rl"
             android:layout_width="match_parent"
@@ -52,6 +58,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlTwo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
@@ -83,18 +90,26 @@
             android:layout_height="match_parent"
             android:layout_above="@id/rl">
 
-            <ImageView
-                android:id="@+id/imgQRCode"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_qrcode_white" />
-
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/imgQRCode"
-                android:gravity="center">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/styTitleWhite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/strWelcomeTo"
+                    app:font="@{`Ubuntu-M`}" />
+
+                <ImageView
+                    android:id="@+id/imgQRCode"
+                    android:layout_width="200dp"
+                    android:layout_height="70dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/logo_white" />
 
                 <utility.DotProgressBar
                     android:id="@+id/dot_progress_bar"
@@ -107,5 +122,50 @@
                     custom:startColor="@color/white" />
             </LinearLayout>
         </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl"
+            android:layout_marginTop="@dimen/ViewMarginBig"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/styTitleWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/strNewToJobio"
+                app:font="@{`Ubuntu-M`}" />
+
+            <TextView
+                style="@style/stySubTitleWhiteMultiline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ViewMargin"
+                android:text="@string/msgNewToJobio"
+                app:font="@{`Ubuntu-C`}" />
+
+            <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ViewMargin"
+                rdv:rdv_rippleAnimationDuration="600"
+                rdv:rdv_rippleAnimationFrames="60"
+                rdv:rdv_rippleAnimationPeakFrame="15"
+                rdv:rdv_rippleColor="@android:color/white"
+                rdv:rdv_rippleMaxAlpha="0.8"
+                rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                <Button
+                    android:id="@+id/btnLetsStart"
+                    style="@style/btnWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/buttonHeight"
+                    android:padding="@dimen/ViewPadding"
+                    android:text="@string/strLetsStart"
+                    app:font="@{`Ubuntu-L`}" />
+            </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+        </LinearLayout>
     </RelativeLayout>
 </layout>

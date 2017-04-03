@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 
 import com.lab360io.jobio.officeApp.R;
 import com.lab360io.jobio.officeApp.acSearchAssetByQR;
+import com.lab360io.jobio.officeApp.acSearchItemByBarcodeScanner;
 import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import adapter.AssetAdapter;
 import asyncmanager.asyncAsset;
 import entity.ClientAsset;
+import permission.CameraPermission;
 import utility.ConstantVal;
 import utility.DotProgressBar;
 import utility.Helper;
@@ -122,8 +124,13 @@ public class frAssetsAsset extends Fragment {
                 btnSearchAsset.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(mContext, acSearchAssetByQR.class);
-                        startActivity(i);
+                        CameraPermission objCameraPermission = new CameraPermission((AppCompatActivity) getActivity());
+                        if (objCameraPermission.isHavePermission()) {
+                            Intent i = new Intent(mContext, acSearchAssetByQR.class);
+                            startActivity(i);
+                        } else {
+                            objCameraPermission.askForPermission();
+                        }
                     }
                 });
             }

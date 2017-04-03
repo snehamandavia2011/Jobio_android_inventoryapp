@@ -38,6 +38,7 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.graphics.drawable.DrawableWrapper;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.InputFilter;
 import android.text.Spannable;
@@ -93,6 +94,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import coaching.CoachingPreference;
 import entity.BusinessAccountMaster;
 import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUser;
@@ -523,6 +525,8 @@ public class Helper {
             Helper.clearPreference(ctx, ConstantVal.TOKEN);
             Helper.clearPreference(ctx, ConstantVal.IS_QRCODE_CONFIGURE);
             Helper.clearPreference(ctx, ConstantVal.QRCODE_VALUE);
+            CoachingPreference.clearCache(ctx);
+
         } catch (Exception e) {
             e.printStackTrace();
             Logger.debug("Error while wipe:" + e.getMessage());
@@ -797,9 +801,12 @@ public class Helper {
 
     public void setActionBar(final AppCompatActivity ac, final String text) {//Back button navigation
         new AsyncTask() {
+            Toolbar toolbar;
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
+                toolbar = (Toolbar) ac.findViewById(R.id.toolbar);
+                ac.setSupportActionBar(toolbar);
                 ac.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ac.getResources()
                         .getColor(R.color.tilt)));
             }
@@ -828,9 +835,12 @@ public class Helper {
 
     public void setActionBar(final AppCompatActivity ac, final String text, final Bitmap bmp, final boolean isRequireToShowBitmap) {
         new AsyncTask() {
+            Toolbar toolbar;
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
+                toolbar = (Toolbar) ac.findViewById(R.id.toolbar);
+                ac.setSupportActionBar(toolbar);
                 ac.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ac.getResources()
                         .getColor(R.color.tilt)));
             }
@@ -871,12 +881,16 @@ public class Helper {
     }
 
     public boolean isTopMenuVisible = false;
-
+    Toolbar toolbar;
     public void setActionBar(final AppCompatActivity ac, final String strOpenText, final String strCloseText) {
         new AsyncTask() {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
+                if (toolbar == null) {
+                    toolbar = (Toolbar) ac.findViewById(R.id.toolbar);
+                    ac.setSupportActionBar(toolbar);
+                }
                 ac.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ac.getResources()
                         .getColor(R.color.tilt)));
             }

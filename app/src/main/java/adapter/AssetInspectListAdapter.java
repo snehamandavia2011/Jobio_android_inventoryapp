@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.lab360io.jobio.officeApp.R;
 import com.lab360io.jobio.officeApp.acInspectTransaction;
+import com.lab360io.jobio.officeApp.acSearchAssetByQR;
 import com.thomsonreuters.rippledecoratorview.RippleDecoratorView;
 
 import java.util.HashMap;
@@ -21,6 +23,7 @@ import java.util.List;
 import entity.ClientAssetInspect;
 import entity.ClientRegional;
 import fragment.ListHeader;
+import permission.CameraPermission;
 import utility.Helper;
 import utility.Logger;
 import utility.ConstantVal;
@@ -196,9 +199,14 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
         holderChild.btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(mContext, acInspectTransaction.class);
-                i.putExtra("aitId", objClientAssetInspect.getAitId());
-                contextFragment.startActivityForResult(i, ConstantVal.INSPECTION_TRANSACTION_REQUEST_CODE);
+                CameraPermission objCameraPermission = new CameraPermission((AppCompatActivity) mContext);
+                if (objCameraPermission.isHavePermission()) {
+                    Intent i = new Intent(mContext, acInspectTransaction.class);
+                    i.putExtra("aitId", objClientAssetInspect.getAitId());
+                    contextFragment.startActivityForResult(i, ConstantVal.INSPECTION_TRANSACTION_REQUEST_CODE);
+                } else {
+                    objCameraPermission.askForPermission();
+                }
             }
         });
         return convertView;

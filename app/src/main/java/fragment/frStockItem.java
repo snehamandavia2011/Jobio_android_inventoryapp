@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import adapter.AddedItemAdapter;
 import entity.ClientItemMaster;
+import permission.CameraPermission;
 import utility.ConstantVal;
 import utility.DotProgressBar;
 import utility.Helper;
@@ -96,8 +97,13 @@ public class frStockItem extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSearchItem:
-                Intent i = new Intent(getActivity(), acSearchItemByBarcodeScanner.class);
-                startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
+                CameraPermission objCameraPermission = new CameraPermission((AppCompatActivity) getActivity());
+                if (objCameraPermission.isHavePermission()) {
+                    Intent i = new Intent(getActivity(), acSearchItemByBarcodeScanner.class);
+                    startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
+                } else {
+                    objCameraPermission.askForPermission();
+                }
                 break;
         }
     }

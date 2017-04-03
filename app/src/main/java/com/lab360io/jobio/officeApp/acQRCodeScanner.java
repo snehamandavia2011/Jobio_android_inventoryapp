@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
@@ -20,7 +21,7 @@ import utility.Helper;
 
 public class acQRCodeScanner extends AppCompatActivity implements QRCodeReaderView.OnQRCodeReadListener {
     private QRCodeReaderView mydecoderview;
-    TextView txtEnterManualCode;
+    ImageButton btnBack;
     Handler handler = new Handler();
     AppCompatActivity ac;
     Helper objHelper = new Helper();
@@ -32,32 +33,16 @@ public class acQRCodeScanner extends AppCompatActivity implements QRCodeReaderVi
         FontCache.getInstance(getApplicationContext()).addFont("Ubuntu", "Ubuntu-C.ttf");
         DataBindingUtil.setContentView(this, R.layout.qrcode_scanner);
         ac = this;
-        /*android.support.v7.app.ActionBar ab = getSupportActionBar();
-        ab.setTitle(getString(R.string.strCompany));
-        ab.setBackgroundDrawable(new ColorDrawable(getResources()
-                .getColor(R.color.tilt)));*/
-        /*new Thread() {
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        objHelper.setActionBar(ac, getString(R.string.strCompanySetup), null, false);
-                    }
-                });
-            }
-        }.start();*/
         mydecoderview = (QRCodeReaderView) findViewById(R.id.qrdecoderview);
+        btnBack = (ImageButton) findViewById(R.id.btnBack);
         mydecoderview.setOnQRCodeReadListener(this);
 
-        txtEnterManualCode = (TextView) findViewById(R.id.txtEnterManuallyQRCode);
-        txtEnterManualCode.setPaintFlags(txtEnterManualCode.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-
-        txtEnterManualCode.setOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 //Intent i = new Intent(getApplicationContext(), acManualQRCode.class);
                 //startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
+                finish();
             }
         });
     }
