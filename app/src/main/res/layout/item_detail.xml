@@ -6,353 +6,361 @@
 
     <data />
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/tilt">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ScrollView
-            android:id="@+id/scrlMainContent"
+        <include layout="@layout/my_toolbar"></include>
+
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:visibility="gone">
+            android:background="@color/tilt">
 
-            <LinearLayout
+            <ScrollView
+                android:id="@+id/scrlMainContent"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@color/tilt"
-                android:orientation="vertical"
-                android:padding="@dimen/ViewPadding">
+                android:visibility="gone">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/ViewMargin">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:id="@+id/lyItemDetail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/ViewMargin"
-                            android:background="@drawable/white_bg"
-                            android:orientation="vertical"
-                            android:padding="@dimen/ViewPadding">
-
-                            <TextView
-                                android:id="@+id/txtItemNameCategory"
-                                style="@style/stySubTitleTile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                android:textStyle="bold"
-                                app:font="@{`Ubuntu-M`}" />
-
-                            <TextView
-                                style="@style/stySubTitleTile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                android:text="@string/strItemDescription"
-                                app:font="@{`Ubuntu-C`}" />
-
-                            <TextView
-                                android:id="@+id/txtDesc"
-                                style="@style/styDescDarkGreyX"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                app:font="@{`Ubuntu-L`}" />
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                android:background="@color/tilt" />
-
-                            <TextView
-                                style="@style/stySubTitleTile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                android:text="@string/strShortCode"
-                                app:font="@{`Ubuntu-C`}" />
-
-                            <TextView
-                                android:id="@+id/txtShortCode"
-                                style="@style/styDescDarkGreyX"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                app:font="@{`Ubuntu-L`}" />
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                android:background="@color/tilt" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="@dimen/ViewMargin"
-                                    android:orientation="horizontal">
-
-                                    <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:orientation="vertical">
-
-                                        <TextView
-                                            style="@style/stySubTitleTile"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginBottom="@dimen/ViewMargin"
-                                            android:text="@string/strUnitOfMeasure"
-                                            app:font="@{`Ubuntu-C`}" />
-
-                                        <TextView
-                                            android:id="@+id/txtUnitOfMeasure"
-                                            style="@style/styDescDarkGreyX"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            app:font="@{`Ubuntu-L`}" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:orientation="vertical">
-
-                                        <TextView
-                                            style="@style/stySubTitleTile"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginBottom="@dimen/ViewMargin"
-                                            android:text="@string/strPackage"
-                                            app:font="@{`Ubuntu-C`}" />
-
-                                        <TextView
-                                            android:id="@+id/txtPackage"
-                                            style="@style/styDescDarkGreyX"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            app:font="@{`Ubuntu-L`}" />
-                                    </LinearLayout>
-                                </LinearLayout>
-
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_marginBottom="@dimen/ViewMargin"
-                                    android:background="@color/tilt" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="@dimen/ViewMargin"
-                                    android:orientation="horizontal">
-
-                                    <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:orientation="vertical">
-
-                                        <TextView
-                                            style="@style/stySubTitleTile"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginBottom="@dimen/ViewMargin"
-                                            android:text="@string/strMonthlyDemand"
-                                            app:font="@{`Ubuntu-C`}" />
-
-                                        <TextView
-                                            android:id="@+id/txtMonthyDemand"
-                                            style="@style/styDescDarkGreyX"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            app:font="@{`Ubuntu-L`}" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:orientation="vertical">
-
-                                        <TextView
-                                            style="@style/stySubTitleTile"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginBottom="@dimen/ViewMargin"
-                                            android:text="@string/strMinQtyForRestock"
-                                            app:font="@{`Ubuntu-C`}" />
-
-                                        <TextView
-                                            android:id="@+id/txtMinQtyForRestock"
-                                            style="@style/styDescDarkGreyX"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            app:font="@{`Ubuntu-L`}" />
-                                    </LinearLayout>
-                                </LinearLayout>
-
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_marginBottom="@dimen/ViewMargin"
-                                    android:background="@color/tilt" />
-                            </LinearLayout>
-
-                            <TextView
-                                style="@style/stySubTitleTile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                android:text="@string/strModel"
-                                app:font="@{`Ubuntu-C`}" />
-
-                            <TextView
-                                android:id="@+id/txtModel"
-                                style="@style/styDescDarkGreyX"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                app:font="@{`Ubuntu-L`}" />
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                android:background="@color/tilt" />
-
-                            <TextView
-                                style="@style/stySubTitleTile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                android:text="@string/strManufacturer"
-                                app:font="@{`Ubuntu-C`}" />
-
-                            <TextView
-                                android:id="@+id/txtManufacturer"
-                                style="@style/styDescDarkGreyX"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                app:font="@{`Ubuntu-L`}" />
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                android:background="@color/tilt" />
-
-                            <TextView
-                                style="@style/stySubTitleTile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                android:text="@string/strLocation"
-                                app:font="@{`Ubuntu-C`}" />
-
-                            <TextView
-                                android:id="@+id/txtLocation"
-                                style="@style/styDescDarkGreyX"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                app:font="@{`Ubuntu-L`}" />
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                android:background="@color/tilt" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/ViewMargin"
-                            android:background="@drawable/white_bg"
-                            android:orientation="vertical"
-                            android:padding="@dimen/ViewPadding">
-
-                            <TextView
-                                android:id="@+id/txtLastUpdated"
-                                style="@style/stySubTitleTile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/ViewMargin"
-                                app:font="@{`Ubuntu-M`}" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/white_bg"
-                            android:orientation="vertical"
-                            android:paddingLeft="@dimen/listViewDividerHeight"
-                            android:paddingRight="@dimen/listViewDividerHeight"
-                            android:paddingBottom="@dimen/listViewDividerHeight">
-
-                            <LinearLayout
-                                android:id="@+id/lyItemTransactionDetail"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/tilt"
-                                android:orientation="vertical"></LinearLayout>
-                        </LinearLayout>
-                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@color/tilt"
+                    android:orientation="vertical"
+                    android:padding="@dimen/ViewPadding">
 
                     <RelativeLayout
-                        android:id="@+id/lyProfileImageContaint"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ViewMargin">
 
-                        <utility.CircleImageView
-                            android:id="@+id/item_image"
-                            android:layout_width="@dimen/imageHeightOrWidth"
-                            android:layout_height="@dimen/imageHeightOrWidth"
-                            android:layout_centerHorizontal="true"
-                            android:src="@drawable/ic_awaiting"
-                            app:civ_border_color="@color/white"
-                            app:civ_border_width="3dp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/lyItemDetail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/ViewMargin"
+                                android:background="@drawable/white_bg"
+                                android:orientation="vertical"
+                                android:padding="@dimen/ViewPadding">
+
+                                <TextView
+                                    android:id="@+id/txtItemNameCategory"
+                                    style="@style/stySubTitleTile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    android:textStyle="bold"
+                                    app:font="@{`Ubuntu-M`}" />
+
+                                <TextView
+                                    style="@style/stySubTitleTile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    android:text="@string/strItemDescription"
+                                    app:font="@{`Ubuntu-C`}" />
+
+                                <TextView
+                                    android:id="@+id/txtDesc"
+                                    style="@style/styDescDarkGreyX"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    app:font="@{`Ubuntu-L`}" />
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    android:background="@color/tilt" />
+
+                                <TextView
+                                    style="@style/stySubTitleTile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    android:text="@string/strShortCode"
+                                    app:font="@{`Ubuntu-C`}" />
+
+                                <TextView
+                                    android:id="@+id/txtShortCode"
+                                    style="@style/styDescDarkGreyX"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    app:font="@{`Ubuntu-L`}" />
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    android:background="@color/tilt" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="@dimen/ViewMargin"
+                                        android:orientation="horizontal">
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                style="@style/stySubTitleTile"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginBottom="@dimen/ViewMargin"
+                                                android:text="@string/strUnitOfMeasure"
+                                                app:font="@{`Ubuntu-C`}" />
+
+                                            <TextView
+                                                android:id="@+id/txtUnitOfMeasure"
+                                                style="@style/styDescDarkGreyX"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                app:font="@{`Ubuntu-L`}" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                style="@style/stySubTitleTile"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginBottom="@dimen/ViewMargin"
+                                                android:text="@string/strPackage"
+                                                app:font="@{`Ubuntu-C`}" />
+
+                                            <TextView
+                                                android:id="@+id/txtPackage"
+                                                style="@style/styDescDarkGreyX"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                app:font="@{`Ubuntu-L`}" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginBottom="@dimen/ViewMargin"
+                                        android:background="@color/tilt" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="@dimen/ViewMargin"
+                                        android:orientation="horizontal">
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                style="@style/stySubTitleTile"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginBottom="@dimen/ViewMargin"
+                                                android:text="@string/strMonthlyDemand"
+                                                app:font="@{`Ubuntu-C`}" />
+
+                                            <TextView
+                                                android:id="@+id/txtMonthyDemand"
+                                                style="@style/styDescDarkGreyX"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                app:font="@{`Ubuntu-L`}" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                style="@style/stySubTitleTile"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginBottom="@dimen/ViewMargin"
+                                                android:text="@string/strMinQtyForRestock"
+                                                app:font="@{`Ubuntu-C`}" />
+
+                                            <TextView
+                                                android:id="@+id/txtMinQtyForRestock"
+                                                style="@style/styDescDarkGreyX"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                app:font="@{`Ubuntu-L`}" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginBottom="@dimen/ViewMargin"
+                                        android:background="@color/tilt" />
+                                </LinearLayout>
+
+                                <TextView
+                                    style="@style/stySubTitleTile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    android:text="@string/strModel"
+                                    app:font="@{`Ubuntu-C`}" />
+
+                                <TextView
+                                    android:id="@+id/txtModel"
+                                    style="@style/styDescDarkGreyX"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    app:font="@{`Ubuntu-L`}" />
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    android:background="@color/tilt" />
+
+                                <TextView
+                                    style="@style/stySubTitleTile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    android:text="@string/strManufacturer"
+                                    app:font="@{`Ubuntu-C`}" />
+
+                                <TextView
+                                    android:id="@+id/txtManufacturer"
+                                    style="@style/styDescDarkGreyX"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    app:font="@{`Ubuntu-L`}" />
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    android:background="@color/tilt" />
+
+                                <TextView
+                                    style="@style/stySubTitleTile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    android:text="@string/strLocation"
+                                    app:font="@{`Ubuntu-C`}" />
+
+                                <TextView
+                                    android:id="@+id/txtLocation"
+                                    style="@style/styDescDarkGreyX"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    app:font="@{`Ubuntu-L`}" />
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    android:background="@color/tilt" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/ViewMargin"
+                                android:background="@drawable/white_bg"
+                                android:orientation="vertical"
+                                android:padding="@dimen/ViewPadding">
+
+                                <TextView
+                                    android:id="@+id/txtLastUpdated"
+                                    style="@style/stySubTitleTile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/ViewMargin"
+                                    app:font="@{`Ubuntu-M`}" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/white_bg"
+                                android:orientation="vertical"
+                                android:paddingBottom="@dimen/listViewDividerHeight"
+                                android:paddingLeft="@dimen/listViewDividerHeight"
+                                android:paddingRight="@dimen/listViewDividerHeight">
+
+                                <LinearLayout
+                                    android:id="@+id/lyItemTransactionDetail"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/tilt"
+                                    android:orientation="vertical"></LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/lyProfileImageContaint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <utility.CircleImageView
+                                android:id="@+id/item_image"
+                                android:layout_width="@dimen/imageHeightOrWidth"
+                                android:layout_height="@dimen/imageHeightOrWidth"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/ic_awaiting"
+                                app:civ_border_color="@color/white"
+                                app:civ_border_width="3dp" />
+                        </RelativeLayout>
                     </RelativeLayout>
-                </RelativeLayout>
-            </LinearLayout>
-        </ScrollView>
+                </LinearLayout>
+            </ScrollView>
 
-        <utility.DotProgressBar
-            android:id="@+id/dot_progress_bar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dorProgressBarheight"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            custom:amount="5"
-            custom:duration="@android:integer/config_shortAnimTime"
-            custom:endColor="@color/white"
-            custom:startColor="@color/white" />
-    </RelativeLayout>
+            <utility.DotProgressBar
+                android:id="@+id/dot_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dorProgressBarheight"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                custom:amount="5"
+                custom:duration="@android:integer/config_shortAnimTime"
+                custom:endColor="@color/white"
+                custom:startColor="@color/white" />
+        </RelativeLayout>
+    </LinearLayout>
 </layout>
