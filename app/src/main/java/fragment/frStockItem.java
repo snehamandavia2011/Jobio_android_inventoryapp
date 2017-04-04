@@ -17,12 +17,16 @@ import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.lab360io.jobio.officeApp.R;
+import com.lab360io.jobio.officeApp.acQRCodeScanner;
 import com.lab360io.jobio.officeApp.acSearchItemByBarcodeScanner;
 import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;
 
 import adapter.AddedItemAdapter;
+import coaching.CoachingPreference;
+import coaching.QRCodeConfigurationScreen;
+import coaching.StockScreen;
 import entity.ClientItemMaster;
 import permission.CameraPermission;
 import utility.ConstantVal;
@@ -97,12 +101,16 @@ public class frStockItem extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSearchItem:
-                CameraPermission objCameraPermission = new CameraPermission((AppCompatActivity) getActivity());
-                if (objCameraPermission.isHavePermission()) {
-                    Intent i = new Intent(getActivity(), acSearchItemByBarcodeScanner.class);
-                    startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
-                } else {
-                    objCameraPermission.askForPermission();
+                if (CoachingPreference.needToShowPrompt((AppCompatActivity) getActivity(), CoachingPreference.ADD_ITEM_BY_BARCODE_BUTTON))
+                    new StockScreen().showPromptOnClickScanBarcode((AppCompatActivity) getActivity());
+                else {
+                    CameraPermission objCameraPermission = new CameraPermission((AppCompatActivity) getActivity());
+                    if (objCameraPermission.isHavePermission()) {
+                        Intent i = new Intent(getActivity(), acSearchItemByBarcodeScanner.class);
+                        startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
+                    } else {
+                        objCameraPermission.askForPermission();
+                    }
                 }
                 break;
         }

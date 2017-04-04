@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Vector;
 
 import adapter.TabsPagerAdapter;
+import coaching.StockScreen;
 import entity.ClientStockSelection;
 import fragment.frStockItem;
 import fragment.frStockStock;
@@ -207,6 +208,14 @@ public class acStock extends ActionBarActivity implements TabHost.OnTabChangeLis
         }
         View viewCurrent = mTabHost.getTabWidget().getChildAt(mTabHost.getCurrentTab());
         viewCurrent.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.lightGrey)));
+        switch (pos){
+            case 1:
+                new StockScreen().showPromptOnStockScreen(ac);
+                break;
+            case 2:
+                new StockScreen().showPromptOnTransactionScreen(ac);
+                break;
+        }
     }
 
     @Override

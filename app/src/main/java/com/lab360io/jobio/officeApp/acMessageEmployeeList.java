@@ -22,6 +22,7 @@ import com.xwray.fontbinding.FontCache;
 import java.util.ArrayList;
 
 import adapter.AdminEmployeeListAdapter;
+import coaching.ManageMessage;
 import entity.ClientAdminUser;
 import entity.ClientAdminUserEmployee;
 import utility.ConstantVal;
@@ -51,6 +52,7 @@ public class acMessageEmployeeList extends AppCompatActivity {
         objMessageLoader = new MessageLoader(mContext);
         objMessageLoader.startTimer();
         objHelper.setActionBar(ac, getString(R.string.strMessage), getString(R.string.strMessage));
+        new ManageMessage().employeeListScreen(ac);
     }
 
     @Override

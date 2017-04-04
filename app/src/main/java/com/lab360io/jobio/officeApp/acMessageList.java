@@ -37,6 +37,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import coaching.ManageMessage;
 import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUser;
 import entity.ClientFieldMessage;
@@ -81,6 +82,7 @@ public class acMessageList extends AppCompatActivity {
         ubuntuC = Helper.getUbuntuC(mContext);
         myFadeInAnimation = AnimationUtils.loadAnimation(mContext, R.anim.blink);
         setData();
+        new ManageMessage().sendMessageScreen(ac);
     }
 
     private void setData() {

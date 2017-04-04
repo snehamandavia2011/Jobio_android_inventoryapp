@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Vector;
 
 import adapter.TabsPagerAdapter;
+import coaching.Assets;
 import fragment.frAssetsAsset;
 import fragment.frAssetsInspect;
 import fragment.frAssetsService;
@@ -208,6 +209,18 @@ public class acAsset extends ActionBarActivity implements TabHost.OnTabChangeLis
         }
         View viewCurrent = mTabHost.getTabWidget().getChildAt(mTabHost.getCurrentTab());
         viewCurrent.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.lightGrey)));
+
+        switch (pos) {
+            case 0:
+                new Assets().assetScreen(ac);
+                break;
+            case 1:
+                new Assets().inspectionScreen(ac);
+                break;
+            case 2:
+                new Assets().serviceScreen(ac);
+                break;
+        }
     }
 
     @Override

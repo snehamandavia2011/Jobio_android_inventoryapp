@@ -8,7 +8,7 @@ import utility.Helper;
  * Created by SAI on 3/14/2017.
  */
 public class CoachingPreference {
-    public static final String IS_APP_LOAD_FIRST_TIME="is_app_load_first_time";
+    public static final String IS_APP_LOAD_FIRST_TIME = "is_app_load_first_time";
     public static final String MANUAL_QR_CODE_SCREEN = "manual_qr_code_screen";
     public static final String MANUAL_QR_CODE_SCAN_QR_CODE_BUTTON = "manual_qr_code_scan_QR_code_button";
     public static final String SCAN_QR_CODE_SCREEN = "scan_QR_Code_screen";
@@ -18,6 +18,11 @@ public class CoachingPreference {
     public static final String SEND_MESSAGE_SCREEN = "send_message_Screen";
     public static final String SETTING_SCREEN = "setting_screen";
     public static final String ASSET_SCREEN = "asset_screen";
+    public static final String ADD_ITEM_BY_BARCODE_BUTTON = "add_item_by_barcode";
+    public static final String STOCK_SCREEN = "stock_screen";
+    public static final String TRANSACTION_SCREEN = "transaction_screen";
+    public static final String INSPECTION_SCREEN = "inspection_screen";
+    public static final String SERVICE_SCREEN = "service_screen";
 
     public static void updatePreference(Context ctx, String preferenceName) {
         Helper.setBooleanPreference(ctx, preferenceName, false);
@@ -38,5 +43,10 @@ public class CoachingPreference {
         Helper.clearPreference(ctx, SEND_MESSAGE_SCREEN);
         Helper.clearPreference(ctx, ASSET_SCREEN);
         Helper.clearPreference(ctx, SETTING_SCREEN);
+        Helper.clearPreference(ctx, ADD_ITEM_BY_BARCODE_BUTTON);
+        Helper.clearPreference(ctx, STOCK_SCREEN);
+        Helper.clearPreference(ctx, TRANSACTION_SCREEN);
+        Helper.clearPreference(ctx, INSPECTION_SCREEN);
+        Helper.clearPreference(ctx, SERVICE_SCREEN);
     }
 }

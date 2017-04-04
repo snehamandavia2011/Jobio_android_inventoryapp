@@ -32,6 +32,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import asyncmanager.asyncLoadCommonData;
+import coaching.HomeScreen;
 import entity.BusinessAccountMaster;
 import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUser;
@@ -76,6 +77,7 @@ public class acHome extends AppCompatActivity {
         }
         objHelper.setActionBar(ac, getString(R.string.strHome), getString(R.string.strHome));
         initilizeData();
+        new HomeScreen().showPromptWhileLoadActivity(ac);
     }
 
     private void initilizeData() {
@@ -421,7 +423,7 @@ public class acHome extends AppCompatActivity {
     private boolean checkTokenExistance() {
         boolean isSessionExists = Helper.getBooleanPreference(mContext, ConstantVal.IS_SESSION_EXISTS, false);
         if (!isSessionExists) {
-            Helper.displaySnackbar(ac, ConstantVal.ServerResponseCode.SESSION_EXPIRED,ConstantVal.ToastBGColor.INFO);
+            Helper.displaySnackbar(ac, ConstantVal.ServerResponseCode.SESSION_EXPIRED, ConstantVal.ToastBGColor.INFO);
             return false;
         } else {
             setDashboardData();
