@@ -59,7 +59,8 @@ public class asyncDashboardData extends Thread {
                 if (result != null && !result.equals("")) {
                     try {
                         ArrayList<ClientStockTransactionStatusMaster> arr = ClientStockTransactionStatusMaster.parseList(result);
-                        ClientStockTransactionStatusMaster.saveDataToDatabase(ctx, arr);
+                        if (arr != null)
+                            ClientStockTransactionStatusMaster.saveDataToDatabase(ctx, arr);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
