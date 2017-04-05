@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/libQECodeReaderView" />
             <option value="$PROJECT_DIR$/libRippleDecoratorView" />
             <option value="$PROJECT_DIR$/libTopSnackbar" />
+            <option value="$PROJECT_DIR$/libWelcomeScreen" />
             <option value="$PROJECT_DIR$/libzBarScanner" />
           </set>
         </option>

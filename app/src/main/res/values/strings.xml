@@ -336,5 +336,13 @@
     <string name="msgViewItemByScanBarcode">Scan item barcode to load item detail.\n\nIf you don\'t have barcode image, input barcode text to load item\'s data.</string>
     <string name="msgTransaction">Manage stock transaction for,\nSTOCK RETURN - if customer no need item for particular JOB.\nSTOCK RECEIVE - After dispatch from supplier you can receive purchase order\nSTOCK DAMAGE - if customer return damaged item to us.\nSTOCK RELEASE - field engineer can release unwanted item from job place.</string>
     <string name="strMessageEmployeeList">Select &amp; Send message</string>
+    <string name="strConnect">Connect</string>
+    <string name="msgConnect">Stay connected to back office with real time GPS location</string>
+    <string name="strDoPaperLess">Go Paperless – Mobile Forms</string>
+    <string name="msgDoPaperLess">Your very owned designed mobile forms, let’s you work offline. Take signatures, photos, even location stamp.</string>
+    <string name="strStayNotify">Ding Dong – Stay Notified</string>
+    <string name="msgStayNotify">Stay in touch with real time notification. Get notification of Job, message and many more…</string>
+    <string name="strCommunicationToColleague">Communicate to colleague</string>
+    <string name="msgCommunicationToColleague">To communicate, collaborate your day with your colleagues.</string>
 </resources>
 

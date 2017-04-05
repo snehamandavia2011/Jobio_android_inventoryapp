@@ -53,4 +53,5 @@ dependencies {
     compile project(':libzBarScanner')
     compile project(':libTopSnackbar')
     compile project(':libMaterialTapTarget')
+    compile project(':libWelcomeScreen')
 }

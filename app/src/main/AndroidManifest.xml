@@ -22,7 +22,7 @@
             android:value="DISABLE" />
 
         <activity
-            android:name=".acSplash"
+            android:name=".acStartupActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
@@ -157,6 +157,14 @@
             android:name=".acFormFields"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDarkGrey" />
+        <activity
+            android:name=".acWelcome"
+            android:theme="@style/GeneralWelcomeScreenTheme" />
+        <activity
+            android:name=".acSplash"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
     </application>
 
 </manifest>

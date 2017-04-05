@@ -93,7 +93,7 @@ public class acLogin extends AppCompatActivity {
         rippleForgotPassword = (RippleDecoratorView) findViewById(R.id.rippleForgotPassword);
         txtCopyRight = (TextView) findViewById(R.id.txtCopyRight);
         txtCopyRight.setText(txtCopyRight.getText() + " [" + getString(R.string.strVersion) + ":" + BuildConfig.VERSION_NAME + "]");
-        objLocationPermission=new LocationPermission(ac);
+        objLocationPermission = new LocationPermission(ac);
         if (!objLocationPermission.isHavePermission()) {
             objLocationPermission.askForPermission();
         }
@@ -223,92 +223,107 @@ public class acLogin extends AppCompatActivity {
                     new Thread() {
                         public void run() {
                             //verify login detail
-                            Date dt = new Date();
-                            String date = Helper.convertDateToString(dt, ConstantVal.DATE_FORMAT);
-                            String time = Helper.convertDateToString(dt, ConstantVal.TIME_FORMAT);
-                            String QRCode = Helper.getStringPreference(mContext, ConstantVal.QRCODE_VALUE, "");
-                            URLMapping um = ConstantVal.getLoginCredentialsUrl(mContext);
-                            ServerResponse objServerResponse = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(),
-                                    new String[]{QRCode, strUserName, strPassword, strLocation, deviceName, deviceVersion, account_id, date, time}, um.getParamNames(), um.isNeedToSync());
-                            String result = Html.fromHtml(objServerResponse.getResponseString()).toString();
-                            //Logger.debug("After login Server Response:" + result);
-                            if (result != null && !result.equals("")) {
-                                //result = result.substring(1, result.length() - 1).replace("\\", "");
-                                try {
-                                    ClientLoginUser objLoginUser = parsQRCodeAndLoginDetail.parseLogin(result);
-                                    objLoginUser.setUserName(strUserName);
-                                    objLoginUser.setPassword(strPassword);
-                                    //objLoginUser.setQRCode(QRCode);
-                                    if (objLoginUser != null && !objLoginUser.getToken().equals("")) {
-                                        //save verified data to shared preferences
-                                        objLoginUser.saveDatatoPreference(mContext);
-                                        try {
-                                            new asyncUserData(mContext).join();
-                                            new Notification().savePlayerId(mContext).join();
-                                            new asyncAsset(mContext).getAllData().join();
-                                            new asyncDashboardData(mContext).join();
-                                            new asyncLocationTrackingInterval(mContext).join();
-                                            new asyncModuleFlag(mContext).join();
-                                            new asyncEmployeeList(mContext).join();
-                                            new asyncLoadCommonData(mContext).startSync().join();
-                                            new asyncMessageList(mContext);
-                                            Helper.setLongPreference(mContext, ConstantVal.LAST_SERVER_TO_DEVICE_SYNC_TIME, new Date().getTime());
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                            handler.post(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    btnLogin.setEnabled(true);
-                                                    btnLogin.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
-                                                }
-                                            });
-                                        }
-                                        Logger.debug((asyncUserData.isDataLoadSuccessfully() + " " + Notification.isDataLoadSuccessfully() + " " +
-                                                asyncAsset.isDataLoadSuccessfully() + " " + asyncDashboardData.isDataLoadSuccessfully() + " " +
-                                                asyncLocationTrackingInterval.isDataLoadSuccessfully() + " " + asyncModuleFlag.isDataLoadSuccessfully() + " " +
-                                                asyncEmployeeList.isDataLoadSuccessfully()));
-                                        if (asyncUserData.isDataLoadSuccessfully() && Notification.isDataLoadSuccessfully() &&
-                                                asyncAsset.isDataLoadSuccessfully() && asyncDashboardData.isDataLoadSuccessfully() &&
-                                                asyncLocationTrackingInterval.isDataLoadSuccessfully() && asyncModuleFlag.isDataLoadSuccessfully() &&
-                                                asyncEmployeeList.isDataLoadSuccessfully()) {
-                                            Helper.startBackgroundService(mContext);
-                                            Intent i = new Intent(mContext, acHome.class);
-                                            startActivity(i);
-                                            finish();
-                                        } else {
-                                            Helper.displaySnackbar(ac, getString(R.string.strUnableToLoadData),ConstantVal.ToastBGColor.DANGER);
-                                            handler.post(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    btnLogin.setEnabled(true);
-                                                    btnLogin.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
-                                                    Helper.logOutUser(mContext, false);
-                                                }
-                                            });
+                            String result = "";
+                            try {
+                                Date dt = new Date();
+                                String date = Helper.convertDateToString(dt, ConstantVal.DATE_FORMAT);
+                                String time = Helper.convertDateToString(dt, ConstantVal.TIME_FORMAT);
+                                String QRCode = Helper.getStringPreference(mContext, ConstantVal.QRCODE_VALUE, "");
+                                URLMapping um = ConstantVal.getLoginCredentialsUrl(mContext);
+                                ServerResponse objServerResponse = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(),
+                                        new String[]{QRCode, strUserName, strPassword, strLocation, deviceName, deviceVersion, account_id, date, time}, um.getParamNames(), um.isNeedToSync());
+                                result = Html.fromHtml(objServerResponse.getResponseString()).toString();
+                                //Logger.debug("After login Server Response:" + result);
+                                if (result != null && !result.equals("")) {
+                                    //result = result.substring(1, result.length() - 1).replace("\\", "");
+                                    try {
+                                        ClientLoginUser objLoginUser = parsQRCodeAndLoginDetail.parseLogin(result);
+                                        objLoginUser.setUserName(strUserName);
+                                        objLoginUser.setPassword(strPassword);
+                                        //objLoginUser.setQRCode(QRCode);
+                                        if (objLoginUser != null && !objLoginUser.getToken().equals("")) {
+                                            //save verified data to shared preferences
+                                            objLoginUser.saveDatatoPreference(mContext);
+                                            try {
+                                                new asyncUserData(mContext).join();
+                                                new Notification().savePlayerId(mContext).join();
+                                                new asyncAsset(mContext).getAllData().join();
+                                                new asyncDashboardData(mContext).join();
+                                                new asyncLocationTrackingInterval(mContext).join();
+                                                new asyncModuleFlag(mContext).join();
+                                                new asyncEmployeeList(mContext).join();
+                                                new asyncLoadCommonData(mContext).startSync().join();
+                                                new asyncMessageList(mContext);
+                                                Helper.setLongPreference(mContext, ConstantVal.LAST_SERVER_TO_DEVICE_SYNC_TIME, new Date().getTime());
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                                handler.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        btnLogin.setEnabled(true);
+                                                        btnLogin.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
+                                                    }
+                                                });
+                                            }
+                                            Logger.debug((asyncUserData.isDataLoadSuccessfully() + " " + Notification.isDataLoadSuccessfully() + " " +
+                                                    asyncAsset.isDataLoadSuccessfully() + " " + asyncDashboardData.isDataLoadSuccessfully() + " " +
+                                                    asyncLocationTrackingInterval.isDataLoadSuccessfully() + " " + asyncModuleFlag.isDataLoadSuccessfully() + " " +
+                                                    asyncEmployeeList.isDataLoadSuccessfully()));
+                                            if (asyncUserData.isDataLoadSuccessfully() && Notification.isDataLoadSuccessfully() &&
+                                                    asyncAsset.isDataLoadSuccessfully() && asyncDashboardData.isDataLoadSuccessfully() &&
+                                                    asyncLocationTrackingInterval.isDataLoadSuccessfully() && asyncModuleFlag.isDataLoadSuccessfully() &&
+                                                    asyncEmployeeList.isDataLoadSuccessfully()) {
+                                                Helper.startBackgroundService(mContext);
+                                                Intent i = new Intent(mContext, acHome.class);
+                                                startActivity(i);
+                                                finish();
+                                            } else {
+                                                Helper.displaySnackbar(ac, getString(R.string.strUnableToLoadData), ConstantVal.ToastBGColor.DANGER);
+                                                handler.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        btnLogin.setEnabled(true);
+                                                        btnLogin.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
+                                                        Helper.logOutUser(mContext, false);
+                                                    }
+                                                });
 
+                                            }
                                         }
+                                    } catch (JSONException e) {
+                                        Logger.debug("in:" + e.getMessage());
+                                        Helper.displaySnackbar(ac, result, ConstantVal.ToastBGColor.DANGER);
+                                        handler.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                btnLogin.setEnabled(true);
+                                                btnLogin.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
+                                            }
+                                        });
                                     }
-                                } catch (JSONException e) {
-                                    Helper.displaySnackbar(ac, result,ConstantVal.ToastBGColor.DANGER);
-                                    handler.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            btnLogin.setEnabled(true);
-                                            btnLogin.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
-                                        }
-                                    });
                                 }
+                            } catch (Exception e) {
+                                Logger.debug("out:" + e.getMessage());
+                                e.printStackTrace();
+                                Helper.displaySnackbar(ac, result, ConstantVal.ToastBGColor.DANGER);
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        btnLogin.setEnabled(true);
+                                        btnLogin.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
+                                    }
+                                });
+                            } finally {
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //pd.dismiss();
+                                        dotProgressBar.setVisibility(View.GONE);
+                                    }
+                                });
                             }
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //pd.dismiss();
-                                    dotProgressBar.setVisibility(View.GONE);
-                                }
-                            });
                         }
                     }.start();
-
                 }
             }
         });

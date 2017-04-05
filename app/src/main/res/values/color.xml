@@ -31,4 +31,5 @@
     <color name="warning">#FF9800</color>
     <color name="danger">#F44336</color>
     <color name="promptBgColor">#012939</color>
+    <color name="welcomeBG">#00CC99</color>
 </resources>
