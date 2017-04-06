@@ -23,6 +23,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -79,6 +80,7 @@ public class acLogin extends AppCompatActivity {
     DotProgressBar dotProgressBar;
     TextView txtCopyRight;
     LocationPermission objLocationPermission;
+    ImageView imgLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,7 @@ public class acLogin extends AppCompatActivity {
         dotProgressBar = (DotProgressBar) findViewById(R.id.dot_progress_bar);
         ac = this;
         mContext = this;
+        imgLogo = (ImageView) findViewById(R.id.imgLogo);
         rippleNotUserName = (RippleDecoratorView) findViewById(R.id.rippleNotUserName);
         rippleForgotPassword = (RippleDecoratorView) findViewById(R.id.rippleForgotPassword);
         txtCopyRight = (TextView) findViewById(R.id.txtCopyRight);
@@ -104,8 +107,13 @@ public class acLogin extends AppCompatActivity {
                     public void run() {
                         final String strBase64 = Helper.getStringPreference(mContext, BusinessAccountMaster.Fields.ACCOUNT_LOGO, "");
                         final String imageDataBytes = strBase64.substring(strBase64.indexOf(",") + 1);
-                        Bitmap bmp = Helper.convertBase64ImageToBitmap(imageDataBytes);
-                        objHelper.setActionBar(ac, getString(R.string.strLogin), bmp, true);
+                        final Bitmap bmp = Helper.convertBase64ImageToBitmap(imageDataBytes);
+                        if (bmp != null) {
+                            imgLogo.setImageBitmap(Bitmap.createScaledBitmap(bmp, (int) Helper.dpFromPx(mContext, 80), (int) Helper.dpFromPx(mContext, 80), false));
+                        } else {
+                            imgLogo.setImageResource(R.drawable.ic_jobio_logo_white);
+                        }
+                        objHelper.setActionBar(ac, getString(R.string.strLogin), bmp, false);
                     }
                 });
             }
@@ -425,7 +433,7 @@ public class acLogin extends AppCompatActivity {
         String strUserName = Helper.getStringPreference(mContext, ClientAdminUser.Fields.USER_NAME, "");
         if (!strUserName.equals("")) {
             edUserName.setEnabled(false);
-            btnNotUser.setText(getString(R.string.strNot) + " " + Helper.getStringPreference(mContext, ClientEmployeeMaster.Fields.FIRST_NAME, "?"));
+            btnNotUser.setText(getString(R.string.strNot) + " " + Helper.getStringPreference(mContext, ClientEmployeeMaster.Fields.FIRST_NAME, "") + "?");
             edUserName.setText(strUserName);
             rippleNotUserName.setVisibility(View.VISIBLE);
         } else {

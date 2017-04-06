@@ -802,6 +802,7 @@ public class Helper {
     public void setActionBar(final AppCompatActivity ac, final String text) {//Back button navigation
         new AsyncTask() {
             Toolbar toolbar;
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -836,6 +837,7 @@ public class Helper {
     public void setActionBar(final AppCompatActivity ac, final String text, final Bitmap bmp, final boolean isRequireToShowBitmap) {
         new AsyncTask() {
             Toolbar toolbar;
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -882,6 +884,7 @@ public class Helper {
 
     public boolean isTopMenuVisible = false;
     Toolbar toolbar;
+
     public void setActionBar(final AppCompatActivity ac, final String strOpenText, final String strCloseText) {
         new AsyncTask() {
             @Override
@@ -1601,5 +1604,13 @@ public class Helper {
             e.printStackTrace();
         }
         return arrClientCustomForm;
+    }
+
+    public static float dpFromPx(final Context context, final float px) {
+        return px / context.getResources().getDisplayMetrics().density;
+    }
+
+    public static float pxFromDp(final Context context, final float dp) {
+        return dp * context.getResources().getDisplayMetrics().density;
     }
 }

@@ -43,7 +43,7 @@ public class acSplash extends Activity {
                         public void run() {
                             imgLogo.setVisibility(View.VISIBLE);
                             txtAccountName.setVisibility(View.GONE);
-                            imgLogo.setImageResource(R.drawable.ic_splash_logo1);
+                            imgLogo.setImageResource(R.drawable.ic_jobio_logo_white);
                         }
                     });
                 } else {

@@ -1,5 +1,5 @@
 ﻿<resources>
-    <string name="msgFeatureNotAvailContactAdmin">Feature is not available. Contact to admin</string>
+    <string name="msgFeatureNotAvailContactAdmin">Feature is not available.\nContact to admin</string>
     <string name="app_name">Jobio Office</string>
     <string name="strHiya">Hiya</string>
     <string name="strNA">NA</string>
@@ -25,7 +25,7 @@
     <string name="strEnterQRCode">Enter company domain name</string>
 
     <string name="msgScanQRCode">Scan QR code to setup company.</string>
-    <string name="strCheckmailQRCode">Open welcome email or website screen on your computer or mobile device to scan.</string>
+    <string name="strCheckmailQRCode">Open welcome email OR website screen on your computer or mobile device to scan.</string>
     <string name="strOR">OR</string>
     <string name="strInternetNotAvaiable">Internet service is not available</string>
     <string name="strUnableToParseData">Unable to parse data</string>
@@ -317,7 +317,7 @@
     <string name="strLetsStart">Let\'s Start</string>
     <string name="strWelcomeTo">Welcome to</string>
     <string name="strSetUpYourBusiness">Set up your business</string>
-    <string name="msgSetUpYourBusiness">Scan qr code which you have received in welcome email OR Scan qr code from Jobio web, address would be Settings>App Settings > Field App OR Ask business admin for business domain name</string>
+    <string name="msgSetUpYourBusiness">Scan qr code which you have received in welcome email\nOR\nScan qr code from Jobio web, address would be Settings>App Settings > Field App OR Ask business admin for business domain name</string>
     <string name="msgScanCompanyDomain">Enter company domain name by scan QR code.</string>
     <string name="strScanDomainName">Scan company domain</string>
     <string name="msgOpenCamera">Ready your qr code to scan, open email or website screen on your computer or mobile device to scan.</string>
@@ -344,5 +344,7 @@
     <string name="msgStayNotify">Stay in touch with real time notification. Get notification of Job, message and many more…</string>
     <string name="strCommunicationToColleague">Communicate to colleague</string>
     <string name="msgCommunicationToColleague">To communicate, collaborate your day with your colleagues.</string>
+    <string name="strNextRightArrow">Next >></string>
+    <string name="strSignup">Sign up</string>
 </resources>
 

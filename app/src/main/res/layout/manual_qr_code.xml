@@ -25,14 +25,14 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_centerInParent="true"
+            android:layout_marginBottom="@dimen/ViewMarginBig"
             android:gravity="bottom"
             android:orientation="horizontal">
 
             <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                 android:id="@+id/lyQRCode"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/ViewMargin">
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/edQRCode"
@@ -63,16 +63,28 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnNext"
+            <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                android:id="@+id/viewNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_arrow_right"
-                app:fab_colorDisabled="@color/lightGrey"
-                fab:fab_colorNormal="@color/white"
-                fab:fab_colorPressed="@color/white_pressed"
-                fab:fab_plusIconColor="@color/half_black" />
+                android:layout_marginBottom="@dimen/ViewMargin"
+                rdv:rdv_rippleAnimationDuration="600"
+                rdv:rdv_rippleAnimationFrames="60"
+                rdv:rdv_rippleAnimationPeakFrame="15"
+                rdv:rdv_rippleColor="@android:color/white"
+                rdv:rdv_rippleMaxAlpha="0.8"
+                rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                <Button
+                    android:id="@+id/btnNext"
+                    style="@style/btnWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/buttonHeight"
+                    android:padding="@dimen/ViewPadding"
+                    android:text="@string/strNextRightArrow"
+                    app:font="@{`Ubuntu-L`}" />
+            </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
 
             <TextView
                 android:id="@+id/txtCopyRight"
@@ -80,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@id/btnNext"
+                android:layout_below="@id/viewNext"
                 android:text="@string/strCopyRight"
                 app:font="@{`Ubuntu-L`}" />
         </RelativeLayout>
@@ -109,7 +121,7 @@
                     android:layout_width="200dp"
                     android:layout_height="70dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/logo_white" />
+                    android:src="@drawable/ic_jobio_logo_white" />
 
                 <utility.DotProgressBar
                     android:id="@+id/dot_progress_bar"
@@ -150,6 +162,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/ViewMargin"
+                android:background="@color/white"
+                android:padding="2dp"
                 rdv:rdv_rippleAnimationDuration="600"
                 rdv:rdv_rippleAnimationFrames="60"
                 rdv:rdv_rippleAnimationPeakFrame="15"
@@ -159,11 +173,11 @@
 
                 <Button
                     android:id="@+id/btnLetsStart"
-                    style="@style/btnWhite"
+                    style="@style/btn"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/buttonHeight"
                     android:padding="@dimen/ViewPadding"
-                    android:text="@string/strLetsStart"
+                    android:text="@string/strSignup"
                     app:font="@{`Ubuntu-L`}" />
             </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
         </LinearLayout>

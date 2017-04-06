@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import entity.BusinessAccountdbDetail;
@@ -37,23 +38,26 @@ public class asyncDashboardData extends Thread {
     }
 
     public void loadDataDuringLogin() {
-        getWelcomeText();
-        getStockTranactionStatus();
-        getStockTranactionReason();
-        getUIFormStatus();
-        getUIControl();
-        getUIControlType();
+        try {
+            getWelcomeText().join();
+            getStockTranactionStatus().join();
+            getStockTranactionReason().join();
+            getUIFormStatus().join();
+            getUIControl().join();
+            getUIControlType().join();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void getStockTranactionStatus() {
-        new AsyncTask() {
-            @Override
-            protected Object doInBackground(Object[] params) {
+    public Thread getStockTranactionStatus() {
+        Thread t = new Thread() {
+            public void run() {
                 HttpEngine objHttpEngine = new HttpEngine();
                 final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
                 String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
                 URLMapping um = ConstantVal.getStockTransactionStatus(ctx);
-                ServerResponse objServerResponse = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(), new String[]{String.valueOf(tokenId), account_id, ConstantVal.APP_REF_TYPE}, um.getParamNames(), um.isNeedToSync());
+                ServerResponse objServerResponse = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(), new String[]{String.valueOf(tokenId), account_id}, um.getParamNames(), um.isNeedToSync());
                 String result = objServerResponse.getResponseString();
                 STSResponseCode = objServerResponse.getResponseCode();
                 if (result != null && !result.equals("")) {
@@ -65,15 +69,15 @@ public class asyncDashboardData extends Thread {
                         e.printStackTrace();
                     }
                 }
-                return null;
             }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        };
+        t.start();
+        return t;
     }
 
-    public void getStockTranactionReason() {
-        new AsyncTask() {
-            @Override
-            protected Object doInBackground(Object[] params) {
+    public Thread getStockTranactionReason() {
+        Thread t = new Thread() {
+            public void run() {
                 HttpEngine objHttpEngine = new HttpEngine();
                 final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
                 String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
@@ -89,15 +93,15 @@ public class asyncDashboardData extends Thread {
                         e.printStackTrace();
                     }
                 }
-                return null;
             }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        };
+        t.start();
+        return t;
     }
 
-    public void getWelcomeText() {
-        new AsyncTask() {
-            @Override
-            protected Object doInBackground(Object[] params) {
+    public Thread getWelcomeText() {
+        Thread t = new Thread() {
+            public void run() {
                 HttpEngine objHttpEngine = new HttpEngine();
                 final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
                 String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
@@ -112,9 +116,10 @@ public class asyncDashboardData extends Thread {
                         e.printStackTrace();
                     }
                 }
-                return null;
             }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        };
+        t.start();
+        return t;
     }
 
 
@@ -136,10 +141,9 @@ public class asyncDashboardData extends Thread {
         }
     }
 
-    public void getUIFormStatus() {
-        new AsyncTask() {
-            @Override
-            protected Object doInBackground(Object[] params) {
+    public Thread getUIFormStatus() {
+        Thread t = new Thread() {
+            public void run() {
                 HttpEngine objHttpEngine = new HttpEngine();
                 final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
                 String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
@@ -151,20 +155,21 @@ public class asyncDashboardData extends Thread {
                 if (result != null && !result.equals("")) {
                     try {
                         ArrayList<ClientUIFormStatus> arrClientUIFormStatus = ClientUIFormStatus.parseData(result);
-                        ClientUIFormStatus.saveDataToDatabase(ctx, arrClientUIFormStatus);
+                        if (arrClientUIFormStatus != null)
+                            ClientUIFormStatus.saveDataToDatabase(ctx, arrClientUIFormStatus);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                return null;
             }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        };
+        t.start();
+        return t;
     }
 
-    public void getUIControl() {
-        new AsyncTask() {
-            @Override
-            protected Object doInBackground(Object[] params) {
+    public Thread getUIControl() {
+        Thread t = new Thread() {
+            public void run() {
                 HttpEngine objHttpEngine = new HttpEngine();
                 final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
                 String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
@@ -176,20 +181,21 @@ public class asyncDashboardData extends Thread {
                 if (result != null && !result.equals("")) {
                     try {
                         ArrayList<ClientUIControl> arrClientUIControl = ClientUIControl.parseData(result);
-                        ClientUIControl.saveDataToDatabase(ctx, arrClientUIControl);
+                        if (arrClientUIControl != null)
+                            ClientUIControl.saveDataToDatabase(ctx, arrClientUIControl);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                return null;
             }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        };
+        t.start();
+        return t;
     }
 
-    public void getUIControlType() {
-        new AsyncTask() {
-            @Override
-            protected Object doInBackground(Object[] params) {
+    public Thread getUIControlType() {
+        Thread t = new Thread() {
+            public void run() {
                 HttpEngine objHttpEngine = new HttpEngine();
                 final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
                 String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
@@ -201,13 +207,15 @@ public class asyncDashboardData extends Thread {
                 if (result != null && !result.equals("")) {
                     try {
                         ArrayList<ClientUIControlType> arrClientUIControlType = ClientUIControlType.parseData(result);
-                        ClientUIControlType.saveDataToDatabase(ctx, arrClientUIControlType);
+                        if (arrClientUIControlType != null)
+                            ClientUIControlType.saveDataToDatabase(ctx, arrClientUIControlType);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                return null;
             }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        };
+        t.start();
+        return t;
     }
 }

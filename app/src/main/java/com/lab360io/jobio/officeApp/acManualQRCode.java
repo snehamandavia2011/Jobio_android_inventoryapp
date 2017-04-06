@@ -29,7 +29,7 @@ import utility.Helper;
 public class acManualQRCode extends AppCompatActivity {
     Button btnLetsStart;
     ImageButton btnScanQR;
-    FloatingActionButton btnNext;
+    Button btnNext;
     EditText edQRCode;
     MaterialTextInputLayout lyQRCode;
     AppCompatActivity ac;
@@ -49,7 +49,7 @@ public class acManualQRCode extends AppCompatActivity {
         lyQRCode.setHintTextAppearance(R.style.stySubTitleWhite);
         btnScanQR = (ImageButton) findViewById(R.id.btnScanQR);
         edQRCode = (EditText) findViewById(R.id.edQRCode);
-        btnNext = (FloatingActionButton) findViewById(R.id.btnNext);
+        btnNext = (Button) findViewById(R.id.btnNext);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
