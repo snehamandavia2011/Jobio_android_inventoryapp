@@ -202,28 +202,29 @@
 
             </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/rl"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_above="@id/rl">
 
                 <ImageView
                     android:id="@+id/imgLogo"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
 
                 <utility.DotProgressBar
                     android:id="@+id/dot_progress_bar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dorProgressBarheight"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
                     android:visibility="gone"
                     custom:amount="5"
                     custom:duration="@android:integer/config_mediumAnimTime"
                     custom:endColor="@color/white"
                     custom:startColor="@color/white" />
-            </LinearLayout>
+            </RelativeLayout>
 
         </RelativeLayout>
     </LinearLayout>

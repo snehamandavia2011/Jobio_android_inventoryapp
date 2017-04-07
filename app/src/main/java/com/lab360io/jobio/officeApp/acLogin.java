@@ -109,7 +109,9 @@ public class acLogin extends AppCompatActivity {
                         final String imageDataBytes = strBase64.substring(strBase64.indexOf(",") + 1);
                         final Bitmap bmp = Helper.convertBase64ImageToBitmap(imageDataBytes);
                         if (bmp != null) {
-                            imgLogo.setImageBitmap(Bitmap.createScaledBitmap(bmp, (int) Helper.dpFromPx(mContext, 80), (int) Helper.dpFromPx(mContext, 80), false));
+                            int pixel = Helper.getPixelByPercentageOfScreenHeight(18, mContext);
+                            Logger.debug("pixel:" + pixel);
+                            imgLogo.setImageBitmap(Bitmap.createScaledBitmap(bmp, pixel, pixel, false));
                         } else {
                             imgLogo.setImageResource(R.drawable.ic_jobio_logo_white);
                         }
@@ -357,6 +359,7 @@ public class acLogin extends AppCompatActivity {
                 }
                 if (isDataEnteredProper) {
                     dot_progress_bar.setVisibility(View.VISIBLE);
+                    dot_progress_bar.bringToFront();
                 }
             }
 
