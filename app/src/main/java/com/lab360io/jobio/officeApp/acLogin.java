@@ -109,8 +109,7 @@ public class acLogin extends AppCompatActivity {
                         final String imageDataBytes = strBase64.substring(strBase64.indexOf(",") + 1);
                         final Bitmap bmp = Helper.convertBase64ImageToBitmap(imageDataBytes);
                         if (bmp != null) {
-                            int pixel = Helper.getPixelByPercentageOfScreenHeight(18, mContext);
-                            Logger.debug("pixel:" + pixel);
+                            int pixel = Helper.getPixelByPercentageOfScreenHeight(15, mContext);
                             imgLogo.setImageBitmap(Bitmap.createScaledBitmap(bmp, pixel, pixel, false));
                         } else {
                             imgLogo.setImageResource(R.drawable.ic_jobio_logo_white);

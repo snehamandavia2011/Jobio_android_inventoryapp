@@ -29,6 +29,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -177,6 +178,20 @@ public class acEmpCustomerSupplierSelection extends AppCompatActivity implements
             public boolean onTouch(View v, MotionEvent event) {
                 edSearchBox.requestFocusFromTouch();
                 return true;
+            }
+        });
+
+        edSearchBox.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                Logger.debug("edSearchBox onFocusChange:" + hasFocus);
+                if (hasFocus) {
+                    ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                            .showSoftInput(edSearchBox, InputMethodManager.SHOW_FORCED);
+                } else {
+                    ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(edSearchBox.getWindowToken(), 0);
+                }
             }
         });
 
@@ -357,6 +372,7 @@ public class acEmpCustomerSupplierSelection extends AppCompatActivity implements
     }
 
     Toolbar toolbar;
+
     public void setActionBar(final AppCompatActivity ac, final String strText, final boolean needToShowSwitch) {
         new AsyncTask() {
             Toolbar toolbar;
@@ -606,4 +622,5 @@ public class acEmpCustomerSupplierSelection extends AppCompatActivity implements
         }
         return "";
     }
+
 }

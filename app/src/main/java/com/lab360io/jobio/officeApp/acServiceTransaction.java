@@ -72,7 +72,7 @@ public class acServiceTransaction extends AppCompatActivity {
     Context mContext;
     Helper objHelper = new Helper();
     Calendar calServiceDate = Calendar.getInstance();
-    LinearLayout lyForm;
+    LinearLayout lyForm, lyFormContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +101,7 @@ public class acServiceTransaction extends AppCompatActivity {
             protected void onPreExecute() {
                 super.onPreExecute();
                 lyForm = (LinearLayout) findViewById(R.id.lyForm);
+                lyFormContainer = (LinearLayout) findViewById(R.id.lyFormContainer);
                 imgPicture = (ImageView) findViewById(R.id.imgPicture);
                 imgInvoic = (ImageView) findViewById(R.id.imgInvoice);
                 txtAssetName = (TextView) findViewById(R.id.txtAssetName);
@@ -167,9 +168,14 @@ public class acServiceTransaction extends AppCompatActivity {
                 txtAssignedTo.setText(assignedT0EmpName);
                 edServiceDate.setText(dateFormat.format(calServiceDate.getTime()));
                 edServiceTime.setText(timeFormate.format(calServiceDate.getTime()));
-                lyForm.removeAllViews();
-                for (ClientCustomForm obj : objClientAssetService.getArrClientCustomForm()) {
-                    lyForm.addView(new FormListAdapter().addFormItemToLayout(obj, mContext));
+                if (objClientAssetService.getArrClientCustomForm().size() <= 0) {
+                    lyFormContainer.setVisibility(View.GONE);
+                } else {
+                    lyFormContainer.setVisibility(View.VISIBLE);
+                    lyForm.removeAllViews();
+                    for (ClientCustomForm obj : objClientAssetService.getArrClientCustomForm()) {
+                        lyForm.addView(new FormListAdapter().addFormItemToLayout(obj, mContext));
+                    }
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

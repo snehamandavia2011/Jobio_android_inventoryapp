@@ -1040,6 +1040,7 @@ public class Helper {
                                     protected void onPreExecute() {
                                         super.onPreExecute();
                                         snackbar.dismissSnackBar();
+                                        logOutUser(ac, false);
                                     }
 
                                     @Override
@@ -1049,7 +1050,6 @@ public class Helper {
                                         URLMapping objURLMapping = ConstantVal.logoutUser(ac);
                                         HttpEngine objHttpEngine = new HttpEngine();
                                         objHttpEngine.getDataFromWebAPI(ac, objURLMapping.getUrl(), new String[]{String.valueOf(tokenId), accountID}, objURLMapping.getParamNames(), objURLMapping.isNeedToSync());
-                                        logOutUser(ac, false);
                                         return null;
                                     }
                                 }.execute();

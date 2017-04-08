@@ -59,7 +59,7 @@ import utility.ServerResponse;
 import utility.URLMapping;
 
 public class acInspectTransaction extends AppCompatActivity {
-    LinearLayout lyForm;
+    LinearLayout lyForm, lyFormContainer;
     ArrayList<ClientAssetInspectServiceStatus> arrClientAssetInspectServiceStatus = new ArrayList<>();
     ClientAssetInspect objClientAssetInspect = new ClientAssetInspect();
     boolean isDataEntedProperly = true;
@@ -116,6 +116,7 @@ public class acInspectTransaction extends AppCompatActivity {
                 btnSave = (Button) findViewById(R.id.btnSave);
                 btnCancel = (Button) findViewById(R.id.btnCancel);
                 lyForm = (LinearLayout) findViewById(R.id.lyForm);
+                lyFormContainer = (LinearLayout) findViewById(R.id.lyFormContainer);
                 btnCancel.setOnClickListener(handleClick);
                 btnSave.setOnClickListener(handleClick);
                 edInspectionDate.setOnClickListener(handleClick);
@@ -158,9 +159,14 @@ public class acInspectTransaction extends AppCompatActivity {
                 txtAssignedTo.setText(assignedT0EmpName);
                 edInspectionDate.setText(dateFormat.format(calInspectionDate.getTime()));
                 edInspectionTime.setText(timeFormate.format(calInspectionDate.getTime()));
-                lyForm.removeAllViews();
-                for (ClientCustomForm obj : objClientAssetInspect.getArrClientCustomForm()) {
-                    lyForm.addView(new FormListAdapter().addFormItemToLayout(obj, mContext));
+                if(objClientAssetInspect.getArrClientCustomForm().size()<=0){
+                    lyFormContainer.setVisibility(View.GONE);
+                }else {
+                    lyFormContainer.setVisibility(View.VISIBLE);
+                    lyForm.removeAllViews();
+                    for (ClientCustomForm obj : objClientAssetInspect.getArrClientCustomForm()) {
+                        lyForm.addView(new FormListAdapter().addFormItemToLayout(obj, mContext));
+                    }
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

@@ -18,24 +18,6 @@
             android:layout_height="match_parent"
             android:background="@color/tilt"
             android:padding="@dimen/ViewPadding">
-            <!--<RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/imgClientLogo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true" />
-
-                <ImageButton
-                    android:id="@+id/btnTopMenu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/ic_topmenu" />
-            </RelativeLayout>-->
 
             <RelativeLayout
                 android:id="@+id/rl"
@@ -43,12 +25,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true">
 
-                <!--<TextView
-                    android:id="@+id/lblLogin"
-                    style="@style/styTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/strLogin" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -71,14 +47,6 @@
                             app:font="@{`Ubuntu-L`}" />
                     </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
-                    <!--<TextView
-                        android:id="@+id/txtNotUser"
-                        style="@style/styFieldName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:clickable="true"
-                        android:text="@string/strNotUserName" />-->
                     <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
                         android:id="@+id/rippleNotUserName"
                         android:layout_width="wrap_content"
