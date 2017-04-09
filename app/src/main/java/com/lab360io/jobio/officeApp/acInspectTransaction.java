@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
@@ -35,6 +36,7 @@ import android.widget.TimePicker;
 import com.androidadvance.topsnackbar.TSnackbar;
 import com.xwray.fontbinding.FontCache;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,6 +49,7 @@ import entity.ClientAssetInspect;
 import entity.ClientAssetInspectServiceStatus;
 import entity.ClientCustomForm;
 import entity.ClientRegional;
+import entity.PhotoDetail;
 import io.fabric.sdk.android.services.concurrency.AsyncTask;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import permission.CameraPermission;
@@ -159,9 +162,9 @@ public class acInspectTransaction extends AppCompatActivity {
                 txtAssignedTo.setText(assignedT0EmpName);
                 edInspectionDate.setText(dateFormat.format(calInspectionDate.getTime()));
                 edInspectionTime.setText(timeFormate.format(calInspectionDate.getTime()));
-                if(objClientAssetInspect.getArrClientCustomForm().size()<=0){
+                if (objClientAssetInspect.getArrClientCustomForm().size() <= 0) {
                     lyFormContainer.setVisibility(View.GONE);
-                }else {
+                } else {
                     lyFormContainer.setVisibility(View.VISIBLE);
                     lyForm.removeAllViews();
                     for (ClientCustomForm obj : objClientAssetInspect.getArrClientCustomForm()) {
@@ -212,9 +215,14 @@ public class acInspectTransaction extends AppCompatActivity {
                     break;
                 }
                 case R.id.btnUploadPic: {
-                    Intent cameraIntent = new Intent(
-                            MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, ConstantVal.REQUEST_TO_START_CAMERA_ACTIVITY);
+                    File photo = Helper.getOutputMediaFile(ConstantVal.TEMP_PHOTO_IMAGE, true, mContext);
+                    if (photo != null) {
+                        imgPicture.setTag(new PhotoDetail(photo.getAbsolutePath(), imgPicture));
+                        Intent cameraIntent = new Intent(
+                                MediaStore.ACTION_IMAGE_CAPTURE);
+                        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
+                        startActivityForResult(cameraIntent, ConstantVal.REQUEST_TO_START_CAMERA_ACTIVITY);
+                    }
                     break;
                 }
                 case R.id.btnSave: {
@@ -365,16 +373,15 @@ public class acInspectTransaction extends AppCompatActivity {
         }
         if (requestCode == ConstantVal.REQUEST_TO_START_CAMERA_ACTIVITY && resultCode == RESULT_OK) {
             new AsyncTask() {
-                Bitmap bmp;
 
                 @Override
                 protected void onPreExecute() {
                     super.onPreExecute();
-                    bmp = (Bitmap) data.getExtras().get("data");
-                    String strBAse64Image = Helper.getEncoded64ImageStringFromBitmap(bmp);
+                    PhotoDetail objPhotoDetail = (PhotoDetail) imgPicture.getTag();
+                    Helper.setBitmapToImageView(mContext, objPhotoDetail);
+                    String strBAse64Image = Helper.getEncoded64ImageStringFromBitmap(Helper.getBitmapFromURIWithoutScaling(new File(objPhotoDetail.getStrLocalPath())));
                     objClientAssetInspect.setPhoto(strBAse64Image);
-                    imgPicture.setImageResource(0);
-                    imgPicture.setBackgroundDrawable(new BitmapDrawable(mContext.getResources(), bmp));
+
                 }
 
                 @Override

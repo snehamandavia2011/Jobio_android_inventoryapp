@@ -20,6 +20,7 @@ public class ConstantVal {
         public static final int DANGER = R.color.danger;
     }
 
+    public static final String TEMP_PHOTO_IMAGE = "temp_photo_image";
     public static final String APP_REF_TYPE = "S";
     public static final String IS_QRCODE_CONFIGURE = "isQrConfigure";
     public static final String QRCODE_VALUE = "qrCodeValue";

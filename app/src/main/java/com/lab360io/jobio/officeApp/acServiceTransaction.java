@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
@@ -32,6 +33,7 @@ import android.widget.TimePicker;
 import com.androidadvance.topsnackbar.TSnackbar;
 import com.xwray.fontbinding.FontCache;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ import entity.ClientAssetInspectServiceStatus;
 import entity.ClientAssetService;
 import entity.ClientCustomForm;
 import entity.ClientRegional;
+import entity.PhotoDetail;
 import io.fabric.sdk.android.services.concurrency.AsyncTask;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import utility.ConstantVal;
@@ -219,15 +222,25 @@ public class acServiceTransaction extends AppCompatActivity {
                     break;
                 }
                 case R.id.btnUploadPic: {
-                    Intent cameraIntent = new Intent(
-                            MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, ConstantVal.REQUEST_TO_START_CAMERA_ACTIVITY);
+                    File photo = Helper.getOutputMediaFile(ConstantVal.TEMP_PHOTO_IMAGE, true, mContext);
+                    if (photo != null) {
+                        imgPicture.setTag(new PhotoDetail(photo.getAbsolutePath(), imgPicture));
+                        Intent cameraIntent = new Intent(
+                                MediaStore.ACTION_IMAGE_CAPTURE);
+                        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
+                        startActivityForResult(cameraIntent, ConstantVal.REQUEST_TO_START_CAMERA_ACTIVITY);
+                    }
                     break;
                 }
                 case R.id.btnUploadInvoice: {
-                    Intent cameraIntent = new Intent(
-                            MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, ConstantVal.REQUEST_TO_START_CAMERA_ACTIVITY1);
+                    File photo = Helper.getOutputMediaFile(ConstantVal.TEMP_PHOTO_IMAGE, true, mContext);
+                    if (photo != null) {
+                        imgInvoic.setTag(new PhotoDetail(photo.getAbsolutePath(), imgPicture));
+                        Intent cameraIntent = new Intent(
+                                MediaStore.ACTION_IMAGE_CAPTURE);
+                        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
+                        startActivityForResult(cameraIntent, ConstantVal.REQUEST_TO_START_CAMERA_ACTIVITY1);
+                    }
                     break;
                 }
                 case R.id.btnSave: {
@@ -378,16 +391,13 @@ public class acServiceTransaction extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ConstantVal.REQUEST_TO_START_CAMERA_ACTIVITY && resultCode == RESULT_OK) {
             new AsyncTask() {
-                Bitmap bmp;
-
                 @Override
                 protected void onPreExecute() {
                     super.onPreExecute();
-                    bmp = (Bitmap) data.getExtras().get("data");
-                    String strBAse64Image = Helper.getEncoded64ImageStringFromBitmap(bmp);
+                    PhotoDetail objPhotoDetail = (PhotoDetail) imgPicture.getTag();
+                    Helper.setBitmapToImageView(mContext, objPhotoDetail);
+                    String strBAse64Image = Helper.getEncoded64ImageStringFromBitmap(Helper.getBitmapFromURIWithoutScaling(new File(objPhotoDetail.getStrLocalPath())));
                     objClientAssetService.setPhoto(strBAse64Image);
-                    imgPicture.setImageResource(0);
-                    imgPicture.setBackgroundDrawable(new BitmapDrawable(mContext.getResources(), bmp));
                 }
 
                 @Override
@@ -402,16 +412,13 @@ public class acServiceTransaction extends AppCompatActivity {
             }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else if (requestCode == ConstantVal.REQUEST_TO_START_CAMERA_ACTIVITY1 && resultCode == RESULT_OK) {
             new AsyncTask() {
-                Bitmap bmp;
-
                 @Override
                 protected void onPreExecute() {
                     super.onPreExecute();
-                    bmp = (Bitmap) data.getExtras().get("data");
-                    String strBAse64Image = Helper.getEncoded64ImageStringFromBitmap(bmp);
+                    PhotoDetail objPhotoDetail = (PhotoDetail) imgInvoic.getTag();
+                    Helper.setBitmapToImageView(mContext, objPhotoDetail);
+                    String strBAse64Image = Helper.getEncoded64ImageStringFromBitmap(Helper.getBitmapFromURIWithoutScaling(new File(objPhotoDetail.getStrLocalPath())));
                     objClientAssetService.setAstInvoicePicture(strBAse64Image);
-                    imgInvoic.setImageResource(0);
-                    imgInvoic.setBackgroundDrawable(new BitmapDrawable(mContext.getResources(), bmp));
                 }
 
                 @Override

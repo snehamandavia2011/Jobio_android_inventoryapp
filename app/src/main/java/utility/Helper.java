@@ -106,6 +106,7 @@ import entity.ClientItemMaster;
 import entity.ClientRegional;
 import entity.ClientStockSelection;
 import entity.FormPhotoDetail;
+import entity.PhotoDetail;
 import formControls.formSignature;
 import io.fabric.sdk.android.Fabric;
 import me.zhanghai.android.materialedittext.MaterialEditText;
@@ -1612,5 +1613,35 @@ public class Helper {
 
     public static float pxFromDp(final Context context, final float dp) {
         return dp * context.getResources().getDisplayMetrics().density;
+    }
+
+    public static void setBitmapToImageView(final Context ctx, final PhotoDetail objPhotoDetail) {
+        new AsyncTask() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                if (!Helper.isFieldBlank(objPhotoDetail.getStrLocalPath())) {
+                    Bitmap bmp = Helper.getBitmapFromURI(new File(objPhotoDetail.getStrLocalPath()));
+                    if (bmp != null) {
+                        objPhotoDetail.getImg().setImageResource(0);
+                        objPhotoDetail.getImg().setBackgroundDrawable(new BitmapDrawable(ctx.getResources(), bmp));
+                        objPhotoDetail.getImg().setScaleType(ImageView.ScaleType.FIT_START);
+                    } else {
+                        objPhotoDetail.getImg().setImageResource(0);
+                        objPhotoDetail.getImg().setBackgroundDrawable(null);
+                        objPhotoDetail.getImg().setScaleType(ImageView.ScaleType.FIT_START);
+                    }
+                } else {
+                    objPhotoDetail.getImg().setImageResource(0);
+                    objPhotoDetail.getImg().setBackgroundDrawable(null);
+                    objPhotoDetail.getImg().setScaleType(ImageView.ScaleType.FIT_START);
+                }
+            }
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                return null;
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 }
