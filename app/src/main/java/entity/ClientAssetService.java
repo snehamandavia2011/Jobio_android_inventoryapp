@@ -25,7 +25,9 @@ public class ClientAssetService {
     ArrayList<ClientCustomForm> arrClientCustomForm;
 
     public void display() {
-        Logger.debug(astName);
+        Logger.debug("picture:" + (this.astInvoicePicture == null ? "null" : this.astInvoicePicture));
+        Logger.debug("photo:" + (this.photo == null ? "null" : this.photo));
+        /*Logger.debug(astName);
         Logger.debug(astAssetId);
         Logger.debug(astAsset_name);
         Logger.debug(astAssetBarcode);
@@ -63,7 +65,7 @@ public class ClientAssetService {
         Logger.debug(amDate_expired.toString());
         Logger.debug(amNext_service_date.toString());
         Logger.debug(amNext_inspection_date.toString());
-        Logger.debug(String.valueOf(viewStatus));
+        Logger.debug(String.valueOf(viewStatus));*/
     }
 
     public ClientAssetService() {

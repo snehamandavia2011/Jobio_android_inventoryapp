@@ -1244,19 +1244,27 @@ public class Helper {
     public static boolean isModuleAccessAllow(Context mContext, String moduleName) {
         boolean isAllow = false;
         DataBase db = new DataBase(mContext);
-        db.open();
-        Cursor cur = db.fetch(DataBase.module_flag_table, DataBase.module_Flag_int, "moduleName='" + moduleName + "'");
-        if (cur != null && cur.getCount() > 0) {
-            cur.moveToFirst();
-            do {
-                if (cur.getInt(3) == 1) {
-                    isAllow = true;
-                    return isAllow;
-                }
-            } while (cur.moveToNext());
+        try {
+            db.open();
+            Cursor cur = db.fetch(DataBase.module_flag_table, DataBase.module_Flag_int, "moduleName='" + moduleName + "'");
+            if (cur != null && cur.getCount() > 0) {
+                cur.moveToFirst();
+                do {
+                    if (cur.getInt(3) == 1) {
+                        isAllow = true;
+                        return isAllow;
+                    }
+                } while (cur.moveToNext());
+            }
+            cur.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                db.close();
+            } catch (Exception e) {
+            }
         }
-        cur.close();
-        db.close();
         return isAllow;
     }
 

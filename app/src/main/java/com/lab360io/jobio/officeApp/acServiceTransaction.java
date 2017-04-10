@@ -54,6 +54,7 @@ import utility.ConstantVal;
 import utility.DataBase;
 import utility.Helper;
 import utility.HttpEngine;
+import utility.Logger;
 import utility.ServerResponse;
 import utility.URLMapping;
 
@@ -88,12 +89,16 @@ public class acServiceTransaction extends AppCompatActivity {
         dateFormat = new SimpleDateFormat(Helper.getStringPreference(mContext, ClientRegional.Fields.DATE_FORMAT, ConstantVal.DEVICE_DEFAULT_DATE_FORMAT));
         timeFormate = new SimpleDateFormat(Helper.getStringPreference(mContext, ClientRegional.Fields.TIME_FORMAT, ConstantVal.DEVICE_DEFAULT_TIME_FORMAT));
         objHelper.setActionBar(ac, mContext.getString(R.string.strService));
+        setData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        setData();
+        if (objClientAssetService != null && objClientAssetService.getArrClientCustomForm() != null) {
+            objClientAssetService.setArrClientCustomForm(new Helper().getFormFromDatabase(objClientAssetService.getAstAssetId(), "S", mContext));
+            fillFormList();
+        }
     }
 
     private void setData() {
@@ -171,17 +176,21 @@ public class acServiceTransaction extends AppCompatActivity {
                 txtAssignedTo.setText(assignedT0EmpName);
                 edServiceDate.setText(dateFormat.format(calServiceDate.getTime()));
                 edServiceTime.setText(timeFormate.format(calServiceDate.getTime()));
-                if (objClientAssetService.getArrClientCustomForm().size() <= 0) {
-                    lyFormContainer.setVisibility(View.GONE);
-                } else {
-                    lyFormContainer.setVisibility(View.VISIBLE);
-                    lyForm.removeAllViews();
-                    for (ClientCustomForm obj : objClientAssetService.getArrClientCustomForm()) {
-                        lyForm.addView(new FormListAdapter().addFormItemToLayout(obj, mContext));
-                    }
-                }
+                fillFormList();
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private void fillFormList() {
+        if (objClientAssetService.getArrClientCustomForm().size() <= 0) {
+            lyFormContainer.setVisibility(View.GONE);
+        } else {
+            lyFormContainer.setVisibility(View.VISIBLE);
+            lyForm.removeAllViews();
+            for (ClientCustomForm obj : objClientAssetService.getArrClientCustomForm()) {
+                lyForm.addView(new FormListAdapter().addFormItemToLayout(obj, mContext));
+            }
+        }
     }
 
     View.OnClickListener handleClick = new View.OnClickListener() {
@@ -235,7 +244,7 @@ public class acServiceTransaction extends AppCompatActivity {
                 case R.id.btnUploadInvoice: {
                     File photo = Helper.getOutputMediaFile(ConstantVal.TEMP_PHOTO_IMAGE, true, mContext);
                     if (photo != null) {
-                        imgInvoic.setTag(new PhotoDetail(photo.getAbsolutePath(), imgPicture));
+                        imgInvoic.setTag(new PhotoDetail(photo.getAbsolutePath(), imgInvoic));
                         Intent cameraIntent = new Intent(
                                 MediaStore.ACTION_IMAGE_CAPTURE);
                         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
@@ -327,6 +336,7 @@ public class acServiceTransaction extends AppCompatActivity {
                 objClientAssetService.setAstDateTime(calServiceDate.getTime());
                 objClientAssetService.setAstServiceFirmName(edServiceFirmName.getText().toString());
                 objClientAssetService.setAstCost(edCost.getText().toString());
+                objClientAssetService.display();
                 DataBase db = new DataBase(mContext);
                 db.open();
                 ContentValues cv = new ContentValues();
@@ -398,6 +408,10 @@ public class acServiceTransaction extends AppCompatActivity {
                     Helper.setBitmapToImageView(mContext, objPhotoDetail);
                     String strBAse64Image = Helper.getEncoded64ImageStringFromBitmap(Helper.getBitmapFromURIWithoutScaling(new File(objPhotoDetail.getStrLocalPath())));
                     objClientAssetService.setPhoto(strBAse64Image);
+                    File file = new File(objPhotoDetail.getStrLocalPath());
+                    if (file.exists()) {
+                        file.delete();
+                    }
                 }
 
                 @Override
@@ -419,6 +433,10 @@ public class acServiceTransaction extends AppCompatActivity {
                     Helper.setBitmapToImageView(mContext, objPhotoDetail);
                     String strBAse64Image = Helper.getEncoded64ImageStringFromBitmap(Helper.getBitmapFromURIWithoutScaling(new File(objPhotoDetail.getStrLocalPath())));
                     objClientAssetService.setAstInvoicePicture(strBAse64Image);
+                    File file = new File(objPhotoDetail.getStrLocalPath());
+                    if (file.exists()) {
+                        file.delete();
+                    }
                 }
 
                 @Override

@@ -91,13 +91,16 @@ public class acInspectTransaction extends AppCompatActivity {
         objHelper.setActionBar(ac, mContext.getString(R.string.strInspect));
         dateFormat = new SimpleDateFormat(Helper.getStringPreference(mContext, ClientRegional.Fields.DATE_FORMAT, ConstantVal.DEVICE_DEFAULT_DATE_FORMAT));
         timeFormate = new SimpleDateFormat(Helper.getStringPreference(mContext, ClientRegional.Fields.TIME_FORMAT, ConstantVal.DEVICE_DEFAULT_TIME_FORMAT));
-        Logger.debug(Helper.getStringPreference(mContext, ClientRegional.Fields.TIME_FORMAT, ConstantVal.DEVICE_DEFAULT_TIME_FORMAT));
+        setData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        setData();
+        if (objClientAssetInspect != null && objClientAssetInspect.getArrClientCustomForm() != null) {
+            objClientAssetInspect.setArrClientCustomForm(new Helper().getFormFromDatabase(objClientAssetInspect.getAitAssetId(), "I", mContext));
+            fillFormList();
+        }
     }
 
     private void setData() {
@@ -162,17 +165,21 @@ public class acInspectTransaction extends AppCompatActivity {
                 txtAssignedTo.setText(assignedT0EmpName);
                 edInspectionDate.setText(dateFormat.format(calInspectionDate.getTime()));
                 edInspectionTime.setText(timeFormate.format(calInspectionDate.getTime()));
-                if (objClientAssetInspect.getArrClientCustomForm().size() <= 0) {
-                    lyFormContainer.setVisibility(View.GONE);
-                } else {
-                    lyFormContainer.setVisibility(View.VISIBLE);
-                    lyForm.removeAllViews();
-                    for (ClientCustomForm obj : objClientAssetInspect.getArrClientCustomForm()) {
-                        lyForm.addView(new FormListAdapter().addFormItemToLayout(obj, mContext));
-                    }
-                }
+                fillFormList();
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private void fillFormList() {
+        if (objClientAssetInspect.getArrClientCustomForm().size() <= 0) {
+            lyFormContainer.setVisibility(View.GONE);
+        } else {
+            lyFormContainer.setVisibility(View.VISIBLE);
+            lyForm.removeAllViews();
+            for (ClientCustomForm obj : objClientAssetInspect.getArrClientCustomForm()) {
+                lyForm.addView(new FormListAdapter().addFormItemToLayout(obj, mContext));
+            }
+        }
     }
 
 

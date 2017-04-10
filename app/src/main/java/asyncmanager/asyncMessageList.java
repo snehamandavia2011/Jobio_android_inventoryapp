@@ -55,26 +55,35 @@ public class asyncMessageList {
             @Override
             protected Object doInBackground(Object[] params) {
                 DataBase db = new DataBase(ctx);
-                db.open();
-                Cursor cur = db.fetch(DataBase.field_message_table, DataBase.field_message_int, "is_viewed='N'");
-                if (cur != null && cur.getCount() > 0) {
-                    String ids = "";
-                    cur.moveToFirst();
-                    do {
-                        ids += cur.getInt(1) + ",";
-                    } while (cur.moveToNext());
-                    if (ids.length() > 0) {
-                        ids = ids.substring(0, ids.length() - 1);
-                        String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
-                        String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
-                        HttpEngine objHttpEngine = new HttpEngine();
-                        URLMapping um = ConstantVal.getMessageStatus(ctx);
-                        String[] data = {String.valueOf(tokenId), ids, account_id};
-                        ServerResponse objServerResponse = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(), data, um.getParamNames(), um.isNeedToSync());
-                        parseAndUpdateData(objServerResponse.getResponseString());
+                try {
+                    db.open();
+                    Cursor cur = db.fetch(DataBase.field_message_table, DataBase.field_message_int, "is_viewed='N'");
+                    if (cur != null && cur.getCount() > 0) {
+                        String ids = "";
+                        cur.moveToFirst();
+                        do {
+                            ids += cur.getInt(1) + ",";
+                        } while (cur.moveToNext());
+                        if (ids.length() > 0) {
+                            ids = ids.substring(0, ids.length() - 1);
+                            String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
+                            String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+                            HttpEngine objHttpEngine = new HttpEngine();
+                            URLMapping um = ConstantVal.getMessageStatus(ctx);
+                            String[] data = {String.valueOf(tokenId), ids, account_id};
+                            ServerResponse objServerResponse = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(), data, um.getParamNames(), um.isNeedToSync());
+                            parseAndUpdateData(objServerResponse.getResponseString());
+                        }
+                        cur.close();
                     }
-                    cur.close();
-                    db.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        db.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 return null;
             }
