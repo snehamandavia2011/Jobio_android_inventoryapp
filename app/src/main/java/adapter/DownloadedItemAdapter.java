@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import asyncmanager.asyncLoadCommonData;
 import entity.ClientItemMaster1;
 import utility.Helper;
+import utility.Logger;
 
 /**
  * Created by SAI on 9/14/2016.
@@ -97,6 +98,7 @@ public class DownloadedItemAdapter extends BaseAdapter {
             availQty = Integer.parseInt(objClientItemMaster1.getAvailable_qty());
         } catch (Exception e) {
             availQty = 0;
+            Logger.writeToCrashlytics(e);
         }
         holder.txtAvailQty.setText(ctx.getString(R.string.strAvailQty) + ": " + availQty);
         holder.txtMonthlyDemand.setText(ctx.getString(R.string.strMonthlyDemand) + ": " + objClientItemMaster1.getMonthly_demand());
@@ -105,11 +107,12 @@ public class DownloadedItemAdapter extends BaseAdapter {
         } catch (Exception e) {
             minQty = 0;
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
         holder.txtMinQtyForRestock.setText(ctx.getString(R.string.strMinQtyForRestock) + ": " + minQty);
         if (availQty <= minQty) {
             holder.imgNotification.setImageResource(R.drawable.ic_red_flag);
-        }else{
+        } else {
             holder.imgNotification.setImageResource(R.drawable.ic_green_flag);
         }
         return convertView;

@@ -130,6 +130,8 @@ public class acEditJobInvoiceReferenceDetail extends AppCompatActivity {
                         calExpiryDate.setTime(Helper.convertStringToDate(expiryDate,ConstantVal.DATE_FORMAT));
                         edExpiry.setText(dateFormat.format(calExpiryDate.getTime()));
                     } catch (Exception e) {
+                        e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                         //edExpiry.setText(mContext.getString(R.string.strNoExpiry));
                     }
                 } else {

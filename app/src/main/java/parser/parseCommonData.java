@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import entity.ClientAssetInspectServiceStatus;
+import utility.Logger;
 
 
 /**
@@ -20,6 +21,7 @@ public class parseCommonData {
             photo = obj.getString("photo").equals("null") ? "" : obj.getString("photo");
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
         return photo;
     }

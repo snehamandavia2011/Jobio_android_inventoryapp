@@ -35,6 +35,7 @@ import permission.CameraPermission;
 import utility.ConstantVal;
 import utility.DotProgressBar;
 import utility.Helper;
+import utility.Logger;
 
 
 /**
@@ -150,6 +151,8 @@ public class frAssetsAsset extends Fragment {
                         dot_progress_bar.setVisibility(View.GONE);
                         ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
                     } catch (Exception e) {
+                        e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                 }
                 if (arrClientAsset != null && arrClientAsset.size() >= 0) {

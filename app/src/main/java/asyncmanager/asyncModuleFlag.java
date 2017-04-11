@@ -65,6 +65,7 @@ public class asyncModuleFlag extends Thread {
                 arrServerdata = parsModuleFlag.getList(resultModuleFlag);
             } catch (JSONException e) {
                 e.printStackTrace();
+                Logger.writeToCrashlytics(e);
             }
         }
         return arrServerdata;
@@ -79,6 +80,7 @@ public class asyncModuleFlag extends Thread {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return false;
         }
     }

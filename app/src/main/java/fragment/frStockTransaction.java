@@ -116,6 +116,8 @@ public class frStockTransaction extends Fragment {
                 try {
                     hideDotProgressBar();
                 } catch (Exception e) {
+                    e.printStackTrace();
+                    Logger.writeToCrashlytics(e);
                 }
                 Intent i = new Intent(mContext, acJobPOInvoicReferenceList.class);
                 i.putExtra("selStockTransactionStatus", selStockTransactionStatus);
@@ -176,6 +178,7 @@ public class frStockTransaction extends Fragment {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                     rgStockType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                         @Override
@@ -359,7 +362,7 @@ public class frStockTransaction extends Fragment {
             if (data.getExtras() != null) {
                 objClientCustEmpSupplierFrom = (ClientCustEmpSupplier) data.getSerializableExtra("selectedUser");
                 fromId = objClientCustEmpSupplierFrom.getUuid();
-                fromType=objClientCustEmpSupplierFrom.getType();
+                fromType = objClientCustEmpSupplierFrom.getType();
                 btnFrom.setText(objClientCustEmpSupplierFrom.toString());
                 btnFrom.setTag(objClientCustEmpSupplierFrom);
             }
@@ -367,7 +370,7 @@ public class frStockTransaction extends Fragment {
             if (data.getExtras() != null) {
                 objClientCustEmpSupplierTo = (ClientCustEmpSupplier) data.getSerializableExtra("selectedUser");
                 toId = objClientCustEmpSupplierTo.getUuid();
-                toType=objClientCustEmpSupplierTo.getType();
+                toType = objClientCustEmpSupplierTo.getType();
                 btnTo.setText(objClientCustEmpSupplierTo.toString());
                 btnTo.setTag(objClientCustEmpSupplierTo);
             }

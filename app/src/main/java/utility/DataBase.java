@@ -672,6 +672,7 @@ public class DataBase {
 
         } catch (Exception e) {
             Log.e("yo", e.getMessage());
+            Logger.writeToCrashlytics(e);
             return null;
         }
     }
@@ -684,6 +685,7 @@ public class DataBase {
 
         } catch (Exception e) {
             Log.e("yo", e.getMessage());
+            Logger.writeToCrashlytics(e);
             return null;
         }
     }
@@ -696,6 +698,7 @@ public class DataBase {
 
         } catch (Exception e) {
             Log.e("yo", e.getMessage());
+            Logger.writeToCrashlytics(e);
             return null;
         }
     }
@@ -707,6 +710,7 @@ public class DataBase {
                     null, null);
         } catch (Exception e) {
             Log.e("yo", e.getMessage());
+            Logger.writeToCrashlytics(e);
             return null;
         }
     }

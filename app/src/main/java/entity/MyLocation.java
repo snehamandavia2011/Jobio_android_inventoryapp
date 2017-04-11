@@ -71,7 +71,7 @@ public class MyLocation {
                 result = sb.toString();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace();Logger.writeToCrashlytics(e, mContext);
             result = "";
         } finally {
             if (result == null) {

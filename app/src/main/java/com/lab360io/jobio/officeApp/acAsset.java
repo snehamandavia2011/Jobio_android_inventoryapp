@@ -102,6 +102,7 @@ public class acAsset extends ActionBarActivity implements TabHost.OnTabChangeLis
                 current_tab = this.getIntent().getStringExtra("tab");
             } catch (Exception e) {
                 e.printStackTrace();
+                Logger.writeToCrashlytics(e);
                 current_tab = ASSET;
             }
         }

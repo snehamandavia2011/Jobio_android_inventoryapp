@@ -287,6 +287,7 @@ public class Helper {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -392,6 +393,7 @@ public class Helper {
                             });
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Logger.writeToCrashlytics(e);
                             mHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -470,11 +472,13 @@ public class Helper {
         try {
             new JSONObject(test);
         } catch (JSONException ex) {
+            Logger.writeToCrashlytics(ex);
             //ex.printStackTrace();
             try {
                 new JSONArray(test);
             } catch (JSONException ex1) {
                 //ex1.printStackTrace();
+                Logger.writeToCrashlytics(ex1);
                 return false;
             }
         }
@@ -530,6 +534,7 @@ public class Helper {
 
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             Logger.debug("Error while wipe:" + e.getMessage());
         }
     }
@@ -555,6 +560,7 @@ public class Helper {
                 Logger.debug("serServerToDeviceSync.isServiceRunning:" + serServerToDeviceSync.isServiceRunning);
             } catch (Exception e) {
                 e.printStackTrace();
+                Logger.writeToCrashlytics(e);
                 Logger.debug("Error while wipe:" + e.getMessage());
             }
             if (isNeedTosendBroadcast) {
@@ -584,6 +590,7 @@ public class Helper {
             db.close();
         } catch (Exception e) {
             Logger.debug("Error while wipe:" + e.getMessage());
+            Logger.writeToCrashlytics(e);
         }
     }
 
@@ -594,6 +601,7 @@ public class Helper {
                 return df.format(dt.getTime());
             } catch (Exception e) {
                 e.printStackTrace();
+                Logger.writeToCrashlytics(e);
                 return "";
             }
         } else {
@@ -608,6 +616,7 @@ public class Helper {
                 return df.parse(strDate);
             } catch (ParseException e) {
                 e.printStackTrace();
+                Logger.writeToCrashlytics(e);
                 return new Date(0);
             }
         } else {
@@ -623,6 +632,7 @@ public class Helper {
             r.play();
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
     }
 
@@ -639,6 +649,7 @@ public class Helper {
             return relativeTime.toString();
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
         return "";
     }
@@ -655,6 +666,7 @@ public class Helper {
             return relativeTime.toString();
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
         return "";
     }
@@ -877,6 +889,7 @@ public class Helper {
                     }
                 } catch (Exception e) {
                     btnDropDownMenu.setVisibility(View.GONE);
+                    Logger.writeToCrashlytics(e);
                 }
                 txtName.setText(text);
             }
@@ -958,6 +971,7 @@ public class Helper {
                                 Thread.sleep(250);
                                 setActionBar(ac, strOpenText, strCloseText);
                             } catch (InterruptedException e) {
+                                Logger.writeToCrashlytics(e);
                             }
                         }
                     }
@@ -973,6 +987,7 @@ public class Helper {
                             Thread.sleep(250);
                             setActionBar(ac, strOpenText, strCloseText);
                         } catch (InterruptedException e) {
+                            Logger.writeToCrashlytics(e);
                         }
                     }
                 });
@@ -1259,10 +1274,13 @@ public class Helper {
             cur.close();
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         } finally {
             try {
                 db.close();
             } catch (Exception e) {
+                e.printStackTrace();
+                Logger.writeToCrashlytics(e);
             }
         }
         return isAllow;
@@ -1317,6 +1335,7 @@ public class Helper {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return null;
         }
     }
@@ -1344,16 +1363,19 @@ public class Helper {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 90, fOut);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Logger.writeToCrashlytics(e);
                 } finally {
                     try {
                         fOut.close();
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
         return bitmap;
     }
@@ -1363,6 +1385,7 @@ public class Helper {
             bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() * 600 / bitmap.getHeight(), 600, false);
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
         return bitmap;
     }
@@ -1392,6 +1415,7 @@ public class Helper {
             return bitmap;
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
         return null;
     }
@@ -1430,7 +1454,8 @@ public class Helper {
                 imgOldImage.setImageBitmap(bmpOldSign);
                 edSigntoryName.setEnabled(false);
             } catch (Exception e) {
-
+                e.printStackTrace();
+                Logger.writeToCrashlytics(e);
             }
         }
         final signature mSignature = new signature(mContext, null, mBitmap, mContent, txtEnterSignature);
@@ -1538,6 +1563,7 @@ public class Helper {
 
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         } finally {
             if (fos != null) {
                 fos = null;
@@ -1611,6 +1637,7 @@ public class Helper {
             db.close();
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
         return arrClientCustomForm;
     }

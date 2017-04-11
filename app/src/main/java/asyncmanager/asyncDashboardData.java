@@ -18,6 +18,7 @@ import entity.ClientUIFormStatus;
 import utility.ConstantVal;
 import utility.Helper;
 import utility.HttpEngine;
+import utility.Logger;
 import utility.ServerResponse;
 import utility.URLMapping;
 
@@ -47,6 +48,7 @@ public class asyncDashboardData extends Thread {
             getUIControlType().join();
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
     }
 
@@ -67,6 +69,7 @@ public class asyncDashboardData extends Thread {
                             ClientStockTransactionStatusMaster.saveDataToDatabase(ctx, arr);
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                 }
             }
@@ -91,6 +94,7 @@ public class asyncDashboardData extends Thread {
                         ClientStockTransactionReason.saveDataToDatabase(ctx, arr);
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                 }
             }
@@ -114,6 +118,7 @@ public class asyncDashboardData extends Thread {
                         Helper.setStringPreference(ctx, ConstantVal.WELCOME_MESSAGE, new JSONObject(result).getString("message"));
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                 }
             }
@@ -137,6 +142,7 @@ public class asyncDashboardData extends Thread {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return false;
         }
     }
@@ -159,6 +165,7 @@ public class asyncDashboardData extends Thread {
                             ClientUIFormStatus.saveDataToDatabase(ctx, arrClientUIFormStatus);
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                 }
             }
@@ -185,6 +192,7 @@ public class asyncDashboardData extends Thread {
                             ClientUIControl.saveDataToDatabase(ctx, arrClientUIControl);
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                 }
             }
@@ -211,6 +219,7 @@ public class asyncDashboardData extends Thread {
                             ClientUIControlType.saveDataToDatabase(ctx, arrClientUIControlType);
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                 }
             }

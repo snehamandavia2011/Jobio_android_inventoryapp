@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import utility.DataBase;
+import utility.Logger;
 
 /**
  * Created by SAI on 12/4/2016.
@@ -50,6 +51,7 @@ public class ClientUIFormStatus {
             return arrClientUIFormStatus;
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return null;
         }
     }

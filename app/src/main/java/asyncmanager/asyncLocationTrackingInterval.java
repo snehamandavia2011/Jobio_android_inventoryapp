@@ -13,6 +13,7 @@ import utility.Helper;
 import utility.HttpEngine;
 
 import service.serLocationTracker;
+import utility.Logger;
 import utility.ServerResponse;
 import utility.URLMapping;
 
@@ -58,6 +59,7 @@ public class asyncLocationTrackingInterval extends Thread {
             return objLocationTrackingInterval;
         } catch (JSONException e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return null;
         }
     }
@@ -69,8 +71,9 @@ public class asyncLocationTrackingInterval extends Thread {
             } else {
                 return false;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return false;
         }
     }

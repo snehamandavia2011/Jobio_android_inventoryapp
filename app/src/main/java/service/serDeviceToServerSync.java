@@ -118,6 +118,7 @@ D - If one or more than one data sync successfully with server than store lastIn
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                     //Logger.debug(data.toString());
                     ServerResponse objServerResponse = objHttpEngine.makeHttpRequestCall(mContext, url, data.toString());

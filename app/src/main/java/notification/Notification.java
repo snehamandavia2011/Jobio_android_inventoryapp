@@ -72,6 +72,7 @@ public class Notification {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return false;
         }
     }
@@ -116,6 +117,7 @@ public class Notification {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                 }
                 return null;

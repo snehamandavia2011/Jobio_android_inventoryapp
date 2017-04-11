@@ -11,6 +11,7 @@ import parser.parsUserData;
 import utility.ConstantVal;
 import utility.Helper;
 import utility.HttpEngine;
+import utility.Logger;
 import utility.ServerResponse;
 import utility.URLMapping;
 
@@ -56,6 +57,7 @@ public class asyncUserData extends Thread {
                 objUserData.getObjClientRegional().saveFiledsToPreferences(ctx);
             } catch (JSONException e) {
                 e.printStackTrace();
+                Logger.writeToCrashlytics(e);
             }
         }
     }
@@ -69,6 +71,7 @@ public class asyncUserData extends Thread {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return false;
         }
     }

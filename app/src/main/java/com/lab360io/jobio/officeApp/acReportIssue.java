@@ -185,6 +185,7 @@ public class acReportIssue extends AppCompatActivity {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
         return null;
     }

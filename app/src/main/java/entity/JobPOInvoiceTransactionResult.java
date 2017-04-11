@@ -2,6 +2,8 @@ package entity;
 
 import org.json.JSONObject;
 
+import utility.Logger;
+
 /**
  * Created by SAI on 10/24/2016.
  */
@@ -58,6 +60,7 @@ public class JobPOInvoiceTransactionResult {
             return new JobPOInvoiceTransactionResult(success, message, transactionId, linkn);
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return null;
         }
     }

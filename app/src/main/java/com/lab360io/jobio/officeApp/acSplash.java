@@ -61,6 +61,8 @@ public class acSplash extends Activity {
                                     imgLogo.setImageBitmap(Helper.convertBase64ImageToBitmap(imageDataBytes));
                                 } catch (Exception e) {
                                     //Logger.debug(e.getMessage());
+                                    e.printStackTrace();
+                                    Logger.writeToCrashlytics(e);
                                     txtAccountName.setVisibility(View.VISIBLE);
                                     imgLogo.setVisibility(View.GONE);
                                     txtAccountName.setText(strAccountName);
@@ -83,6 +85,7 @@ public class acSplash extends Activity {
                         sleep(3000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                     handler.post(new Runnable() {
                         @Override
@@ -101,6 +104,7 @@ public class acSplash extends Activity {
                             Thread.sleep(3000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
+                            Logger.writeToCrashlytics(e);
                         }
                         Intent i = new Intent(mContext, acLogin.class);
                         startActivity(i);
@@ -110,6 +114,7 @@ public class acSplash extends Activity {
                             Thread.sleep(3000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
+                            Logger.writeToCrashlytics(e);
                         }
                         if (isSessionExists)
                             Helper.startBackgroundService(mContext);
@@ -126,6 +131,7 @@ public class acSplash extends Activity {
             t1.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
         t2.start();
     }

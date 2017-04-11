@@ -56,6 +56,7 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
         try {
             return this.listDataHeader.size();
         } catch (Exception e) {
+            Logger.writeToCrashlytics(e);
             return 0;
         }
     }
@@ -66,6 +67,7 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
             return this.listDataChild.get(this.listDataHeader.get(groupPosition).getHeader())
                     .size();
         } catch (Exception e) {
+            Logger.writeToCrashlytics(e);
             return 0;
         }
     }
@@ -76,6 +78,7 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
             return this.listDataHeader.get(groupPosition);
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             //Logger.debug("Error in getGroup:" + e.getMessage() + ":" + listDataHeader.size());
             return null;
         }
@@ -88,6 +91,7 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
                     .get(childPosition);
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             //Logger.debug("Error in getChild" + e.getMessage() + listDataChild.size());
             return null;
         }
@@ -195,6 +199,7 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
         holderChild.txtAssetName.setText(objClientAssetService.getAmAsset_name());
         holderChild.btnDone.setOnClickListener(new View.OnClickListener() {

@@ -6,10 +6,12 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import utility.Logger;
+
 /**
  * Created by SAI on 10/19/2016.
  */
-public class ClientCustEmpSupplier implements Serializable{
+public class ClientCustEmpSupplier implements Serializable {
     String uuid, name, type;
 
     public ClientCustEmpSupplier(String uuid, String name, String type) {
@@ -53,6 +55,7 @@ public class ClientCustEmpSupplier implements Serializable{
             return arr;
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return null;
         }
     }

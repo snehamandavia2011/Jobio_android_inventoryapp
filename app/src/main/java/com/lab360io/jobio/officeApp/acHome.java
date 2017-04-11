@@ -403,6 +403,7 @@ public class acHome extends AppCompatActivity {
                 objHelper.setActionBar(ac, getString(R.string.strHome), name);
             } catch (Exception e) {
                 e.printStackTrace();
+                Logger.writeToCrashlytics(e);
             }
         }
     };

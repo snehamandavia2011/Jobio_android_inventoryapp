@@ -13,6 +13,7 @@ import utility.ConstantVal;
 import utility.DataBase;
 import utility.Helper;
 import utility.HttpEngine;
+import utility.Logger;
 import utility.ServerResponse;
 import utility.URLMapping;
 
@@ -42,7 +43,7 @@ public class asyncEmployeeList extends Thread {
         for (ClientAdminUserEmployee obj : arrServerdata) {
             String data[] = {String.valueOf(obj.getAuId()), String.valueOf(obj.getEmpId()), obj.getFirst_name(),
                     obj.getLast_name(), obj.getEmployee_status(), obj.getContact_no(), obj.getUser_type_name(),
-                    obj.getIsOnLine(),obj.getDesignation_name()};
+                    obj.getIsOnLine(), obj.getDesignation_name()};
             db.insert(DataBase.adminuser_employee_table, DataBase.adminuser_employee_int, data);
         }
         db.close();
@@ -63,6 +64,7 @@ public class asyncEmployeeList extends Thread {
                 arrServerdata = parseAdminUserEmployeeList.getList(result);
             } catch (JSONException e) {
                 e.printStackTrace();
+                Logger.writeToCrashlytics(e);
             }
         }
         return arrServerdata;
@@ -75,8 +77,9 @@ public class asyncEmployeeList extends Thread {
             } else {
                 return false;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return false;
         }
     }

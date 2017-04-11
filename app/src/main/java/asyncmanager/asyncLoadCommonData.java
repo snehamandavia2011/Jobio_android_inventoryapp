@@ -31,6 +31,7 @@ import utility.ConstantVal;
 import utility.DataBase;
 import utility.Helper;
 import utility.HttpEngine;
+import utility.Logger;
 import utility.ServerResponse;
 import utility.URLMapping;
 
@@ -192,7 +193,8 @@ public class asyncLoadCommonData {
                         img.setImageDrawable(ld);
                         img.setScaleType(ImageView.ScaleType.FIT_START);
                     } catch (Exception e) {
-
+                        e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                     if (imgClick != null) {
                         img.setTag(bmp);
@@ -204,6 +206,8 @@ public class asyncLoadCommonData {
                 img.setImageBitmap(Helper.getResizedBitmap(BitmapFactory.decodeResource(ctx.getResources(), R.drawable.ic_awaiting), pixel, pixel));
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
     }
 
@@ -253,7 +257,8 @@ public class asyncLoadCommonData {
                     img.setImageDrawable(ld);
                     img.setScaleType(ImageView.ScaleType.FIT_START);
                 } catch (Exception e) {
-
+                    e.printStackTrace();
+                    Logger.writeToCrashlytics(e);
                 }
                 if (imgClick != null) {
                     img.setTag(bmp);
@@ -262,6 +267,7 @@ public class asyncLoadCommonData {
             }
             return true;
         } catch (Exception e) {
+            Logger.writeToCrashlytics(e);
             img.setBackgroundResource(0);
             img.setImageBitmap(bmpNoPic);
             return false;
@@ -284,7 +290,8 @@ public class asyncLoadCommonData {
                 try {
                     img.setScaleType(ImageView.ScaleType.FIT_START);
                 } catch (Exception e) {
-
+                    e.printStackTrace();
+                    Logger.writeToCrashlytics(e);
                 }
                 if (imgClick != null) {
                     img.setTag(bmp);
@@ -309,6 +316,7 @@ public class asyncLoadCommonData {
                 img.setScaleType(ImageView.ScaleType.FIT_START);
             } catch (Exception e) {
                 e.printStackTrace();
+                Logger.writeToCrashlytics(e);
             }
             Bitmap bmp = Helper.convertBase64ImageToBitmap(strBase64);
             if (strBase64.equals("") || bmp == null) {
@@ -326,6 +334,7 @@ public class asyncLoadCommonData {
             }
             return true;
         } catch (Exception e) {
+            Logger.writeToCrashlytics(e);
             img.setBackgroundResource(0);
             img.setImageResource(R.drawable.ic_nopic);
             return false;

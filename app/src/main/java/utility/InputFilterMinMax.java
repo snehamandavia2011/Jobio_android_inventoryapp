@@ -39,6 +39,7 @@ public class InputFilterMinMax implements InputFilter {
                 }
             }
         } catch (NumberFormatException nfe) {
+            Logger.writeToCrashlytics(nfe);
         }
         return "";
     }

@@ -28,8 +28,10 @@ public class ReverseGeoCoder_AddressFromLatLog {
             addresses = geocoder.getFromLocation(dblLat, dblLong, 1);
         } catch (NumberFormatException e1) {
             e1.printStackTrace();
+            Logger.writeToCrashlytics(e1);
         } catch (IOException e1) {
             e1.printStackTrace();
+            Logger.writeToCrashlytics(e1);
         }
 
         boolean isGeoCodeWorking = false;
@@ -119,6 +121,7 @@ public class ReverseGeoCoder_AddressFromLatLog {
 
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
 
         String[] strAddress = new String[6];
@@ -174,6 +177,7 @@ public class ReverseGeoCoder_AddressFromLatLog {
             jObject = new JSONObject(result);
         } catch (JSONException e) {
             Log.e("log_tag", "Error parsing data " + e.toString());
+            Logger.writeToCrashlytics(e);
         }
 
         return jObject;

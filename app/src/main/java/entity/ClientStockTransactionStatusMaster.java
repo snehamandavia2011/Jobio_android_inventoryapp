@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import utility.DataBase;
+import utility.Logger;
 
 /**
  * Created by SAI on 10/19/2016.
@@ -49,6 +50,7 @@ public class ClientStockTransactionStatusMaster {
             return arr;
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return null;
         }
     }

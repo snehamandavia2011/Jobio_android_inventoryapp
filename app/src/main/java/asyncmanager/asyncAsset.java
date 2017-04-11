@@ -188,6 +188,7 @@ public class asyncAsset {
                 //Logger.debug("size:" + arrServerdata.size());
             } catch (JSONException e) {
                 e.printStackTrace();
+                Logger.writeToCrashlytics(e);
             }
         }
         return arrServerdata;
@@ -210,12 +211,14 @@ public class asyncAsset {
                     arrServerdata = parseInspect.getList(result);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Logger.writeToCrashlytics(e);
                 }
             }
 
             return arrServerdata;
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return null;
         }
     }
@@ -236,6 +239,7 @@ public class asyncAsset {
                 arrServerdata = parseService.getList(result);
             } catch (JSONException e) {
                 e.printStackTrace();
+                Logger.writeToCrashlytics(e);
             }
         }
         return arrServerdata;
@@ -252,6 +256,7 @@ public class asyncAsset {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return false;
         }
     }

@@ -305,6 +305,7 @@ public class ClientJobInvoiceRefDetail implements Serializable {
             return arr;
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return null;
         }
     }

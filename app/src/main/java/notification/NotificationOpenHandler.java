@@ -61,13 +61,15 @@ public class NotificationOpenHandler implements OneSignal.NotificationOpenedHand
                                 Intent i2 = new Intent(mContext, acAsset.class);
                                 i2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 i2.putExtra("tab", acAsset.INSPECT);
-                                try{
+                                try {
                                     ((AppCompatActivity) mContext).startActivityForResult(i2, ConstantVal.EXIT_REQUEST_CODE);
-                                }catch (Exception e){
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Logger.writeToCrashlytics(e);
                                     ((MultiDexApplication) mContext).startActivity(i2);
                                 }
 
-                            }else if (action.equals(ConstantVal.NotificationType.ADD_SERVICE_TRANSACTION)) {//do not require to perform any action
+                            } else if (action.equals(ConstantVal.NotificationType.ADD_SERVICE_TRANSACTION)) {//do not require to perform any action
 
                                 Intent i1 = new Intent(mContext, acHome.class);
                                 i1.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -76,9 +78,11 @@ public class NotificationOpenHandler implements OneSignal.NotificationOpenedHand
                                 Intent i2 = new Intent(mContext, acAsset.class);
                                 i2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 i2.putExtra("tab", acAsset.SERVICE);
-                                try{
+                                try {
                                     ((AppCompatActivity) mContext).startActivityForResult(i2, ConstantVal.EXIT_REQUEST_CODE);
-                                }catch (Exception e){
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Logger.writeToCrashlytics(e);
                                     ((MultiDexApplication) mContext).startActivity(i2);
                                 }
 
@@ -101,9 +105,11 @@ public class NotificationOpenHandler implements OneSignal.NotificationOpenedHand
 
                                 Intent i2 = new Intent(mContext, acMessageEmployeeList.class);
                                 i2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                try{
+                                try {
                                     ((AppCompatActivity) mContext).startActivityForResult(i2, ConstantVal.EXIT_REQUEST_CODE);
-                                }catch (Exception e){
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Logger.writeToCrashlytics(e);
                                     ((MultiDexApplication) mContext).startActivity(i2);
                                 }
 
@@ -111,9 +117,11 @@ public class NotificationOpenHandler implements OneSignal.NotificationOpenedHand
                                 i3.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 i3.putExtra("friendAdminUserId", from_id);
                                 i3.putExtra("name", name);
-                                try{
-                                    ((AppCompatActivity)mContext).startActivityForResult(i3, ConstantVal.EXIT_REQUEST_CODE);
-                                }catch (Exception e){
+                                try {
+                                    ((AppCompatActivity) mContext).startActivityForResult(i3, ConstantVal.EXIT_REQUEST_CODE);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Logger.writeToCrashlytics(e);
                                     ((MultiDexApplication) mContext).startActivity(i3);
                                 }
                             }
@@ -122,6 +130,7 @@ public class NotificationOpenHandler implements OneSignal.NotificationOpenedHand
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Logger.writeToCrashlytics(e);
                 }
         /*if (actionType == OSNotificationAction.ActionType.ActionTaken)
             Logger.debug("Button pressed with id: " + result.action.actionID);*/

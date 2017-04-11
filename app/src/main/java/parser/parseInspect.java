@@ -13,6 +13,7 @@ import entity.ClientAssetOwner;
 import entity.ClientCustomForm;
 import utility.ConstantVal;
 import utility.Helper;
+import utility.Logger;
 
 /**
  * Created by SAI on 9/13/2016.
@@ -72,6 +73,8 @@ public class parseInspect {
                         custom_field_3, custom_field_4, custom_field_5, -1, arrClientCustomForm);
                 arr.add(objClientAssetInspect);
             } catch (Exception e) {
+                e.printStackTrace();
+                Logger.writeToCrashlytics(e);
             }
         }
         return arr;

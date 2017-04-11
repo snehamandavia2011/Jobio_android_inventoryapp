@@ -116,6 +116,8 @@ public class frAssetsInspect extends Fragment {
                         dot_progress_bar.setVisibility(View.GONE);
                         ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
                     } catch (Exception e) {
+                        e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                 }
                 if (arrClientAssetInspectInspect != null && arrClientAssetInspectInspect.size() > 0) {
@@ -211,6 +213,7 @@ public class frAssetsInspect extends Fragment {
             fillDataToExpandableListView(tempListDataHeader, tempListDataChild);
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
     }
 

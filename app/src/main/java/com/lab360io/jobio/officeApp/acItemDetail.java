@@ -32,6 +32,7 @@ import utility.ConstantVal;
 import utility.DotProgressBar;
 import utility.Helper;
 import utility.HttpEngine;
+import utility.Logger;
 import utility.ServerResponse;
 import utility.URLMapping;
 
@@ -146,6 +147,7 @@ public class acItemDetail extends AppCompatActivity {
                             objClientItemMaster.saveUpdateItemData(mContext);
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                 }
                 return null;
@@ -179,6 +181,7 @@ public class acItemDetail extends AppCompatActivity {
             txtLastUpdated.setText(getString(R.string.strLastUpdate) + ": " + Helper.convertDateToAbbrevString(Long.parseLong(objClientItemMaster.getLast_update_date_time())));
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             txtLastUpdated.setText(getString(R.string.strLastUpdate) + ": " + getString(R.string.strNA));
         }
         lyItemTransactionDetail.removeAllViews();

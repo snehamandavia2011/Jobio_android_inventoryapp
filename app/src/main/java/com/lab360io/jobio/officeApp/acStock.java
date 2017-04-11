@@ -37,6 +37,7 @@ import fragment.frStockStock;
 import fragment.frStockTransaction;
 import utility.ConstantVal;
 import utility.Helper;
+import utility.Logger;
 
 public class acStock extends ActionBarActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
 
@@ -104,6 +105,7 @@ public class acStock extends ActionBarActivity implements TabHost.OnTabChangeLis
                 current_tab = this.getIntent().getStringExtra("tab");
             } catch (Exception e) {
                 e.printStackTrace();
+                Logger.writeToCrashlytics(e);
                 current_tab = ITEM;
             }
         }
@@ -208,7 +210,7 @@ public class acStock extends ActionBarActivity implements TabHost.OnTabChangeLis
         }
         View viewCurrent = mTabHost.getTabWidget().getChildAt(mTabHost.getCurrentTab());
         viewCurrent.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.lightGrey)));
-        switch (pos){
+        switch (pos) {
             case 1:
                 new StockScreen().showPromptOnStockScreen(ac);
                 break;

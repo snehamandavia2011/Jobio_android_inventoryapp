@@ -46,6 +46,7 @@ public class zXingBarcodeGenerator {
             iv.setImageBitmap(bitmap);
 
         } catch (WriterException e) {
+            Logger.writeToCrashlytics(e);
             e.printStackTrace();
         }
 
@@ -89,6 +90,7 @@ public class zXingBarcodeGenerator {
             result = writer.encode(contentsToEncode, format, img_width, img_height, hints);
         } catch (IllegalArgumentException iae) {
             // Unsupported format
+            Logger.writeToCrashlytics(iae);
             return null;
         }
         int width = result.getWidth();

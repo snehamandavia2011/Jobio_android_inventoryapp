@@ -78,11 +78,13 @@ public class asyncMessageList {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Logger.writeToCrashlytics(e);
                 } finally {
                     try {
                         db.close();
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                 }
                 return null;
@@ -134,6 +136,7 @@ public class asyncMessageList {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
     }
 
@@ -207,6 +210,7 @@ public class asyncMessageList {
                     } catch (Exception e) {
                         //Logger.debug("Error:" + e.getMessage());
                         e.printStackTrace();
+                        Logger.writeToCrashlytics(e);
                     }
                 }
                 if (responseCode.equals(ConstantVal.ServerResponseCode.SUCCESS) || responseCode.equals(ConstantVal.ServerResponseCode.INVALID_LOGIN)) {
@@ -256,6 +260,7 @@ public class asyncMessageList {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
     }
 

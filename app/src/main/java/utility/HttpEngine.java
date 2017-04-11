@@ -39,7 +39,7 @@ public class HttpEngine {
                 mContext.getClass() != acManualQRCode.class && mContext.getClass() != acQRCodeScanner.class && mContext.getClass() != acHome.class) &&
                 !serDeviceToServerSync.isSyncing) {
             boolean isInternetFound = serDeviceToServerSync.syncData(mContext);
-            if(!isInternetFound){
+            if (!isInternetFound) {
 
             }
         }
@@ -66,12 +66,17 @@ public class HttpEngine {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
         return objServerResponse;
     }
 
     public ServerResponse makeHttpRequestCall(Context mContext, String strURL, String data) {
         ServerResponse objServerResponse = null;
+        int resoponseCode = 0;
+        String serverResponseMessage = "";
+        String strResponse = "";
+
         try {
             if (!isNetworkAvailable(mContext)) {
                 objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.NO_INTERNET, ConstantVal.ServerResponseCode.NO_INTERNET);
@@ -87,7 +92,9 @@ public class HttpEngine {
                 wr.write(data);
                 wr.flush();
                 urlConnection.connect();
-                int resoponseCode = urlConnection.getResponseCode();
+                resoponseCode = urlConnection.getResponseCode();
+                serverResponseMessage = urlConnection.getResponseMessage();
+                Logger.debug("[URL:" + strURL + "][SERVER RESPONSE CODE:" + resoponseCode + "][SERVER RESPONSE MESSAGE:" + serverResponseMessage + "]");
                 if (resoponseCode >= 500 && resoponseCode <= 520) {
                     objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.SERVER_ERROR, ConstantVal.ServerResponseCode.SERVER_ERROR);
                 } else if (strURL.contains("verifyQRCode") && (resoponseCode >= 400 && resoponseCode <= 451)) {
@@ -102,8 +109,7 @@ public class HttpEngine {
                     while ((len = in.read(chBuff)) > 0)
                         res.append(new String(chBuff, 0, len));
                     in.close();
-                    String strResponse = res.toString();
-                    Logger.debug("[URL:" + strURL + "][SERVER RESPONSE CODE:" + resoponseCode + "][SERVER RESPONSE MESSAGE:" + urlConnection.getResponseMessage() + "][RESPONSE FROM API:" + strResponse + "]");
+                    strResponse = res.toString();
                     if (strResponse == null || strResponse.equals("")) {
                         objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.BLANK_RESPONSE, ConstantVal.ServerResponseCode.BLANK_RESPONSE);
                     } else if (strResponse.equals(ConstantVal.ServerResponseCode.INVALID_QR_CODE)) {
@@ -132,22 +138,27 @@ public class HttpEngine {
             }
         } catch (UnknownHostException e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.INVALID_QR_CODE, ConstantVal.ServerResponseCode.INVALID_QR_CODE);
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.CLIENT_ERROR, ConstantVal.ServerResponseCode.CLIENT_ERROR);
         } catch (IOException e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.REQUEST_TIMEOUT, ConstantVal.ServerResponseCode.REQUEST_TIMEOUT);
         } catch (Exception e) {
             objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.BLANK_RESPONSE, ConstantVal.ServerResponseCode.BLANK_RESPONSE);
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
+        } catch (Error e) {
+            e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
-        Logger.debug("[URL:" + strURL + "][Application response code" + objServerResponse.getResponseCode() + "]");
-        String strEmail = Helper.getStringPreference(mContext, ClientAdminUser.Fields.USER_NAME, "");
-        String message = "[Code:" + objServerResponse.getResponseCode() + "][Response:" + objServerResponse.getResponseString() + "]";
-        CrashlyticsCore.getInstance().log(Log.ASSERT, strEmail, message);
-        //Logger.debug("Application response string" + objServerResponse.getResponseString());
+        Logger.debug("[URL:" + strURL + "][Application response code" + objServerResponse.getResponseCode() + "][RESPONSE FROM API:" + strResponse + "]");
+        String message = "[User id:" + Helper.getStringPreference(mContext, ClientAdminUser.Fields.ADMINUSERID, "") + "] [URL:" + strURL + "] [Data:" + data + "] [Server response code:" + resoponseCode + "] [Server message:" + serverResponseMessage + "] [application response Code:" + objServerResponse.getResponseCode() + "] [application response:" + objServerResponse.getResponseString() + "]";
+        Logger.writeToCrashlytics(message);
         return objServerResponse;
     }
 

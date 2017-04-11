@@ -245,7 +245,7 @@ public class acMessageList extends AppCompatActivity {
                 protected void onPostExecute(Object o) {
                     super.onPostExecute(o);
                     if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.NO_INTERNET)) {
-                        Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet),ConstantVal.ToastBGColor.INFO);
+                        Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgSyncNoInternet), ConstantVal.ToastBGColor.INFO);
                     }
                 }
             }.execute();
@@ -284,6 +284,7 @@ public class acMessageList extends AppCompatActivity {
                 tempListDataChild.put(strDate, chileData);
             } catch (Exception e) {
                 e.printStackTrace();
+                Logger.writeToCrashlytics(e);
             }
 
             String notViewdIds = "";
@@ -493,6 +494,8 @@ public class acMessageList extends AppCompatActivity {
             }*/
             return null;
         } catch (Exception e) {
+            e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return null;
         }
     }

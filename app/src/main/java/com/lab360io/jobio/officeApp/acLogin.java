@@ -266,6 +266,7 @@ public class acLogin extends AppCompatActivity {
                                                 Helper.setLongPreference(mContext, ConstantVal.LAST_SERVER_TO_DEVICE_SYNC_TIME, new Date().getTime());
                                             } catch (Exception e) {
                                                 e.printStackTrace();
+                                                Logger.writeToCrashlytics(e);
                                                 handler.post(new Runnable() {
                                                     @Override
                                                     public void run() {
@@ -301,6 +302,7 @@ public class acLogin extends AppCompatActivity {
                                         }
                                     } catch (JSONException e) {
                                         Logger.debug("in:" + e.getMessage());
+                                        Logger.writeToCrashlytics(e);
                                         Helper.displaySnackbar(ac, result, ConstantVal.ToastBGColor.DANGER);
                                         handler.post(new Runnable() {
                                             @Override
@@ -314,6 +316,7 @@ public class acLogin extends AppCompatActivity {
                             } catch (Exception e) {
                                 Logger.debug("out:" + e.getMessage());
                                 e.printStackTrace();
+                                Logger.writeToCrashlytics(e);
                                 Helper.displaySnackbar(ac, result, ConstantVal.ToastBGColor.DANGER);
                                 handler.post(new Runnable() {
                                     @Override
@@ -382,6 +385,8 @@ public class acLogin extends AppCompatActivity {
                                 JSONObject objJSON = new JSONObject(result);
                                 newPassword = objJSON.getString("password");
                             } catch (Exception e) {
+                                e.printStackTrace();
+                                Logger.writeToCrashlytics(e);
                                 handler.post(new Runnable() {
                                     @Override
                                     public void run() {

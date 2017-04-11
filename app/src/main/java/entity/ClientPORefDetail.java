@@ -6,6 +6,8 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import utility.Logger;
+
 /**
  * Created by SAI on 10/20/2016.
  */
@@ -129,6 +131,7 @@ public class ClientPORefDetail implements Serializable {
             return arr;
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return null;
         }
     }

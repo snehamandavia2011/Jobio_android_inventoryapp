@@ -42,6 +42,7 @@ public class acSearchAssetByQR extends AppCompatActivity implements QRCodeReader
             mydecoderview.getCameraManager().startPreview();
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
     }
 
@@ -74,7 +75,7 @@ public class acSearchAssetByQR extends AppCompatActivity implements QRCodeReader
                         startActivityForResult(i, ConstantVal.EXIT_REQUEST_CODE);
                         finish();
                     } else {
-                        objHelper.displaySnackbar(ac, getString(R.string.msgAssetDetailNotAvail),ConstantVal.ToastBGColor.DANGER);
+                        objHelper.displaySnackbar(ac, getString(R.string.msgAssetDetailNotAvail), ConstantVal.ToastBGColor.DANGER);
                         setData();
                     }
                 }

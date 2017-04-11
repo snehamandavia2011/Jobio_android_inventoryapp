@@ -234,6 +234,8 @@ public class ConstantVal {
                 }
                 return strCode;
             } catch (NumberFormatException e) {
+                e.printStackTrace();
+                Logger.writeToCrashlytics(e);
                 return strCode;
             }
         }

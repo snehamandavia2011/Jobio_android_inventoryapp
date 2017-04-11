@@ -5,6 +5,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import utility.Logger;
+
 /**
  * Created by SAI on 10/20/2016.
  */
@@ -43,6 +45,7 @@ public class ClientJobPOInvoiceReference {
             return arr;
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
             return null;
         }
     }

@@ -70,7 +70,7 @@ public class serServerToDeviceSync extends Service {
                 } else {
                     Logger.debug("Message is not going to sync via service");
                 }
-                Logger.debug("asyncUserData.responseCode:" + asyncUserData.responseCode+" asyncAsset:"+asyncAsset.assetResponseCode);
+                Logger.debug("asyncUserData.responseCode:" + asyncUserData.responseCode + " asyncAsset:" + asyncAsset.assetResponseCode);
                 if ((asyncUserData.responseCode.equals(ConstantVal.ServerResponseCode.SUCCESS) ||//008
                         asyncUserData.responseCode.equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED) ||//005
                         asyncUserData.responseCode.equals(ConstantVal.ServerResponseCode.INVALID_LOGIN)) ||//006
@@ -83,6 +83,7 @@ public class serServerToDeviceSync extends Service {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                Logger.writeToCrashlytics(e);
             }
         } else {
             Logger.debug("Server to device is not going to sync as minutes:" + minutes);

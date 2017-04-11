@@ -17,6 +17,7 @@ import com.xwray.fontbinding.FontCache;
 
 import utility.ConstantVal;
 import utility.Helper;
+import utility.Logger;
 
 
 public class acQRCodeScanner extends AppCompatActivity implements QRCodeReaderView.OnQRCodeReadListener {
@@ -63,6 +64,7 @@ public class acQRCodeScanner extends AppCompatActivity implements QRCodeReaderVi
             mydecoderview.getCameraManager().startPreview();
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
     }
 

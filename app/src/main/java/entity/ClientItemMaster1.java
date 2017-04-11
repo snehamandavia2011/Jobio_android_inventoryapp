@@ -5,6 +5,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import utility.Logger;
+
 /**
  * Created by SAI on 10/17/2016.
  */
@@ -12,9 +14,10 @@ public class ClientItemMaster1 {
     String uuid, item_name, specification, category_name, monthly_demand, min_qty_for_restock, available_qty, photo;
     boolean isImageLoaded = false;
 
-    public ClientItemMaster1(){
+    public ClientItemMaster1() {
 
     }
+
     public ClientItemMaster1(String uuid, String item_name, String specification, String category_name, String monthly_demand, String min_qty_for_restock, String available_qty, String photo) {
         this.uuid = uuid;
         this.item_name = item_name;
@@ -115,6 +118,7 @@ public class ClientItemMaster1 {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.writeToCrashlytics(e);
         }
         return arrClientItemMaster1;
     }

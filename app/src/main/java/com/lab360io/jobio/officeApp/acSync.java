@@ -161,6 +161,8 @@ public class acSync extends AppCompatActivity {
                 txtNetworkState.setText(getString(R.string.strConnected));
                 imgNetworkState.setImageResource(R.drawable.ic_network_high_connection);
             } catch (Exception ex) {
+                ex.printStackTrace();
+                Logger.writeToCrashlytics(ex);
             }
             Logger.debug("Network strength:" + strength);
             if (strength == 99) {
