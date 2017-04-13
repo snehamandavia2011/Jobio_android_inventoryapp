@@ -36,7 +36,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.onesignal:OneSignal:3.+@aar'
-    compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.google.android.gms:play-services:8.3.0'
     compile 'com.google.android.gms:play-services-location:+'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.9.5'
@@ -48,8 +48,8 @@ dependencies {
     compile project(':libQECodeReaderView')
     compile project(':libRippleDecoratorView')
     compile project(':libFloatingActionButton')
-    compile 'com.android.support:appcompat-v7:23.2.0'
-    compile 'com.android.support:design:23.2.0'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
     compile project(':libzBarScanner')
     compile project(':libTopSnackbar')
     compile project(':libMaterialTapTarget')
