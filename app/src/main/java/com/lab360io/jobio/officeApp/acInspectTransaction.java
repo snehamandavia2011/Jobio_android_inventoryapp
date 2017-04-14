@@ -129,7 +129,7 @@ public class acInspectTransaction extends AppCompatActivity {
                 edInspectionTime.setOnClickListener(handleClick);
                 btnUploadPic.setOnClickListener(handleClick);
                 if (ac.getIntent().getExtras() != null) {
-                    aitId = ac.getIntent().getStringExtra("aitId");
+                    aitId = ac.getIntent().getStringExtra("aitId");//aitID is UUID
                 }
             }
 
@@ -318,7 +318,7 @@ public class acInspectTransaction extends AppCompatActivity {
                 db.open();
                 ContentValues cv = new ContentValues();
                 cv.put("localViewStatus", ConstantVal.InspectionServiceStatus.DONE);
-                db.update(DataBase.inspect_view_table, DataBase.inspect_view_int, "aitId=" + objClientAssetInspect.getAitId(), cv);
+                db.update(DataBase.inspect_view_table, DataBase.inspect_view_int, "aitId='" + objClientAssetInspect.getAitId() + "'", cv);
                 String strIsPresent = "Y";
                 ContentValues cvInspect = new ContentValues();
                 cvInspect.put("aitName", objClientAssetInspect.getAitName());
@@ -327,7 +327,7 @@ public class acInspectTransaction extends AppCompatActivity {
                 cvInspect.put("aitPhoto", objClientAssetInspect.getPhoto());
                 cvInspect.put("aitStatusId", objClientAssetInspect.getAitStatusId());
                 cvInspect.put("aitIsPresent", strIsPresent);
-                db.update(DataBase.inspect_table, DataBase.inspect_int, "aitId=" + objClientAssetInspect.getAitId(), cvInspect);
+                db.update(DataBase.inspect_table, DataBase.inspect_int, "aitId='" + objClientAssetInspect.getAitId() + "'", cvInspect);
                 db.close();
 
                 String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");

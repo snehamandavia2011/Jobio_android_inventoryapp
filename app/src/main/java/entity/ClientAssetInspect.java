@@ -78,7 +78,7 @@ public class ClientAssetInspect {
                               String amService_aasigned_employee, String amInspection_period, String amIs_schedule_inspection_on,
                               String amInspection_aasigned_employee, Date amNext_service_date, Date amNext_inspection_date, String amAsset_status, String amCustom_field_1,
                               String amCustom_field_2, String amCustom_field_3, String amCustom_field_4, String amCustom_field_5, int viewStatus, ArrayList<ClientCustomForm> arrClientCustomForm) {
-        this.aitId = aitId;
+        this.aitId = aitId;//value format is UUID
         this.aitName = aitName;
         this.aitAssetId = aitAssetId;
         this.aitAsset_name = aitAsset_name;
@@ -467,7 +467,7 @@ public class ClientAssetInspect {
         if (aitID == null)
             cur = db.fetch(DataBase.inspect_table, null);
         else
-            cur = db.fetch(DataBase.inspect_table, "aitId=" + aitID);
+            cur = db.fetch(DataBase.inspect_table, "aitId='" + aitID + "'");
         if (cur != null && cur.getCount() > 0) {
             arrClientAsset = new ArrayList<ClientAssetInspect>();
             cur.moveToFirst();
@@ -487,7 +487,7 @@ public class ClientAssetInspect {
                         new Date(cur.getLong(25)), cur.getString(26), cur.getString(27), cur.getString(28),
                         cur.getString(29), cur.getString(30), cur.getString(31),
                         cur.getString(32), new Date(cur.getLong(33)), new Date(cur.getLong(34)), cur.getString(35), cur.getString(36),
-                        cur.getString(37), cur.getString(38), cur.getString(39), cur.getString(40), viewStatus, new Helper().getFormFromDatabase(cur.getString(3), "I", mContext)));
+                        cur.getString(37), cur.getString(38), cur.getString(39), cur.getString(40), viewStatus, new Helper().getFormFromDatabase(cur.getString(1), "I", mContext)));
             } while (cur.moveToNext());
         }
         cur.close();

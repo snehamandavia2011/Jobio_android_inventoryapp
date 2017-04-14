@@ -73,7 +73,7 @@ public class asyncAsset {
                     db.insert(DataBase.service_table, DataBase.service_int, data);
 
                     //if jobid is not available then save to table with false
-                    String where = "astId=" + obj.getAstId() + "";
+                    String where = "astId='" + obj.getAstId() + "'";
                     Cursor curIsVied = db.fetch(DataBase.service_view_table, DataBase.service_view_int, where);
                     if (curIsVied != null && curIsVied.getCount() == 0) {
                         String status;
@@ -117,7 +117,7 @@ public class asyncAsset {
                     db.insert(DataBase.inspect_table, DataBase.inspect_int, data);
 
                     //if jobid is not available then save to table with false
-                    String where = "aitId=" + obj.getAitId() + "";
+                    String where = "aitId='" + obj.getAitId() + "'";
                     Cursor curIsVied = db.fetch(DataBase.inspect_view_table, DataBase.inspect_view_int, where);
                     if (curIsVied != null && curIsVied.getCount() == 0) {
                         String status;

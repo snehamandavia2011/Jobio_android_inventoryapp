@@ -341,7 +341,7 @@ public class acServiceTransaction extends AppCompatActivity {
                 db.open();
                 ContentValues cv = new ContentValues();
                 cv.put("localViewStatus", ConstantVal.InspectionServiceStatus.DONE);
-                db.update(DataBase.service_view_table, DataBase.service_view_int, "astId=" + objClientAssetService.getAstId(), cv);
+                db.update(DataBase.service_view_table, DataBase.service_view_int, "astId='" + objClientAssetService.getAstId() + "'", cv);
                 ContentValues cvInspect = new ContentValues();
                 cvInspect.put("astName", objClientAssetService.getAstName());
                 cvInspect.put("astDateTime", objClientAssetService.getAstDateTime().getTime());
@@ -352,7 +352,7 @@ public class acServiceTransaction extends AppCompatActivity {
                 cvInspect.put("astInvoicePicture", objClientAssetService.getAstInvoicePicture());
                 cvInspect.put("astStatusId", objClientAssetService.getAstStatusId());
                 cvInspect.put("astPerformedBy", objClientAssetService.getAstPerformedBy());
-                db.update(DataBase.service_table, DataBase.service_int, "astId=" + objClientAssetService.getAstId(), cvInspect);
+                db.update(DataBase.service_table, DataBase.service_int, "astId='" + objClientAssetService.getAstId() + "'", cvInspect);
                 db.close();
 
                 String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");

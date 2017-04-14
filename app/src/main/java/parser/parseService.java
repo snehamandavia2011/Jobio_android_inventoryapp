@@ -23,7 +23,7 @@ public class parseService {
         for (int i = 0; i < jArray.length(); i++) {
             try {
                 JSONObject obj = jArray.getJSONObject(i);
-                String id = (obj.getString("id").equals("null") ? "" : obj.getString("id"));
+                String id = (obj.getString("uuid").equals("null") ? "" : obj.getString("uuid"));
                 String name = (obj.getString("name").equals("null") ? "" : obj.getString("name"));
                 String asset_id = (obj.getString("asset_id").equals("null") ? "" : obj.getString("asset_id"));
                 String asset_name = (obj.getString("asset_name").equals("null") ? "" : obj.getString("asset_name"));

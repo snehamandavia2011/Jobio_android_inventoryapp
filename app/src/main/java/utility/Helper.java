@@ -1572,12 +1572,12 @@ public class Helper {
         return f.getAbsolutePath();
     }
 
-    public ArrayList<ClientCustomForm> getFormFromDatabase(String strAssetID, String ref_type, Context mContext) {
+    public ArrayList<ClientCustomForm> getFormFromDatabase(String strRefId, String ref_type, Context mContext) {
         ArrayList<ClientCustomForm> arrClientCustomForm = new ArrayList<>();
         try {
             DataBase db = new DataBase(mContext);
             db.open();
-            Cursor curForms = db.fetch(DataBase.custom_form_table, DataBase.custom_form_int, "ftRef_id='" + strAssetID + "' and ftRefType='" + ref_type + "'");
+            Cursor curForms = db.fetch(DataBase.custom_form_table, DataBase.custom_form_int, "ftRef_id='" + strRefId + "' and ftRefType='" + ref_type + "'");
             if (curForms != null && curForms.getCount() > 0) {
                 curForms.moveToFirst();
                 do {
