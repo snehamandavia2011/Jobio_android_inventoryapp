@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.androidadvance.topsnackbar.TSnackbar;
 import com.thomsonreuters.rippledecoratorview.RippleDecoratorView;
 import com.xwray.fontbinding.FontCache;
 
@@ -288,16 +289,20 @@ public class acLogin extends AppCompatActivity {
                                                 startActivity(i);
                                                 finish();
                                             } else {
-                                                Helper.displaySnackbar(ac, getString(R.string.strUnableToLoadData), ConstantVal.ToastBGColor.DANGER);
-                                                handler.post(new Runnable() {
+                                                Helper.displaySnackbar(ac, getString(R.string.strUnableToLoadData), ConstantVal.ToastBGColor.DANGER).setCallback(new TSnackbar.Callback() {
                                                     @Override
-                                                    public void run() {
-                                                        btnLogin.setEnabled(true);
-                                                        btnLogin.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
-                                                        Helper.logOutUser(mContext, false);
+                                                    public void onDismissed(TSnackbar snackbar, @DismissEvent int event) {
+                                                        super.onDismissed(snackbar, event);
+                                                        handler.post(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                btnLogin.setEnabled(true);
+                                                                btnLogin.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));
+                                                                Helper.logOutUser(mContext, true);
+                                                            }
+                                                        });
                                                     }
                                                 });
-
                                             }
                                         }
                                     } catch (JSONException e) {

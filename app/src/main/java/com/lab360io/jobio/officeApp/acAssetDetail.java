@@ -109,7 +109,7 @@ public class acAssetDetail extends AppCompatActivity {
                     txtManufacturer.setText(objClientAsset.getAmManufacturer_name());
                     txtSerialNumber.setText(objClientAsset.getAmSerial_no());
                     txtAssetLocation.setText(objClientAsset.getAmAsset_location());
-                    txtCost.setText(objClientAsset.getAmPurchase_cost());
+                    txtCost.setText(Helper.getCurrencySymbol() + objClientAsset.getAmPurchase_cost());
                     txtCurrentValue.setText(objClientAsset.getAmCurrent_value());
                     txtPurchaseFrom.setText(objClientAsset.getAmPurchase_from());
                     txtExpireDate.setText(Helper.convertDateToString(objClientAsset.getAmDate_expired(),
