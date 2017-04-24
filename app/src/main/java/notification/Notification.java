@@ -131,19 +131,22 @@ public class Notification {
         String action = data.optString("action", null);
         if (action != null) {
             if (action.equals(ConstantVal.NotificationType.MESSAGE_RECEIVED)) {
-                final boolean messageNotification = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.MESSAGE_CONVERSATION_NOTIFICATION, true);
-                if (messageNotification) {
-                    String from_id = data.optString("from_id", null);
-                    DataBase db = new DataBase(mContext);
-                    db.open();
-                    Cursor cur = db.fetch(DataBase.adminuser_employee_table, DataBase.adminuser_employee_int, "auId='" + from_id + "'");
-                    String name = "";
-                    if (cur != null && cur.getCount() > 0) {
-                        cur.moveToFirst();
-                        name = cur.getString(3) + " " + cur.getString(4);
+                String from_id = data.optString("from_id", null);
+                Logger.debug("Notification->show notification" + from_id + " " + Helper.getStringPreference(mContext, ConstantVal.CURRENT_CHAT_FRIEND, ""));
+                if (!from_id.equals(Helper.getStringPreference(mContext, ConstantVal.CURRENT_CHAT_FRIEND, ""))) {
+                    final boolean messageNotification = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.MESSAGE_CONVERSATION_NOTIFICATION, true);
+                    if (messageNotification) {
+                        DataBase db = new DataBase(mContext);
+                        db.open();
+                        Cursor cur = db.fetch(DataBase.adminuser_employee_table, DataBase.adminuser_employee_int, "auId='" + from_id + "'");
+                        String name = "";
+                        if (cur != null && cur.getCount() > 0) {
+                            cur.moveToFirst();
+                            name = cur.getString(3) + " " + cur.getString(4);
+                        }
+                        db.close();
+                        showMessageNotification(from_id, name, title, body, mContext);
                     }
-                    db.close();
-                    showMessageNotification(from_id, name, title, body, mContext);
                 }
             } else if (action.equals(ConstantVal.NotificationType.ADD_INSPECTION_TRANSACTION)) {
                 final boolean iTransactionNotification = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.INSPECTION_TRANSACTION_NOTIFICATION, true);

@@ -20,6 +20,7 @@ public class ConstantVal {
         public static final int DANGER = R.color.danger;
     }
 
+    public static final String CURRENT_CHAT_FRIEND = "current_chat_friend";
     public static final String TEMP_PHOTO_IMAGE = "temp_photo_image";
     public static final String APP_REF_TYPE = "S";
     public static final String IS_QRCODE_CONFIGURE = "isQrConfigure";
@@ -262,7 +263,7 @@ public class ConstantVal {
     }
 
     public static URLMapping getEmployeeMessage(Context c) {
-        String[] paramNames = {"token_id", "login_admin_user_id", "isMessage_load_first_time", "account_id"};
+        String[] paramNames = {"token_id", "login_admin_user_id", "isMessage_load_first_time", "last_message_time_stamp", "account_id"};
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");
         String URL = getWebURLPrefix(subDomain) + "managemessage/getEmployeeMessage";
         return new URLMapping(paramNames, URL, false);
@@ -509,6 +510,7 @@ public class ConstantVal {
         String URL = getWebURLPrefix(QRCode) + "getjoblist/uploadFormImage";
         return new URLMapping(paramName, URL, true);
     }
+
     public static URLMapping getUIFormStatus(Context c) {
         String[] paramNames = {"token_id", "account_id"};
         String subDomain = Helper.getStringPreference(c, ConstantVal.QRCODE_VALUE, "");

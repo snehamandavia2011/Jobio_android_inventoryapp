@@ -162,7 +162,23 @@ public class asyncMessageList {
                     //means next time loading the message, so load unread since last 30days, and save to local database.
                     isDataLoadFirstTime = "N";
                 }
-                data = new String[]{String.valueOf(tokenId), userId, isDataLoadFirstTime, account_id};
+                String last_message_time_stamp = "0";
+                DataBase db1 = new DataBase(ctx);
+                try {
+
+                    db1.open();
+                    Cursor cur = db1.fetch(DataBase.field_message_table, null, "timestamp");
+                    if (cur != null && cur.getCount() > 0) {
+                        cur.moveToLast();
+                        Logger.debug(cur.getString(0) + " " + cur.getString(7));
+                        last_message_time_stamp = cur.getString(7);
+                    }
+                    cur.close();
+                } finally {
+                    db1.close();
+                }
+
+                data = new String[]{String.valueOf(tokenId), userId, isDataLoadFirstTime, last_message_time_stamp, account_id};
                 ServerResponse objServerResponse = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(), data, um.getParamNames(), um.isNeedToSync());
                 responseCode = objServerResponse.getResponseCode();
                 String result = objServerResponse.getResponseString();

@@ -513,6 +513,10 @@ public class acMessageList extends AppCompatActivity {
         new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] params) {
+                if (isWindowOpen.equals("Y"))
+                    Helper.setStringPreference(mContext, ConstantVal.CURRENT_CHAT_FRIEND, toUserId);
+                else if (isWindowOpen.equals("N"))
+                    Helper.clearPreference(mContext, ConstantVal.CURRENT_CHAT_FRIEND);
                 String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
                 String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
                 HttpEngine objHttpEngine = new HttpEngine();
