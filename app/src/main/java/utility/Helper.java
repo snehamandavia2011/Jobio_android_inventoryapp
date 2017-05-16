@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
@@ -1678,5 +1680,25 @@ public class Helper {
                 return null;
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    public static void updateMessageHostDetail(Context context) {
+        Logger.debug("isPackageExisted:" + isPackageExisted(context, ConstantVal.MessageHost.SIBLING_PACKAGE_NAME));
+        if (isPackageExisted(context, ConstantVal.MessageHost.SIBLING_PACKAGE_NAME)) {
+            Helper.setStringPreference(context, ConstantVal.MessageHost.MESSAGE_HOST_APP, ConstantVal.MessageHost.FIELD_APP);
+        } else {
+            Helper.setStringPreference(context, ConstantVal.MessageHost.MESSAGE_HOST_APP, ConstantVal.MessageHost.OFFICE_APP);
+        }
+        Logger.debug("updateMessageHostDetail:" + Helper.getStringPreference(context, ConstantVal.MessageHost.MESSAGE_HOST_APP, ""));
+    }
+
+    private static boolean isPackageExisted(Context context, String targetPackage) {
+        PackageManager pm = context.getPackageManager();
+        try {
+            PackageInfo info = pm.getPackageInfo(targetPackage, PackageManager.GET_META_DATA);
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+        return true;
     }
 }

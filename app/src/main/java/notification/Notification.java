@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import com.lab360io.jobio.officeApp.R;
 import com.lab360io.jobio.officeApp.acAsset;
 import com.lab360io.jobio.officeApp.acHome;
+import com.lab360io.jobio.officeApp.acLogin;
 import com.lab360io.jobio.officeApp.acMessageEmployeeList;
 import com.onesignal.OneSignal;
 
@@ -131,22 +132,32 @@ public class Notification {
         String action = data.optString("action", null);
         if (action != null) {
             if (action.equals(ConstantVal.NotificationType.MESSAGE_RECEIVED)) {
+                String message_host = Helper.getStringPreference(mContext, ConstantVal.MessageHost.MESSAGE_HOST_APP, ConstantVal.MessageHost.FIELD_APP);
+                Logger.debug("Message Host:" + message_host);
+                if (!message_host.equals(ConstantVal.MessageHost.OFFICE_APP))
+                    return;
+
                 String from_id = data.optString("from_id", null);
                 Logger.debug("Notification->show notification" + from_id + " " + Helper.getStringPreference(mContext, ConstantVal.CURRENT_CHAT_FRIEND, ""));
-                if (!from_id.equals(Helper.getStringPreference(mContext, ConstantVal.CURRENT_CHAT_FRIEND, ""))) {
-                    final boolean messageNotification = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.MESSAGE_CONVERSATION_NOTIFICATION, true);
-                    if (messageNotification) {
-                        DataBase db = new DataBase(mContext);
-                        db.open();
-                        Cursor cur = db.fetch(DataBase.adminuser_employee_table, DataBase.adminuser_employee_int, "auId='" + from_id + "'");
-                        String name = "";
-                        if (cur != null && cur.getCount() > 0) {
-                            cur.moveToFirst();
-                            name = cur.getString(3) + " " + cur.getString(4);
+                boolean isSessionExists = Helper.getBooleanPreference(mContext, ConstantVal.IS_SESSION_EXISTS, false);
+                if (isSessionExists) {
+                    if (!from_id.equals(Helper.getStringPreference(mContext, ConstantVal.CURRENT_CHAT_FRIEND, ""))) {
+                        final boolean messageNotification = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.MESSAGE_CONVERSATION_NOTIFICATION, true);
+                        if (messageNotification) {
+                            DataBase db = new DataBase(mContext);
+                            db.open();
+                            Cursor cur = db.fetch(DataBase.adminuser_employee_table, DataBase.adminuser_employee_int, "auId='" + from_id + "'");
+                            String name = "";
+                            if (cur != null && cur.getCount() > 0) {
+                                cur.moveToFirst();
+                                name = cur.getString(3) + " " + cur.getString(4);
+                            }
+                            db.close();
+                            showMessageNotification(from_id, name, title, body, mContext);
                         }
-                        db.close();
-                        showMessageNotification(from_id, name, title, body, mContext);
                     }
+                } else {
+                    showMessageNotificationAfterLogout(mContext.getString(R.string.msgNewMessageReceive), mContext);
                 }
             } else if (action.equals(ConstantVal.NotificationType.ADD_INSPECTION_TRANSACTION)) {
                 final boolean iTransactionNotification = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.INSPECTION_TRANSACTION_NOTIFICATION, true);
@@ -174,6 +185,27 @@ public class Notification {
                 }
             }
         }
+    }
+
+    private static void showMessageNotificationAfterLogout(String title, Context ctx) {
+        NotificationManager mNotificationManager =
+                (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(ctx)
+                .setContentTitle(title)
+                .setSmallIcon(R.drawable.ic_chat_white)
+                .setAutoCancel(true);
+        if (Helper.getBooleanPreference(ctx, ConstantVal.SettingFlags.MESSAGE_CONVERSATION_TONE, true)) {
+            mNotifyBuilder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        }
+        Intent intentLogin = new Intent(ctx, acLogin.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(ctx);
+        stackBuilder.addParentStack(acLogin.class);
+        stackBuilder.addNextIntent(intentLogin);
+
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        mNotifyBuilder.setContentIntent(resultPendingIntent);
+        mNotificationManager.notify(0,
+                mNotifyBuilder.build());
     }
 
     private static void showMessageNotification(String from_id, String name, String title, String content, Context ctx) {

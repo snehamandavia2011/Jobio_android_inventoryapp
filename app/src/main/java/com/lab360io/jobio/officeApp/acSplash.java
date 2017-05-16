@@ -32,6 +32,7 @@ public class acSplash extends Activity {
         DataBindingUtil.setContentView(this, R.layout.splash);
         mContext = this;
         Notification.initNotification(getApplicationContext());
+        Helper.updateMessageHostDetail(mContext);
         imgLogo = (ImageView) findViewById(R.id.imgLogo);
         txtAccountName = (TextView) findViewById(R.id.txtAccountName);
         final boolean isConfigure = Helper.getBooleanPreference(mContext, ConstantVal.IS_QRCODE_CONFIGURE, false);

@@ -1,6 +1,7 @@
 package utility;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,11 +17,12 @@ import com.lab360io.jobio.officeApp.acSplash;
  */
 public class OptionMenu {
 
-    public void hideMenuItem(Menu menu){
-        menu.removeItem(R.id.menuHelp);
-        menu.removeItem(R.id.menuAbout);
-        menu.removeItem(R.id.menuContact);
+    public void hideMenuItem(Menu menu) {
+        menu.removeItem(R.id.menuTalkToUs);
+        menu.removeItem(R.id.menuHelpArticle);
+        menu.removeItem(R.id.menuAboutUs);
     }
+
     public MenuInflater getCommonMenu(AppCompatActivity act, Menu menu) {
         MenuInflater mi = act.getMenuInflater();
         mi.inflate(R.menu.common, menu);
@@ -33,19 +35,25 @@ public class OptionMenu {
 
     public void handleMenuItemClick(final AppCompatActivity ac, MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuHelp:
+            case R.id.menuTalkToUs:
                 Logger.debug("Help");
                 break;
-            case R.id.menuAbout:
-                Logger.debug("About");
-                break;
-            case R.id.menuContact:
-                Logger.debug("Contact");
-                break;
+            case R.id.menuHelpArticle: {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse("http://jobio.io/article.php?articleid=Ng=="));
+                ac.startActivity(i);
+            }
+            break;
+            case R.id.menuAboutUs: {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse("http://jobio.io/about.php"));
+                ac.startActivity(i);
+            }
+            break;
             case R.id.menuMasterClear:
                 Logger.debug("Master clear");
                 // Create the Snackbar
-                final ConfimationSnackbar snackbar = new ConfimationSnackbar(ac,ConstantVal.ToastBGColor.WARNING);
+                final ConfimationSnackbar snackbar = new ConfimationSnackbar(ac, ConstantVal.ToastBGColor.WARNING);
                 snackbar.showSnackBar(ac.getString(R.string.strMastercleanMessage), ac.getString(R.string.strConfirm), ac.getString(R.string.strCancel), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

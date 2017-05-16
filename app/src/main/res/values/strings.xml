@@ -76,9 +76,9 @@
     <string name="msgNoCrewMember">NO CREW MEMBER</string>
     <string name="msgTypeMessage">Type a messsage</string>
     <string name="msgNoMessage">NO MESSAGE</string>
-    <string name="strHelp">Help</string>
-    <string name="strAbout">About</string>
-    <string name="strContact">Contact</string>
+    <string name="strTalkTous">Talk to us</string>
+    <string name="strHelpArticle">Help Articles</string>
+    <string name="strAboutUs">About us</string>
     <string name="strMasterClear">Master Clear</string>
     <string name="strToday">Today</string>
     <string name="strTomorrow">Tomorrow</string>
@@ -346,5 +346,7 @@
     <string name="msgCommunicationToColleague">To communicate, collaborate your day with your colleagues.</string>
     <string name="strNextRightArrow">Next >></string>
     <string name="strSignup">Sign up</string>
+    <string name="msgNewMessageReceive">new message received</string>
+    <string name="msgNewJobUpdateReceive">new job update received.</string>
 </resources>
 

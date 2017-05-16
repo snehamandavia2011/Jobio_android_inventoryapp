@@ -6,17 +6,17 @@
     <item
         android:id="@+id/menuMain"
         android:icon="@drawable/ic_topmenu"
-        app:showAsAction="always"
-        android:title="">
+        android:title=""
+        app:showAsAction="always">
         <item
-            android:id="@+id/menuHelp"
-            android:title="@string/strHelp"></item>
+            android:id="@+id/menuTalkToUs"
+            android:title="@string/strTalkTous"></item>
         <item
-            android:id="@+id/menuAbout"
-            android:title="@string/strAbout"></item>
+            android:id="@+id/menuHelpArticle"
+            android:title="@string/strHelpArticle"></item>
         <item
-            android:id="@+id/menuContact"
-            android:title="@string/strContact"></item>
+            android:id="@+id/menuAboutUs"
+            android:title="@string/strAboutUs"></item>
         <item
             android:id="@+id/menuMasterClear"
             android:title="@string/strMasterClear"></item>

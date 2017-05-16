@@ -13,6 +13,13 @@ import entity.ClientAssetInspectServiceStatus;
  */
 public class ConstantVal {
 
+    public static class MessageHost{
+        public static final String OFFICE_APP = "OFFICE";
+        public static final String FIELD_APP = "FIELD";
+        public static final String MESSAGE_HOST_APP = "message_host_app";
+        public static final String SIBLING_PACKAGE_NAME = "com.lab360io.jobio.fieldapp";
+    }
+
     public static class ToastBGColor {
         public static final int SUCCESS = R.color.Success;
         public static final int INFO = R.color.info;
