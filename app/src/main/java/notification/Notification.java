@@ -131,6 +131,7 @@ public class Notification {
     public static void showAndroidNotification(final JSONObject data, String title, String body, final Context mContext) {
         String action = data.optString("action", null);
         if (action != null) {
+            boolean isSessionExists = Helper.getBooleanPreference(mContext, ConstantVal.IS_SESSION_EXISTS, false);
             if (action.equals(ConstantVal.NotificationType.MESSAGE_RECEIVED)) {
                 String message_host = Helper.getStringPreference(mContext, ConstantVal.MessageHost.MESSAGE_HOST_APP, ConstantVal.MessageHost.FIELD_APP);
                 Logger.debug("Message Host:" + message_host);
@@ -139,7 +140,7 @@ public class Notification {
 
                 String from_id = data.optString("from_id", null);
                 Logger.debug("Notification->show notification" + from_id + " " + Helper.getStringPreference(mContext, ConstantVal.CURRENT_CHAT_FRIEND, ""));
-                boolean isSessionExists = Helper.getBooleanPreference(mContext, ConstantVal.IS_SESSION_EXISTS, false);
+
                 if (isSessionExists) {
                     if (!from_id.equals(Helper.getStringPreference(mContext, ConstantVal.CURRENT_CHAT_FRIEND, ""))) {
                         final boolean messageNotification = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.MESSAGE_CONVERSATION_NOTIFICATION, true);
@@ -163,25 +164,37 @@ public class Notification {
                 final boolean iTransactionNotification = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.INSPECTION_TRANSACTION_NOTIFICATION, true);
                 if (iTransactionNotification) {
                     final boolean sound = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.INSPECTION_TRANSACTION_TONE, true);
-                    showInspectNotification(title, body, mContext, sound);
+                    if (isSessionExists)
+                        showInspectNotification(title, body, mContext, sound);
+                    else
+                        showInspectNotificationAfterLogout(mContext.getString(R.string.msgNewInspectionReceive), mContext, sound);
                 }
             } else if (action.equals(ConstantVal.NotificationType.ADD_SERVICE_TRANSACTION)) {
                 final boolean sTransactionNotification = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.SERVICE_TRANSACTION_NOTIFICATION, true);
                 if (sTransactionNotification) {
                     final boolean sound = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.SERVICE_TRANSACTION_TONE, true);
-                    showServiceNotification(title, body, mContext, sound);
+                    if (isSessionExists)
+                        showServiceNotification(title, body, mContext, sound);
+                    else
+                        showServiceNotificationAfterLogout(mContext.getString(R.string.msgNewServiceReceive), mContext, sound);
                 }
             } else if (action.equals(ConstantVal.NotificationType.ADD_EDIT_INSPECTION)) {
                 final boolean addEditInspectionNotification = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.ADD_EDIT_INSPECTION_NOTIFICATION, true);
                 if (addEditInspectionNotification) {
                     final boolean sound = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.ADD_EDIT_INSPECTION_TONE, true);
-                    showInspectNotification(title, body, mContext, sound);
+                    if (isSessionExists)
+                        showInspectNotification(title, body, mContext, sound);
+                    else
+                        showInspectNotificationAfterLogout(mContext.getString(R.string.msgInspectionUpdateReceive), mContext, sound);
                 }
             } else if (action.equals(ConstantVal.NotificationType.ADD_EDIT_SERVICE)) {
                 final boolean addEditServiceNotification = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.ADD_EDIT_SERVICE_NOTIFICATION, true);
                 if (addEditServiceNotification) {
                     final boolean sound = Helper.getBooleanPreference(mContext, ConstantVal.SettingFlags.ADD_EDIT_SERVICE_TONE, true);
-                    showServiceNotification(title, body, mContext, sound);
+                    if (isSessionExists)
+                        showServiceNotification(title, body, mContext, sound);
+                    else
+                        showServiceNotificationAfterLogout(mContext.getString(R.string.msgServiceUpdateReceive), mContext, sound);
                 }
             }
         }
@@ -259,6 +272,27 @@ public class Notification {
                 mNotifyBuilder.build());
     }
 
+    private static void showInspectNotificationAfterLogout(String title, Context ctx, boolean needToPlayTone) {
+        NotificationManager mNotificationManager =
+                (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(ctx)
+                .setContentTitle(title)
+                .setSmallIcon(R.drawable.ic_inspect_white)
+                .setAutoCancel(true);
+        if (needToPlayTone) {
+            mNotifyBuilder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        }
+        Intent intentLogin = new Intent(ctx, acLogin.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(ctx);
+        stackBuilder.addParentStack(acLogin.class);
+        stackBuilder.addNextIntent(intentLogin);
+
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        mNotifyBuilder.setContentIntent(resultPendingIntent);
+        mNotificationManager.notify(0,
+                mNotifyBuilder.build());
+    }
+
     private static void showServiceNotification(String title, String content, Context ctx, boolean needToPlayTone) {
         NotificationManager mNotificationManager =
                 (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -278,6 +312,27 @@ public class Notification {
         Intent intentAsset = new Intent(ctx, acAsset.class);
         intentAsset.putExtra("tab", acAsset.SERVICE);
         stackBuilder.addNextIntent(intentAsset);
+
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        mNotifyBuilder.setContentIntent(resultPendingIntent);
+        mNotificationManager.notify(0,
+                mNotifyBuilder.build());
+    }
+
+    private static void showServiceNotificationAfterLogout(String title, Context ctx, boolean needToPlayTone) {
+        NotificationManager mNotificationManager =
+                (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(ctx)
+                .setContentTitle(title)
+                .setSmallIcon(R.drawable.ic_service_white)
+                .setAutoCancel(true);
+        if (needToPlayTone) {
+            mNotifyBuilder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        }
+        Intent intentLogin = new Intent(ctx, acLogin.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(ctx);
+        stackBuilder.addParentStack(acLogin.class);
+        stackBuilder.addNextIntent(intentLogin);
 
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         mNotifyBuilder.setContentIntent(resultPendingIntent);

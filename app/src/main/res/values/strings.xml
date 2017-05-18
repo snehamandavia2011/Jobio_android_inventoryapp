@@ -348,5 +348,9 @@
     <string name="strSignup">Sign up</string>
     <string name="msgNewMessageReceive">new message received</string>
     <string name="msgNewJobUpdateReceive">new job update received.</string>
+    <string name="msgNewInspectionReceive">New inspection added.</string>
+    <string name="msgInspectionUpdateReceive">inspection update received.</string>
+    <string name="msgNewServiceReceive">New service added.</string>
+    <string name="msgServiceUpdateReceive">Service update received.</string>
 </resources>
 
