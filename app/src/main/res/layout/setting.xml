@@ -466,6 +466,31 @@
                                 android:padding="@dimen/ViewPaddingBig">
 
                                 <RelativeLayout
+                                    android:id="@+id/rlPrimaryMessage"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/ViewPaddingBig"
+                                    android:visibility="gone">
+
+                                    <CheckBox
+                                        android:id="@+id/chkPrimaryMessageApp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="@dimen/ViewPadding" />
+
+
+                                    <TextView
+                                        style="@style/stySubTitleTiltMultiline"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_toLeftOf="@id/chkPrimaryMessageApp"
+                                        android:text="@string/msgPrimaryMessageApp"
+                                        app:font="@{`Ubuntu-C`}" />
+                                </RelativeLayout>
+
+                                <RelativeLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content">
 

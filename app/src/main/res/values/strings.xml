@@ -352,5 +352,6 @@
     <string name="msgInspectionUpdateReceive">inspection update received.</string>
     <string name="msgNewServiceReceive">New service added.</string>
     <string name="msgServiceUpdateReceive">Service update received.</string>
+    <string name="msgPrimaryMessageApp">Do you want keep this app as primary Messaging App?</string>
 </resources>
 

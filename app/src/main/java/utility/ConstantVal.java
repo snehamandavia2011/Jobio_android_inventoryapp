@@ -12,12 +12,10 @@ import entity.ClientAssetInspectServiceStatus;
  * Created by SAI on 9/1/2016.
  */
 public class ConstantVal {
-
-    public static class MessageHost{
-        public static final String OFFICE_APP = "OFFICE";
-        public static final String FIELD_APP = "FIELD";
-        public static final String MESSAGE_HOST_APP = "message_host_app";
-        public static final String SIBLING_PACKAGE_NAME = "com.lab360io.jobio.fieldapp";
+    public static class MessageHost {
+        public static final String FIELD_APP_PACKAGE_NAME = "com.lab360io.jobio.fieldapp";
+        public static final String IS_FIELD_APP_INSTALLED = "is_field_app_installed";
+        public static final String IS_OFFICE_APP_AS_PRIMARY_MESSAGE_APP = "is_office_app_as_primary_message_app";
     }
 
     public static class ToastBGColor {
@@ -111,6 +109,8 @@ public class ConstantVal {
             Helper.clearPreference(ctx, ADD_EDIT_INSPECTION_NOTIFICATION);
             Helper.clearPreference(ctx, ADD_EDIT_SERVICE_TONE);
             Helper.clearPreference(ctx, ADD_EDIT_SERVICE_NOTIFICATION);
+            Helper.clearPreference(ctx, MessageHost.IS_OFFICE_APP_AS_PRIMARY_MESSAGE_APP);
+            Helper.clearPreference(ctx, MessageHost.IS_FIELD_APP_INSTALLED);
         }
 
         public static final String MESSAGE_CONVERSATION_TONE = "messaage_conversation_tone";

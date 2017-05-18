@@ -1683,13 +1683,10 @@ public class Helper {
     }
 
     public static void updateMessageHostDetail(Context context) {
-        Logger.debug("isPackageExisted:" + isPackageExisted(context, ConstantVal.MessageHost.SIBLING_PACKAGE_NAME));
-        if (isPackageExisted(context, ConstantVal.MessageHost.SIBLING_PACKAGE_NAME)) {
-            Helper.setStringPreference(context, ConstantVal.MessageHost.MESSAGE_HOST_APP, ConstantVal.MessageHost.FIELD_APP);
-        } else {
-            Helper.setStringPreference(context, ConstantVal.MessageHost.MESSAGE_HOST_APP, ConstantVal.MessageHost.OFFICE_APP);
-        }
-        Logger.debug("updateMessageHostDetail:" + Helper.getStringPreference(context, ConstantVal.MessageHost.MESSAGE_HOST_APP, ""));
+        if (isPackageExisted(context, ConstantVal.MessageHost.FIELD_APP_PACKAGE_NAME))
+            Helper.setBooleanPreference(context, ConstantVal.MessageHost.IS_FIELD_APP_INSTALLED, true);
+        else
+            Helper.setBooleanPreference(context, ConstantVal.MessageHost.IS_FIELD_APP_INSTALLED, false);
     }
 
     private static boolean isPackageExisted(Context context, String targetPackage) {

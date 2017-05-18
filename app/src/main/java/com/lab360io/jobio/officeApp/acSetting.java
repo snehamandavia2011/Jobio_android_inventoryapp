@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xwray.fontbinding.FontCache;
@@ -29,10 +30,11 @@ public class acSetting extends AppCompatActivity {
     Helper objHelper = new Helper();
     CheckBox chkInspectionTransactionTone, chkInspectionTransactionNotification, chkServiceTransactionTone, chkServiceTransactionNotification;
     CheckBox chkAddEditInspectionTone, chkAddEditInspectionNotification, chkAddEditServiceTone, chkAddEditServiceNotification;
-    CheckBox chkConversationTone, chkMessageNotification;
+    CheckBox chkConversationTone, chkMessageNotification, chkPrimaryMessageApp;
     Button btnReportIssue, btnSendFeedback;
     TextView strAppVersion;
     LinearLayout lyInspectionTransactionSetting, lyServiceTransactionSetting, lyAddEditInspectionSetting, lyAddEditServiceSetting, lyMessageSetting;
+    RelativeLayout rlPrimaryMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,8 @@ public class acSetting extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
+                chkPrimaryMessageApp = (CheckBox) findViewById(R.id.chkPrimaryMessageApp);
+                rlPrimaryMessage = (RelativeLayout) findViewById(R.id.rlPrimaryMessage);
                 lyInspectionTransactionSetting = (LinearLayout) findViewById(R.id.lyInspectionTransactionSetting);
                 lyServiceTransactionSetting = (LinearLayout) findViewById(R.id.lyServiceTransactionSetting);
                 lyAddEditInspectionSetting = (LinearLayout) findViewById(R.id.lyAddEditInspectionSetting);
@@ -197,6 +201,13 @@ public class acSetting extends AppCompatActivity {
                     }
                 });
 
+                chkPrimaryMessageApp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        Helper.setBooleanPreference(mContext, ConstantVal.MessageHost.IS_OFFICE_APP_AS_PRIMARY_MESSAGE_APP, isChecked);
+                    }
+                });
+
                 if (Helper.isModuleAccessAllow(mContext, ConstantVal.ModuleAccess.ASSET) == false) {
                     lyAddEditInspectionSetting.setVisibility(View.GONE);
                     lyAddEditServiceSetting.setVisibility(View.GONE);
@@ -207,6 +218,15 @@ public class acSetting extends AppCompatActivity {
                     lyAddEditServiceSetting.setVisibility(View.VISIBLE);
                     lyInspectionTransactionSetting.setVisibility(View.VISIBLE);
                     lyServiceTransactionSetting.setVisibility(View.VISIBLE);
+                }
+
+                boolean blIsFieldAppInstalled = Helper.getBooleanPreference(mContext, ConstantVal.MessageHost.IS_FIELD_APP_INSTALLED, false);
+                if (blIsFieldAppInstalled) {
+                    rlPrimaryMessage.setVisibility(View.VISIBLE);
+                    chkPrimaryMessageApp.setChecked(Helper.getBooleanPreference(mContext, ConstantVal.MessageHost.IS_OFFICE_APP_AS_PRIMARY_MESSAGE_APP, true));
+                } else {
+                    rlPrimaryMessage.setVisibility(View.GONE);
+                    chkPrimaryMessageApp.setChecked(Helper.getBooleanPreference(mContext, ConstantVal.MessageHost.IS_OFFICE_APP_AS_PRIMARY_MESSAGE_APP, true));
                 }
             }
 

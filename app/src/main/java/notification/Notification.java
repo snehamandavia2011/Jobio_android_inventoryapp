@@ -133,9 +133,8 @@ public class Notification {
         if (action != null) {
             boolean isSessionExists = Helper.getBooleanPreference(mContext, ConstantVal.IS_SESSION_EXISTS, false);
             if (action.equals(ConstantVal.NotificationType.MESSAGE_RECEIVED)) {
-                String message_host = Helper.getStringPreference(mContext, ConstantVal.MessageHost.MESSAGE_HOST_APP, ConstantVal.MessageHost.FIELD_APP);
-                Logger.debug("Message Host:" + message_host);
-                if (!message_host.equals(ConstantVal.MessageHost.OFFICE_APP))
+                boolean is_primary_message_app = Helper.getBooleanPreference(mContext, ConstantVal.MessageHost.IS_OFFICE_APP_AS_PRIMARY_MESSAGE_APP, true);
+                if (!is_primary_message_app)
                     return;
 
                 String from_id = data.optString("from_id", null);
