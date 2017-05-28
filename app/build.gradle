@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         applicationId "com.lab360io.jobio.officeApp"
         minSdkVersion 11
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -31,27 +31,39 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.onesignal:OneSignal:3.+@aar'
-    compile 'com.google.android.gms:play-services:8.3.0'
-    compile 'com.google.android.gms:play-services-location:+'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.9.5'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
     compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
         transitive = true;
     }
     compile project(':libFontBinding')
     compile project(':libMaterialEditText')
-    compile project(':libQECodeReaderView')
     compile project(':libRippleDecoratorView')
+    compile project(':libQRCodeReaderView')
+    //compile files('libs/zxing-2.1.jar')
     compile project(':libFloatingActionButton')
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
-    compile project(':libzBarScanner')
+    // play-services-analytics is only needed when using 8.1.0 or older.
+    // compile 'com.google.android.gms:play-services-analytics:+'
     compile project(':libTopSnackbar')
     compile project(':libMaterialTapTarget')
+    compile project(':libzBarScanner')
+    /*compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:animated-vector-drawable:23.4.0'*/
+    compile 'com.google.android.gms:play-services-maps:10.2.6'
+    compile 'com.onesignal:OneSignal:3.+@aar'
     compile project(':libWelcomeScreen')
+    compile 'com.google.android.gms:play-services:10.2.6'
+
 }

@@ -5,7 +5,6 @@
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="1.8" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -14,13 +13,14 @@
             <option value="$PROJECT_DIR$/libFontBinding" />
             <option value="$PROJECT_DIR$/libMaterialEditText" />
             <option value="$PROJECT_DIR$/libMaterialTapTarget" />
-            <option value="$PROJECT_DIR$/libQECodeReaderView" />
+            <option value="$PROJECT_DIR$/libQRCodeReaderView" />
             <option value="$PROJECT_DIR$/libRippleDecoratorView" />
             <option value="$PROJECT_DIR$/libTopSnackbar" />
             <option value="$PROJECT_DIR$/libWelcomeScreen" />
             <option value="$PROJECT_DIR$/libzBarScanner" />
           </set>
         </option>
+        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

@@ -1,23 +1,23 @@
 [
     {
-        "outputFile": "E:\\STUDY\\Adroid\\Jobio_android_inventoryapp\\libRippleDecoratorView\\build\\intermediates\\res\\merged\\androidTest\\debug\\values\\values.xml",
+        "outputFile": "E:\\STUDY\\Adroid\\Jobio_android_inventoryapp\\libRippleDecoratorView\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
         "map": [
             {
                 "to": {
-                    "startLine": 3,
+                    "startLine": 16,
                     "startColumn": 4,
-                    "startOffset": 1384,
+                    "startOffset": 1541,
                     "endColumn": 56,
-                    "endOffset": 1436
+                    "endOffset": 1593
                 },
                 "from": {
                     "file": "E:\\STUDY\\Adroid\\Jobio_android_inventoryapp\\libRippleDecoratorView\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
-                        "startLine": 3,
+                        "startLine": 16,
                         "startColumn": 4,
-                        "startOffset": 1384,
+                        "startOffset": 1541,
                         "endColumn": 56,
-                        "endOffset": 1436
+                        "endOffset": 1593
                     }
                 }
             }
