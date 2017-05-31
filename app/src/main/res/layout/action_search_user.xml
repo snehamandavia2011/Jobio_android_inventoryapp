@@ -15,15 +15,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:background="@drawable/actionbar_btn_click_disable"
-            android:src="?attr/homeAsUpIndicator" />
+            android:src="@drawable/ic_back" />
 
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/switchSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
 
         <RelativeLayout
             android:layout_width="match_parent"
