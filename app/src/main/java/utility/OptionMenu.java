@@ -11,6 +11,7 @@ import android.view.View;
 import com.lab360io.jobio.officeApp.R;
 import com.lab360io.jobio.officeApp.acLogin;
 import com.lab360io.jobio.officeApp.acSplash;
+import com.lab360io.jobio.officeApp.acWelcome;
 
 /**
  * Created by SNEHA MANDAVIA on 3/17/2016.
@@ -59,7 +60,7 @@ public class OptionMenu {
                     public void onClick(View v) {
                         snackbar.dismissSnackBar();
                         Helper.masterClear(ac.getApplicationContext());
-                        Intent i = new Intent(ac.getApplicationContext(), acSplash.class);
+                        Intent i = new Intent(ac.getApplicationContext(), acWelcome.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         ac.startActivity(i);
                         ac.finish();

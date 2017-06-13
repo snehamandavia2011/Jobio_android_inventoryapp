@@ -123,11 +123,12 @@ public class JobInvoiceRefDetailAdapter extends BaseAdapter {
             holder.txtBarcode.setClickable(false);
         }
 
+        Logger.debug(objClientJobInvoiceRefDetail.getImItem_name()+" "+objClientJobInvoiceRefDetail.isPhotoLoaded());
         if (!objClientJobInvoiceRefDetail.isPhotoLoaded()) {
-            ClientItemMaster1 objClientItemMaster1 = new ClientItemMaster1();
-            objClientItemMaster1.setPhoto(objClientJobInvoiceRefDetail.getImPhoto());
-            objClientItemMaster1.setUuid(objClientJobInvoiceRefDetail.getItItem_id());
-            new asyncLoadCommonData(ctx).loadItemPhotoById(holder.imgItem, objClientItemMaster1, imgClick);
+            //ClientItemMaster1 objClientItemMaster1 = new ClientItemMaster1();
+            //objClientItemMaster1.setPhoto(objClientJobInvoiceRefDetail.getImPhoto());
+            //objClientItemMaster1.setUuid(objClientJobInvoiceRefDetail.getItItem_id());
+            new asyncLoadCommonData(ctx).loadItemPhotoById(holder.imgItem, objClientJobInvoiceRefDetail, imgClick);
         }
         holder.txtItemName.setText(objClientJobInvoiceRefDetail.getImItem_name());
         holder.txtQty.setText(ctx.getString(R.string.strQuantity) + " :" + objClientJobInvoiceRefDetail.getItQty());
@@ -182,6 +183,16 @@ public class JobInvoiceRefDetailAdapter extends BaseAdapter {
             Helper.openBarcodeDialog(ctx, strBarcode);
         }
     };
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return getCount();
+    }
 }
 
 

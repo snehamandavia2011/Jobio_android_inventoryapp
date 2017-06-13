@@ -292,7 +292,7 @@ public class acEditPOReferenceDetail extends AppCompatActivity {
                             @Override
                             public void onDismissed(TSnackbar snackbar, int event) {
                                 super.onDismissed(snackbar, event);
-                                ac.setResult(ConstantVal.EDIT_JOB_INVOICE_REFERENCE_RESPONSE);
+                                ac.setResult(ConstantVal.EDIT_PO_REFERENCE_RESPONSE);
                                 finish();
                             }
                         });

@@ -25,6 +25,8 @@ import entity.BusinessAccountdbDetail;
 import entity.ClientAdminUserEmployee;
 import entity.ClientAsset;
 import entity.ClientItemMaster1;
+import entity.ClientJobInvoiceRefDetail;
+import entity.ClientPORefDetail;
 import parser.parseCommonData;
 import utility.CircleImageView;
 import utility.ConstantVal;
@@ -379,6 +381,92 @@ public class asyncLoadCommonData {
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
                 objClientItemMaster.setIsImageLoaded(setPostExecutionPhotoToImageView(photo, img, strServerResponse, imgClick));
+            }
+        }.execute();
+    }
+
+
+    public void loadItemPhotoById(final ImageView img, final ClientPORefDetail objClientPORefDetail, final View.OnClickListener imgClick) {
+        new AsyncTask() {
+            String photo = "";
+            String strServerResponse = "";
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                setPreExecutionPhotoToImageView(ctx, "", img, imgClick);
+            }
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                String id = objClientPORefDetail.getPodItem_id();
+                final HttpEngine objHttpEngine = new HttpEngine();
+                final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
+                String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+                final URLMapping um = ConstantVal.loadPhoto(ctx);
+                ServerResponse sr = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(), new String[]{String.valueOf(tokenId), String.valueOf(id), String.valueOf(0), account_id}, um.getParamNames(), um.isNeedToSync());
+                strServerResponse = sr.getResponseCode();
+                parseCommonData objparseCommonData = new parseCommonData();
+                photo = objparseCommonData.parsePhoto(sr.getResponseString());
+                //update item_master table
+                if (strServerResponse.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                    DataBase db = new DataBase(ctx);
+                    db.open();
+                    ContentValues cv = new ContentValues();
+                    cv.put("photo", photo);
+                    db.update(DataBase.item_master_table, DataBase.item_master_int, "uuid='" + id + "'", cv);
+                    db.close();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                objClientPORefDetail.setIsPhotoLoaded(setPostExecutionPhotoToImageView(photo, img, strServerResponse, imgClick));
+            }
+        }.execute();
+    }
+
+
+    public void loadItemPhotoById(final ImageView img, final ClientJobInvoiceRefDetail objClientJobInvoiceRefDetail, final View.OnClickListener imgClick) {
+        new AsyncTask() {
+            String photo = "";
+            String strServerResponse = "";
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                setPreExecutionPhotoToImageView(ctx, objClientJobInvoiceRefDetail.getImPhoto(), img, imgClick);
+            }
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                String id = objClientJobInvoiceRefDetail.getItItem_id();
+                final HttpEngine objHttpEngine = new HttpEngine();
+                final String tokenId = Helper.getStringPreference(ctx, ConstantVal.TOKEN, "");
+                String account_id = Helper.getStringPreference(ctx, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+                final URLMapping um = ConstantVal.loadPhoto(ctx);
+                ServerResponse sr = objHttpEngine.getDataFromWebAPI(ctx, um.getUrl(), new String[]{String.valueOf(tokenId), String.valueOf(id), String.valueOf(0), account_id}, um.getParamNames(), um.isNeedToSync());
+                strServerResponse = sr.getResponseCode();
+                parseCommonData objparseCommonData = new parseCommonData();
+                photo = objparseCommonData.parsePhoto(sr.getResponseString());
+                //update item_master table
+                if (strServerResponse.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                    DataBase db = new DataBase(ctx);
+                    db.open();
+                    ContentValues cv = new ContentValues();
+                    cv.put("photo", photo);
+                    db.update(DataBase.item_master_table, DataBase.item_master_int, "uuid='" + id + "'", cv);
+                    db.close();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                objClientJobInvoiceRefDetail.setIsPhotoLoaded(setPostExecutionPhotoToImageView(photo, img, strServerResponse, imgClick));
             }
         }.execute();
     }

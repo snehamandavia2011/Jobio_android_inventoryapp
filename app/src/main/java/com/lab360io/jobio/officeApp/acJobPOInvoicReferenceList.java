@@ -21,6 +21,7 @@ import com.androidadvance.topsnackbar.TSnackbar;
 import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import adapter.JobInvoiceRefDetailAdapter;
 import adapter.PORefDetailAdapter;
@@ -199,6 +200,7 @@ public class acJobPOInvoicReferenceList extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        utility.Logger.debug("JobPOInvoice activity result:" + requestCode + " " + resultCode);
         if (resultCode == ConstantVal.EXIT_RESPONSE_CODE) {
             ac.setResult(ConstantVal.EXIT_RESPONSE_CODE);
             finish();

@@ -87,6 +87,7 @@ public class DownloadedItemAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        //position = getItemViewType(position);
         final ClientItemMaster1 objClientItemMaster1 = arrClientItem.get(position);
         if (!objClientItemMaster1.isImageLoaded()) {
             new asyncLoadCommonData(ctx).loadItemPhotoById(holder.imgItem, objClientItemMaster1, imgClick);
@@ -125,5 +126,15 @@ public class DownloadedItemAdapter extends BaseAdapter {
             Helper.openImageZoomDialog(acStock.mContext, bmp);
         }
     };
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return getCount();
+    }
 }
 

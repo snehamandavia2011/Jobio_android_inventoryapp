@@ -285,8 +285,10 @@ public class frStockTransaction extends Fragment {
 
                         }
                     });
-                    if (!btnNext.isEnabled())
-                        btnNext.setEnabled(true);
+                    if ((fromId != null && !fromId.equals("")) && (toId != null && !toId.equals(""))) {
+                        if (!btnNext.isEnabled())
+                            btnNext.setEnabled(true);
+                    }
                     txtNoReferenceFound.setVisibility(View.GONE);
                     refView.setVisibility(View.VISIBLE);
                     getFromTo();
@@ -373,6 +375,13 @@ public class frStockTransaction extends Fragment {
                 toType = objClientCustEmpSupplierTo.getType();
                 btnTo.setText(objClientCustEmpSupplierTo.toString());
                 btnTo.setTag(objClientCustEmpSupplierTo);
+            }
+        }
+
+        if (arrClientJobPOInvoiceReference != null && arrClientJobPOInvoiceReference.size() > 0) {
+            if ((fromId != null && !fromId.equals("")) && (toId != null && !toId.equals(""))) {
+                if (!btnNext.isEnabled())
+                    btnNext.setEnabled(true);
             }
         }
     }

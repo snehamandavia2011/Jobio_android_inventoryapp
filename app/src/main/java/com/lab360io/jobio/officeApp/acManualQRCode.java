@@ -90,7 +90,7 @@ public class acManualQRCode extends AppCompatActivity {
         //else
         //  ask for camera permission (if required and not allow to access camera permission)
         objCameraPermission = new CameraPermission(ac);
-        if (CoachingPreference.needToShowPrompt(ac, CoachingPreference.MANUAL_QR_CODE_SCAN_QR_CODE_BUTTON))
+        if (CoachingPreference.needToShowPrompt(ac, CoachingPreference.MANUAL_QR_CODE_SCREEN))
             new QRCodeConfigurationScreen().showPromptWhileLoadActivity(acManualQRCode.this);
         else
             objCameraPermission.askForPermission();

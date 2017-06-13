@@ -24,6 +24,7 @@ import entity.ClientItemMaster1;
 import entity.ClientPORefDetail;
 import utility.ConstantVal;
 import utility.Helper;
+import utility.Logger;
 
 /**
  * Created by SAI on 10/20/2016.
@@ -101,6 +102,7 @@ public class PORefDetailAdapter extends BaseAdapter {
 
         final ClientPORefDetail objClientPORefDetail = arrClientPORefDetail.get(position);
 
+        Logger.debug(objClientPORefDetail.getImItem_name()+" "+objClientPORefDetail.isPhotoLoaded());
         if (!objClientPORefDetail.isPhotoLoaded()) {
             ClientItemMaster1 objClientItemMaster1 = new ClientItemMaster1();
             objClientItemMaster1.setPhoto("");
@@ -149,6 +151,16 @@ public class PORefDetailAdapter extends BaseAdapter {
             Helper.openBarcodeDialog(ctx, strBarcode);
         }
     };
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return getCount();
+    }
 }
 
 

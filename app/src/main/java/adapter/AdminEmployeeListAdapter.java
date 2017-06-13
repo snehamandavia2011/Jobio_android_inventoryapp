@@ -132,4 +132,14 @@ public class AdminEmployeeListAdapter extends BaseAdapter {
             Helper.openImageZoomDialog(mContext, bmp);
         }
     };
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return getCount();
+    }
 }
