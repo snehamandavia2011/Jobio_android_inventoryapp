@@ -2,7 +2,7 @@ package coaching;
 
 import android.support.v7.app.AppCompatActivity;
 
-import com.lab360io.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.R;
 
 /**
  * Created by SAI on 3/16/2017.

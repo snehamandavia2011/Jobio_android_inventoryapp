@@ -7,11 +7,11 @@ import android.os.AsyncTask;
 import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AppCompatActivity;
 
-import com.lab360io.jobio.officeApp.acAsset;
-import com.lab360io.jobio.officeApp.acHome;
-import com.lab360io.jobio.officeApp.acLogin;
-import com.lab360io.jobio.officeApp.acMessageEmployeeList;
-import com.lab360io.jobio.officeApp.acMessageList;
+import com.stackio.jobio.officeApp.acAsset;
+import com.stackio.jobio.officeApp.acHome;
+import com.stackio.jobio.officeApp.acLogin;
+import com.stackio.jobio.officeApp.acMessageEmployeeList;
+import com.stackio.jobio.officeApp.acMessageList;
 import com.onesignal.OSNotificationAction;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;

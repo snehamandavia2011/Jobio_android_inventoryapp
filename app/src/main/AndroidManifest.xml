@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.lab360io.jobio.officeApp">
+    package="com.stackio.jobio.officeApp">
 
     <!--
     one signal Server API Key: AIzaSyDZJjB-dkWvHph_vBOr-nDZCcJApnOsPVM
@@ -60,7 +60,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name=".ApplicationOffice"
+        android:name="com.stackio.jobio.officeApp.ApplicationOffice"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name">
@@ -69,7 +69,7 @@
             android:value="DISABLE" />
 
         <activity
-            android:name=".acStartupActivity"
+            android:name="com.stackio.jobio.officeApp.acStartupActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
@@ -84,47 +84,47 @@
             android:value="751fa4790f2065ef93f5dda03fb0d753cc38af42" />
 
         <activity
-            android:name=".acLogin"
+            android:name="com.stackio.jobio.officeApp.acLogin"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acMessageEmployeeList"
+            android:name="com.stackio.jobio.officeApp.acMessageEmployeeList"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acMessageList"
+            android:name="com.stackio.jobio.officeApp.acMessageList"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acHome"
+            android:name="com.stackio.jobio.officeApp.acHome"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acReportIssue"
+            android:name="com.stackio.jobio.officeApp.acReportIssue"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acStock"
+            android:name="com.stackio.jobio.officeApp.acStock"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acAsset"
+            android:name="com.stackio.jobio.officeApp.acAsset"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acSetting"
+            android:name="com.stackio.jobio.officeApp.acSetting"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acSync"
+            android:name="com.stackio.jobio.officeApp.acSync"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acQRCodeScanner"
+            android:name="com.stackio.jobio.officeApp.acQRCodeScanner"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme1" />
         <activity
-            android:name=".acManualQRCode"
+            android:name="com.stackio.jobio.officeApp.acManualQRCode"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeWhiteNoActionBar" />
 
@@ -141,50 +141,50 @@
             android:enabled="true"
             android:exported="true" />
 
-        <receiver android:name=".brdcstBootComplete">
+        <receiver android:name="com.stackio.jobio.officeApp.brdcstBootComplete">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
         <activity
-            android:name=".acAssetDetail"
+            android:name="com.stackio.jobio.officeApp.acAssetDetail"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acSearchAssetByQR"
+            android:name="com.stackio.jobio.officeApp.acSearchAssetByQR"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme1" />
         <activity
-            android:name=".acInspectTransaction"
+            android:name="com.stackio.jobio.officeApp.acInspectTransaction"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acServiceTransaction"
+            android:name="com.stackio.jobio.officeApp.acServiceTransaction"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acSearchItemByBarcodeScanner"
+            android:name="com.stackio.jobio.officeApp.acSearchItemByBarcodeScanner"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme1" />
         <activity
-            android:name=".acSearchItemByBarcodeManual"
+            android:name="com.stackio.jobio.officeApp.acSearchItemByBarcodeManual"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acItemDetail"
+            android:name="com.stackio.jobio.officeApp.acItemDetail"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acJobPOInvoicReferenceList"
+            android:name="com.stackio.jobio.officeApp.acJobPOInvoicReferenceList"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acEditPOReferenceDetail"
+            android:name="com.stackio.jobio.officeApp.acEditPOReferenceDetail"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acEditJobInvoiceReferenceDetail"
+            android:name="com.stackio.jobio.officeApp.acEditJobInvoiceReferenceDetail"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
@@ -197,22 +197,22 @@
         </service>
 
         <activity
-            android:name=".acEmpCustomerSupplierSelection"
+            android:name="com.stackio.jobio.officeApp.acEmpCustomerSupplierSelection"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".acFormFields"
+            android:name="com.stackio.jobio.officeApp.acFormFields"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDarkGrey" />
         <activity
-            android:name=".acWelcome"
+            android:name="com.stackio.jobio.officeApp.acWelcome"
             android:theme="@style/GeneralWelcomeScreenTheme" />
         <activity
-            android:name=".acSplash"
+            android:name="com.stackio.jobio.officeApp.acSplash"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
-        <receiver android:name=".PackageAddedRemove">
+        <receiver android:name="com.stackio.jobio.officeApp.PackageAddedRemove">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />

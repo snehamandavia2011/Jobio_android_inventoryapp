@@ -19,7 +19,7 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.Transformation;
 
-import com.lab360io.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.R;
 
 
 /**

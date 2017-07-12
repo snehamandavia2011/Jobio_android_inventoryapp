@@ -1,16 +1,10 @@
 package notification;
 
-import android.media.RingtoneManager;
-import android.support.v4.app.NotificationCompat;
-
-import com.lab360io.jobio.officeApp.ApplicationOffice;
+import com.stackio.jobio.officeApp.ApplicationOffice;
 import com.onesignal.NotificationExtenderService;
-import com.onesignal.OSNotificationDisplayedResult;
 import com.onesignal.OSNotificationReceivedResult;
 
 import org.json.JSONObject;
-
-import java.math.BigInteger;
 
 import utility.Logger;
 

@@ -3,10 +3,7 @@ package coaching;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.lab360io.jobio.officeApp.R;
-
-import entity.ClientEmployeeMaster;
-import utility.Helper;
+import com.stackio.jobio.officeApp.R;
 
 /**
  * Created by SAI on 3/16/2017.

@@ -11,7 +11,7 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.lab360io.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.R;
 
 import entity.MyLocation;
 

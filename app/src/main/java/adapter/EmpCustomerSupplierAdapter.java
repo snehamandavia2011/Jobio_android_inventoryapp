@@ -12,12 +12,10 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.lab360io.jobio.officeApp.R;
-import com.lab360io.jobio.officeApp.acAssetDetail;
+import com.stackio.jobio.officeApp.R;
 
 import java.util.ArrayList;
 
-import entity.ClientAsset;
 import entity.ClientCustEmpSupplier;
 import utility.ConstantVal;
 import utility.Helper;

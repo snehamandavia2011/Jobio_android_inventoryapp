@@ -2,7 +2,6 @@ package utility;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.androidadvance.topsnackbar.TSnackbar;
-import com.lab360io.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.R;
 
 /**
  * Created by SNEHA MANDAVIA on 5/18/2016.

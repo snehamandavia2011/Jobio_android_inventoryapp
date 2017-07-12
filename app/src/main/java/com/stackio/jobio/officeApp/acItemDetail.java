@@ -1,4 +1,4 @@
-package com.lab360io.jobio.officeApp;
+package com.stackio.jobio.officeApp;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;

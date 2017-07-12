@@ -1,4 +1,4 @@
-package com.lab360io.jobio.officeApp;
+package com.stackio.jobio.officeApp;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,8 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.lab360io.jobio.officeApp.acQRCodeScanner;
 import com.xwray.fontbinding.FontCache;
 
 import coaching.CoachingPreference;

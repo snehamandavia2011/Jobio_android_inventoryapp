@@ -16,16 +16,14 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.lab360io.jobio.officeApp.R;
-import com.lab360io.jobio.officeApp.acQRCodeScanner;
-import com.lab360io.jobio.officeApp.acSearchItemByBarcodeScanner;
+import com.stackio.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.acSearchItemByBarcodeScanner;
 import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;
 
 import adapter.AddedItemAdapter;
 import coaching.CoachingPreference;
-import coaching.QRCodeConfigurationScreen;
 import coaching.StockScreen;
 import entity.ClientItemMaster;
 import permission.CameraPermission;

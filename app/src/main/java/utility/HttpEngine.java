@@ -4,16 +4,12 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
-import com.crashlytics.android.core.CrashlyticsCore;
-import com.lab360io.jobio.officeApp.R;
-import com.lab360io.jobio.officeApp.acHome;
-import com.lab360io.jobio.officeApp.acLogin;
-import com.lab360io.jobio.officeApp.acManualQRCode;
-import com.lab360io.jobio.officeApp.acQRCodeScanner;
-import com.lab360io.jobio.officeApp.acSplash;
+import com.stackio.jobio.officeApp.acHome;
+import com.stackio.jobio.officeApp.acLogin;
+import com.stackio.jobio.officeApp.acManualQRCode;
+import com.stackio.jobio.officeApp.acQRCodeScanner;
+import com.stackio.jobio.officeApp.acSplash;
 
 import java.io.BufferedReader;
 import java.io.IOException;

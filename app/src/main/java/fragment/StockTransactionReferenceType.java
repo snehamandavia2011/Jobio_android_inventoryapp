@@ -2,7 +2,7 @@ package fragment;
 
 import android.content.Context;
 
-import com.lab360io.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.R;
 
 /**
  * Created by SAI on 10/20/2016.

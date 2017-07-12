@@ -15,15 +15,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.lab360io.jobio.officeApp.R;
-import com.lab360io.jobio.officeApp.acEditJobInvoiceReferenceDetail;
+import com.stackio.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.acEditJobInvoiceReferenceDetail;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import asyncmanager.asyncLoadCommonData;
-import entity.ClientItemMaster1;
 import entity.ClientJobInvoiceRefDetail;
 import entity.ClientRegional;
 import utility.ConstantVal;

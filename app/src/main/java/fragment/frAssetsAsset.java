@@ -21,9 +21,8 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.lab360io.jobio.officeApp.R;
-import com.lab360io.jobio.officeApp.acSearchAssetByQR;
-import com.lab360io.jobio.officeApp.acSearchItemByBarcodeScanner;
+import com.stackio.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.acSearchAssetByQR;
 import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;

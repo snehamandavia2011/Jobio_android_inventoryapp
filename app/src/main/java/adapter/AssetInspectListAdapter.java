@@ -12,9 +12,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.lab360io.jobio.officeApp.R;
-import com.lab360io.jobio.officeApp.acInspectTransaction;
-import com.lab360io.jobio.officeApp.acSearchAssetByQR;
+import com.stackio.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.acInspectTransaction;
 import com.thomsonreuters.rippledecoratorview.RippleDecoratorView;
 
 import java.util.HashMap;

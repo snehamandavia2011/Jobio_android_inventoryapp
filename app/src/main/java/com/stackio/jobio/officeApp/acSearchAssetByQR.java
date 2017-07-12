@@ -1,4 +1,4 @@
-package com.lab360io.jobio.officeApp;
+package com.stackio.jobio.officeApp;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;

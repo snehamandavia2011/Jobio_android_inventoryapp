@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 
 import com.dm.zbar.android.scanner.CameraPreview;
 import com.dm.zbar.android.scanner.ZBarConstants;
-import com.lab360io.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.R;
 
 import net.sourceforge.zbar.Config;
 import net.sourceforge.zbar.Image;

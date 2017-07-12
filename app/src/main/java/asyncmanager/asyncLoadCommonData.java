@@ -14,10 +14,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.lab360io.jobio.officeApp.R;
-import com.lab360io.jobio.officeApp.acAssetDetail;
-import com.lab360io.jobio.officeApp.acHome;
-import com.lab360io.jobio.officeApp.acItemDetail;
+import com.stackio.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.acAssetDetail;
+import com.stackio.jobio.officeApp.acHome;
+import com.stackio.jobio.officeApp.acItemDetail;
 
 import java.util.Date;
 

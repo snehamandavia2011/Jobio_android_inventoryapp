@@ -11,8 +11,8 @@ import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
-import com.lab360io.jobio.officeApp.R;
-import com.lab360io.jobio.officeApp.acMessageList;
+import com.stackio.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.acMessageList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

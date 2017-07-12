@@ -7,14 +7,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.lab360io.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.R;
 import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;

@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.lab360io.jobio.officeApp.R;
-import com.lab360io.jobio.officeApp.acEditPOReferenceDetail;
+import com.stackio.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.acEditPOReferenceDetail;
 
 import java.util.ArrayList;
 

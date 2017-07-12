@@ -2,26 +2,19 @@ package adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.lab360io.jobio.officeApp.R;
-import com.lab360io.jobio.officeApp.acAssetDetail;
+import com.stackio.jobio.officeApp.R;
 
 import java.util.ArrayList;
 
-import entity.ClientAsset;
 import entity.ClientCustEmpSupplier;
 import utility.ConstantVal;
-import utility.Helper;
 
 /**
  * Created by SAI on 2/7/2017.

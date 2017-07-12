@@ -12,8 +12,8 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.lab360io.jobio.officeApp.R;
-import com.lab360io.jobio.officeApp.acAssetDetail;
+import com.stackio.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.acAssetDetail;
 
 import java.util.ArrayList;
 

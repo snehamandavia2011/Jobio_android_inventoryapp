@@ -2,7 +2,7 @@ package utility;
 
 import android.content.Context;
 
-import com.lab360io.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.R;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import entity.ClientAssetInspectServiceStatus;
  */
 public class ConstantVal {
     public static class MessageHost {
-        public static final String FIELD_APP_PACKAGE_NAME = "com.lab360io.jobio.fieldapp";
+        public static final String FIELD_APP_PACKAGE_NAME = "com.stackio.jobio.fieldapp";
         public static final String IS_FIELD_APP_INSTALLED = "is_field_app_installed";
         public static final String IS_OFFICE_APP_AS_PRIMARY_MESSAGE_APP = "is_office_app_as_primary_message_app";
     }
@@ -250,7 +250,7 @@ public class ConstantVal {
     }
 
     private static String getWebURLPrefix(String QRCode) {
-        return "http://" + QRCode + ".jobio.io/mWebApi/v1/";
+        return "https://" + QRCode + ".jobio.io/mWebApi/v1/";
         //return "http://10.0.2.2:80/Electrasync_API_new/index.php/";//for emulator
         //return "http://10.0.3.2/jobio_mobile_webapi/index.php/";//for genymotion
     }

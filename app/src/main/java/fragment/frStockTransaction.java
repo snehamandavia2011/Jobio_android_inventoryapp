@@ -22,15 +22,14 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.lab360io.jobio.officeApp.R;
-import com.lab360io.jobio.officeApp.acEmpCustomerSupplierSelection;
-import com.lab360io.jobio.officeApp.acJobPOInvoicReferenceList;
+import com.stackio.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.acEmpCustomerSupplierSelection;
+import com.stackio.jobio.officeApp.acJobPOInvoicReferenceList;
 import com.thomsonreuters.rippledecoratorview.RippleDecoratorView;
 import com.xwray.fontbinding.FontCache;
 
 import java.util.ArrayList;
 
-import adapter.ClientCustomerEmployeeSupplierAdapter;
 import entity.BusinessAccountdbDetail;
 import entity.ClientCustEmpSupplier;
 import entity.ClientJobPOInvoiceReference;

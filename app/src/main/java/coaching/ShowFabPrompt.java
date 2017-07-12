@@ -5,9 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.lab360io.jobio.officeApp.R;
-import com.lab360io.jobio.officeApp.acAsset;
-import com.lab360io.jobio.officeApp.acManualQRCode;
+import com.stackio.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.acAsset;
+import com.stackio.jobio.officeApp.acManualQRCode;
 
 import permission.CameraPermission;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;

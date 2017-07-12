@@ -8,10 +8,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.lab360io.jobio.officeApp.R;
-import com.lab360io.jobio.officeApp.acLogin;
-import com.lab360io.jobio.officeApp.acSplash;
-import com.lab360io.jobio.officeApp.acWelcome;
+import com.stackio.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.acLogin;
+import com.stackio.jobio.officeApp.acWelcome;
 
 /**
  * Created by SNEHA MANDAVIA on 3/17/2016.

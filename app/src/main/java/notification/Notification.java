@@ -8,11 +8,11 @@ import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.os.AsyncTask;
 
-import com.lab360io.jobio.officeApp.R;
-import com.lab360io.jobio.officeApp.acAsset;
-import com.lab360io.jobio.officeApp.acHome;
-import com.lab360io.jobio.officeApp.acLogin;
-import com.lab360io.jobio.officeApp.acMessageEmployeeList;
+import com.stackio.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.acAsset;
+import com.stackio.jobio.officeApp.acHome;
+import com.stackio.jobio.officeApp.acLogin;
+import com.stackio.jobio.officeApp.acMessageEmployeeList;
 import com.onesignal.OneSignal;
 
 import org.json.JSONObject;
