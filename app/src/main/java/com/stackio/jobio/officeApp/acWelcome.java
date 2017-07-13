@@ -11,6 +11,7 @@ import com.xwray.fontbinding.FontCache;
 
 import coaching.CoachingPreference;
 
+import onboarding.frOnBoardingScreen;
 import onboarding.frOnBoardingScreen1;
 import onboarding.frOnBoardingScreen2;
 import onboarding.frOnBoardingScreen3;

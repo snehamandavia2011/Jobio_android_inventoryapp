@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.stackio.jobio.officeApp.R;
+import com.stackio.jobio.officeApp.WebActivity;
 import com.stackio.jobio.officeApp.acLogin;
 import com.stackio.jobio.officeApp.acWelcome;
 
@@ -35,18 +36,24 @@ public class OptionMenu {
 
     public void handleMenuItemClick(final AppCompatActivity ac, MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuTalkToUs:
-                Logger.debug("Help");
+            case R.id.menuTalkToUs: {
+                Intent i = new Intent(ac, WebActivity.class);
+                i.putExtra("url", WebActivity.TALK_TO_US_URL);
+                i.putExtra("title", ac.getString(R.string.strTalkTous));
+                ac.startActivity(i);
+            }
                 break;
             case R.id.menuHelpArticle: {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("http://jobio.io/article.php?articleid=Ng=="));
+                Intent i = new Intent(ac, WebActivity.class);
+                i.putExtra("url", WebActivity.HELP_ARTICLE_URL);
+                i.putExtra("title", ac.getString(R.string.strHelpArticle));
                 ac.startActivity(i);
             }
             break;
             case R.id.menuAboutUs: {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("http://jobio.io/about.php"));
+                Intent i = new Intent(ac, WebActivity.class);
+                i.putExtra("url", WebActivity.ABOUT_US_URL);
+                i.putExtra("title", ac.getString(R.string.strAboutUs));
                 ac.startActivity(i);
             }
             break;

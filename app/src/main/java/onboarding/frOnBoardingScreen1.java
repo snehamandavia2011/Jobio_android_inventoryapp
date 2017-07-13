@@ -1,28 +1,44 @@
 package onboarding;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.stackio.jobio.officeApp.R;
 import com.stephentuso.welcome.WelcomePage;
 import com.stephentuso.welcome.WelcomeUtils;
+import com.xwray.fontbinding.FontCache;
 
 /**
  * Created by SAI on 3/19/2017.
  */
 public class frOnBoardingScreen1 extends Fragment implements WelcomePage.OnChangeListener {
-
+    RelativeLayout container;
     private ViewGroup rootLayout;
+    ImageView img;
+    TextView txtTitle, txtDesc;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fr_onboarding_screen1, container, false);
+        FontCache.getInstance(getActivity()).addFont("Ubuntu", "Ubuntu-C.ttf");
+        View v = DataBindingUtil.inflate(inflater, R.layout.fr_onboarding_screen_common, null, true).getRoot();
+        container = (RelativeLayout) v.findViewById(R.id.container);
+        txtTitle = (TextView) v.findViewById(R.id.txtTitle);
+        txtDesc = (TextView) v.findViewById(R.id.txtDesc);
+        img = (ImageView) v.findViewById(R.id.img);
+        container.setBackgroundResource(R.color.welcomeBG);
+        txtTitle.setText(R.string.strManageBusinessAsset);
+        txtDesc.setText(R.string.msgManageBusinessAsset);
+        img.setImageResource(R.drawable.ic_onboarding_manage_business_asset1);
+        return v;
     }
 
     @Override

@@ -57,9 +57,10 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:animated-vector-drawable:23.4.0'*/
+    compile project(':libWelcomeScreen')
+
     compile 'com.google.android.gms:play-services-maps:10.2.6'
     compile 'com.onesignal:OneSignal:3.+@aar'
-    compile project(':libWelcomeScreen')
     compile 'com.google.android.gms:play-services:10.2.6'
-
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }

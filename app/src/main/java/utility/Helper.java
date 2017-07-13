@@ -370,7 +370,10 @@ public class Helper {
                         }
                     });
                 } else {
-                    final String result = Html.fromHtml(objServerResponse.getResponseString()).toString();
+                    String result = Html.fromHtml(objServerResponse.getResponseString()).toString();
+                    if (result.equals(ConstantVal.ServerResponseCode.PARSE_ERROR))
+                        result = ConstantVal.ServerResponseCode.INVALID_QR_CODE;
+                    final String result1 = result;
                     //Logger.debug("After login Server Response:" + result);
                     if (result != null && !result.equals("")) {
                         try {
@@ -401,7 +404,7 @@ public class Helper {
                                 public void run() {
                                     dtDialog.clearAnimation();
                                     dtDialog.setVisibility(View.GONE);
-                                    displaySnackbar(ac, result, ConstantVal.ToastBGColor.DANGER);
+                                    displaySnackbar(ac, result1, ConstantVal.ToastBGColor.DANGER);
                                     for (View v : view) {
                                         v.setEnabled(true);
                                         //v.setBackgroundDrawable(new ColorDrawable(ac.getResources().getColor(R.color.tilt)));

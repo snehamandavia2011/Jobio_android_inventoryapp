@@ -64,6 +64,29 @@
             android:layout_alignParentBottom="true">
 
             <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ViewMargin"
+                android:background="@color/white"
+                android:padding="2dp"
+                rdv:rdv_rippleAnimationDuration="600"
+                rdv:rdv_rippleAnimationFrames="60"
+                rdv:rdv_rippleAnimationPeakFrame="15"
+                rdv:rdv_rippleColor="@android:color/white"
+                rdv:rdv_rippleMaxAlpha="0.8"
+                rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                <Button
+                    android:id="@+id/btnLetsStart"
+                    style="@style/btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/buttonHeight"
+                    android:padding="@dimen/ViewPadding"
+                    android:text="@string/strSignup"
+                    app:font="@{`Ubuntu-L`}" />
+            </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+
+            <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
                 android:id="@+id/viewNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -81,8 +104,10 @@
                     style="@style/btnWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/buttonHeight"
+                    android:background="@drawable/ic_white_button_bg"
+                    android:drawableRight="@drawable/ic_right_arrow_small"
                     android:padding="@dimen/ViewPadding"
-                    android:text="@string/strNextRightArrow"
+                    android:text="@string/strNext"
                     app:font="@{`Ubuntu-L`}" />
             </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
 
@@ -157,29 +182,6 @@
                 android:layout_marginTop="@dimen/ViewMargin"
                 android:text="@string/msgNewToJobio"
                 app:font="@{`Ubuntu-C`}" />
-
-            <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/ViewMargin"
-                android:background="@color/white"
-                android:padding="2dp"
-                rdv:rdv_rippleAnimationDuration="600"
-                rdv:rdv_rippleAnimationFrames="60"
-                rdv:rdv_rippleAnimationPeakFrame="15"
-                rdv:rdv_rippleColor="@android:color/white"
-                rdv:rdv_rippleMaxAlpha="0.8"
-                rdv:rdv_rippleRadius="@dimen/rippleRadius">
-
-                <Button
-                    android:id="@+id/btnLetsStart"
-                    style="@style/btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/buttonHeight"
-                    android:padding="@dimen/ViewPadding"
-                    android:text="@string/strSignup"
-                    app:font="@{`Ubuntu-L`}" />
-            </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
         </LinearLayout>
     </RelativeLayout>
 </layout>

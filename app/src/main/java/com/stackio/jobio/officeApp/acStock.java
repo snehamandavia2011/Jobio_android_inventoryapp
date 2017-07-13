@@ -112,7 +112,8 @@ public class acStock extends ActionBarActivity implements TabHost.OnTabChangeLis
         if (Helper.isModuleAccessAllow(mContext, ConstantVal.ModuleAccess.STOCK) == false) {
             lyNoContent.setVisibility(View.VISIBLE);
             lyMainContent.setVisibility(View.GONE);
-            ((TextView) findViewById(R.id.txtMessage)).setText(getString(R.string.msgFeatureNotAvailContactAdmin));
+            //((TextView) findViewById(R.id.txtMessage)).setText(getString(R.string.msgFeatureNotAvailContactAdmin));
+            ((TextView) findViewById(R.id.txtMessage)).setText(getString(R.string.msgCommingSoon));
             ((ImageView) findViewById(R.id.imgIcon)).setBackgroundResource(R.drawable.ic_stock_white_big);
         } else {
             lyNoContent.setVisibility(View.GONE);

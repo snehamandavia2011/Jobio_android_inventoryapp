@@ -37,7 +37,7 @@ public class frOnBoardingScreen4 extends Fragment implements WelcomePage.OnChang
         container.setBackgroundResource(R.color.promptBgColor);
         txtTitle.setText(R.string.strDoPaperLess);
         txtDesc.setText(R.string.msgDoPaperLess);
-        img.setImageResource(R.drawable.ic_on_boarding_do_paper_less1);
+        img.setImageResource(R.drawable.ic_on_boarding_do_paper_less4);
         return v;
     }
 

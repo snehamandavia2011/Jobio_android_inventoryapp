@@ -1,0 +1,39 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:rdv="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/my_toolbar"></include>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/tilt">
+
+            <WebView
+                android:id="@+id/web"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"></WebView>
+
+            <utility.DotProgressBar
+                android:id="@+id/dot_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dorProgressBarheight"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                custom:amount="5"
+                custom:duration="@android:integer/config_shortAnimTime"
+                custom:endColor="@color/white"
+                custom:startColor="@color/white" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

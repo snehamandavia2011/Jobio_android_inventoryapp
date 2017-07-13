@@ -35,9 +35,9 @@ public class frOnBoardingScreen5 extends Fragment implements WelcomePage.OnChang
         txtDesc = (TextView) v.findViewById(R.id.txtDesc);
         img = (ImageView) v.findViewById(R.id.img);
         container.setBackgroundResource(R.color.welcomeBG);
-        txtTitle.setText(R.string.strStayNotify);
-        txtDesc.setText(R.string.msgStayNotify);
-        img.setImageResource(R.drawable.ic_on_boarding_stay_notify1);
+        txtTitle.setText(R.string.strHandyBarcodeReader);
+        txtDesc.setText(R.string.msgHandyBarcodeReader);
+        img.setImageResource(R.drawable.ic_on_boarding_handy_barcode_reader5);
         return v;
     }
 

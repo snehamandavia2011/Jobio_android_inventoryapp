@@ -35,9 +35,9 @@ public class frOnBoardingScreen6 extends Fragment implements WelcomePage.OnChang
         txtDesc = (TextView) v.findViewById(R.id.txtDesc);
         img = (ImageView) v.findViewById(R.id.img);
         container.setBackgroundResource(R.color.promptBgColor);
-        txtTitle.setText(R.string.strCommunicationToColleague);
-        txtDesc.setText(R.string.msgCommunicationToColleague);
-        img.setImageResource(R.drawable.ic_onboarding_communicate_to_colleague1);
+        txtTitle.setText(R.string.strConnect);
+        txtDesc.setText(R.string.msgConnect);
+        img.setImageResource(R.drawable.ic_on_boarding_connect6);
         return v;
     }
 
