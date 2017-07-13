@@ -66,7 +66,7 @@
             <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/ViewMargin"
+                android:layout_marginBottom="@dimen/ViewMargin"
                 android:background="@color/white"
                 android:padding="2dp"
                 rdv:rdv_rippleAnimationDuration="600"
