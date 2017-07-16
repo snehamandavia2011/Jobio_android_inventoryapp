@@ -66,11 +66,9 @@ public class WebActivity extends AppCompatActivity {
         web.loadUrl(url);
     }
 
-    OptionMenu objOptionMenu = new OptionMenu();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        objOptionMenu.getCommonMenu(this, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -81,10 +79,6 @@ public class WebActivity extends AppCompatActivity {
                 handleBackKey();
             }
             break;
-            default: {
-                objOptionMenu.handleMenuItemClick(ac, item);
-                finish();
-            }
         }
         return super.onOptionsItemSelected(item);
     }

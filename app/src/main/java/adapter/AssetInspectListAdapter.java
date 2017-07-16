@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.stackio.jobio.officeApp.R;
@@ -148,8 +150,8 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
 
     private class ViewHolderChild {
         TextView txtStatus, txtAssetName, txtStatusSer, txtDate;
-        Button btnDone;
-        RippleDecoratorView rplDone;
+        RelativeLayout rlContainer;
+        ImageView imgRightArrow;
     }
 
     @Override
@@ -165,9 +167,8 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
             holderChild.txtDate = (TextView) convertView.findViewById(R.id.txtDate);
             holderChild.txtAssetName = (TextView) convertView.findViewById(R.id.txtAssetName);
             holderChild.txtStatusSer = (TextView) convertView.findViewById(R.id.txtStatusSer);
-            holderChild.rplDone = (RippleDecoratorView) convertView.findViewById(R.id.rplDone);
-            holderChild.btnDone = (Button) convertView.findViewById(R.id.btnDone);
-            holderChild.btnDone.setTypeface(ubuntuL);
+            holderChild.rlContainer = (RelativeLayout) convertView.findViewById(R.id.rlContainer);
+            holderChild.imgRightArrow = (ImageView) convertView.findViewById(R.id.imgRightArrow);
             holderChild.txtAssetName.setTypeface(ubuntuM);
             holderChild.txtStatusSer.setTypeface(ubuntuC);
             holderChild.txtStatus.setTypeface(ubuntuL);
@@ -186,11 +187,14 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
             //Logger.debug("getAitStatusId: " + objClientAssetInspect.getAitStatusId());
             holderChild.txtStatusSer.setText(ConstantVal.assetServiceInspectionStatus.getStatusName(mContext, Integer.parseInt(objClientAssetInspect.getAitStatusId())));
             if (Integer.parseInt(objClientAssetInspect.getAitStatusId()) != (ConstantVal.assetServiceInspectionStatus.NOT_ATTENDED_YET)) {
-                holderChild.rplDone.setVisibility(View.GONE);
+                holderChild.imgRightArrow.setVisibility(View.GONE);
+            } else {
+                holderChild.imgRightArrow.setVisibility(View.VISIBLE);
             }
             if (Integer.parseInt(objClientAssetInspect.getAitStatusId()) == (ConstantVal.assetServiceInspectionStatus.DONE)) {
                 String dateTimeFormat = Helper.getStringPreference(mContext, ClientRegional.Fields.DATE_FORMAT, ConstantVal.DATE_FORMAT) + " " + Helper.getStringPreference(mContext, ClientRegional.Fields.TIME_FORMAT, ConstantVal.TIME_FORMAT);
                 holderChild.txtDate.setText(Helper.convertDateToString(objClientAssetInspect.getAitDateTime(), dateTimeFormat));
+                holderChild.txtDate.setVisibility(View.VISIBLE);
             } else {
                 holderChild.txtDate.setVisibility(View.GONE);
             }
@@ -199,19 +203,21 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
             Logger.writeToCrashlytics(e);
         }
         holderChild.txtAssetName.setText(objClientAssetInspect.getAmAsset_name());
-        holderChild.btnDone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CameraPermission objCameraPermission = new CameraPermission((AppCompatActivity) mContext);
-                if (objCameraPermission.isHavePermission()) {
-                    Intent i = new Intent(mContext, acInspectTransaction.class);
-                    i.putExtra("aitId", objClientAssetInspect.getAitId());
-                    contextFragment.startActivityForResult(i, ConstantVal.INSPECTION_TRANSACTION_REQUEST_CODE);
-                } else {
-                    objCameraPermission.askForPermission();
+        if (Integer.parseInt(objClientAssetInspect.getAitStatusId()) == (ConstantVal.assetServiceInspectionStatus.NOT_ATTENDED_YET)) {
+            holderChild.rlContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CameraPermission objCameraPermission = new CameraPermission((AppCompatActivity) mContext);
+                    if (objCameraPermission.isHavePermission()) {
+                        Intent i = new Intent(mContext, acInspectTransaction.class);
+                        i.putExtra("aitId", objClientAssetInspect.getAitId());
+                        contextFragment.startActivityForResult(i, ConstantVal.INSPECTION_TRANSACTION_REQUEST_CODE);
+                    } else {
+                        objCameraPermission.askForPermission();
+                    }
                 }
-            }
-        });
+            });
+        }
         return convertView;
     }
 

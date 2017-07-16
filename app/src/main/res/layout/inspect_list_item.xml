@@ -29,6 +29,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/rlContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/ViewMargin"
@@ -75,39 +76,14 @@
             </LinearLayout>
         </LinearLayout>
 
-        <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
-            android:id="@+id/rplDone"
-            style="@style/btn"
+        <ImageView
+            android:id="@+id/imgRightArrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="right"
-            rdv:rdv_rippleAnimationDuration="600"
-            rdv:rdv_rippleAnimationFrames="60"
-            rdv:rdv_rippleAnimationPeakFrame="15"
-            rdv:rdv_rippleColor="@color/tilt"
-            rdv:rdv_rippleMaxAlpha="0.8"
-            rdv:rdv_rippleRadius="@dimen/rippleRadius">
-
-            <Button
-                android:id="@+id/btnDone"
-                style="@style/stySubTitleWhite"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/buttonHeight"
-                android:background="@color/transperant"
-                android:text="@string/strDone" />
-
-            <!--<TextView
-                android:layout_marginRight="@dimen/ViewMargin"
-                style="@style/stySubTitleWhite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/btnDone"
-                android:text=">" />-->
-        </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
-
+            android:layout_centerVertical="true"
+            android:background="@color/transperant"
+            android:src="@drawable/ic_arrow_right" />
 
     </RelativeLayout>
 </LinearLayout>
