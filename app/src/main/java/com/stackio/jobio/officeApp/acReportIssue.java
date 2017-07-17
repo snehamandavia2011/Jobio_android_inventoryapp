@@ -140,7 +140,7 @@ public class acReportIssue extends AppCompatActivity {
                                 requestFocus(edInquiryDesc);
                             } else {
                                 Intent i = new Intent(Intent.ACTION_SEND);
-                                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"appdev@360io.co"});
+                                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"appdev@jobio.io"});
                                 i.putExtra(Intent.EXTRA_SUBJECT, txtSubject.getText().toString());
                                 i.putExtra(Intent.EXTRA_TEXT, edInquiryDesc.getText().toString());
                                 if (database != null) {
