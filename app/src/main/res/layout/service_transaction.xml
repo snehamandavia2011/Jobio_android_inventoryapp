@@ -233,22 +233,34 @@
                             android:layout_height="wrap_content"
                             android:text="@string/strCost"
                             app:font="@{`Ubuntu-C`}" />-->
-
-                        <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/ViewMarginBig">
+                            android:orientation="horizontal">
 
-                            <me.zhanghai.android.materialedittext.MaterialEditText
-                                android:id="@+id/edCost"
+                            <TextView
+                                android:id="@+id/txtCurrencySymbol"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="2dp"
                                 style="@style/singlelineeditText"
+                                android:gravity="center_vertical" />
+
+                            <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="@string/strCost"
-                                android:inputType="number"
-                                app:font="@{`Ubuntu-L`}" />
-                        </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+                                android:layout_marginBottom="@dimen/ViewMarginBig">
 
+                                <me.zhanghai.android.materialedittext.MaterialEditText
+                                    android:id="@+id/edCost"
+                                    style="@style/singlelineeditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/strCost"
+                                    android:inputType="number"
+                                    app:font="@{`Ubuntu-L`}" />
+                            </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+                        </LinearLayout>
 
                         <TextView
                             style="@style/stySubTitleTile"

@@ -318,7 +318,7 @@
     <string name="strLetsStart">Let\'s Start</string>
     <string name="strWelcomeTo">Welcome to</string>
     <string name="strSetUpYourBusiness">Set up your business</string>
-    <string name="msgSetUpYourBusiness">Scan qr code which you have received in welcome email\nOR\nScan qr code from Jobio web, address would be Settings>App Settings > Field App OR Ask business admin for business domain name</string>
+    <string name="msgSetUpYourBusiness">Scan qr code which you have received in welcome email\nOR\nScan qr code from Jobio web, address would be Settings>App Settings > Office App OR Ask business admin for business domain name</string>
     <string name="msgScanCompanyDomain">Enter company domain name by scan QR code.</string>
     <string name="strScanDomainName">Scan company domain</string>
     <string name="msgOpenCamera">Ready your qr code to scan, open email or website screen on your computer or mobile device to scan.</string>
