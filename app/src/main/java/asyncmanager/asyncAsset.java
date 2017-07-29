@@ -59,6 +59,7 @@ public class asyncAsset {
                 DataBase db = new DataBase(ctx);
                 db.open();
                 db.cleanTable(DataBase.service_int);
+                clearClientJobForm("S", ctx);
                 for (ClientAssetService obj : arrServerdata) {
                     String data[] = {obj.getAstId(), obj.getAstName(), obj.getAstAssetId(), obj.getAstAsset_name(),
                             obj.getAstAssetBarcode(), obj.getAstServiceFirmName(), obj.getAstAssignedTo(), String.valueOf(obj.getAstAssignedDate().getTime()), obj.getAstPerformedBy(),
@@ -104,6 +105,7 @@ public class asyncAsset {
                 DataBase db = new DataBase(ctx);
                 db.open();
                 db.cleanTable(DataBase.inspect_int);
+                clearClientJobForm("I", ctx);
                 for (ClientAssetInspect obj : arrServerdata) {
                     String data[] = {obj.getAitId(), obj.getAitName(), obj.getAitAssetId(), obj.getAitAsset_name(), obj.getAitAssetBarcode(), obj.getAitAssignedTo(),
                             String.valueOf(obj.getAitAssignedDate().getTime()), obj.getAitIsPresent(), String.valueOf(obj.getAitDateTime().getTime()),
@@ -261,7 +263,7 @@ public class asyncAsset {
         }
     }
 
-    private void insertClientJobForm(ArrayList<ClientCustomForm> arr, String refType, Context ctx) {
+    private void clearClientJobForm(String refType, Context ctx) {
         DataBase db = new DataBase(ctx);
         db.open();
         Cursor curForm = db.fetch(DataBase.custom_form_table, DataBase.custom_form_int, "ftRefType='" + refType + "'");
@@ -275,6 +277,12 @@ public class asyncAsset {
             } while (curForm.moveToNext());
         }
         curForm.close();
+        db.close();
+    }
+
+    private void insertClientJobForm(ArrayList<ClientCustomForm> arr, String refType, Context ctx) {
+        DataBase db = new DataBase(ctx);
+        db.open();
         for (ClientCustomForm obj1 : arr) {
             String[] arrClientJobForm = {obj1.getForm_transaction_uuid(), obj1.getFtForm_id(), obj1.getFtIs_mandatory(), obj1.getFtRef_id(),
                     obj1.getFtIs_submitted(), obj1.getFtIs_showing_to_cust(), obj1.getFpForm_name(), obj1.getFpForm_description(),
