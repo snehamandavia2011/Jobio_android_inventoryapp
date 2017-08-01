@@ -41,43 +41,47 @@ public class serLocationTracker extends Service {
         new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] params) {
-
-                boolean isSessionExists = Helper.getBooleanPreference(mContext, ConstantVal.IS_SESSION_EXISTS, false);
-                boolean is_gps_tracking = (Helper.getStringPreference(mContext, ClientAdminUserAppsRel.Fields.IS_GPS_TRACKING, "").equals("Y") ? true : false);
-                Logger.debug(".....................in serLocationTracker:" + new Date() + " isServiceRunning:" + isServiceRunning + " isSessionExists:" + isSessionExists + " is_gps_trackinh:" + is_gps_tracking);
-                if (!isServiceRunning && !isSessionExists && !is_gps_tracking) {
-                } else {
-                    GPSTracker gps = new GPSTracker(mContext, handler);
-                    final MyLocation objMyLocation = gps.getLocation();
-                    final ClientFieldLocation objClientFieldLocation = new ClientFieldLocation(objMyLocation);
-
-                    objClientFieldLocation.setUserId(Helper.getStringPreference(mContext, ClientAdminUser.Fields.ADMINUSERID, ""));
-                    objClientFieldLocation.setAppType(ConstantVal.APP_REF_TYPE);
-                    objClientFieldLocation.setJobId(0);
-                    if (objMyLocation != null) {
-                        String[] geoResult = ReverseGeoCoder_AddressFromLatLog.getAddress(mContext, objMyLocation.getLatitude(), objMyLocation.getLongitude());
-                        objClientFieldLocation.setReverseGeoCodeName(geoResult[0] + "\n " + geoResult[1] + "\n " + geoResult[2] + "\n " + geoResult[3] + "\n " + geoResult[4] + "\n " + geoResult[5]);
+                try {
+                    boolean isSessionExists = Helper.getBooleanPreference(mContext, ConstantVal.IS_SESSION_EXISTS, false);
+                    boolean is_gps_tracking = (Helper.getStringPreference(mContext, ClientAdminUserAppsRel.Fields.IS_GPS_TRACKING, "").equals("Y") ? true : false);
+                    Logger.debug(".....................in serLocationTracker:" + new Date() + " isServiceRunning:" + isServiceRunning + " isSessionExists:" + isSessionExists + " is_gps_trackinh:" + is_gps_tracking);
+                    if (!isServiceRunning && !isSessionExists && !is_gps_tracking) {
                     } else {
-                        objClientFieldLocation.setReverseGeoCodeName("Unable to get last location.");
+                        GPSTracker gps = new GPSTracker(mContext, handler);
+                        final MyLocation objMyLocation = gps.getLocation();
+                        final ClientFieldLocation objClientFieldLocation = new ClientFieldLocation(objMyLocation);
+
+                        objClientFieldLocation.setUserId(Helper.getStringPreference(mContext, ClientAdminUser.Fields.ADMINUSERID, ""));
+                        objClientFieldLocation.setAppType(ConstantVal.APP_REF_TYPE);
+                        objClientFieldLocation.setJobId(0);
+                        if (objMyLocation != null) {
+                            String[] geoResult = ReverseGeoCoder_AddressFromLatLog.getAddress(mContext, objMyLocation.getLatitude(), objMyLocation.getLongitude());
+                            objClientFieldLocation.setReverseGeoCodeName(geoResult[0] + "\n " + geoResult[1] + "\n " + geoResult[2] + "\n " + geoResult[3] + "\n " + geoResult[4] + "\n " + geoResult[5]);
+                        } else {
+                            objClientFieldLocation.setReverseGeoCodeName("Unable to get last location.");
+                        }
+                        if (objMyLocation != null) {
+                            String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
+                            URLMapping um = ConstantVal.getSaveUserLocationURL(mContext);
+                            final String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
+                            HttpEngine objHttpEngine = new HttpEngine();
+                            Date dt = new Date();
+                            String date = Helper.convertDateToString(dt, ConstantVal.DATE_FORMAT);
+                            String time = Helper.convertDateToString(dt, ConstantVal.TIME_FORMAT);
+                            objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(),
+                                    new String[]{String.valueOf(objClientFieldLocation.getObjMyLocation().getLatitude()),
+                                            String.valueOf(objClientFieldLocation.getObjMyLocation().getLongitude()),
+                                            objClientFieldLocation.getObjMyLocation().getGpsType(),
+                                            objClientFieldLocation.getReverseGeoCodeName(),
+                                            String.valueOf(objClientFieldLocation.getUserId()),
+                                            objClientFieldLocation.getAppType(),
+                                            String.valueOf(objClientFieldLocation.getJobId()), String.valueOf(tokenId), date, time, account_id}
+                                    , um.getParamNames(), um.isNeedToSync());
+                        }
                     }
-                    if (objMyLocation != null) {
-                        String account_id = Helper.getStringPreference(mContext, BusinessAccountdbDetail.Fields.ACCOUNT_ID, "");
-                        URLMapping um = ConstantVal.getSaveUserLocationURL(mContext);
-                        final String tokenId = Helper.getStringPreference(mContext, ConstantVal.TOKEN, "");
-                        HttpEngine objHttpEngine = new HttpEngine();
-                        Date dt = new Date();
-                        String date = Helper.convertDateToString(dt, ConstantVal.DATE_FORMAT);
-                        String time = Helper.convertDateToString(dt, ConstantVal.TIME_FORMAT);
-                        objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(),
-                                new String[]{String.valueOf(objClientFieldLocation.getObjMyLocation().getLatitude()),
-                                        String.valueOf(objClientFieldLocation.getObjMyLocation().getLongitude()),
-                                        objClientFieldLocation.getObjMyLocation().getGpsType(),
-                                        objClientFieldLocation.getReverseGeoCodeName(),
-                                        String.valueOf(objClientFieldLocation.getUserId()),
-                                        objClientFieldLocation.getAppType(),
-                                        String.valueOf(objClientFieldLocation.getJobId()), String.valueOf(tokenId), date, time, account_id}
-                                , um.getParamNames(), um.isNeedToSync());
-                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Logger.writeToCrashlytics(e);
                 }
                 return null;
             }

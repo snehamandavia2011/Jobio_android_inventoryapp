@@ -37,28 +37,33 @@ public class serDeviceToServerSync extends Service {
     //service execute at every 3 minutes
     @Override
     public int onStartCommand(Intent intent, int flags, final int startId) {
-        isSessionExists = Helper.getBooleanPreference(mContext, ConstantVal.IS_SESSION_EXISTS, false);
-        Logger.debug(".....................in serDeviceToServerSync:" + new Date() + " isServiceRunning:" + isServiceRunning + " isSessionExists:" + isSessionExists + " flag:" + flags + " startid:" + startId);
-        if (!isServiceRunning && !isSessionExists) {
-            return super.onStartCommand(intent, flags, startId);
-        }
-        //check internet in every poll and poll would be 3 minutes
-        new Thread() {
-            public void run() {
-                HttpEngine objHttpEngine = new HttpEngine();
-                if (objHttpEngine.isNetworkAvailable(mContext)) {
-                    boolean isInternetFound = syncData(mContext);
-                    //Though service fot server to device sync is running every 5 minutes, but as internet is available start the
-                    //service for "Server to device sync". And this "Server to device sync" make the sync if current time - last sync time
-                    // is greater than 15 minutes, else do not make any sync.
-                    if (isInternetFound) {
-                        Logger.debug("serServerToDeviceSync is calling by serDeviceToServerSync as internet connectivity is found");
-                        Intent i = new Intent(mContext, serServerToDeviceSync.class);
-                        startService(i);
+        try {
+            isSessionExists = Helper.getBooleanPreference(mContext, ConstantVal.IS_SESSION_EXISTS, false);
+            Logger.debug(".....................in serDeviceToServerSync:" + new Date() + " isServiceRunning:" + isServiceRunning + " isSessionExists:" + isSessionExists + " flag:" + flags + " startid:" + startId);
+            if (!isServiceRunning && !isSessionExists) {
+                return super.onStartCommand(intent, flags, startId);
+            }
+            //check internet in every poll and poll would be 3 minutes
+            new Thread() {
+                public void run() {
+                    HttpEngine objHttpEngine = new HttpEngine();
+                    if (objHttpEngine.isNetworkAvailable(mContext)) {
+                        boolean isInternetFound = syncData(mContext);
+                        //Though service fot server to device sync is running every 5 minutes, but as internet is available start the
+                        //service for "Server to device sync". And this "Server to device sync" make the sync if current time - last sync time
+                        // is greater than 15 minutes, else do not make any sync.
+                        if (isInternetFound) {
+                            Logger.debug("serServerToDeviceSync is calling by serDeviceToServerSync as internet connectivity is found");
+                            Intent i = new Intent(mContext, serServerToDeviceSync.class);
+                            startService(i);
+                        }
                     }
                 }
-            }
-        }.start();
+            }.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.writeToCrashlytics(e);
+        }
 /*c- If Internet is available then,
 A - check, is there any pending unsync data or not, by checking firing qyery on sync table with filtering status as 0
 B - by checking index value send one by one request back to server, VERY IMP but do not store entry in sync table
