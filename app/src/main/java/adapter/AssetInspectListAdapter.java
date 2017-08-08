@@ -217,6 +217,8 @@ public class AssetInspectListAdapter extends BaseExpandableListAdapter {
                     }
                 }
             });
+        }else{
+            holderChild.rlContainer.setOnClickListener(null);
         }
         return convertView;
     }

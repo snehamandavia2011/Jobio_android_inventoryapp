@@ -219,6 +219,8 @@ public class AssetServiceListAdapter extends BaseExpandableListAdapter {
                     }
                 }
             });
+        }else{
+            holderChild.rlContainer.setOnClickListener(null);
         }
         return convertView;
     }
