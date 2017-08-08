@@ -211,6 +211,7 @@ public class ConstantVal {
         public static String CLIENT_ERROR = "010";
         public static String BLANK_RESPONSE = "011";
         public static String NOT_OFFICE_STAFF = "012";
+        public static String ACCOUNT_PLAN_EXPIRE = "013";
 
         public static String getMessage(Context ctx, String strCode) {
             try {
@@ -239,6 +240,8 @@ public class ConstantVal {
                     return ctx.getString(R.string.strDatacannotReceive);
                 } else if (intCode == Integer.parseInt(NOT_OFFICE_STAFF)) {
                     return ctx.getString(R.string.msgInvalidCreditialsAsNotStaffMember);
+                } else if (intCode == Integer.parseInt(ACCOUNT_PLAN_EXPIRE)) {
+                    return ctx.getString(R.string.jobioExpire);
                 }
                 return strCode;
             } catch (NumberFormatException e) {

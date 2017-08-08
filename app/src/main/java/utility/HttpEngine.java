@@ -121,6 +121,8 @@ public class HttpEngine {
                         objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.SESSION_EXISTS, ConstantVal.ServerResponseCode.SESSION_EXISTS);
                     } else if (strResponse.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
                         objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.SUCCESS, ConstantVal.ServerResponseCode.SUCCESS);
+                    } else if (strResponse.equals(ConstantVal.ServerResponseCode.ACCOUNT_PLAN_EXPIRE)) {
+                        objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.ACCOUNT_PLAN_EXPIRE, ConstantVal.ServerResponseCode.ACCOUNT_PLAN_EXPIRE);
                     } else {
                         boolean isValid = Helper.isValidJSON(strResponse);
                         if (!isValid) {

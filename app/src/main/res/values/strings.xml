@@ -359,5 +359,6 @@
     <string name="msgManageBusinessAsset">Take control of your assets, keep track of asset holder, set recurring Service &amp; inspection notification.</string>
     <string name="strHandyBarcodeReader">Handy barcode reader</string>
     <string name="msgHandyBarcodeReader">Take stock in using Barcode reader from purchase order, Enter stock entry e.g. Damaged, Customer Return, Engineer Return.</string>
+    <string name="jobioExpire">JOBIO account plan is expired.</string>
 </resources>
 
