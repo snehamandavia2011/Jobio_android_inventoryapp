@@ -15,20 +15,13 @@ public class NotificationExtender extends NotificationExtenderService {
     @Override
     protected boolean onNotificationProcessing(OSNotificationReceivedResult receivedResult) {
         Logger.debug("in NotificationExtender");
-
-        /*OverrideSettings overrideSettings = new OverrideSettings();
-        overrideSettings.extender = new NotificationCompat.Extender() {
-            @Override
-            public NotificationCompat.Builder extend(NotificationCompat.Builder builder) {
-                builder.setSound(null);
-                builder.setDefaults(0);
-                return builder;
-            }
-        };*/
-
         JSONObject data = receivedResult.payload.additionalData;
-        Notification.performActionWhileNotificationReceive(data, ApplicationOffice.getContext());
-        Notification.showAndroidNotification(data, receivedResult.payload.title, receivedResult.payload.body, ApplicationOffice.getContext());
+        if (data != null) {
+            String title = data.optString("heading", "").equals("") ? receivedResult.payload.title : data.optString("heading", "");
+            String body = data.optString("content", "").equals("") ? receivedResult.payload.body : data.optString("content", "");
+            Notification.performActionWhileNotificationReceive(data, ApplicationOffice.getContext());
+            Notification.showAndroidNotification(data, title, body, ApplicationOffice.getContext());
+        }
         return true;
     }
 }
