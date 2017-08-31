@@ -286,7 +286,7 @@ public class asyncAsset {
         for (ClientCustomForm obj1 : arr) {
             String[] arrClientJobForm = {obj1.getForm_transaction_uuid(), obj1.getFtForm_id(), obj1.getFtIs_mandatory(), obj1.getFtRef_id(),
                     obj1.getFtIs_submitted(), obj1.getFtIs_showing_to_cust(), obj1.getFpForm_name(), obj1.getFpForm_description(),
-                    obj1.getFpForm_category(), obj1.getFbBiz_name(), obj1.getFpForm_status(), obj1.getFpRef_type()};
+                    obj1.getFpForm_category(), obj1.getImIndustry_name(), obj1.getFpForm_status(), obj1.getFpRef_type()};
             db.insert(DataBase.custom_form_table, DataBase.custom_form_int, arrClientJobForm);
 
             String whereFormView = "ftForm_transaction_uuid='" + obj1.getForm_transaction_uuid() + "' and ffpForm_id='" + obj1.getFtForm_id() + "'";
