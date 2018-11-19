@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red">#f20000</color>
+    <color name="white">#ffffff</color>
+    <color name="green">#2ecc71</color>
+    <color name="darkgrey">#BEBEBE</color>
+    <color name="darkgreyX">#333333</color>
+    <color name="lightGrey">#EEEEEE</color>
+    <color name="black">#000000</color>
+    <color name="tilt">#0AA89E</color>
+    <color name="transperant">#0000</color>
+    <color name="light_blue_A700">#0091EA</color>
+    <color name="light_blue_A400">#00B0FF</color>
+    <color name="white_trasparant">#77FFFFFF</color>
+    <color name="fab_black_semi_transparent">#B2000000</color>
+    <color name="fab_white_pressed">#f1f1f1</color>
+    <color name="fab_half_black">#808080</color>
+    <color name="fab_white">#fafafa</color>
+    <color name="half_black">#808080</color>
+    <color name="white_pressed">#f1f1f1</color>
+</resources>

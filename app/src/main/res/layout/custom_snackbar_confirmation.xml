@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnPositive"
+                style="@style/stySubTitleWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@color/transperant"
+                app:font="@{`Ubuntu-C`}" />
+
+            <Button
+                android:id="@+id/btnNegative"
+                style="@style/stySubTitleWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@color/transperant"
+                app:font="@{`Ubuntu-C`}" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtText"
+            style="@style/styDescWhiteMultiLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/ly"
+            app:font="@{`Ubuntu-L`}" />
+    </RelativeLayout>
+</layout>

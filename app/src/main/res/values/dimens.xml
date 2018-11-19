@@ -1,0 +1,19 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="actionBarImageSize">45dp</dimen>
+    <dimen name="ViewMarginSmall">2dp</dimen>
+    <dimen name="ViewMargin">5dp</dimen>
+    <dimen name="ViewPaddingBig">10dp</dimen>
+    <dimen name="ViewPadding">5dp</dimen>
+    <dimen name="ViewPaddingSmall">2dp</dimen>
+    <dimen name="dorProgressBarheight">50dp</dimen>
+    <dimen name="listViewDividerHeight">3dp</dimen>
+    <dimen name="imageHeightOrWidth">80dp</dimen>
+    <dimen name="imgHightWidthWithButtonText">20dp</dimen>
+    <dimen name="buttonHeight">40dp</dimen>
+    <dimen name="rippleRadius">50dp</dimen>
+    <dimen name="googleMapFragmentHeight">200dp</dimen>
+</resources>

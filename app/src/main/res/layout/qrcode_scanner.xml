@@ -1,0 +1,109 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:rdv="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/ly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/tilt"
+            android:padding="@dimen/ViewPaddingBig">
+
+            <ImageView
+                android:id="@+id/imgQRCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_qrcode_white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ViewPadding"
+                android:layout_toRightOf="@id/imgQRCode"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <utility.DotProgressBar
+                    android:id="@+id/dot_progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dorProgressBarheight"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    custom:amount="5"
+                    custom:duration="@android:integer/config_mediumAnimTime"
+                    custom:endColor="@color/white"
+                    custom:startColor="@color/white" />
+
+                <TextView
+                    style="@style/styDescSmallWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/msgScanQRCode"
+                    app:font="@{`Ubuntu-L`}" />
+
+                <TextView
+                    style="@style/styDescSmallWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/ViewMargin"
+                    android:text="@string/strCheckmailQRCode"
+                    app:font="@{`Ubuntu-L`}" />
+
+                <TextView
+                    style="@style/styDescSmallWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/ViewMargin"
+                    android:text="@string/strOR"
+                    app:font="@{`Ubuntu-L`}" />
+
+                <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ViewMargin"
+                    rdv:rdv_rippleAnimationDuration="600"
+                    rdv:rdv_rippleAnimationFrames="60"
+                    rdv:rdv_rippleAnimationPeakFrame="15"
+                    rdv:rdv_rippleColor="@color/white"
+                    rdv:rdv_rippleMaxAlpha="0.8"
+                    rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                    <TextView
+                        android:id="@+id/txtEnterManuallyQRCode"
+                        style="@style/styDescWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transperant"
+                        android:clickable="true"
+                        android:gravity="top"
+                        android:text="@string/strEnterManuallyQRCode"
+                        android:textColor="@color/white"
+                        app:font="@{`Ubuntu-L`}" />
+                </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <com.dlazaro66.qrcodereaderview.QRCodeReaderView
+            android:id="@+id/qrdecoderview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/ly" />
+    </RelativeLayout>
+</layout>

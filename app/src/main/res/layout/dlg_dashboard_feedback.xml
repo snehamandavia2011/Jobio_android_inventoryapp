@@ -1,0 +1,92 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:rdv="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:id="@+id/rlMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/imgIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/ViewMargin"
+                android:background="@drawable/ic_equipment_filled_deselect" />
+
+            <ImageButton
+                android:id="@+id/btnClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/ViewMargin"
+                android:background="@color/transperant"
+                android:src="@drawable/ic_close_tilt" />
+
+            <TextView
+                style="@style/stySubTitleTile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/btnClose"
+                android:layout_toRightOf="@id/imgIcon"
+                android:text="@string/strFeedback"
+                app:font="@{`Ubuntu-C`}" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/tilt">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:src="@drawable/ic_phone_in_hand_white" />
+
+                <RelativeLayout
+                    android:layout_width="160dp"
+                    android:layout_height="110dp"
+                    android:background="@drawable/ic_commentbubble_white"
+                    android:gravity="right">
+
+                    <TextView
+                        style="@style/styDescTiltMultiLine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="15dp"
+                        android:gravity="center"
+                        android:text="@string/msgFeedbackMsg"
+                        app:font="@{`Ubuntu-L`}" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/lvlFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"></ListView>
+    </LinearLayout>
+
+</layout>

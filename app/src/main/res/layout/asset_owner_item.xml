@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingTop="@dimen/listViewDividerHeight">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/tilt"
+            android:orientation="vertical"
+            android:padding="@dimen/ViewPaddingSmall">
+
+            <TextView
+                android:id="@+id/txtEmployeeName"
+                style="@style/stySubTitleWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/ViewMarginSmall"
+                android:textStyle="bold"
+                app:font="@{`Ubuntu-C`}" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/ViewMargin"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/styDescWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/strStartDate"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:id="@+id/txtStartDate"
+                        style="@style/styDescWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:font="@{`Ubuntu-L`}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/styDescWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/strEndDate"
+                        app:font="@{`Ubuntu-C`}" />
+
+                    <TextView
+                        android:id="@+id/txtEndDate"
+                        style="@style/styDescWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:font="@{`Ubuntu-L`}" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>
